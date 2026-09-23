@@ -1,0 +1,8 @@
+{
+  "scripts": {
+    "setup": "npm install && echo '\n✅ Dependencies installed!\n\n📝 Next steps:\n1. Make sure your backend is running on port 8000\n2. Run: npm run dev\n3. Open: http://localhost:3000\n4. Login with: admin@hookadrop.com / admin123\n'",
+    "check": "echo 'Checking setup...' && node -v && npm -v && echo '✅ Node and npm are installed'",
+    "clean": "rm -rf node_modules dist && echo '✅ Cleaned build artifacts'",
+    "fresh": "npm run clean && npm install && echo '✅ Fresh install complete'"
+  }
+}

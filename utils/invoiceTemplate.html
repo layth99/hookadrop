@@ -1,0 +1,92 @@
+<!-- invoiceTemplate.html -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Invoice</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+      }
+      .invoice-box {
+        max-width: 800px;
+        margin: auto;
+        padding: 30px;
+        border: 1px solid #eee;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+      }
+      .invoice-header {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      .invoice-details,
+      .invoice-items {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      .invoice-details th,
+      .invoice-items th,
+      .invoice-items td {
+        border: 1px solid #eee;
+        padding: 8px;
+      }
+      .invoice-details tr td {
+        margin-left: 20px;
+      }
+      .invoice-footer {
+        text-align: right;
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="invoice-box">
+      <div class="invoice-header">
+        <h1>Invoice</h1>
+        <p>Invoice ID: {{invoiceId}}</p>
+        <p>Order ID: {{orderId}}</p>
+        <p>Date: {{invoiceDate}}</p>
+      </div>
+      <table class="invoice-details">
+        <tr>
+          <th>User</th>
+          <td>{{userName}}</td>
+        </tr>
+        <tr>
+          <th>Email</th>
+          <td>{{userEmail}}</td>
+        </tr>
+        <tr>
+          <th>Phone</th>
+          <td>{{userPhone}}</td>
+        </tr>
+        <tr>
+          <th>Address</th>
+          <td>{{userAddress}}</td>
+        </tr>
+      </table>
+      <h2>Items</h2>
+      <table class="invoice-items">
+        <tr>
+          <th>Product</th>
+          <th>Quantity</th>
+          <th>Price</th>
+        </tr>
+        {{#items}}
+        <tr>
+          <td>{{productName}}</td>
+          <td>{{qty}}</td>
+          <td>{{price}} TND</td>
+        </tr>
+        {{/items}}
+      </table>
+      <div class="invoice-footer">
+        <p>Tax: {{tax}} TND</p>
+        <p>Shipping: {{shippingPrice}} TND</p>
+        <p>Total: {{totalPrice}} TND</p>
+      </div>
+    </div>
+  </body>
+</html>

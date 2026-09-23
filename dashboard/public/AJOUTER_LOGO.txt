@@ -1,0 +1,11 @@
+📍 COMMENT AJOUTER VOTRE LOGO
+
+1. Sauvegardez l'image du logo HookaDrop (chicha dorée avec fumée bleue)
+2. Renommez le fichier en "logo.png"
+3. Placez-le dans ce dossier: dashboard/public/
+4. Rechargez la page du dashboard
+
+Le logo apparaîtra automatiquement dans la sidebar !
+
+Dimensions recommandées: 300x300px ou plus
+Format: PNG avec fond transparent
