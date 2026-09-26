@@ -22,9 +22,7 @@ const STRENGTH_COLOR = ['', 'bg-red-500', 'bg-orange-400', 'bg-yellow-400', 'bg-
 const Section = ({ icon: Icon, iconColor, iconBg, title, children }) => (
   <div className="card space-y-5">
     <div className="flex items-center gap-3 pb-3 border-b border-gray-800">
-      <div className={`p-2 rounded-lg border ${iconBg}`}>
-        <Icon className={`w-4 h-4 ${iconColor}`} />
-      </div>
+      <Icon className={`w-4 h-4 ${iconColor}`} />
       <h2 className="text-base font-semibold text-gray-100">{title}</h2>
     </div>
     {children}
@@ -72,7 +70,8 @@ const Profile = () => {
     const load = async () => {
       try {
         const { data } = await api.get('/profile/me')
-        const u = data.results           // { name, email, phone, avatar, … }
+        // BUG FIX #8: getMe returns { success, data } not { success, results }
+        const u = data.data
         setInfo({
           name:  u.name  || '',
           email: u.email || '',
