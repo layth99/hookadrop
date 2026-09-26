@@ -617,41 +617,33 @@ const Orders = () => {
 
       {/* Stats */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div className="card flex items-center gap-4">
-          <div className="p-3 bg-neon-gold/10 rounded-xl border border-neon-gold/30">
-            <ShoppingBag className="w-6 h-6 text-neon-gold" />
-          </div>
+        <div className="card flex items-start justify-between">
           <div>
+            <p className="text-xs text-gray-500 uppercase tracking-wide mb-2">Total Orders</p>
             <p className="text-2xl font-bold text-gray-100">{orders.length}</p>
-            <p className="text-xs text-gray-400">Total Orders</p>
           </div>
+          <ShoppingBag className="w-10 h-10 text-gray-600 opacity-80 flex-shrink-0" />
         </div>
-        <div className="card flex items-center gap-4">
-          <div className="p-3 bg-yellow-900/30 rounded-xl border border-yellow-700/40">
-            <Clock className="w-6 h-6 text-yellow-400" />
-          </div>
+        <div className="card flex items-start justify-between">
           <div>
-            <p className="text-2xl font-bold text-yellow-300">{pendingCount}</p>
-            <p className="text-xs text-gray-400">Pending</p>
+            <p className="text-xs text-gray-500 uppercase tracking-wide mb-2">Pending</p>
+            <p className="text-2xl font-bold text-gray-100">{pendingCount}</p>
           </div>
+          <Clock className="w-10 h-10 text-yellow-400 opacity-80 flex-shrink-0" />
         </div>
-        <div className="card flex items-center gap-4">
-          <div className="p-3 bg-green-900/30 rounded-xl border border-green-700/40">
-            <CheckCircle className="w-6 h-6 text-green-400" />
-          </div>
+        <div className="card flex items-start justify-between">
           <div>
-            <p className="text-2xl font-bold text-green-400">{deliveredCount}</p>
-            <p className="text-xs text-gray-400">Delivered</p>
+            <p className="text-xs text-gray-500 uppercase tracking-wide mb-2">Delivered</p>
+            <p className="text-2xl font-bold text-gray-100">{deliveredCount}</p>
           </div>
+          <CheckCircle className="w-10 h-10 text-green-400 opacity-80 flex-shrink-0" />
         </div>
-        <div className="card flex items-center gap-4">
-          <div className="p-3 bg-neon-blue/10 rounded-xl border border-neon-blue/30">
-            <DollarSign className="w-6 h-6 text-neon-blue" />
-          </div>
+        <div className="card flex items-start justify-between">
           <div>
-            <p className="text-2xl font-bold text-neon-blue">{formatCurrency(totalRevenue)}</p>
-            <p className="text-xs text-gray-400">Revenue (paid)</p>
+            <p className="text-xs text-gray-500 uppercase tracking-wide mb-2">Revenue (paid)</p>
+            <p className="text-2xl font-bold text-gray-100">{formatCurrency(totalRevenue)}</p>
           </div>
+          <DollarSign className="w-10 h-10 text-gray-600 opacity-80 flex-shrink-0" />
         </div>
       </div>
 
