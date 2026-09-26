@@ -129,10 +129,10 @@ const Dashboard = () => {
 
       {/* Stats */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <StatCard title="Total Revenue"  value={formatCurrency(stats.totalRevenue)} change={12.5} icon={DollarSign} color="green"  />
-        <StatCard title="Total Orders"   value={stats.totalOrders}                  change={8.2}  icon={ShoppingCart} color="blue"  />
-        <StatCard title="Products"       value={stats.totalProducts}                change={-2.4} icon={Package}      color="orange" />
-        <StatCard title="Customers"      value={stats.totalUsers}                   change={15.3} icon={Users}        color="purple" />
+        <StatCard title="Total Revenue" value={formatCurrency(stats.totalRevenue)} change={12.5} icon={DollarSign}  color="green"  />
+        <StatCard title="Total Orders"  value={stats.totalOrders}                  change={8.2}  icon={ShoppingCart} color="blue"   />
+        <StatCard title="Products"      value={stats.totalProducts}                change={-2.4} icon={Package}      color="orange" />
+        <StatCard title="Customers"     value={stats.totalUsers}                   change={15.3} icon={Users}        color="purple" />
       </div>
 
       {/* Charts */}
