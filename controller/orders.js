@@ -1,17 +1,15 @@
 import Order from "../models/Order.js";
-import generateInvoicePDF from "../storage/generateInvoicePDF.js";
-import express from "express";
 import fs from "fs";
 import moment from "moment";
 import path from "path";
 
 // GET all orders
 export const getAllOrders = async (req, res) => {
-  const { page, limit, orderDate, status } = req.query;
+  // BUG FIX #6: provide integer defaults so undefined params don't bypass the guard
+  const page   = Math.max(1, parseInt(req.query.page,  10) || 1);
+  const limit  = Math.max(1, parseInt(req.query.limit, 10) || 20);
+  const { orderDate, status } = req.query;
 
-  if (page < 1 || limit < 1) {
-    return res.status(400).json({ error: "Invalid pagination parameters" });
-  }
   const filter = {};
   let startDate;
   let endDate = moment().endOf("day");
@@ -30,30 +28,32 @@ export const getAllOrders = async (req, res) => {
       filter.createdAt = { $gte: startDate, $lte: endDate };
       break;
     default:
-      startDate = moment().startOf("week");
-      filter.createdAt = { $gte: startDate, $lte: endDate };
+      // No date filter when not specified (show all orders)
+      break;
   }
 
   if (status) {
     filter.status = status;
   }
+
   try {
     const orders = await Order.find(filter)
       .populate("user orderItems.product")
-      .limit(limit * 1)
+      .sort({ createdAt: -1 })
+      .limit(limit)
       .skip((page - 1) * limit);
 
-    const total = await Order.countDocuments();
+    // BUG FIX #6: countDocuments uses the same filter
+    const total = await Order.countDocuments(filter);
+
     return res.status(200).json({
-      currentPage: parseInt(page, 10),
+      currentPage: page,
       totalPages: Math.ceil(total / limit),
       data: orders,
     });
   } catch (error) {
     console.error("Error fetching orders:", error);
-    return res
-      .status(400)
-      .json({ success: false, message: "Failed to fetch orders" });
+    return res.status(500).json({ success: false, message: "Failed to fetch orders" });
   }
 };
 
@@ -64,104 +64,80 @@ export const createOrder = async (req, res) => {
     return res.status(201).json({ success: true, data: order });
   } catch (error) {
     console.error("Error creating order:", error);
-    return res
-      .status(400)
-      .json({ success: false, message: "Failed to create order" });
+    return res.status(400).json({ success: false, message: error.message || "Failed to create order" });
   }
 };
 
-// GET order by ID
+// GET single order by MongoDB _id (used by OrderDetail page)
 export const getOrderById = async (req, res) => {
-  const { page, limit } = req.query;
-
-  if (page < 1 || limit < 1) {
-    return res.status(400).json({ error: "Invalid pagination parameters" });
-  }
   try {
-    const order = await Order.find({ user: req.params.id })
-      .select("totalPrice status _id orderId createdAt")
-      .limit(limit * 1)
-      .skip((page - 1) * limit);
+    const order = await Order.findById(req.params.id)
+      .populate("user orderItems.product");
 
     if (!order) {
-      return res
-        .status(404)
-        .json({ success: false, message: "Order not found" });
+      return res.status(404).json({ success: false, message: "Order not found" });
     }
-    const total = await Order.countDocuments({ user: req.params.id });
-    return res.status(200).json({
-      currentPage: parseInt(page, 10),
-      totalPages: Math.ceil(total / limit),
-      data: order,
-    });
+
+    return res.status(200).json({ success: true, data: order });
   } catch (error) {
     console.error("Error fetching order by ID:", error);
-    return res
-      .status(400)
-      .json({ success: false, message: "Failed to fetch order by ID" });
+    return res.status(400).json({ success: false, message: "Failed to fetch order" });
   }
 };
+
+// GET orders by the 7-char nanoid orderId field
 export const getOrderByOderId = async (req, res) => {
   try {
-    const order = await Order.find({ orderId: req.params.id }).populate(
+    const orders = await Order.find({ orderId: req.params.id }).populate(
       "user orderItems.product"
     );
 
-    if (!order) {
-      return res
-        .status(404)
-        .json({ success: false, message: "Order not found" });
+    // BUG FIX #6: find() returns array, never null
+    if (!orders || orders.length === 0) {
+      return res.status(404).json({ success: false, message: "Order not found" });
     }
 
-    return res.status(200).json({
-      data: order,
-    });
+    return res.status(200).json({ success: true, data: orders[0] });
   } catch (error) {
-    console.error("Error fetching order by ID:", error);
-    return res
-      .status(400)
-      .json({ success: false, message: "Failed to fetch order by ID" });
+    console.error("Error fetching order by orderId:", error);
+    return res.status(400).json({ success: false, message: "Failed to fetch order" });
   }
 };
+
+// GET order with populated product details
 export const getOrderProducts = async (req, res) => {
   try {
     const order = await Order.findById(req.params.id).populate({
       path: "orderItems.product",
       model: "Product",
-      select: "name image price",
+      select: "name image price mark",
     });
 
     if (!order) {
-      return res
-        .status(404)
-        .json({ success: false, message: "Order not found" });
+      return res.status(404).json({ success: false, message: "Order not found" });
     }
-    return res.status(200).json({
-      data: order,
-    });
+
+    return res.status(200).json({ success: true, data: order });
   } catch (error) {
-    console.error("Error fetching order by ID:", error);
-    return res
-      .status(400)
-      .json({ success: false, message: "Failed to fetch order by ID" });
+    console.error("Error fetching order products:", error);
+    return res.status(400).json({ success: false, message: "Failed to fetch order products" });
   }
 };
 
-// POST update order status
+// PUT update order status
 export const updateOrderStatus = async (req, res) => {
   try {
     const { status } = req.body;
     const order = await Order.findById(req.params.id);
 
     if (!order) {
-      return res
-        .status(404)
-        .json({ success: false, message: "Order not found" });
+      return res.status(404).json({ success: false, message: "Order not found" });
     }
 
     order.status = status;
 
-    if (status === "Delivered") {
+    // BUG FIX: use lowercase 'delivered' to match the schema enum
+    if (status === "delivered") {
       order.isDelivered = true;
       order.deliveredAt = Date.now();
     }
@@ -170,46 +146,62 @@ export const updateOrderStatus = async (req, res) => {
     return res.status(200).json({ success: true, data: order });
   } catch (error) {
     console.error("Error updating order status:", error);
-    return res
-      .status(400)
-      .json({ success: false, message: "Failed to update order status" });
+    return res.status(400).json({ success: false, message: "Failed to update order status" });
   }
 };
 
 // DELETE order by ID
 export const deleteOrder = async (req, res) => {
   try {
-    const deletedOrder = await Order.deleteOne({ _id: req.params.id });
-    if (!deletedOrder.deletedCount) {
-      return res
-        .status(404)
-        .json({ success: false, message: "Order not found" });
+    const result = await Order.deleteOne({ _id: req.params.id });
+    // BUG FIX #6: deleteOne returns { deletedCount }, not falsy
+    if (!result.deletedCount) {
+      return res.status(404).json({ success: false, message: "Order not found" });
     }
     return res.status(200).json({ success: true, data: {} });
   } catch (error) {
     console.error("Error deleting order:", error);
-    return res
-      .status(400)
-      .json({ success: false, message: "Failed to delete order" });
+    return res.status(400).json({ success: false, message: "Failed to delete order" });
   }
 };
+
+// GET generate invoice PDF
+// BUG FIX #2: generateInvoicePDF module does not exist — replaced with a
+// basic JSON invoice response. Swap out the body for a real PDF generator later.
 export const generateInvoice = async (req, res) => {
-  const orderId = req.params.id;
-
-  if (!orderId) {
-    return res.status(400).json({ error: "Order ID is required" });
-  }
-
   try {
-    const pdfPath = await generateInvoicePDF(orderId);
-    res.setHeader("Content-Type", "application/pdf");
-    res.setHeader(
-      "Content-Disposition",
-      `attachment; filename=${path.basename(pdfPath)}`
-    );
-    fs.createReadStream(pdfPath).pipe(res);
+    const order = await Order.findById(req.params.id)
+      .populate("user orderItems.product");
+
+    if (!order) {
+      return res.status(404).json({ success: false, message: "Order not found" });
+    }
+
+    // Return invoice data as JSON (frontend can render/print it)
+    return res.status(200).json({
+      success: true,
+      invoice: {
+        orderId:       order.orderId,
+        createdAt:     order.createdAt,
+        fullname:      order.fullname,
+        email:         order.email,
+        phone:         order.phone,
+        address:       order.address,
+        paymentMethod: order.paymentMethod,
+        isPaid:        order.isPaid,
+        items:         order.orderItems.map(i => ({
+          name:  i.product?.name,
+          price: i.product?.price,
+          qty:   i.qty,
+          total: (i.product?.price || 0) * i.qty,
+        })),
+        tax:           order.tax,
+        shippingPrice: order.shippingPrice,
+        totalPrice:    order.totalPrice,
+      },
+    });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Failed to generate invoice" });
+    console.error("Error generating invoice:", error);
+    return res.status(500).json({ success: false, message: "Failed to generate invoice" });
   }
 };
