@@ -38,7 +38,7 @@ const ProductDetailModal = ({ product, onClose, onEdit, onDelete, canEdit, canDe
                 />
               ) : (
                 <div className="w-full h-full flex items-center justify-center">
-                  <ImageIcon className="w-16 h-16 text-gray-700" />
+                  <ImageIcon className="w-8 h-8 text-gray-700" />
                 </div>
               )}
             </div>
@@ -258,41 +258,33 @@ const Products = () => {
 
       {/* Stats */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div className="card flex items-center gap-4">
-          <div className="p-3 bg-neon-gold/10 rounded-xl border border-neon-gold/30">
-            <Package2 className="w-6 h-6 text-neon-gold" />
-          </div>
+        <div className="card flex items-start justify-between">
           <div>
+            <p className="text-xs text-gray-500 uppercase tracking-wide mb-2">Total Products</p>
             <p className="text-2xl font-bold text-gray-100">{products.length}</p>
-            <p className="text-xs text-gray-400">Total Products</p>
           </div>
+          <Package2 className="w-8 h-8 text-white opacity-80 flex-shrink-0" />
         </div>
-        <div className="card flex items-center gap-4">
-          <div className="p-3 bg-neon-blue/10 rounded-xl border border-neon-blue/30">
-            <TrendingUp className="w-6 h-6 text-neon-blue" />
-          </div>
+        <div className="card flex items-start justify-between">
           <div>
+            <p className="text-xs text-gray-500 uppercase tracking-wide mb-2">Total Stock</p>
             <p className="text-2xl font-bold text-gray-100">{totalStock}</p>
-            <p className="text-xs text-gray-400">Total Stock</p>
           </div>
+          <TrendingUp className="w-8 h-8 text-white opacity-80 flex-shrink-0" />
         </div>
-        <div className="card flex items-center gap-4">
-          <div className="p-3 bg-yellow-900/30 rounded-xl border border-yellow-700/40">
-            <AlertTriangle className="w-6 h-6 text-yellow-400" />
-          </div>
+        <div className="card flex items-start justify-between">
           <div>
-            <p className="text-2xl font-bold text-yellow-300">{lowStock}</p>
-            <p className="text-xs text-gray-400">Low Stock</p>
+            <p className="text-xs text-gray-500 uppercase tracking-wide mb-2">Low Stock</p>
+            <p className="text-2xl font-bold text-gray-100">{lowStock}</p>
           </div>
+          <AlertTriangle className="w-10 h-10 text-yellow-400 opacity-80 flex-shrink-0" />
         </div>
-        <div className="card flex items-center gap-4">
-          <div className="p-3 bg-red-900/30 rounded-xl border border-red-700/40">
-            <AlertTriangle className="w-6 h-6 text-red-400" />
-          </div>
+        <div className="card flex items-start justify-between">
           <div>
-            <p className="text-2xl font-bold text-red-400">{outOfStock}</p>
-            <p className="text-xs text-gray-400">Out of Stock</p>
+            <p className="text-xs text-gray-500 uppercase tracking-wide mb-2">Out of Stock</p>
+            <p className="text-2xl font-bold text-gray-100">{outOfStock}</p>
           </div>
+          <AlertTriangle className="w-10 h-10 text-red-400 opacity-80 flex-shrink-0" />
         </div>
       </div>
 
