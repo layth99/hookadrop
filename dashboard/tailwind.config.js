@@ -43,7 +43,7 @@ export default {
       keyframes: {
         glow: {
           'from': { boxShadow: '0 0 10px #FFD700, 0 0 20px #FFD700' },
-          'to': { boxShadow: '0 0 20px #FFD700, 0 0 30px #FFD700, 0 0 40px #FFD700' },
+          'to':   { boxShadow: '0 0 20px #FFD700, 0 0 30px #FFD700, 0 0 40px #FFD700' },
         },
       },
     },
