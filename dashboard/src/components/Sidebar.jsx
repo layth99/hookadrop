@@ -17,13 +17,12 @@ const Sidebar = () => {
   const user   = useAuthStore((state) => state.user)
   const { can, role, isViewer } = usePermissions()
 
-  // Only show nav items the current role can access
   const allNavItems = [
-    { name: 'Dashboard',  path: '/',           icon: LayoutGrid,  permission: 'analytics.view' },
-    { name: 'Products',   path: '/products',   icon: Package2,    permission: 'products.view'  },
-    { name: 'Orders',     path: '/orders',     icon: ShoppingBag, permission: 'orders.view'    },
-    { name: 'Customers',  path: '/users',      icon: Users2,      permission: 'customers.view' },
-    { name: 'Categories', path: '/categories', icon: Layers,      permission: 'categories.view'},
+    { name: 'Dashboard',  path: '/',           icon: LayoutGrid,  permission: 'analytics.view'  },
+    { name: 'Products',   path: '/products',   icon: Package2,    permission: 'products.view'   },
+    { name: 'Orders',     path: '/orders',     icon: ShoppingBag, permission: 'orders.view'     },
+    { name: 'Customers',  path: '/users',      icon: Users2,      permission: 'customers.view'  },
+    { name: 'Categories', path: '/categories', icon: Layers,      permission: 'categories.view' },
   ]
 
   const navItems = allNavItems.filter(item => can(item.permission))
@@ -99,7 +98,6 @@ const Sidebar = () => {
           </div>
           <div className="flex-1 min-w-0">
             <p className="text-sm font-semibold text-gray-100 truncate">{user?.name || 'Admin'}</p>
-            {/* Role badge */}
             <span className={`inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-semibold border mt-0.5 ${roleBadgeClass}`}>
               {roleLabel}
             </span>
