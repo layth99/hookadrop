@@ -110,9 +110,7 @@ const Categories = () => {
                 <tr key={cat._id} className="hover:bg-gray-800/40 transition-colors">
                   <td className="px-6 py-4">
                     <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 bg-neon-gold/10 border border-neon-gold/30 rounded-lg flex items-center justify-center">
-                        <Layers className="w-4 h-4 text-neon-gold" />
-                      </div>
+                      <Layers className="w-4 h-4 text-gray-500 flex-shrink-0" />
                       <span className="font-medium text-gray-100">{cat.name}</span>
                     </div>
                   </td>
