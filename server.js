@@ -23,16 +23,18 @@ const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname  = path.dirname(__filename);
 
-// CORS: allow the deployed Netlify frontend in production, all origins in dev.
-// Set FRONTEND_URL=https://your-app.netlify.app in your backend host's env vars.
-// withCredentials is NOT used (auth is Bearer token), so origin:"*" is safe,
-// but we still use a specific origin when set to follow least-privilege.
-const allowedOrigin = process.env.FRONTEND_URL || "*";
+// CORS: strip trailing slash from FRONTEND_URL to avoid origin mismatch,
+// then allow that exact origin (or * in dev when FRONTEND_URL is not set).
+const rawOrigin = process.env.FRONTEND_URL || "*";
+const allowedOrigin = rawOrigin === "*" ? "*" : rawOrigin.replace(/\/$/, "");
+
 app.use(cors({
   origin: allowedOrigin,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
 }));
+// Handle preflight for all routes
+app.options("*", cors());
 
 app.use(express.static(__dirname + "/public"));
 app.use("/uploads", express.static("uploads"));
