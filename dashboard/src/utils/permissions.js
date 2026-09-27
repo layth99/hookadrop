@@ -29,6 +29,11 @@ const ROLE_PERMISSIONS = {
     'categories.view',
     'analytics.view',
   ],
+  // Delivery role: can view and update order status only
+  delivery: [
+    'orders.view',
+    'orders.edit',
+  ],
   user: [],
 }
 
@@ -55,24 +60,27 @@ export const usePermissions = () => {
 
   const can = (permission) => hasPermission(user, permission)
 
-  const isAdmin  = role === 'admin'
-  const isViewer = role === 'viewer'
-  const isUser   = role === 'user'
+  const isAdmin    = role === 'admin'
+  const isViewer   = role === 'viewer'
+  const isDelivery = role === 'delivery'
+  const isUser     = role === 'user'
 
-  return { can, role, isAdmin, isViewer, isUser }
+  return { can, role, isAdmin, isViewer, isDelivery, isUser }
 }
 
 // ── Role display helpers ──────────────────────────────────────────────────────
 export const ROLE_LABELS = {
-  admin:  'Admin',
-  viewer: 'Viewer (Read Only)',
-  user:   'Customer',
+  admin:    'Admin',
+  viewer:   'Viewer (Read Only)',
+  delivery: 'Delivery',
+  user:     'Customer',
 }
 
 export const ROLE_BADGE_CLASSES = {
-  admin:  'bg-neon-gold/20 text-neon-gold border-neon-gold/40',
-  viewer: 'bg-purple-900/40 text-purple-300 border-purple-700/60',
-  user:   'bg-gray-800 text-gray-400 border-gray-600',
+  admin:    'bg-neon-gold/20 text-neon-gold border-neon-gold/40',
+  viewer:   'bg-purple-900/40 text-purple-300 border-purple-700/60',
+  delivery: 'bg-cyan-900/40 text-cyan-300 border-cyan-700/60',
+  user:     'bg-gray-800 text-gray-400 border-gray-600',
 }
 
-export const ROLES = ['admin', 'viewer', 'user']
+export const ROLES = ['admin', 'viewer', 'delivery', 'user']

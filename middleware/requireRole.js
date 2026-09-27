@@ -2,21 +2,18 @@
  * requireRole(...roles)
  * Must be used AFTER protectRoute (which populates req.user).
  *
- * Usage:
- *   router.get('/users', protectRoute, requireRole('admin'), getAllUsers)
- *   router.get('/report', protectRoute, requireRole('admin','viewer'), getReport)
- *
- * Role hierarchy:
- *   admin  → full access
- *   viewer → read-only dashboard access
- *   user   → customer, no dashboard access
+ * Roles:
+ *   admin    → full access
+ *   viewer   → read-only dashboard access
+ *   delivery → can view and update order status only
+ *   user     → customer, no dashboard access
  */
 const requireRole = (...roles) => (req, res, next) => {
   if (!req.user) {
     return res.status(401).json({ error: 'Unauthorized' });
   }
 
-  // Keep backward compat: isAdmin:true always treated as 'admin'
+  // isAdmin:true always treated as 'admin' for backward compat
   const effectiveRole = req.user.isAdmin ? 'admin' : (req.user.role || 'user');
 
   if (!roles.includes(effectiveRole)) {

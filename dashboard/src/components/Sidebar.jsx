@@ -8,6 +8,7 @@ import {
   LogOut,
   ChevronRight,
   Eye,
+  Truck,
 } from 'lucide-react'
 import { useAuthStore } from '../store/authStore'
 import { usePermissions, ROLE_LABELS, ROLE_BADGE_CLASSES } from '../utils/permissions'
@@ -15,7 +16,7 @@ import { usePermissions, ROLE_LABELS, ROLE_BADGE_CLASSES } from '../utils/permis
 const Sidebar = () => {
   const logout = useAuthStore((state) => state.logout)
   const user   = useAuthStore((state) => state.user)
-  const { can, role, isViewer } = usePermissions()
+  const { can, role, isViewer, isDelivery } = usePermissions()
 
   const allNavItems = [
     { name: 'Dashboard',  path: '/',           icon: LayoutGrid,  permission: 'analytics.view'  },
@@ -48,6 +49,14 @@ const Sidebar = () => {
         <div className="mx-4 mt-4 px-3 py-2 bg-purple-900/30 border border-purple-700/50 rounded-lg flex items-center gap-2">
           <Eye className="w-4 h-4 text-purple-400 flex-shrink-0" />
           <p className="text-xs text-purple-300">Read-only access</p>
+        </div>
+      )}
+
+      {/* Delivery banner */}
+      {isDelivery && (
+        <div className="mx-4 mt-4 px-3 py-2 bg-cyan-900/30 border border-cyan-700/50 rounded-lg flex items-center gap-2">
+          <Truck className="w-4 h-4 text-cyan-400 flex-shrink-0" />
+          <p className="text-xs text-cyan-300">Delivery access</p>
         </div>
       )}
 

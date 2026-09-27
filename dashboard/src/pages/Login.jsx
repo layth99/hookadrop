@@ -27,9 +27,9 @@ const Login = () => {
       
       const userRole = data.user?.role || (data.user?.isAdmin ? 'admin' : 'user')
 
-      // Allow admin and viewer roles into the dashboard
-      if (!data.user.isAdmin && userRole !== 'viewer') {
-        toast.error('Access denied. Admin or Viewer privileges required.')
+      // Allow admin, viewer and delivery roles into the dashboard
+      if (!data.user.isAdmin && userRole !== 'viewer' && userRole !== 'delivery') {
+        toast.error('Access denied. Admin, Viewer or Delivery privileges required.')
         setLoading(false)
         return
       }

@@ -29,7 +29,7 @@ const userSchema = new mongoose.Schema(
     // 'viewer' → read-only dashboard access
     role: {
       type: String,
-      enum: ['admin', 'user', 'viewer'],
+      enum: ['admin', 'user', 'viewer', 'delivery'],
       default: 'user',
     },
     avatar: { type: String, default: null },
