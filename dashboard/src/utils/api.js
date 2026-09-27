@@ -11,7 +11,9 @@ const api = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
-  withCredentials: true,
+  // withCredentials removed: auth uses Bearer tokens in Authorization header,
+  // not cookies. withCredentials:true + origin:"*" on the server causes browsers
+  // to block ALL credentialed cross-origin requests.
 })
 
 // Attach Bearer token on every request

@@ -23,11 +23,13 @@ const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname  = path.dirname(__filename);
 
-// BUG FIX #4: single cors() call with full options — no manual res.header() needed
-// res.header("Access-Control-Allow-Headers", "Content-Type", "Authorization") was
-// passing 3 args to a 2-arg function, silently dropping "Authorization"
+// CORS: allow the deployed Netlify frontend in production, all origins in dev.
+// Set FRONTEND_URL=https://your-app.netlify.app in your backend host's env vars.
+// withCredentials is NOT used (auth is Bearer token), so origin:"*" is safe,
+// but we still use a specific origin when set to follow least-privilege.
+const allowedOrigin = process.env.FRONTEND_URL || "*";
 app.use(cors({
-  origin: "*",
+  origin: allowedOrigin,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
 }));
