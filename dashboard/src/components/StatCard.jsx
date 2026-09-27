@@ -7,9 +7,9 @@ const StatCard = ({ title, value, change, icon: Icon, color = 'primary' }) => {
   const iconColor = {
     primary: 'text-neon-gold',
     green:   'text-green-400',
-    blue:    'text-neon-blue',
-    orange:  'text-orange-400',
-    purple:  'text-purple-400',
+    blue:    'text-neon-white',
+    orange:  'text-neon-white',
+    purple:  'text-neon-white',
   }[color] || 'text-gray-400'
 
   return (

@@ -1,15 +1,20 @@
 import axios from 'axios'
 import { useAuthStore } from '../store/authStore'
 
+// Development: Vite proxy forwards /api → http://localhost:8000
+// Production (Netlify): set VITE_API_URL env var to your deployed backend URL
+// e.g. https://your-backend.onrender.com/api
+const baseURL = import.meta.env.VITE_API_URL || '/api'
+
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || '/api',
+  baseURL,
   headers: {
     'Content-Type': 'application/json',
   },
   withCredentials: true,
 })
 
-// Request interceptor
+// Attach Bearer token on every request
 api.interceptors.request.use(
   (config) => {
     const token = useAuthStore.getState().token
@@ -18,12 +23,10 @@ api.interceptors.request.use(
     }
     return config
   },
-  (error) => {
-    return Promise.reject(error)
-  }
+  (error) => Promise.reject(error)
 )
 
-// Response interceptor
+// On 401 → logout + redirect to login
 api.interceptors.response.use(
   (response) => response,
   (error) => {
