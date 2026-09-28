@@ -128,7 +128,7 @@ const Dashboard = () => {
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         <StatCard title="Total Revenue" value={formatCurrency(stats.totalRevenue)} change={12.5} icon={DollarSign}  color="green"  />
         <StatCard title="Total Orders"  value={stats.totalOrders}                  change={8.2}  icon={ShoppingCart} color="blue"   />
         <StatCard title="Products"      value={stats.totalProducts}                change={-2.4} icon={Package}      color="orange" />
@@ -136,7 +136,7 @@ const Dashboard = () => {
       </div>
 
       {/* Charts */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
         {/* Sales Chart */}
         <div className="card">
           <h3 className="text-base font-semibold text-gray-100 mb-5">Sales Overview (7 days)</h3>

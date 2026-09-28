@@ -1,4 +1,4 @@
-// Layth Jandoubi 008
+// Layth Jandoubi 001
 import { useState, useEffect, useRef, useCallback } from 'react'
 import {
   Bell, Search, Package2, ShoppingBag, Users2, Layers, X, Loader2,
@@ -225,7 +225,7 @@ const NotificationBell = () => {
 
       {/* Dropdown */}
       {open && (
-        <div className="absolute right-0 top-full mt-3 w-96 bg-gray-900 border border-gray-700 rounded-2xl shadow-2xl shadow-black/60 overflow-hidden z-50">
+        <div className="absolute right-0 top-full mt-3 w-80 sm:w-96 bg-gray-900 border border-gray-700 rounded-2xl shadow-2xl shadow-black/60 overflow-hidden z-50 max-h-[80vh] flex flex-col">
 
           {/* Header */}
           <div className="flex items-center justify-between px-5 py-4 border-b border-gray-800">
@@ -326,7 +326,7 @@ const NotificationBell = () => {
           </div>
 
           {/* Footer */}
-          <div className="px-5 py-3 border-t border-gray-800 flex items-center justify-between">
+          <div className="px-5 py-3 border-t border-gray-800 flex items-center justify-between flex-shrink-0">
             <button
               onClick={loadNotifications}
               className="flex items-center gap-1.5 text-xs text-gray-500 hover:text-gray-300 transition-colors"
@@ -508,29 +508,47 @@ const GlobalSearch = () => {
 // ─────────────────────────────────────────────────────────────────────────────
 // HEADER
 // ─────────────────────────────────────────────────────────────────────────────
-const Header = () => {
+const Header = ({ onToggleSidebar, sidebarOpen }) => {
   const user     = useAuthStore((state) => state.user)
   const navigate = useNavigate()
 
   return (
-    <header className="h-20 bg-gray-950 border-b border-neon-gold/20 flex items-center justify-between px-8 shadow-lg gap-6">
-      <GlobalSearch />
+    <header className="h-16 bg-gray-950 border-b border-neon-gold/20 flex items-center justify-between px-4 md:px-8 shadow-lg gap-3 flex-shrink-0">
 
-      <div className="flex items-center gap-3 flex-shrink-0">
+      {/* Hamburger toggle — always visible */}
+      <button
+        onClick={onToggleSidebar}
+        className="p-2 text-gray-400 hover:text-neon-gold hover:bg-gray-800 rounded-lg transition-all duration-200 flex-shrink-0"
+        aria-label={sidebarOpen ? 'Close sidebar' : 'Open sidebar'}
+      >
+        {/* Three lines icon */}
+        <div className="w-5 h-4 flex flex-col justify-between">
+          <span className={`block h-0.5 bg-current rounded-full transition-all duration-300 ${sidebarOpen ? 'rotate-45 translate-y-[7px]' : ''}`} />
+          <span className={`block h-0.5 bg-current rounded-full transition-all duration-300 ${sidebarOpen ? 'opacity-0' : ''}`} />
+          <span className={`block h-0.5 bg-current rounded-full transition-all duration-300 ${sidebarOpen ? '-rotate-45 -translate-y-[9px]' : ''}`} />
+        </div>
+      </button>
+
+      {/* Search — hidden on very small screens, shown from sm up */}
+      <div className="hidden sm:block flex-1">
+        <GlobalSearch />
+      </div>
+
+      <div className="flex items-center gap-2 flex-shrink-0">
         {/* Notification Bell */}
         <NotificationBell />
 
         {/* User / Profile */}
         <button
           onClick={() => navigate('/profile')}
-          className="flex items-center gap-3 px-4 py-2 rounded-xl bg-gray-900 border border-neon-gold/20 hover:border-neon-gold/50 hover:bg-gray-800 transition-all duration-200 group"
+          className="flex items-center gap-2 px-2 md:px-4 py-2 rounded-xl bg-gray-900 border border-neon-gold/20 hover:border-neon-gold/50 hover:bg-gray-800 transition-all duration-200 group"
           title="My Profile"
         >
           <div className="relative">
             {user?.avatar ? (
-              <img src={user.avatar} alt="" className="w-9 h-9 rounded-full object-cover border border-neon-gold/30" />
+              <img src={user.avatar} alt="" className="w-8 h-8 rounded-full object-cover border border-neon-gold/30" />
             ) : (
-              <div className="w-9 h-9 bg-gradient-to-br from-neon-gold to-orange-500 rounded-full flex items-center justify-center shadow-[0_0_8px_rgba(255,215,0,0.4)] group-hover:shadow-[0_0_14px_rgba(255,215,0,0.6)] transition-all">
+              <div className="w-8 h-8 bg-gradient-to-br from-neon-gold to-orange-500 rounded-full flex items-center justify-center shadow-[0_0_8px_rgba(255,215,0,0.4)] group-hover:shadow-[0_0_14px_rgba(255,215,0,0.6)] transition-all">
                 <span className="text-black font-bold text-sm">
                   {user?.name?.charAt(0)?.toUpperCase() || 'A'}
                 </span>

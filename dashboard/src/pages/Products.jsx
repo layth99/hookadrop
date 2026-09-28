@@ -257,7 +257,7 @@ const Products = () => {
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         <div className="card flex items-start justify-between">
           <div>
             <p className="text-xs text-gray-500 uppercase tracking-wide mb-2">Total Products</p>
