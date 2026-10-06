@@ -46,7 +46,6 @@ export async function Register(req, res) {
 
   try {
     if (!name || !email || !password) {
-      // BUG FIX: was returning 200 on validation error
       return res.status(400).json({ success: false, message: "All fields are required" });
     }
 
@@ -55,7 +54,14 @@ export async function Register(req, res) {
       return res.status(400).json({ message: "User already exists" });
     }
 
-    const newUser = new User({ name, email, password });
+    // Always create as customer — never trust role/isAdmin from client
+    const newUser = new User({
+      name,
+      email,
+      password,
+      role:    "user",   // Customer in the dashboard
+      isAdmin: false,    // Never allow self-promotion to admin
+    });
     await newUser.save();
     return res.status(201).json({ message: "Register successful" });
   } catch (error) {

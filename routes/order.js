@@ -9,21 +9,23 @@ import {
   getOrderByOderId,
   generateInvoice,
 } from "../controller/orders.js";
+import protectRoute from "../middleware/protectRoute.js";
+import requireRole   from "../middleware/requireRole.js";
 
 const router = express.Router();
 
-router.get("/",    getAllOrders);
-router.post("/",   createOrder);
+// ── ADMIN / DELIVERY (Dashboard) ─────────────────────────────────────────────
+router.get(  "/",      protectRoute, requireRole("admin","viewer","delivery"), getAllOrders);
+router.put(  "/:id",   protectRoute, requireRole("admin","delivery"),          updateOrderStatus);
+router.delete("/:id",  protectRoute, requireRole("admin"),                     deleteOrder);
 
-// BUG FIX #3: specific named routes MUST come before the generic /:id route
-// otherwise Express matches /:id first and these handlers are never reached
-router.get("/getOrderByOderId/:id",  getOrderByOderId);
-router.get("/getOrderProducts/:id",  getOrderProducts);
-router.get("/generateInvoice/:id",   generateInvoice);
+// Specific named routes BEFORE generic /:id
+router.get("/getOrderByOderId/:id",  protectRoute, getOrderByOderId);
+router.get("/getOrderProducts/:id",  protectRoute, getOrderProducts);
+router.get("/generateInvoice/:id",   protectRoute, generateInvoice);
+router.get("/:id",                   protectRoute, getOrderById);
 
-// Generic /:id routes — placed LAST so named routes above take priority
-router.get("/:id",    getOrderById);
-router.put("/:id",    updateOrderStatus);
-router.delete("/:id", deleteOrder);
+// ── AUTHENTICATED USERS (Android app creates orders) ─────────────────────────
+router.post("/", protectRoute, createOrder);
 
 export default router;

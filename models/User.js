@@ -38,6 +38,7 @@ const userSchema = new mongoose.Schema(
     twoFactorEnabled: { type: Boolean, default: false },
     resetOtp: String,
     otpExpires: Date,
+    stripeCustomerId: { type: String, default: null },  // Stripe cus_xxx
     address: {
       phone: {
         type: String,
