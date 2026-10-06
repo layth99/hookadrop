@@ -53,6 +53,7 @@ app.use("/api/stripe/webhook",
 
 app.use(express.static(__dirname + "/public"));
 app.use("/uploads", express.static("uploads"));
+app.use("/article-images", express.static("C:\\Users\\GAMING\\Desktop\\hookaDrop\\article"));
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());

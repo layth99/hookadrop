@@ -97,10 +97,15 @@ export const getAllProducts = async (req, res) => {
       .skip((page - 1) * limit);
 
     const total = await Product.countDocuments(filter);
+    // Add categoryId alias so the Android app's toProduct() can read it
+    const mappedProducts = products.map((p) => ({
+      ...p.toObject(),
+      categoryId: p.category,
+    }));
     return res.status(200).json({
       currentPage: parseInt(page, 10),
       totalPages: Math.ceil(total / limit),
-      data: products,
+      data: mappedProducts,
     });
   } catch (error) {
     return res.status(500).json({ error: "Failed to fetch products" });
@@ -157,7 +162,9 @@ export const getProductById = async (req, res) => {
     if (!product) {
       return res.status(404).json({ success: false });
     }
-    return res.status(200).json({ success: true, data: product });
+    // Add categoryId alias so the Android app's toProduct() can read it
+    const productObj = { ...product.toObject(), categoryId: product.category };
+    return res.status(200).json({ success: true, data: productObj });
   } catch (error) {
     return res.status(400).json({ success: false, error: error.message });
   }
