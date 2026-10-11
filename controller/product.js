@@ -121,6 +121,20 @@ export const createProduct = async (req, res) => {
     const { name, description, price, discount, category, stock, mark,
             image: bodyImage, image1: bodyImage1, image2: bodyImage2, image3: bodyImage3 } = req.body;
 
+    // ── Duplicate check: prevent creating products with the same name+category ─
+    const normalizedName = name.trim().replace(/\s+/g, ' ');
+    const existing = await Product.findOne({
+      name: { $regex: new RegExp(`^${normalizedName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}$`, 'i') },
+      category: { $regex: new RegExp(`^${category.trim()}$`, 'i') }
+    });
+    if (existing) {
+      return res.status(409).json({
+        success: false,
+        error: `Product "${name}" already exists in category "${category}". Use the edit form to update it.`,
+        existingProductId: existing._id
+      });
+    }
+
     let imageUrls = [bodyImage || null, bodyImage1 || null, bodyImage2 || null, bodyImage3 || null];
 
     // If files were uploaded (multipart), upload them to Cloudinary and override URLs
@@ -151,6 +165,13 @@ export const createProduct = async (req, res) => {
     res.status(201).json({ success: true, data: product });
   } catch (error) {
     console.error("Error creating product:", error);
+    // If the unique index was violated (E11000 duplicate key error)
+    if (error.code === 11000) {
+      return res.status(409).json({
+        success: false,
+        error: "A product with this name and category already exists."
+      });
+    }
     res.status(500).json({ success: false, error: "Product creation failed" });
   }
 };

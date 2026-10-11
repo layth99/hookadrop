@@ -17,5 +17,8 @@ const productSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+// Create a compound unique index on name+category to prevent duplicates
+productSchema.index({ name: 1, category: 1 }, { unique: true });
+
 export default mongoose.models.Product ||
   mongoose.model("Product", productSchema);

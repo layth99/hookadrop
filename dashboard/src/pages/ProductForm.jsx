@@ -158,6 +158,36 @@ const ProductForm = () => {
       toast.error('Main image is required')
       return
     }
+
+    // ── Pre-submit duplicate check (only for new products) ────────────────────
+    if (!isEdit) {
+      try {
+        const { data } = await api.get('/products', {
+          params: { name: form.name, category: form.category, limit: 10 }
+        })
+        const list = Array.isArray(data) ? data : (data?.data ?? [])
+        const matches = list.filter(p => 
+          p.name.toLowerCase().trim() === form.name.toLowerCase().trim() &&
+          p.category.toLowerCase().trim() === form.category.toLowerCase().trim()
+        )
+        if (matches.length > 0) {
+          const confirmed = window.confirm(
+            `A product named "${form.name}" already exists in ${form.category}.\n\n` +
+            `Do you want to edit the existing product instead?`
+          )
+          if (confirmed) {
+            navigate(`/products/edit/${matches[0]._id}`)
+            return
+          } else {
+            return // User chose to cancel
+          }
+        }
+      } catch (err) {
+        // Ignore check failure — let the backend reject if duplicate
+        console.warn('Duplicate check failed:', err.message)
+      }
+    }
+
     setSubmitting(true)
     try {
       const payload = {
@@ -175,7 +205,8 @@ const ProductForm = () => {
       }
       navigate('/products')
     } catch (err) {
-      toast.error(err?.response?.data?.message || 'Failed to save product')
+      const message = err?.response?.data?.error || err?.response?.data?.message || 'Failed to save product'
+      toast.error(message)
     } finally {
       setSubmitting(false)
     }

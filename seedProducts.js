@@ -198,12 +198,16 @@ async function seed() {
     for (const imageFile of imageFiles) {
       const productName = fileToProductName(imageFile);
 
-      // Skip si produit déjà en base (par nom exact)
+      // Normalize name: trim whitespace, collapse multiple spaces
+      const normalizedName = productName.trim().replace(/\s+/g, ' ');
+
+      // Skip si produit déjà en base (par nom exact + catégorie)
       const existing = await Product.findOne({
-        name: { $regex: new RegExp(`^${productName.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}$`, "i") },
+        name: { $regex: new RegExp(`^${normalizedName.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}$`, "i") },
+        category: { $regex: new RegExp(`^${catName}$`, "i") }
       });
       if (existing) {
-        console.log(`     ⚠️  Produit existant (skip) : ${productName}`);
+        console.log(`     ⚠️  Produit existant (skip) : ${normalizedName} in ${catName}`);
         skippedProducts++;
         continue;
       }
@@ -215,8 +219,8 @@ async function seed() {
       const price = getPrice(productName, folderName);
 
       await Product.create({
-        name:        productName,
-        description: generateDescription(productName, folderName),
+        name:        normalizedName,
+        description: generateDescription(normalizedName, folderName),
         price,
         discount:    0,
         mark:        catMeta.mark,
@@ -225,7 +229,7 @@ async function seed() {
         image:       imageUrl,
       });
 
-      console.log(`     ✅ Produit créé : ${productName} (${price} DA)`);
+      console.log(`     ✅ Produit créé : ${normalizedName} (${price} DA)`);
       totalProducts++;
     }
 
