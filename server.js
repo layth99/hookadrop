@@ -17,6 +17,7 @@ import categoryRoutes from "./routes/category.js";
 import profileRoutes from "./routes/profile.js";
 import uploadRoutes from "./routes/upload.js";
 import stripeRoutes from "./routes/stripe.js";
+import promotionRoutes from "./routes/promotion.js";
 import { fileURLToPath } from "url";
 import path from "path";
 
@@ -68,7 +69,9 @@ app.use("/api",            adminRoutes);
 app.use("/api/categories", categoryRoutes);
 app.use("/api/profile",    profileRoutes);
 app.use("/api/upload",     uploadRoutes);
-app.use("/api/stripe",     stripeRoutes);
+app.use("/api/stripe",      stripeRoutes);
+app.use("/api/admin/promotions", promotionRoutes);
+app.use("/api/promotions",       promotionRoutes);
 
 app.use("*", (req, res) => res.status(404).json({ error: "Not found" }));
 

@@ -61,6 +61,20 @@ export const getAllOrders = async (req, res) => {
 export const createOrder = async (req, res) => {
   try {
     const order = await Order.create(req.body);
+
+    // Record promo redemption if a code was applied
+    if (req.body.promoCode && req.user?._id) {
+      const { recordRedemption } = await import("../controller/promotion.js");
+      setImmediate(() =>
+        recordRedemption(
+          req.body.promoCode,
+          req.user._id,
+          order._id,
+          req.body.discountAmount || 0
+        )
+      );
+    }
+
     return res.status(201).json({ success: true, data: order });
   } catch (error) {
     console.error("Error creating order:", error);

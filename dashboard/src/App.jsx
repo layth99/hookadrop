@@ -13,6 +13,7 @@ import Categories from './pages/Categories'
 import ProductForm from './pages/ProductForm'
 import OrderDetail from './pages/OrderDetail'
 import Profile from './pages/Profile'
+import Promotions from './pages/Promotions'
 
 /**
  * Guards a route by permission.
@@ -107,6 +108,16 @@ function App() {
 
         {/* Profile — always accessible when authenticated */}
         <Route path="profile" element={<Profile />} />
+
+        {/* Promotions */}
+        <Route
+          path="promotions"
+          element={
+            <RequirePermission permission="products.view">
+              <Promotions />
+            </RequirePermission>
+          }
+        />
       </Route>
     </Routes>
   )

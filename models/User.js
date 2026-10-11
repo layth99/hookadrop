@@ -39,6 +39,21 @@ const userSchema = new mongoose.Schema(
     resetOtp: String,
     otpExpires: Date,
     stripeCustomerId: { type: String, default: null },  // Stripe cus_xxx
+    // ── New registration fields ────────────────────────────────────────────
+    phone: { type: String, default: null },
+    age:   { type: Number, default: null },
+    // ── Email verification ─────────────────────────────────────────────────
+    emailVerified:          { type: Boolean, default: false },
+    verificationCode:       { type: String,  default: null, select: false },
+    verificationExpiresAt:  { type: Date,    default: null },
+    verificationAttempts:   { type: Number,  default: 0 },
+    lastVerificationSentAt: { type: Date,    default: null },
+    // ── Welcome email tracking ─────────────────────────────────────────────
+    emailStatus: {
+      type: String,
+      enum: ['pending', 'sent', 'failed'],
+      default: 'pending',
+    },
     address: {
       phone: {
         type: String,

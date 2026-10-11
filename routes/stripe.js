@@ -24,7 +24,7 @@ const getStripe = () => {
   if (!process.env.STRIPE_SECRET_KEY) {
     throw new Error("STRIPE_SECRET_KEY is not configured");
   }
-  return new Stripe(process.env.STRIPE_SECRET_KEY, { apiVersion: "2024-04-10" });
+  return new Stripe(process.env.STRIPE_SECRET_KEY, { apiVersion: "2025-06-30.basil" });
 };
 
 // ── Helper: get or create Stripe Customer for a user ─────────────────────────
@@ -225,49 +225,200 @@ router.put("/payment-methods/:id/default", protectRoute, async (req, res) => {
   }
 });
 
-// ── POST /api/stripe/payment-intent ───────────────────────────────────────────
-// Create a PaymentIntent for checkout.
-// Amount is ALWAYS calculated server-side — never trusted from the frontend.
+// ── POST /api/stripe/payment-sheet ────────────────────────────────────────────
+// Returns everything the Stripe PaymentSheet needs in one call.
+// Amount is ALWAYS fetched from the real Order — never trusted from the client.
+router.post("/payment-sheet", protectRoute, async (req, res) => {
+  try {
+    const stripe = getStripe();
+    const { orderId } = req.body;
+
+    if (!orderId) {
+      return res.status(400).json({ error: "orderId is required" });
+    }
+
+    const Order = (await import("../models/Order.js")).default;
+    const order = await Order.findOne({ _id: orderId, user: req.user._id });
+    if (!order) return res.status(404).json({ error: "Order not found" });
+    if (order.isPaid) return res.status(409).json({ error: "Order is already paid" });
+
+    const amount     = Math.round(order.totalPrice * 100); // cents
+    if (amount < 50) return res.status(400).json({ error: "Order total too low" });
+
+    const customerId = await getOrCreateStripeCustomer(req.user);
+
+    // Idempotency — reuse existing PI if possible
+    let paymentIntent;
+    if (order.stripePaymentIntentId) {
+      try {
+        const existing = await stripe.paymentIntents.retrieve(order.stripePaymentIntentId);
+        if (existing.status !== "canceled") {
+          paymentIntent = existing;
+        }
+      } catch (_) {}
+    }
+
+    if (!paymentIntent) {
+      paymentIntent = await stripe.paymentIntents.create({
+        amount,
+        currency: "usd",
+        customer: customerId,
+        payment_method_types: ["card"],
+        metadata: {
+          userId:  req.user._id.toString(),
+          orderId: order._id.toString(),
+        },
+      });
+
+      await Order.findByIdAndUpdate(order._id, {
+        stripePaymentIntentId: paymentIntent.id,
+        stripePaymentStatus:   "pending",
+      });
+    }
+
+    // Ephemeral key — lets PaymentSheet list saved cards
+    const ephemeralKey = await stripe.ephemeralKeys.create(
+      { customer: customerId },
+      { apiVersion: "2025-06-30.basil" }
+    );
+
+    res.json({
+      paymentIntentClientSecret: paymentIntent.client_secret,
+      ephemeralKey:              ephemeralKey.secret,
+      customerId,
+    });
+  } catch (err) {
+    console.error("[payment-sheet] error:", err.message);
+    res.status(500).json({ error: "Failed to create payment sheet" });
+  }
+});
+
+
+// ── POST /api/stripe/confirm-payment ─────────────────────────────────────────
+// Called by Android AFTER PaymentSheet.Completed to mark the order as paid.
+// We verify the PaymentIntent status directly with Stripe — never trust the client.
+// This replaces the webhook for local development.
+router.post("/confirm-payment", protectRoute, async (req, res) => {
+  try {
+    const stripe = getStripe();
+    const { orderId } = req.body;
+
+    if (!orderId) {
+      return res.status(400).json({ error: "orderId is required" });
+    }
+
+    const Order = (await import("../models/Order.js")).default;
+    const order = await Order.findOne({ _id: orderId, user: req.user._id });
+    if (!order) return res.status(404).json({ error: "Order not found" });
+
+    // Already paid — idempotent response
+    if (order.isPaid) {
+      return res.json({ success: true, message: "Order already confirmed" });
+    }
+
+    if (!order.stripePaymentIntentId) {
+      return res.status(400).json({ error: "No PaymentIntent associated with this order" });
+    }
+
+    // Verify directly with Stripe — never trust the Android callback alone
+    const pi = await stripe.paymentIntents.retrieve(order.stripePaymentIntentId);
+
+    if (pi.status !== "succeeded") {
+      return res.status(402).json({
+        error: `Payment not completed. Stripe status: ${pi.status}`,
+      });
+    }
+
+    // Payment confirmed by Stripe — update the order
+    await Order.findByIdAndUpdate(order._id, {
+      isPaid:              true,
+      paidAt:              new Date(),
+      status:              "confirmed",
+      stripePaymentStatus: "succeeded",
+    });
+
+    console.log(`[confirm-payment] Order ${order.orderId} marked as paid via PI ${pi.id}`);
+    res.json({ success: true, message: "Payment confirmed and order updated" });
+  } catch (err) {
+    console.error("[confirm-payment] error:", err.message);
+    res.status(500).json({ error: "Failed to confirm payment" });
+  }
+});
+
+
+// Amount is ALWAYS calculated server-side from the real Order — never trusted from the client.
 router.post("/payment-intent", protectRoute, async (req, res) => {
   try {
     const stripe = getStripe();
     const { orderId, paymentMethodId } = req.body;
 
-    // TODO: replace this with your real order lookup once checkout is wired
-    // const order = await Order.findOne({ _id: orderId, user: req.user._id })
-    // if (!order) return res.status(404).json({ error: 'Order not found' })
-    // const amount = Math.round(order.totalPrice * 100)  // in cents
+    if (!orderId) {
+      return res.status(400).json({ error: "orderId is required" });
+    }
 
-    // Placeholder: require amount to be sent but validate it server-side in production
-    const { amount, currency = "usd" } = req.body;
-    if (!amount || amount <= 0) {
-      return res.status(400).json({ error: "Invalid amount" });
+    // ── Load the real order from DB — verify ownership ────────────────────────
+    const Order = (await import("../models/Order.js")).default;
+    const order = await Order.findOne({ _id: orderId, user: req.user._id });
+    if (!order) {
+      return res.status(404).json({ error: "Order not found" });
+    }
+    if (order.isPaid) {
+      return res.status(409).json({ error: "Order is already paid" });
+    }
+    if (order.stripePaymentIntentId) {
+      // Idempotency: return existing PaymentIntent instead of creating a duplicate
+      try {
+        const existingPi = await stripe.paymentIntents.retrieve(order.stripePaymentIntentId);
+        if (existingPi.status !== "canceled") {
+          return res.json({
+            clientSecret: existingPi.client_secret,
+            status:       existingPi.status,
+          });
+        }
+      } catch (_) { /* PI was deleted on Stripe — create a fresh one */ }
+    }
+
+    // ── Server-side amount — never trust the client ───────────────────────────
+    const amount   = Math.round(order.totalPrice * 100); // in cents
+    const currency = "usd";
+
+    if (amount < 50) {
+      return res.status(400).json({ error: "Order total is below minimum charge amount" });
     }
 
     const customerId = await getOrCreateStripeCustomer(req.user);
 
     const params = {
-      amount:               Math.round(amount * 100),   // convert to cents
+      amount,
       currency,
       customer:             customerId,
-      confirm:              !!paymentMethodId,
-      payment_method:       paymentMethodId || undefined,
-      return_url:           "hookahdrop://payment-return",
       payment_method_types: ["card"],
       metadata: {
-        userId: req.user._id.toString(),
-        orderId: orderId || "",
+        userId:  req.user._id.toString(),
+        orderId: order._id.toString(),
       },
     };
 
+    if (paymentMethodId) {
+      params.payment_method  = paymentMethodId;
+      params.confirm         = true;
+      params.return_url      = "hookahdrop://payment-return";
+    }
+
     const paymentIntent = await stripe.paymentIntents.create(params);
+
+    // ── Save PaymentIntent ID to order immediately ────────────────────────────
+    await Order.findByIdAndUpdate(order._id, {
+      stripePaymentIntentId: paymentIntent.id,
+      stripePaymentStatus:   "pending",
+    });
 
     res.json({
       clientSecret: paymentIntent.client_secret,
       status:       paymentIntent.status,
     });
   } catch (err) {
-    console.error("payment-intent error:", err.message);
+    console.error("[payment-intent] error:", err.message);
     res.status(500).json({ error: "Failed to create payment intent" });
   }
 });
@@ -315,18 +466,47 @@ router.post(
 
         case "payment_intent.succeeded": {
           const pi = event.data.object;
-          console.log(`PaymentIntent succeeded: ${pi.id}, amount: ${pi.amount}`);
-          // TODO: mark order as paid
-          // await Order.findOneAndUpdate(
-          //   { 'payment.stripePaymentIntentId': pi.id },
-          //   { 'payment.status': 'paid', status: 'confirmed' }
-          // )
+          console.log(`[webhook] PaymentIntent succeeded: ${pi.id}`);
+          try {
+            const Order = (await import("../models/Order.js")).default;
+            const updated = await Order.findOneAndUpdate(
+              {
+                stripePaymentIntentId: pi.id,
+                isPaid: false,  // idempotency guard — never double-process
+              },
+              {
+                isPaid:              true,
+                paidAt:              new Date(),
+                status:              "confirmed",
+                stripePaymentStatus: "succeeded",
+              },
+              { new: true }
+            );
+            if (updated) {
+              console.log(`[webhook] Order ${updated.orderId} marked as paid`);
+            } else {
+              console.log(`[webhook] PaymentIntent ${pi.id} — order not found or already paid (idempotent skip)`);
+            }
+          } catch (dbErr) {
+            console.error("[webhook] DB update failed:", dbErr.message);
+            // Return 200 so Stripe does not retry endlessly;
+            // log the error for manual review
+          }
           break;
         }
 
         case "payment_intent.payment_failed": {
           const pi = event.data.object;
-          console.warn(`PaymentIntent failed: ${pi.id}`, pi.last_payment_error?.message);
+          console.warn(`[webhook] PaymentIntent failed: ${pi.id}`, pi.last_payment_error?.message);
+          try {
+            const Order = (await import("../models/Order.js")).default;
+            await Order.findOneAndUpdate(
+              { stripePaymentIntentId: pi.id },
+              { stripePaymentStatus: "failed" }
+            );
+          } catch (dbErr) {
+            console.error("[webhook] DB update (failed pi) error:", dbErr.message);
+          }
           break;
         }
 

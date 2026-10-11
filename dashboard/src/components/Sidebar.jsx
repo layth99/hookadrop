@@ -10,6 +10,7 @@ import {
   Eye,
   Truck,
   X,
+  Tag,
 } from 'lucide-react'
 import { useAuthStore } from '../store/authStore'
 import { usePermissions, ROLE_LABELS, ROLE_BADGE_CLASSES } from '../utils/permissions'
@@ -20,11 +21,12 @@ const Sidebar = ({ isOpen, onClose }) => {
   const { can, role, isViewer, isDelivery } = usePermissions()
 
   const allNavItems = [
-    { name: 'Dashboard',  path: '/',           icon: LayoutGrid,  permission: 'analytics.view'  },
-    { name: 'Products',   path: '/products',   icon: Package2,    permission: 'products.view'   },
-    { name: 'Orders',     path: '/orders',     icon: ShoppingBag, permission: 'orders.view'     },
-    { name: 'Customers',  path: '/users',      icon: Users2,      permission: 'customers.view'  },
-    { name: 'Categories', path: '/categories', icon: Layers,      permission: 'categories.view' },
+    { name: 'Dashboard',   path: '/',            icon: LayoutGrid,  permission: 'analytics.view'  },
+    { name: 'Products',    path: '/products',    icon: Package2,    permission: 'products.view'   },
+    { name: 'Orders',      path: '/orders',      icon: ShoppingBag, permission: 'orders.view'     },
+    { name: 'Customers',   path: '/users',       icon: Users2,      permission: 'customers.view'  },
+    { name: 'Categories',  path: '/categories',  icon: Layers,      permission: 'categories.view' },
+    { name: 'Promotions',  path: '/promotions',  icon: Tag,         permission: 'products.view'   },
   ]
 
   const navItems = allNavItems.filter(item => can(item.permission))

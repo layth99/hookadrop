@@ -49,6 +49,16 @@ const orderSchema = new mongoose.Schema(
     paidAt: { type: Date },
     isDelivered: { type: Boolean, required: true, default: false },
     deliveredAt: { type: Date },
+    // ── Stripe payment fields ────────────────────────────────────────────────
+    stripePaymentIntentId: { type: String, default: null, index: true },
+    stripePaymentStatus:   {
+      type: String,
+      enum: ["pending", "succeeded", "failed", "canceled", null],
+      default: null,
+    },
+    // ── Promo code ────────────────────────────────────────────────────────────
+    promoCode:      { type: String, default: null },
+    discountAmount: { type: Number, default: 0 },
   },
   { timestamps: true }
 );

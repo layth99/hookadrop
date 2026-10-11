@@ -1,8 +1,15 @@
 import User from "../models/User.js";
 import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { sendMail } from "../controller/mailerSender.js";
+import { sendMail, sendVerificationEmail, sendWelcomeEmail } from "../controller/mailerSender.js";
 import mongoose from "mongoose";
+import crypto from "crypto";
+
+// ── Helper: generate 6-digit OTP ──────────────────────────────────────────────
+const generateOtp = () => String(Math.floor(100000 + Math.random() * 900000));
+
+// ── Helper: hash OTP for secure storage ──────────────────────────────────────
+const hashOtp = (otp) => crypto.createHash("sha256").update(otp).digest("hex");
 
 export async function Login(req, res) {
   const { email, password } = req.body;
@@ -28,7 +35,7 @@ export async function Login(req, res) {
     }
 
     const tokenData = { userId: user._id, isAdmin: user.isAdmin };
-    const token     = jwt.sign(tokenData, secretOrPrivateKey, { expiresIn: "1d" });
+    const token     = jwt.sign(tokenData, secretOrPrivateKey, { expiresIn: "7d" });
 
     // Strip password from response
     const userObj = user.toObject();
@@ -42,31 +49,201 @@ export async function Login(req, res) {
 }
 
 export async function Register(req, res) {
-  const { name, email, password } = req.body;
+  const { name, email, password, phone, age } = req.body;
 
   try {
+    // ── Validate required fields ────────────────────────────────────────────
     if (!name || !email || !password) {
       return res.status(400).json({ success: false, message: "All fields are required" });
     }
-
-    const existingUser = await User.findOne({ email });
-    if (existingUser) {
-      return res.status(400).json({ message: "User already exists" });
+    if (!phone) {
+      return res.status(400).json({ success: false, message: "Phone number is required" });
+    }
+    if (age === undefined || age === null || age === "") {
+      return res.status(400).json({ success: false, message: "Age is required" });
+    }
+    const ageNum = parseInt(age, 10);
+    if (isNaN(ageNum) || ageNum < 20) {
+      return res.status(400).json({
+        success: false,
+        message: "You must be 20 years old or older to create a HookaDrop account."
+      });
     }
 
-    // Always create as customer — never trust role/isAdmin from client
+    // ── Check duplicate ─────────────────────────────────────────────────────
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ success: false, message: "This email is already registered." });
+    }
+
+    // ── Rate-limit: prevent spam registrations ──────────────────────────────
+    // No pending user check needed — we store code on the user record
+
+    // ── Generate verification code ──────────────────────────────────────────
+    const otp     = generateOtp();
+    const otpHash = hashOtp(otp);
+
+    // ── Create UNVERIFIED account ───────────────────────────────────────────
     const newUser = new User({
       name,
       email,
       password,
-      role:    "user",   // Customer in the dashboard
-      isAdmin: false,    // Never allow self-promotion to admin
+      phone,
+      age:                   ageNum,
+      role:                  "user",
+      isAdmin:               false,
+      emailVerified:         false,
+      emailStatus:           "pending",
+      verificationCode:      otpHash,
+      verificationExpiresAt: new Date(Date.now() + 10 * 60 * 1000), // 10 min
+      verificationAttempts:  0,
+      lastVerificationSentAt: new Date(),
     });
     await newUser.save();
-    return res.status(201).json({ message: "Register successful" });
+
+    // ── Send verification email ─────────────────────────────────────────────
+    try {
+      await sendVerificationEmail(email, name, otp);
+    } catch (emailErr) {
+      console.error("[Register] Failed to send verification email:", emailErr.message);
+      // Still return success — user can resend
+      return res.status(201).json({
+        success: true,
+        message: "Account created but verification email failed. Please use Resend.",
+        userId: newUser._id,
+      });
+    }
+
+    return res.status(201).json({
+      success: true,
+      message: "Verification code sent to your email.",
+      userId: newUser._id,
+    });
   } catch (error) {
-    console.error(error);
-    return res.status(400).json({ message: "Bad Request: " + error.message });
+    console.error("[Register]", error);
+    return res.status(400).json({ success: false, message: "Registration failed: " + error.message });
+  }
+}
+
+// ── POST /api/users/verify-email ──────────────────────────────────────────────
+export async function VerifyEmail(req, res) {
+  const { userId, code } = req.body;
+
+  if (!userId || !code) {
+    return res.status(400).json({ success: false, message: "userId and code are required" });
+  }
+
+  try {
+    const user = await User.findById(userId).select(
+      "+verificationCode +verificationExpiresAt +verificationAttempts"
+    );
+    if (!user) {
+      return res.status(404).json({ success: false, message: "User not found" });
+    }
+    if (user.emailVerified) {
+      return res.status(400).json({ success: false, message: "Email already verified" });
+    }
+
+    // ── Brute-force protection ──────────────────────────────────────────────
+    if (user.verificationAttempts >= 5) {
+      return res.status(429).json({
+        success: false,
+        message: "Too many attempts. Please request a new code.",
+      });
+    }
+
+    // ── Check expiry ────────────────────────────────────────────────────────
+    if (!user.verificationExpiresAt || new Date() > user.verificationExpiresAt) {
+      return res.status(400).json({
+        success: false,
+        message: "This verification code has expired. Please request a new code.",
+      });
+    }
+
+    // ── Validate code ───────────────────────────────────────────────────────
+    const inputHash = hashOtp(code.trim());
+    if (inputHash !== user.verificationCode) {
+      await User.findByIdAndUpdate(userId, { $inc: { verificationAttempts: 1 } });
+      return res.status(400).json({
+        success: false,
+        message: "Incorrect verification code. Please try again.",
+      });
+    }
+
+    // ── Mark verified + clear code ──────────────────────────────────────────
+    user.emailVerified         = true;
+    user.verificationCode      = null;
+    user.verificationExpiresAt = null;
+    user.verificationAttempts  = 0;
+    await user.save();
+
+    // ── Issue JWT ───────────────────────────────────────────────────────────
+    const tokenData = { userId: user._id, isAdmin: user.isAdmin };
+    const token     = jwt.sign(tokenData, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "7d" });
+
+    const userObj = user.toObject();
+    delete userObj.password;
+    delete userObj.verificationCode;
+
+    // ── Send welcome email (non-blocking) ───────────────────────────────────
+    setImmediate(() => {
+      sendWelcomeEmail(user._id, user.name, user.email);
+    });
+
+    return res.status(200).json({
+      success: true,
+      message: "Email verified successfully. Welcome to HookaDrop!",
+      token,
+      user: userObj,
+    });
+  } catch (error) {
+    console.error("[VerifyEmail]", error);
+    return res.status(500).json({ success: false, message: "Verification failed: " + error.message });
+  }
+}
+
+// ── POST /api/users/resend-verification ──────────────────────────────────────
+export async function ResendVerification(req, res) {
+  const { userId } = req.body;
+
+  if (!userId) {
+    return res.status(400).json({ success: false, message: "userId is required" });
+  }
+
+  try {
+    const user = await User.findById(userId).select("+lastVerificationSentAt");
+    if (!user) return res.status(404).json({ success: false, message: "User not found" });
+    if (user.emailVerified) return res.status(400).json({ success: false, message: "Email already verified" });
+
+    // ── Rate limit: max 1 resend per 60 seconds ─────────────────────────────
+    if (user.lastVerificationSentAt) {
+      const secondsSince = (Date.now() - new Date(user.lastVerificationSentAt).getTime()) / 1000;
+      if (secondsSince < 60) {
+        const wait = Math.ceil(60 - secondsSince);
+        return res.status(429).json({
+          success: false,
+          message: `Please wait ${wait} seconds before requesting a new code.`,
+        });
+      }
+    }
+
+    // ── Generate new code ───────────────────────────────────────────────────
+    const otp     = generateOtp();
+    const otpHash = hashOtp(otp);
+
+    await User.findByIdAndUpdate(userId, {
+      verificationCode:       otpHash,
+      verificationExpiresAt:  new Date(Date.now() + 10 * 60 * 1000),
+      verificationAttempts:   0,
+      lastVerificationSentAt: new Date(),
+    });
+
+    await sendVerificationEmail(user.email, user.name, otp);
+
+    return res.status(200).json({ success: true, message: "New verification code sent." });
+  } catch (error) {
+    console.error("[ResendVerification]", error);
+    return res.status(500).json({ success: false, message: "Failed to resend: " + error.message });
   }
 }
 
@@ -180,7 +357,38 @@ export async function SendOtp(req, res) {
   }
 }
 
-// GET current admin user — alias used by init flow
-export async function getMe2(req, res) {
-  return getMe(req, res);
+// ── PUT /api/auth/change-password (authenticated) ────────────────────────────
+export async function changePassword(req, res) {
+  const { currentPassword, newPassword } = req.body;
+  const userId = req.user._id;
+
+  if (!currentPassword || !newPassword) {
+    return res.status(400).json({ success: false, message: "Both current and new password are required." });
+  }
+  if (newPassword.length < 8) {
+    return res.status(400).json({ success: false, message: "New password must be at least 8 characters." });
+  }
+  if (currentPassword === newPassword) {
+    return res.status(400).json({ success: false, message: "New password must be different from current password." });
+  }
+
+  try {
+    const user = await User.findById(userId).select("+password");
+    if (!user) return res.status(404).json({ success: false, message: "User not found." });
+
+    // Verify current password
+    const isMatch = await user.matchPassword(currentPassword);
+    if (!isMatch) {
+      return res.status(401).json({ success: false, message: "Current password is incorrect." });
+    }
+
+    // Save new password — pre-save hook hashes it
+    user.password = newPassword;
+    await user.save();
+
+    return res.status(200).json({ success: true, message: "Password changed successfully." });
+  } catch (error) {
+    console.error("[changePassword]", error);
+    return res.status(500).json({ success: false, message: "Password change failed: " + error.message });
+  }
 }

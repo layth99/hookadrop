@@ -7,14 +7,16 @@ const protectRoute = async (req, res, next) => {
     const token = authHeader && authHeader.split(" ")[1];
 
     if (!token) {
-      return res
-        .status(401)
-        .json({ error: "Unauthorized - No Token Provided" });
+      return res.status(401).json({ error: "Unauthorized - No Token Provided" });
     }
 
-    const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
-
-    if (!decoded) {
+    let decoded;
+    try {
+      decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+    } catch (jwtErr) {
+      if (jwtErr.name === "TokenExpiredError") {
+        return res.status(401).json({ error: "Session expired. Please sign in again." });
+      }
       return res.status(401).json({ error: "Unauthorized - Invalid Token" });
     }
 
@@ -25,10 +27,9 @@ const protectRoute = async (req, res, next) => {
     }
 
     req.user = user;
-
     next();
   } catch (error) {
-    console.log("Error in protectRoute middleware: ", error.message);
+    console.error("Error in protectRoute middleware:", error.message);
     res.status(500).json({ error: "Internal server error" });
   }
 };

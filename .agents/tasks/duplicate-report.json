@@ -1,0 +1,66 @@
+{
+  "totalProducts": 38,
+  "perCategory": {
+    "Cleaning": 6,
+    "Coals": 6,
+    "Foyers": 7,
+    "Full packs": 5,
+    "Hookah": 8,
+    "Hookahs": 1,
+    "Tobacco": 5
+  },
+  "exactDuplicates": [],
+  "nearDuplicates": [],
+  "tobaccoProducts": [
+    {
+      "_id": "6ac476d12295b5e5450ad47b",
+      "name": "Booster Ways",
+      "category": "Tobacco",
+      "price": 900,
+      "stock": 43,
+      "image": "/uploads/products/booster_ways_1791260369159.png",
+      "createdAt": "2026-10-06T04:19:29.163Z",
+      "updatedAt": "2026-10-06T04:19:29.163Z"
+    },
+    {
+      "_id": "6ac476d12295b5e5450ad47e",
+      "name": "Ice Frutz 50",
+      "category": "Tobacco",
+      "price": 750,
+      "stock": 25,
+      "image": "/uploads/products/ice_frutz_50_1791260369270.png",
+      "createdAt": "2026-10-06T04:19:29.274Z",
+      "updatedAt": "2026-10-06T04:19:29.274Z"
+    },
+    {
+      "_id": "6ac476d12295b5e5450ad481",
+      "name": "Icecool 300",
+      "category": "Tobacco",
+      "price": 1100,
+      "stock": 10,
+      "image": "/uploads/products/icecool_300__1791260369387.png",
+      "createdAt": "2026-10-06T04:19:29.393Z",
+      "updatedAt": "2026-10-06T04:19:29.393Z"
+    },
+    {
+      "_id": "6ac476d12295b5e5450ad484",
+      "name": "Ways 200 Grammes",
+      "category": "Tobacco",
+      "price": 850,
+      "stock": 36,
+      "image": "/uploads/products/ways_200-grammes_1791260369527.png",
+      "createdAt": "2026-10-06T04:19:29.532Z",
+      "updatedAt": "2026-10-06T04:19:29.532Z"
+    },
+    {
+      "_id": "6ac476d12295b5e5450ad487",
+      "name": "Zero 200 Grammes",
+      "category": "Tobacco",
+      "price": 850,
+      "stock": 15,
+      "image": "/uploads/products/zero_200-grammes_1791260369664.png",
+      "createdAt": "2026-10-06T04:19:29.668Z",
+      "updatedAt": "2026-10-06T04:19:29.668Z"
+    }
+  ]
+}

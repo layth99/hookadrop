@@ -17,6 +17,17 @@ const productSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+// Normalize name before saving: trim and collapse multiple spaces
+productSchema.pre('save', function(next) {
+  if (this.isModified('name')) {
+    this.name = this.name.trim().replace(/\s+/g, ' ');
+  }
+  if (this.isModified('category')) {
+    this.category = this.category.trim();
+  }
+  next();
+});
+
 // Create a compound unique index on name+category to prevent duplicates
 productSchema.index({ name: 1, category: 1 }, { unique: true });
 

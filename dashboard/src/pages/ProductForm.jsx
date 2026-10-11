@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import api from '../utils/api'
 import toast from 'react-hot-toast'
@@ -75,6 +75,9 @@ const ProductForm = () => {
   const [submitting, setSubmitting]       = useState(false)
   const [categories, setCategories]       = useState([])
   const [uploadingField, setUploadingField] = useState(null)
+
+  // Cache duplicate check result to avoid unnecessary API calls
+  const duplicateCheckCache = useRef({ key: '', hasMatch: false })
 
   const [form, setForm] = useState({
     name: '', description: '', price: '', discount: '0',
@@ -161,30 +164,56 @@ const ProductForm = () => {
 
     // ── Pre-submit duplicate check (only for new products) ────────────────────
     if (!isEdit) {
-      try {
-        const { data } = await api.get('/products', {
-          params: { name: form.name, category: form.category, limit: 10 }
-        })
-        const list = Array.isArray(data) ? data : (data?.data ?? [])
-        const matches = list.filter(p => 
-          p.name.toLowerCase().trim() === form.name.toLowerCase().trim() &&
-          p.category.toLowerCase().trim() === form.category.toLowerCase().trim()
-        )
-        if (matches.length > 0) {
-          const confirmed = window.confirm(
-            `A product named "${form.name}" already exists in ${form.category}.\n\n` +
-            `Do you want to edit the existing product instead?`
+      // Cache check based on name+category to avoid redundant API calls
+      const checkKey = `${form.name.toLowerCase().trim()}|${form.category.toLowerCase().trim()}`
+      
+      // Skip check if we already checked this exact name+category combination
+      if (duplicateCheckCache.current.key !== checkKey) {
+        try {
+          const { data } = await api.get('/products', {
+            params: { name: form.name, category: form.category, limit: 10 }
+          })
+          const list = Array.isArray(data) ? data : (data?.data ?? [])
+          const matches = list.filter(p => 
+            p.name.toLowerCase().trim() === form.name.toLowerCase().trim() &&
+            p.category.toLowerCase().trim() === form.category.toLowerCase().trim()
           )
-          if (confirmed) {
-            navigate(`/products/edit/${matches[0]._id}`)
-            return
-          } else {
-            return // User chose to cancel
+          
+          // Cache the result
+          duplicateCheckCache.current = { 
+            key: checkKey, 
+            hasMatch: matches.length > 0,
+            matchId: matches.length > 0 ? matches[0]._id : null
           }
+          
+          if (matches.length > 0) {
+            const confirmed = window.confirm(
+              `A product named "${form.name}" already exists in ${form.category}.\n\n` +
+              `Do you want to edit the existing product instead?`
+            )
+            if (confirmed) {
+              navigate(`/products/edit/${matches[0]._id}`)
+              return
+            } else {
+              return // User chose to cancel
+            }
+          }
+        } catch (err) {
+          // Ignore check failure — let the backend reject if duplicate
+          console.warn('Duplicate check failed:', err.message)
         }
-      } catch (err) {
-        // Ignore check failure — let the backend reject if duplicate
-        console.warn('Duplicate check failed:', err.message)
+      } else if (duplicateCheckCache.current.hasMatch) {
+        // Use cached result
+        const confirmed = window.confirm(
+          `A product named "${form.name}" already exists in ${form.category}.\n\n` +
+          `Do you want to edit the existing product instead?`
+        )
+        if (confirmed && duplicateCheckCache.current.matchId) {
+          navigate(`/products/edit/${duplicateCheckCache.current.matchId}`)
+          return
+        } else {
+          return // User chose to cancel
+        }
       }
     }
 

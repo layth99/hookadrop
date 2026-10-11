@@ -246,6 +246,27 @@ const OrderDetail = () => {
               <h2 className="text-base font-semibold text-gray-100">Payment Method</h2>
             </div>
             <p className="text-sm font-medium text-gray-200 capitalize">{order.paymentMethod}</p>
+
+            {/* Stripe payment details */}
+            {order.stripePaymentIntentId && (
+              <div className="mt-3 pt-3 border-t border-gray-800 space-y-1.5">
+                <div className="flex items-center gap-2">
+                  <span className="text-xs text-gray-500 uppercase tracking-wide">Stripe Status</span>
+                  <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold border ${
+                    order.stripePaymentStatus === 'succeeded'
+                      ? 'bg-green-900/40 text-green-300 border-green-700/60'
+                      : order.stripePaymentStatus === 'failed'
+                      ? 'bg-red-900/40 text-red-300 border-red-700/60'
+                      : 'bg-yellow-900/40 text-yellow-300 border-yellow-700/60'
+                  }`}>
+                    {order.stripePaymentStatus || 'pending'}
+                  </span>
+                </div>
+                <p className="text-xs text-gray-600 font-mono break-all">
+                  {order.stripePaymentIntentId}
+                </p>
+              </div>
+            )}
           </div>
 
           {/* Customer */}
