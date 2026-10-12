@@ -1,0 +1,34 @@
+{
+  "id": "FEAT-003",
+  "type": "feat",
+  "description": "Admin dashboard: Notifications admin page that shows recent notifications sent to all users, with filters by type and user, and the ability to broadcast a custom announcement. Add to Sidebar nav and App.jsx routes. Independent of FEAT-002 (depends only on FEAT-001 backend). Can be implemented after FEAT-001.",
+  "status": "completed",
+  "steps": [
+    "Step 1 — Add admin notification endpoints to routes/notifications.js: The FEAT-001 coder adds the user-facing routes; this step adds admin-only routes to the same file. Append to the existing router (before `export default router`):\n  - `GET /admin/all` — requires protectRoute + requireRole('admin'). Returns paginated list of ALL notifications across all users, with population of the user field (name, email only). Query params: page, limit, type, userId. Returns {success, data, totalPages, total}.\n  - `POST /admin/broadcast` — requires protectRoute + requireRole('admin'). Body: {title, message, type='account', entityId?, entityType?}. Finds all users with notificationsEnabled:true, creates Notification documents for each, sends multicast FCM. Returns {success, sentCount}.\n  Import requireRole from '../middleware/requireRole.js' at the top of the file.",
+
+    "Step 2 — Create dashboard/src/pages/Notifications.jsx: React component following the exact visual pattern of Orders.jsx (dark theme, neon-gold accents, table layout, status badges, pagination). The page has two tabs: 'Recent Notifications' (read-only list from GET /api/notifications/admin/all) and 'Broadcast' (form to send a custom announcement via POST /api/notifications/admin/broadcast).\n\n  Recent tab: table with columns — User (name+email), Type (badge with color: order=blue, security=red, promo=gold, product=green, account=gray), Title, Message (truncated to 60 chars), Date, Read status. Filters: type dropdown, search by user email. Pagination at bottom. Use the `api` axios instance from `../utils/api`.\n\n  Broadcast tab: form with Title input (required), Message textarea (required), Type select (account/product/promo), Preview card showing how the notification will look. Submit button 'Send to All Users'. On success, show a toast 'Broadcast sent to N users' using react-hot-toast. Show a warning: 'This will send a push notification to all users with notifications enabled.'\n\n  Use lucide-react icons: Bell for the tab, Send for broadcast button, Users2 for recipient count. Use existing patterns from Orders.jsx for loading state (Loader component), error handling, and table styling. No new dependencies needed.",
+
+    "Step 3 — Add Notifications to Sidebar.jsx allNavItems array: In `dashboard/src/components/Sidebar.jsx`, add `Bell` to the lucide-react import: `import { ..., Bell } from 'lucide-react'`. Add to the `allNavItems` array (after the Promotions entry): `{ name: 'Notifications', path: '/notifications', icon: Bell, permission: 'analytics.view' }`. This makes the item visible to admins (analytics.view is the same permission used by Dashboard, meaning all authenticated non-restricted roles see it).",
+
+    "Step 4 — Add Notifications route to dashboard/src/App.jsx: Import the page: `import Notifications from './pages/Notifications'`. Add a new Route inside the authenticated Layout route (after the Promotions route):\n```jsx\n<Route\n  path=\"notifications\"\n  element={\n    <RequirePermission permission=\"analytics.view\">\n      <Notifications />\n    </RequirePermission>\n  }\n/>\n```"
+  ],
+  "acceptance_criteria": [
+    "GET /api/notifications/admin/all returns a paginated list of all notifications with user.name and user.email populated (admin JWT required).",
+    "POST /api/notifications/admin/broadcast creates Notification documents for all eligible users and returns {success:true, sentCount:N}.",
+    "The dashboard sidebar shows a 'Notifications' nav item when logged in as admin.",
+    "Navigating to /notifications in the dashboard shows the Recent Notifications table with real data.",
+    "The Broadcast tab form sends a POST to /api/notifications/admin/broadcast and shows a success toast.",
+    "A non-admin role (viewer, delivery) cannot access /api/notifications/admin/all (expect 403)."
+  ],
+  "verification": [
+    "Start the backend: `node server.js` — no startup errors.",
+    "Admin GET /api/notifications/admin/all with admin JWT — expect 200 with paginated results.",
+    "Non-admin GET /api/notifications/admin/all — expect 403.",
+    "Admin POST /api/notifications/admin/broadcast with {title:'Test',message:'Hello',type:'account'} — expect {success:true, sentCount:N}.",
+    "Start dashboard: cd dashboard && npm run dev — navigate to /notifications — confirm the page loads without React errors.",
+    "Verify Sidebar shows 'Notifications' link and clicking it navigates to the page.",
+    "Submit the Broadcast form — confirm toast 'Broadcast sent to N users' appears."
+  ],
+  "blocked_reason": null,
+  "findings": "Admin routes appended to routes/notifications.js before the existing export: GET /admin/all (paginated, populates user.name+email, supports ?type and ?userId filters) and POST /admin/broadcast (bulk-inserts Notification documents for all users with notificationsEnabled:true, fires multicast FCM via setImmediate fire-and-forget). requireRole imported at top of notifications.js. Dashboard page Notifications.jsx created at dashboard/src/pages/Notifications.jsx following Orders.jsx visual pattern exactly (dark theme, neon-gold accents, card layout, table with TypeBadge, pagination). Two tabs: Recent Notifications (fetches /api/notifications/admin/all with type filter + client-side email search) and Broadcast (form with preview card, react-hot-toast on success). Bell icon added to Sidebar.jsx lucide-react import; Notifications nav item appended after Promotions with permission analytics.view. Route added in App.jsx inside authenticated Layout after Promotions route. Dashboard build: `npm run build` exits 0 with no errors (only pre-existing chunk-size warning). routes/notifications.js loads cleanly via node --eval import test."
+}
