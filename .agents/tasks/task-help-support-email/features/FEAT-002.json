@@ -1,0 +1,31 @@
+{
+  "id": "FEAT-002",
+  "type": "feat",
+  "description": "Update HelpSupportActivity.kt to replace the fake 900ms delay with a real API call to POST /api/support. Depends on FEAT-001 (the endpoint must exist). The Android change is isolated to one method in one file.",
+  "status": "completed",
+  "steps": [
+    "Open 'c:\\Users\\GAMING\\Downloads\\raaa\\e-commerce-backend-main\\hookaDrop App\\HookahDrop\\app\\src\\main\\java\\com\\hookahdrop\\app\\HelpSupportActivity.kt'. Ensure these imports are present (add any that are missing): 'import kotlinx.coroutines.*', 'import androidx.lifecycle.lifecycleScope', 'import org.json.JSONObject'. The file already imports from com.hookahdrop.app.network and com.hookahdrop.app.data via BaseProfileActivity; ApiClient and session are available.",
+    "Replace the entire body of setupSubmit() — specifically the b.btnSubmit.setOnClickListener lambda — keeping the existing validation block (subject empty check, category == 0 check, description.length < 20 check) unchanged. After the validation passes, replace the fake postDelayed block with: b.btnSubmit.isEnabled = false; b.btnSubmit.text = \"Sending...\"; lifecycleScope.launch { val body = JSONObject().apply { put(\"subject\", subject); put(\"category\", b.spinnerCategory.selectedItem.toString()); put(\"description\", description); put(\"orderNumber\", b.etOrderNumber.text.toString().trim()) }; val response = com.hookahdrop.app.network.ApiClient.post(\"/api/support\", body, session.getJwtToken()); if (response.isSuccess) { showSuccessDialog(); clearForm() } else { toast(response.userFriendlyError()) }; b.btnSubmit.isEnabled = true; b.btnSubmit.text = \"Submit Request\" }. Keep showSuccessDialog() and clearForm() methods exactly as they are.",
+    "Do NOT change the layout XML, the FAQ section, the category spinner setup, or any other method in the file. Only setupSubmit() changes."
+  ],
+  "acceptance_criteria": [
+    "The Android project compiles without errors: .\\gradlew assembleDebug completes successfully",
+    "Tapping Submit with empty subject shows the existing field error (no API call made)",
+    "Tapping Submit with valid fields disables the button and shows 'Sending...' text while the request is in flight",
+    "On success, the success dialog appears and the form is cleared",
+    "On network error or server error, a toast with the error message is shown and the button is re-enabled",
+    "The admin email arrives at hookadrop@gmail.com after a successful submission from the app",
+    "The user confirmation email arrives at the logged-in user's email address"
+  ],
+  "verification": [
+    "Build: cd 'c:\\Users\\GAMING\\Downloads\\raaa\\e-commerce-backend-main\\hookaDrop App\\HookahDrop' && .\\gradlew assembleDebug — expect BUILD SUCCESSFUL",
+    "Install the APK on a device or emulator connected to the same network as the backend",
+    "Navigate to Profile > Help & Support, fill subject, select a category, enter a description of 20+ chars, tap Submit Request",
+    "Confirm: button disables briefly, success dialog appears, form clears",
+    "Confirm: admin email received at hookadrop@gmail.com",
+    "Confirm: confirmation email received at the test user's email",
+    "Turn off the backend server and repeat — confirm error toast appears and button re-enables"
+  ],
+  "blocked_reason": null,
+  "findings": "Replaced postDelayed fake simulation with lifecycleScope.launch { ApiClient.post('/api/support', body, session.getJwtToken()) }. Added imports: androidx.lifecycle.lifecycleScope, kotlinx.coroutines.launch, org.json.JSONObject. All validation logic and showSuccessDialog()/clearForm() methods left unchanged. Build: BUILD SUCCESSFUL (Gradle assembleDebug, 2m). Committed in the 'hookaDrop App' submodule (commit a9155bd). Note: session.getJwtToken() returns nullable String? which ApiClient.post() accepts as token parameter — no cast needed. The EMAIL_PASSWORD in .env must still be set to a real Gmail App Password for emails to actually deliver."
+}

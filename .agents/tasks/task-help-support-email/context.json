@@ -1,0 +1,27 @@
+{
+  "project_type": "Node.js/Express ES-module backend + Android (Kotlin) app",
+  "language": "JavaScript (backend, ES modules) + Kotlin (Android)",
+  "build_system": "Node.js with 'npm run dev' (nodemon server.js) for backend. Android: Gradle via './gradlew assembleDebug' from 'hookaDrop App/HookahDrop/'.",
+  "test_framework": "No automated test suite present. Verification is manual: curl for backend, app build + device/emulator run for Android.",
+  "build_command": "npm run dev  (backend) | .\\gradlew assembleDebug  (Android, from 'hookaDrop App\\HookahDrop\\')",
+  "test_command": "Manual curl test for backend. Android: .\\gradlew assembleDebug then install on device/emulator.",
+  "verification_instructions": "Backend: start with 'npm run dev', get JWT via POST /api/auth/login, then POST /api/support with Authorization header. Android: run .\\gradlew assembleDebug, install APK, fill Help & Support form, tap Submit.",
+  "snapshot_or_generated_files": null,
+  "environment_constraints": "server.js uses ES modules ('type: module' in package.json) — all new .js files must use import/export syntax, not require(). EMAIL_PASSWORD in .env must be a Gmail App Password, not the regular Gmail password.",
+  "contribution_requirements": "Follow existing ES module pattern. No new npm dependencies needed (nodemailer already installed). New route files must follow the import-router-export-default pattern. Controller functions must be named exports.",
+  "key_patterns": "Routes: import protectRoute from '../middleware/protectRoute.js'; router.post('/', protectRoute, handler); export default router. Controllers: named async export function handler(req, res). Email: import { mailSender } from '../controller/mailerSender.js'; await mailSender(toAddress, subject, htmlString). Android HTTP calls: lifecycleScope.launch { val resp = ApiClient.post('/api/path', JSONObject(...), session.getJwtToken()); if (resp.isSuccess) { ... } else { toast(resp.userFriendlyError()) } }.",
+  "relevant_files": [
+    "c:\\Users\\GAMING\\Downloads\\raaa\\e-commerce-backend-main\\server.js",
+    "c:\\Users\\GAMING\\Downloads\\raaa\\e-commerce-backend-main\\controller\\mailerSender.js",
+    "c:\\Users\\GAMING\\Downloads\\raaa\\e-commerce-backend-main\\routes\\profile.js",
+    "c:\\Users\\GAMING\\Downloads\\raaa\\e-commerce-backend-main\\routes\\user.js",
+    "c:\\Users\\GAMING\\Downloads\\raaa\\e-commerce-backend-main\\middleware\\protectRoute.js",
+    "c:\\Users\\GAMING\\Downloads\\raaa\\e-commerce-backend-main\\hookaDrop App\\HookahDrop\\app\\src\\main\\java\\com\\hookahdrop\\app\\HelpSupportActivity.kt",
+    "c:\\Users\\GAMING\\Downloads\\raaa\\e-commerce-backend-main\\hookaDrop App\\HookahDrop\\app\\src\\main\\java\\com\\hookahdrop\\app\\network\\ApiClient.kt",
+    "c:\\Users\\GAMING\\Downloads\\raaa\\e-commerce-backend-main\\hookaDrop App\\HookahDrop\\app\\src\\main\\java\\com\\hookahdrop\\app\\data\\SessionManager.kt",
+    "c:\\Users\\GAMING\\Downloads\\raaa\\e-commerce-backend-main\\hookaDrop App\\HookahDrop\\app\\src\\main\\java\\com\\hookahdrop\\app\\BaseProfileActivity.kt",
+    "c:\\Users\\GAMING\\Downloads\\raaa\\e-commerce-backend-main\\hookaDrop App\\HookahDrop\\app\\src\\main\\res\\layout\\activity_help_support.xml",
+    "c:\\Users\\GAMING\\Downloads\\raaa\\e-commerce-backend-main\\.env"
+  ],
+  "directory_structure": "e-commerce-backend-main/ — root of Node.js backend. controller/ — business logic (mailerSender.js is key). routes/ — Express routers, one file per domain. middleware/ — protectRoute.js, requireRole.js. hookaDrop App/HookahDrop/ — Android project root. app/src/main/java/com/hookahdrop/app/ — Kotlin source. network/ — ApiClient.kt (HTTP) and ApiModels.kt (JSON mapping). data/ — SessionManager.kt (auth token, user info). app/src/main/res/layout/ — XML layouts including activity_help_support.xml."
+}
