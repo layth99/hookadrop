@@ -77,9 +77,10 @@ router.get("/preferences", protectRoute, async (req, res) => {
   }
 });
 
-// ── PATCH /api/notifications/read-all — mark all as read ────────────────────
+// ── PATCH|PUT /api/notifications/read-all — mark all as read ────────────────
 // Must come BEFORE /:id/read to avoid "read-all" being matched as an :id
-router.patch("/read-all", protectRoute, async (req, res) => {
+// PUT alias: Android ApiClient has no patch() method so it calls put()
+const markAllReadHandler = async (req, res) => {
   try {
     await Notification.updateMany(
       { user: req.user._id, isRead: false },
@@ -90,10 +91,13 @@ router.patch("/read-all", protectRoute, async (req, res) => {
     console.error("[PATCH /notifications/read-all]", error.message);
     return res.status(500).json({ success: false, message: "Failed to mark all as read" });
   }
-});
+};
+router.patch("/read-all", protectRoute, markAllReadHandler);
+router.put("/read-all",   protectRoute, markAllReadHandler);
 
-// ── PATCH /api/notifications/preferences ─────────────────────────────────────
-router.patch("/preferences", protectRoute, async (req, res) => {
+// ── PATCH|PUT /api/notifications/preferences ─────────────────────────────────
+// PUT alias: Android ApiClient has no patch() method so it calls put()
+const updatePreferencesHandler = async (req, res) => {
   try {
     const { fcmToken, notificationsEnabled } = req.body;
 
@@ -116,10 +120,13 @@ router.patch("/preferences", protectRoute, async (req, res) => {
     console.error("[PATCH /notifications/preferences]", error.message);
     return res.status(500).json({ success: false, message: "Failed to update preferences" });
   }
-});
+};
+router.patch("/preferences", protectRoute, updatePreferencesHandler);
+router.put("/preferences",   protectRoute, updatePreferencesHandler);
 
-// ── PATCH /api/notifications/:id/read ────────────────────────────────────────
-router.patch("/:id/read", protectRoute, async (req, res) => {
+// ── PATCH|PUT /api/notifications/:id/read ────────────────────────────────────
+// PUT alias: Android ApiClient has no patch() method so it calls put()
+const markOneReadHandler = async (req, res) => {
   try {
     if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
       return res.status(400).json({ success: false, message: "Invalid notification ID" });
@@ -142,7 +149,9 @@ router.patch("/:id/read", protectRoute, async (req, res) => {
     console.error("[PATCH /notifications/:id/read]", error.message);
     return res.status(500).json({ success: false, message: "Failed to mark as read" });
   }
-});
+};
+router.patch("/:id/read", protectRoute, markOneReadHandler);
+router.put("/:id/read",   protectRoute, markOneReadHandler);
 
 // ── DELETE /api/notifications/:id ────────────────────────────────────────────
 router.delete("/:id", protectRoute, async (req, res) => {
