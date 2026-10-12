@@ -14,6 +14,7 @@ import ProductForm from './pages/ProductForm'
 import OrderDetail from './pages/OrderDetail'
 import Profile from './pages/Profile'
 import Promotions from './pages/Promotions'
+import Notifications from './pages/Notifications'
 
 /**
  * Guards a route by permission.
@@ -115,6 +116,16 @@ function App() {
           element={
             <RequirePermission permission="products.view">
               <Promotions />
+            </RequirePermission>
+          }
+        />
+
+        {/* Notifications */}
+        <Route
+          path="notifications"
+          element={
+            <RequirePermission permission="analytics.view">
+              <Notifications />
             </RequirePermission>
           }
         />

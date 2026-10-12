@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import Notification from "../models/Notification.js";
 import User from "../models/User.js";
 import protectRoute from "../middleware/protectRoute.js";
+import requireRole from "../middleware/requireRole.js";
 
 const router = express.Router();
 
@@ -166,4 +167,104 @@ router.delete("/:id", protectRoute, async (req, res) => {
   }
 });
 
+// ── ADMIN ROUTES ─────────────────────────────────────────────────────────────
+
+// ── GET /api/notifications/admin/all — paginated all notifications (admin) ──
+router.get(
+  "/admin/all",
+  protectRoute,
+  requireRole("admin"),
+  async (req, res) => {
+    try {
+      const page   = Math.max(1, parseInt(req.query.page,  10) || 1);
+      const limit  = Math.max(1, parseInt(req.query.limit, 10) || 20);
+      const filter = {};
+
+      if (req.query.type)   filter.type = req.query.type;
+      if (req.query.userId) filter.user = req.query.userId;
+
+      const [notifications, total] = await Promise.all([
+        Notification.find(filter)
+          .populate("user", "name email")
+          .sort({ createdAt: -1 })
+          .skip((page - 1) * limit)
+          .limit(limit),
+        Notification.countDocuments(filter),
+      ]);
+
+      return res.status(200).json({
+        success:    true,
+        data:       notifications,
+        totalPages: Math.ceil(total / limit),
+        total,
+        currentPage: page,
+      });
+    } catch (error) {
+      console.error("[GET /notifications/admin/all]", error.message);
+      return res.status(500).json({ success: false, message: "Failed to fetch notifications" });
+    }
+  }
+);
+
+// ── POST /api/notifications/admin/broadcast — send announcement to all users ─
+router.post(
+  "/admin/broadcast",
+  protectRoute,
+  requireRole("admin"),
+  async (req, res) => {
+    try {
+      const { title, message, type = "account", entityId, entityType } = req.body;
+
+      if (!title || !title.trim()) {
+        return res.status(400).json({ success: false, message: "Title is required" });
+      }
+      if (!message || !message.trim()) {
+        return res.status(400).json({ success: false, message: "Message is required" });
+      }
+
+      // Find all users with notifications enabled
+      const users = await User.find({ notificationsEnabled: true }).select("_id fcmToken");
+
+      if (!users.length) {
+        return res.status(200).json({ success: true, sentCount: 0 });
+      }
+
+      // Bulk-insert notification documents
+      const docs = users.map((u) => ({
+        user:       u._id,
+        type:       type || "account",
+        title:      title.trim(),
+        message:    message.trim(),
+        entityId:   entityId || null,
+        entityType: entityType || null,
+        isRead:     false,
+        metadata:   { broadcast: true },
+      }));
+
+      await Notification.insertMany(docs);
+
+      // Fire-and-forget multicast FCM push
+      const tokens = users.map((u) => u.fcmToken).filter(Boolean);
+      if (tokens.length) {
+        setImmediate(async () => {
+          try {
+            const { sendMulticastNotification } = await import("../services/fcmService.js");
+            await sendMulticastNotification(tokens, title.trim(), message.trim(), {
+              type: type || "account",
+            });
+          } catch (e) {
+            console.error("[broadcast FCM]", e.message);
+          }
+        });
+      }
+
+      return res.status(200).json({ success: true, sentCount: users.length });
+    } catch (error) {
+      console.error("[POST /notifications/admin/broadcast]", error.message);
+      return res.status(500).json({ success: false, message: "Failed to send broadcast" });
+    }
+  }
+);
+
 export default router;
+
