@@ -250,6 +250,7 @@ export async function notifyPromoApplied(userId, promoCode, discountAmount, orde
 /**
  * Notify on security events (new_login, password_changed).
  * DB-only — no push notification, so it always reaches the notification center.
+ * Includes a 10-minute recency guard for new_login to prevent login-flood spam.
  */
 export async function notifySecurityEvent(userId, eventType) {
   try {
@@ -260,6 +261,19 @@ export async function notifySecurityEvent(userId, eventType) {
 
     const copy = SECURITY_COPY[eventType];
     if (!copy) return;
+
+    // Deduplication guard for new_login: skip if a new_login notification already
+    // exists for this user within the last 10 minutes.
+    if (eventType === "new_login") {
+      const tenMinutesAgo = new Date(Date.now() - 10 * 60 * 1000);
+      const recent = await Notification.findOne({
+        user: userId,
+        type: "security",
+        title: copy.title,
+        createdAt: { $gte: tenMinutesAgo },
+      }).lean();
+      if (recent) return; // Duplicate — skip
+    }
 
     await createNotification(
       userId,

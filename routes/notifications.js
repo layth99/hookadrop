@@ -231,6 +231,16 @@ router.post(
         return res.status(400).json({ success: false, message: "Message is required" });
       }
 
+      // Validate type against the Notification model's enum to avoid Mongoose ValidationError
+      const VALID_TYPES = ["order", "security", "product", "promo", "account"];
+      const resolvedType = type || "account";
+      if (!VALID_TYPES.includes(resolvedType)) {
+        return res.status(400).json({
+          success: false,
+          message: `Invalid type "${resolvedType}". Must be one of: ${VALID_TYPES.join(", ")}.`,
+        });
+      }
+
       // Find all users with notifications enabled
       const users = await User.find({ notificationsEnabled: true }).select("_id fcmToken");
 
@@ -241,7 +251,7 @@ router.post(
       // Bulk-insert notification documents
       const docs = users.map((u) => ({
         user:       u._id,
-        type:       type || "account",
+        type:       resolvedType,
         title:      title.trim(),
         message:    message.trim(),
         entityId:   entityId || null,
@@ -259,7 +269,7 @@ router.post(
           try {
             const { sendMulticastNotification } = await import("../services/fcmService.js");
             await sendMulticastNotification(tokens, title.trim(), message.trim(), {
-              type: type || "account",
+              type: resolvedType,
             });
           } catch (e) {
             console.error("[broadcast FCM]", e.message);
