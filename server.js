@@ -18,6 +18,7 @@ import profileRoutes from "./routes/profile.js";
 import uploadRoutes from "./routes/upload.js";
 import stripeRoutes from "./routes/stripe.js";
 import promotionRoutes from "./routes/promotion.js";
+import supportRoutes from "./routes/support.js";
 import { fileURLToPath } from "url";
 import path from "path";
 
@@ -72,6 +73,7 @@ app.use("/api/upload",     uploadRoutes);
 app.use("/api/stripe",      stripeRoutes);
 app.use("/api/admin/promotions", promotionRoutes);
 app.use("/api/promotions",       promotionRoutes);
+app.use("/api/support",          supportRoutes);
 
 app.use("*", (req, res) => res.status(404).json({ error: "Not found" }));
 
