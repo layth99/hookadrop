@@ -41,6 +41,14 @@ export async function Login(req, res) {
     const userObj = user.toObject();
     delete userObj.password;
 
+    // Fire security notification (non-blocking)
+    setImmediate(async () => {
+      try {
+        const { notifySecurityEvent } = await import("../services/notificationService.js");
+        await notifySecurityEvent(user._id, "new_login");
+      } catch (e) {}
+    });
+
     return res.status(200).json({ user: userObj, token, message: "Login Successful" });
   } catch (error) {
     console.error(error);
@@ -385,6 +393,14 @@ export async function changePassword(req, res) {
     // Save new password — pre-save hook hashes it
     user.password = newPassword;
     await user.save();
+
+    // Fire security notification (non-blocking)
+    setImmediate(async () => {
+      try {
+        const { notifySecurityEvent } = await import("../services/notificationService.js");
+        await notifySecurityEvent(userId, "password_changed");
+      } catch (e) {}
+    });
 
     return res.status(200).json({ success: true, message: "Password changed successfully." });
   } catch (error) {

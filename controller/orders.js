@@ -78,6 +78,19 @@ export const createOrder = async (req, res) => {
       );
     }
 
+    // Notify order placed
+    setImmediate(async () => {
+      try {
+        const { notifyOrderPlaced, notifyPromoApplied } = await import("../services/notificationService.js");
+        await notifyOrderPlaced(order, req.user?._id);
+        if (req.body.promoCode && req.user?._id) {
+          await notifyPromoApplied(req.user._id, req.body.promoCode, req.body.discountAmount || 0, order.orderId || order._id);
+        }
+      } catch (e) {
+        console.error("[notify]", e);
+      }
+    });
+
     return res.status(201).json({ success: true, data: order });
   } catch (error) {
     console.error("Error creating order:", error);
@@ -160,6 +173,17 @@ export const updateOrderStatus = async (req, res) => {
     }
 
     await order.save();
+
+    // Notify order status update
+    setImmediate(async () => {
+      try {
+        const { notifyOrderUpdate } = await import("../services/notificationService.js");
+        await notifyOrderUpdate(order, status);
+      } catch (e) {
+        console.error("[notify]", e);
+      }
+    });
+
     return res.status(200).json({ success: true, data: order });
   } catch (error) {
     console.error("Error updating order status:", error);

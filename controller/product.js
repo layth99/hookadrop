@@ -162,6 +162,17 @@ export const createProduct = async (req, res) => {
     });
 
     await product.save();
+
+    // Notify all users about new product (fire-and-forget)
+    setImmediate(async () => {
+      try {
+        const { notifyNewProduct } = await import("../services/notificationService.js");
+        await notifyNewProduct(product);
+      } catch (e) {
+        console.error("[notify]", e);
+      }
+    });
+
     res.status(201).json({ success: true, data: product });
   } catch (error) {
     console.error("Error creating product:", error);

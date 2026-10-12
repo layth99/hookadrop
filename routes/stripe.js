@@ -355,6 +355,16 @@ router.post("/confirm-payment", protectRoute, async (req, res) => {
     // Increment soldCount for each product now that payment is confirmed
     await incrementSoldCount(updatedOrder);
 
+    // Notify payment success
+    setImmediate(async () => {
+      try {
+        const { notifyPaymentSuccess } = await import("../services/notificationService.js");
+        await notifyPaymentSuccess(updatedOrder, req.user._id);
+      } catch (e) {
+        console.error("[notify]", e);
+      }
+    });
+
     console.log(`[confirm-payment] Order ${order.orderId} marked as paid via PI ${pi.id}`);
     res.json({ success: true, message: "Payment confirmed and order updated" });
   } catch (err) {
@@ -505,6 +515,16 @@ router.post(
               // Increment soldCount for each product now that payment is confirmed
               await incrementSoldCount(updated);
               console.log(`[webhook] Order ${updated.orderId} marked as paid`);
+
+              // Notify payment success (fire-and-forget)
+              setImmediate(async () => {
+                try {
+                  const { notifyPaymentSuccess } = await import("../services/notificationService.js");
+                  await notifyPaymentSuccess(updated, updated?.user);
+                } catch (e) {
+                  console.error("[notify]", e);
+                }
+              });
             } else {
               console.log(`[webhook] PaymentIntent ${pi.id} — order not found or already paid (idempotent skip)`);
             }
@@ -521,10 +541,22 @@ router.post(
           console.warn(`[webhook] PaymentIntent failed: ${pi.id}`, pi.last_payment_error?.message);
           try {
             const Order = (await import("../models/Order.js")).default;
-            await Order.findOneAndUpdate(
+            const updated = await Order.findOneAndUpdate(
               { stripePaymentIntentId: pi.id },
-              { stripePaymentStatus: "failed" }
+              { stripePaymentStatus: "failed" },
+              { new: true }
             );
+
+            if (updated) {
+              setImmediate(async () => {
+                try {
+                  const { notifyPaymentFailed } = await import("../services/notificationService.js");
+                  await notifyPaymentFailed(updated, updated?.user);
+                } catch (e) {
+                  console.error("[notify]", e);
+                }
+              });
+            }
           } catch (dbErr) {
             console.error("[webhook] DB update (failed pi) error:", dbErr.message);
           }
