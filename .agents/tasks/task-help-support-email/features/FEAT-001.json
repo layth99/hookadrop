@@ -1,0 +1,32 @@
+{
+  "id": "FEAT-001",
+  "type": "feat",
+  "description": "Create the backend POST /api/support endpoint. This feature is independent of FEAT-002 (Android) and must be completed first so the Android feature has a real endpoint to call.",
+  "status": "pending",
+  "steps": [
+    "Create 'c:\\Users\\GAMING\\Downloads\\raaa\\e-commerce-backend-main\\controller\\supportController.js'. This is an ES module file. Export one named async function: 'export const submitSupportRequest = async (req, res) => { ... }'. Inside: (1) destructure subject, category, description, orderNumber from req.body; (2) return res.status(400).json({ error: 'subject, category, and description are required.' }) if subject is falsy, category is falsy, or description.length < 20; (3) get userName and userEmail from req.user (protectRoute populates req.user — use req.user.fullname || req.user.name || req.user.username for the name and req.user.email for the email); (4) build adminHtml: an HTML email in the HookaDrop dark theme (background #0A0A0A, card background #111, accent #FFD000, text #CCCCCC) listing all fields: Subject, Category, Description, Order Number (if provided), submitted by (user name + email); (5) build confirmHtml: a simpler confirmation email to the user saying their request was received and the team will reply within 24 hours; (6) import { mailSender } from '../controller/mailerSender.js'; (7) await mailSender('hookadrop@gmail.com', 'New Support Request: ' + subject, adminHtml); (8) call mailSender(userEmail, 'We received your request — HookaDrop Support', confirmHtml) without await (fire-and-forget, wrap in .catch() to log errors); (9) return res.status(200).json({ success: true, message: 'Support request received. We\\'ll get back to you within 24 hours.' }); wrap the whole thing in try/catch and return res.status(500).json({ error: 'Failed to send support email. Please try again.' }) on catch.",
+    "Create 'c:\\Users\\GAMING\\Downloads\\raaa\\e-commerce-backend-main\\routes\\support.js'. ES module file. Import express, protectRoute from '../middleware/protectRoute.js', and submitSupportRequest from '../controller/supportController.js'. Define router = express.Router(). Register router.post('/', protectRoute, submitSupportRequest). Export default router.",
+    "Modify 'c:\\Users\\GAMING\\Downloads\\raaa\\e-commerce-backend-main\\server.js'. Add import line: 'import supportRoutes from \"./routes/support.js\";' alongside the existing route imports (after line importing promotionRoutes). Add mount line: 'app.use(\"/api/support\", supportRoutes);' after the existing 'app.use(\"/api/promotions\", promotionRoutes);' line."
+  ],
+  "acceptance_criteria": [
+    "GET /api/support returns 404 (only POST is registered)",
+    "POST /api/support without Authorization header returns 401",
+    "POST /api/support with valid JWT but missing subject returns 400 with error field",
+    "POST /api/support with valid JWT and all required fields returns 200 { success: true, message: '...' }",
+    "An HTML email arrives at hookadrop@gmail.com containing the subject, category, description, order number, and user's name and email",
+    "A confirmation email arrives at the test user's email address",
+    "Server starts without errors after the change (npm run dev produces no SyntaxError or Cannot find module)"
+  ],
+  "verification": [
+    "Start server: cd 'c:\\Users\\GAMING\\Downloads\\raaa\\e-commerce-backend-main' && npm run dev — confirm no startup errors",
+    "Get JWT: POST http://localhost:8000/api/auth/login with valid test credentials",
+    "Test missing fields: curl -X POST http://localhost:8000/api/support -H 'Content-Type: application/json' -H 'Authorization: Bearer <token>' -d '{\"subject\":\"\",\"category\":\"Order\",\"description\":\"short\"}' — expect 400",
+    "Test no auth: curl -X POST http://localhost:8000/api/support -H 'Content-Type: application/json' -d '{\"subject\":\"Test\",\"category\":\"Order\",\"description\":\"This is a detailed description with enough chars.\"}' — expect 401",
+    "Test success: curl -X POST http://localhost:8000/api/support -H 'Content-Type: application/json' -H 'Authorization: Bearer <token>' -d '{\"subject\":\"Test subject\",\"category\":\"Order\",\"description\":\"This is a detailed description with enough chars.\",\"orderNumber\":\"\"}' — expect 200 {\"success\":true,...}",
+    "Check hookadrop@gmail.com inbox for the admin notification email",
+    "Check test user's email inbox for the confirmation email"
+  ],
+  "blocked_reason": null,
+  "findings": "Endpoint is mounted at POST /api/support. req.user fields: req.user.name (primary), req.user.email (confirmed from User model — field is 'name', not 'fullname' or 'username'). The controller handles name fallback as: req.user.fullname || req.user.name || req.user.username. Verification confirmed: GET /api/support returns 404, POST without Authorization header returns 401 {error: 'Unauthorized - No Token Provided'}, server starts cleanly ('Connected to MongoDB' + 'Server is running on port 8000'). EMAIL_PASSWORD in .env is currently 'your_app_password_here' (placeholder) — the Gmail App Password must be set before emails will actually send. The Android FEAT-002 should call POST /api/support with JSON body {subject, category, description, orderNumber} and Bearer token. Expected 200 response: {success: true, message: 'Support request received. We\\'ll get back to you within 24 hours.'}. Expected 400 response on missing/short fields: {error: 'subject, category, and description are required.'}.",
+  "status": "completed"
+}
