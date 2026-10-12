@@ -1,385 +1,267 @@
-# Product Duplication Bug Fix — Summary
+# Popular Products Fix — Implementation Summary
 
-## Diagnostic Results (Before Fix)
+## Issues Fixed
 
-**Database State:**
-- Total products: 38
-- Tobacco products: 5
-- **Exact duplicates in MongoDB: 0**
-- **Near-duplicates in MongoDB: 0**
+This implementation addresses three distinct problems in the HookaDrop e-commerce app:
 
-**Conclusion:** The database is clean. No duplicate documents exist in MongoDB.
+1. **Popular Products "Add to Favorites" does nothing** → Added heart button to product cards and wired it to FavoritesManager
+2. **Products added to cart from Popular Products show without photos** → Updated CartItemAdapter to load remote images using Glide
+3. **Popular Products must display most-sold products** → Added backend `soldCount` tracking and new `/api/products/popular` endpoint
 
-## Root Cause Confirmed
+---
 
-The product duplication is caused by **Android app's ProductSyncManager.kt** merging static products from `DataProvider.kt` with database products.
+## Changes Made
 
-**How it happens:**
-1. Static products in `DataProvider.kt` have IDs like `"p3"`, `"p11"`, `"p12"`, etc.
-2. Database products have MongoDB ObjectIds like `"6ac476d12295b5e5450ad47b"`
-3. ProductSyncManager merges both lists using product ID as the key
-4. Since IDs never match, **both versions are added to the display list**
-5. User sees 10 tobacco products (5 from DB + 5 static) instead of 5
+### Backend Changes
 
-**Example:**
-- DB product: `{ id: "6ac476d12295b5e5450ad47b", name: "Ways 200 Grammes" }`
-- Static product: `{ id: "p3", name: "Ways 200 Grammes" }`
-- Both appear in the app because `"6ac476d12295b5e5450ad47b" != "p3"`
-
-## Fixes Implemented
-
-### 1. ✅ Backend: Product Model — Added Unique Index
+#### 1. Product Model — Added `soldCount` Field
 **File:** `models/Product.js`
 
-**Change:** Added compound unique index on `(name, category)` to prevent future database-level duplicates.
+- Added `soldCount: { type: Number, default: 0 }` field to track sales
+- Field is automatically initialized to 0 for existing products
+- Field increments when orders are created
 
-```js
-productSchema.index({ name: 1, category: 1 }, { unique: true });
-```
+#### 2. Product Controller — New `getPopularProducts` Function
+**File:** `controller/product.js`
 
-**Impact:** Any future attempt to insert a product with the same name+category will fail with a MongoDB duplicate key error.
+- Created new controller function that queries products sorted by `soldCount` descending
+- Returns top 10 products with highest sales
+- Includes `categoryId` alias for Android app compatibility
 
----
+#### 3. Product Routes — New `/api/products/popular` Endpoint
+**File:** `routes/product.js`
 
-### 2. ✅ Backend: Product Controller — Added Duplicate Check
-**File:** `controller/product.js` → `createProduct` function
+- Added public route `GET /api/products/popular` (placed BEFORE `/api/products/:id` to avoid route collision)
+- No authentication required (consumed by home screen before login)
+- Returns JSON array of popular products
 
-**Change:** Before inserting a new product, check if one with the same name+category already exists.
+#### 4. Order Controller — Increment `soldCount` on Order Creation
+**File:** `controller/orders.js`
 
-```js
-const normalizedName = name.trim().replace(/\s+/g, ' ');
-const existing = await Product.findOne({
-  name: { $regex: new RegExp(`^${normalizedName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}$`, 'i') },
-  category: { $regex: new RegExp(`^${category.trim()}$`, 'i') }
-});
-if (existing) {
-  return res.status(409).json({
-    success: false,
-    error: `Product "${name}" already exists in category "${category}". Use the edit form to update it.`,
-    existingProductId: existing._id
-  });
-}
-```
+- Modified `createOrder` function to increment `soldCount` for each product in the order
+- Increments by the quantity ordered (`item.qty`)
+- Uses `$inc` operator for atomic updates
+- Error handling: logs failures but does not block order creation
 
-**Impact:** Dashboard admins cannot accidentally create duplicate products. The API returns a 409 Conflict error with a clear message.
-
-**Edge case handling:** Also catches MongoDB E11000 duplicate key errors from the unique index.
+**Verification:** Backend files passed syntax check with `node --check`
 
 ---
 
-### 3. ✅ Backend: seedProducts.js — Improved Duplicate Check
-**File:** `seedProducts.js`
+### Android Changes
 
-**Change:** Updated the duplicate check to include **both name AND category** (was name-only before). Also normalizes the name to handle whitespace variations.
+#### 5. RemoteDataProvider — New `getPopularProducts()` Method
+**File:** `hookaDrop App/HookahDrop/app/src/main/java/com/hookahdrop/app/data/RemoteDataProvider.kt`
 
-```js
-const normalizedName = productName.trim().replace(/\s+/g, ' ');
+- Added suspend function that calls `/api/products/popular`
+- Fallback: returns first 6 static products from DataProvider if backend is unavailable
+- Ensures app always displays something even when offline
 
-const existing = await Product.findOne({
-  name: { $regex: new RegExp(`^${normalizedName.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}$`, "i") },
-  category: { $regex: new RegExp(`^${catName}$`, "i") }
-});
-```
+#### 6. HomeActivity — Load Popular Products Instead of All Products
+**File:** `hookaDrop App/HookahDrop/app/src/main/java/com/hookahdrop/app/HomeActivity.kt`
 
-**Impact:** Running `seedProducts.js` multiple times will not create duplicates. Products are matched by (name, category) pair.
+- Changed `loadDataFromBackend()` to call `RemoteDataProvider.getPopularProducts()` instead of `getProducts()`
+- Displays top 6 popular products (sorted by sales) on home screen
+- Existing UI layout unchanged
 
----
+#### 7. Product Card Layout — Added Heart Button
+**File:** `hookaDrop App/HookahDrop/app/src/main/res/layout/item_product.xml`
 
-### 4. ✅ Android: ProductSyncManager.kt — Stop Merging Static Products
-**File:** `hookaDrop App/HookahDrop/app/src/main/java/com/hookahdrop/app/data/ProductSyncManager.kt`
+- Added `ImageView` with id `btnFavorite` positioned at bottom-right of product image
+- Size: 28dp × 28dp with 6dp margin and 4dp padding
+- Background: semi-transparent oval (`bg_favorite_button.xml`)
+- Icon: `ic_favorite` (outline) or `ic_favorite_filled` (solid) — existing drawables
 
-**Change:** **CRITICAL FIX** — Static products are now only used when the database is completely empty (offline mode). When DB returns any products, only DB products are displayed.
+**New file created:** `app/src/main/res/drawable/bg_favorite_button.xml` (semi-transparent black oval background)
 
-**Before:**
-```kotlin
-// Merge static products that are NOT in DB (offline gap filler)
-DataProvider.products.forEach { staticProduct ->
-    if (!freshMap.containsKey(staticProduct.id)) {
-        freshMap[staticProduct.id] = staticProduct
-    }
-}
-```
+#### 8. ProductAdapter — Wire Heart Button to FavoritesManager
+**File:** `hookaDrop App/HookahDrop/app/src/main/java/com/hookahdrop/app/adapter/ProductAdapter.kt`
 
-**After:**
-```kotlin
-// Only merge static products if the database is completely empty (offline mode)
-// If we have any DB products, they are the source of truth
-// Static products should NOT be displayed alongside live data
+- Added import for `FavoritesManager`
+- In `onBindViewHolder`: 
+  - Check if product is favorited and set icon accordingly (filled vs outline)
+  - Add click listener that toggles favorite state
+  - Animate heart icon with scale effect (1.0 → 1.3 → 1.0 over 300ms)
+  - Call `onFavoriteChanged()` callback to update UI
+- Works for both static and remote products
 
-productMap.clear()
-productMap.putAll(freshMap)  // Only DB products
-```
+#### 9. CartItemAdapter — Load Remote Images with Glide
+**File:** `hookaDrop App/HookahDrop/app/src/main/java/com/hookahdrop/app/adapter/CartItemAdapter.kt`
 
-**Impact:** 
-- When backend is reachable → only database products are shown
-- When backend is unreachable AND cache is empty → static fallback products are shown
-- **Duplication eliminated** — no more 10 tobacco products appearing in the app
-
----
-
-### 5. ✅ Dashboard: ProductForm.jsx — Added Duplicate Warning
-**File:** `dashboard/src/pages/ProductForm.jsx` → `handleSubmit` function
-
-**Change:** Before submitting a new product, check if one with the same name+category already exists. If yes, prompt the admin to edit the existing product instead.
-
-```js
-if (!isEdit) {
-  try {
-    const { data } = await api.get('/products', {
-      params: { name: form.name, category: form.category, limit: 10 }
-    })
-    const list = Array.isArray(data) ? data : (data?.data ?? [])
-    const matches = list.filter(p => 
-      p.name.toLowerCase().trim() === form.name.toLowerCase().trim() &&
-      p.category.toLowerCase().trim() === form.category.toLowerCase().trim()
-    )
-    if (matches.length > 0) {
-      const confirmed = window.confirm(
-        `A product named "${form.name}" already exists in ${form.category}.\n\n` +
-        `Do you want to edit the existing product instead?`
-      )
-      if (confirmed) {
-        navigate(`/products/edit/${matches[0]._id}`)
-        return
-      } else {
-        return // User chose to cancel
-      }
-    }
-  } catch (err) {
-    console.warn('Duplicate check failed:', err.message)
-  }
-}
-```
-
-**Impact:** 
-- Admin gets immediate feedback if they try to create a duplicate
-- Option to navigate to the existing product's edit page
-- Reduces accidental duplicate creation from double-clicks or browser back-button
+- Modified `onBindViewHolder` to check if product has `imageUrl` and `isRemote` flag
+- **Priority order:**
+  1. If remote product with valid `imageUrl` → load with Glide
+  2. Else if local product with `imageRes` → load with `setImageResource`
+  3. Else fallback to placeholder `ic_hookah_neon`
+- Added Glide options: `.placeholder()`, `.error()`, `.centerCrop()`
+- Ensures backend products (with Cloudinary URLs) display correctly in cart
 
 ---
 
-### 6. ✅ Database Cleanup Script Created
-**File:** `.agents/tasks/cleanup-duplicates.mjs`
+## Verification Performed
 
-**Purpose:** Safe script to remove duplicate products from MongoDB (if any exist).
+### Backend
+✅ **Syntax check:** All modified JavaScript files passed `node --check`
+- `models/Product.js`
+- `controller/product.js`
+- `controller/orders.js`
+- `routes/product.js`
 
-**Features:**
-- Groups products by (name, category) case-insensitive
-- Keeps the oldest product in each duplicate group (by `createdAt`)
-- Creates a JSON backup before deletion
-- Requires explicit `DELETE_CONFIRMED=true` environment variable
-- Generates a cleanup report with before/after counts
+**Manual verification needed:**
+- Start backend with `npm run dev` (from workspace root)
+- Test endpoint: `curl http://localhost:8000/api/products/popular`
+- Expected: JSON array of products sorted by `soldCount` (initially all 0, so sorted by `_id`)
 
-**Status:** ✅ Script created but **not executed** — diagnostic confirmed 0 database duplicates exist.
+### Android
+✅ **Code review:** All modified Kotlin files checked for:
+- Correct imports (FavoritesManager, Glide)
+- Binding references (`btnFavorite` exists in layout)
+- Drawable references (`ic_favorite`, `ic_favorite_filled` exist in project)
 
----
+**Manual verification needed:**
+- Build app: `./gradlew assembleDebug` (requires Java/Android SDK)
+- Install on device/emulator
+- Test: tap heart icon on Popular Products → should toggle and appear in Favorites
+- Test: add Popular Product to cart → should show image in cart screen
+- Test: create order → backend `soldCount` should increment
 
-## Database State (After Fix)
-
-**No cleanup needed** — diagnostic script confirmed:
-- 0 exact duplicates
-- 0 near-duplicates
-- Database is already clean
-
----
-
-## Expected Results After Fix
-
-### Before Fix:
-- **Tobacco category in Android app:** 10 product cards (5 from DB + 5 static duplicates)
-- **Other categories:** Similar duplication for any product that exists in both DB and `DataProvider.kt`
-
-### After Fix:
-- **Tobacco category in Android app:** 5 product cards (only from DB)
-- **All categories:** No duplicate display
-- **Offline mode:** Static fallback products appear only when backend is unreachable
-- **Dashboard:** Admin cannot create duplicate products (gets 409 error or warning dialog)
-- **Backend seed script:** Running multiple times does not create duplicates
-
----
-
-## Testing Recommendations
-
-### Test 1: Android App — Tobacco Category
-1. Build and install the updated Android app
-2. Open the app → navigate to Tobacco category
-3. **Expected:** See exactly 5 products (not 10)
-4. Pull to refresh → count should remain 5
-
-### Test 2: Android App — Offline Mode
-1. Disconnect device from network (airplane mode)
-2. Clear app cache: Settings → Apps → HookaDrop → Storage → Clear Cache
-3. Open the app → navigate to any category
-4. **Expected:** See static fallback products from `DataProvider.kt`
-5. Reconnect network → refresh
-6. **Expected:** See database products (static products disappear)
-
-### Test 3: Dashboard — Duplicate Prevention
-1. Restart the backend server (to apply the unique index)
-2. Open dashboard → navigate to Products → Add New Product
-3. Try to create a product that already exists (e.g., "Ways 200 Grammes" in "Tobacco")
-4. **Expected:** Warning dialog appears: "A product named ... already exists"
-5. Click "Yes" → navigate to edit page of existing product
-6. Click "No" → form submission cancelled
-
-### Test 4: Backend API — Duplicate Prevention
-1. Send a POST request to `/api/products` with duplicate name+category
-2. **Expected:** Receive 409 Conflict response with error message
-3. Send a POST request with a unique product
-4. **Expected:** Receive 201 Created response
-
-### Test 5: Seed Script — Idempotency
-1. Run `node seedProducts.js`
-2. Note the product count
-3. Run `node seedProducts.js` again
-4. **Expected:** All products are skipped with "Produit existant (skip)" messages
-5. Product count remains the same
+⚠️ **Note:** Kotlin compilation was not run (Java/JAVA_HOME not configured in environment). Code changes follow existing patterns and are syntactically correct based on manual inspection.
 
 ---
 
 ## Files Modified
 
-### Backend
-1. ✅ `models/Product.js` — Added unique index
-2. ✅ `controller/product.js` — Added duplicate check in `createProduct`
-3. ✅ `seedProducts.js` — Improved duplicate check (name + category)
+### Backend (4 files)
+1. `models/Product.js` — Added `soldCount` field
+2. `controller/product.js` — Added `getPopularProducts` controller
+3. `routes/product.js` — Added `/api/products/popular` route
+4. `controller/orders.js` — Increment `soldCount` on order creation
 
-### Android App
-4. ✅ `hookaDrop App/HookahDrop/app/src/main/java/com/hookahdrop/app/data/ProductSyncManager.kt` — Removed static product merge logic
+### Android (5 files + 1 new)
+5. `app/src/main/java/com/hookahdrop/app/data/RemoteDataProvider.kt` — Added `getPopularProducts()` method
+6. `app/src/main/java/com/hookahdrop/app/HomeActivity.kt` — Load popular products on home screen
+7. `app/src/main/res/layout/item_product.xml` — Added favorite button UI
+8. `app/src/main/res/drawable/bg_favorite_button.xml` — **NEW FILE** (favorite button background)
+9. `app/src/main/java/com/hookahdrop/app/adapter/ProductAdapter.kt` — Wire favorite button to FavoritesManager
+10. `app/src/main/java/com/hookahdrop/app/adapter/CartItemAdapter.kt` — Load remote images with Glide
 
-### Dashboard
-5. ✅ `dashboard/src/pages/ProductForm.jsx` — Added pre-submit duplicate check
+**Total:** 9 files modified + 1 file created
 
-### Tools
-6. ✅ `.agents/tasks/cleanup-duplicates.mjs` — Created (not executed, no duplicates found)
+---
+
+## Expected Behavior After Fix
+
+### Before Fix:
+- ❌ Popular Products section: heart icon missing, cannot add to favorites
+- ❌ Popular Products added to cart: show placeholder image instead of actual product image
+- ❌ Popular Products section: shows random products (sorted by creation date)
+
+### After Fix:
+- ✅ Popular Products section: heart icon visible, toggles between outline/filled states
+- ✅ Tapping heart adds/removes product from favorites (with animation)
+- ✅ Popular Products added to cart: show correct product image (Cloudinary URL loaded via Glide)
+- ✅ Popular Products section: displays most-sold products (sorted by `soldCount` descending)
+- ✅ New orders increment `soldCount` for each product by quantity ordered
+- ✅ Offline mode: fallback to first 6 static products if backend is unreachable
+
+---
+
+## Testing Checklist
+
+### Backend API Testing
+- [ ] Start backend: `npm run dev`
+- [ ] Test endpoint: `curl http://localhost:8000/api/products/popular`
+- [ ] Expected: JSON response with `success: true` and `data` array
+- [ ] Create a test order via Android app or Postman
+- [ ] Query product: `curl http://localhost:8000/api/products/{productId}`
+- [ ] Verify `soldCount` field exists and has incremented
+
+### Android App Testing
+- [ ] Build and install app: `./gradlew installDebug` (or use Android Studio)
+- [ ] Open home screen → verify Popular Products section loads
+- [ ] Tap heart icon on a Popular Product → verify:
+  - Icon toggles from outline to filled
+  - Heart animates (scale effect)
+  - Product appears in Favorites screen
+- [ ] Tap + icon to add Popular Product to cart → verify checkmark animation
+- [ ] Open Cart screen → verify product shows with correct image (not placeholder)
+- [ ] Compare with static product (e.g., from category screen) — both should show images
+- [ ] Complete a test order
+- [ ] Return to home screen → verify products with higher `soldCount` appear first
+
+### Edge Cases
+- [ ] Offline mode: disconnect network, clear cache, open app → should show static products
+- [ ] No sales yet: all `soldCount = 0` → products sorted by `_id` (oldest first)
+- [ ] Multiple orders for same product → `soldCount` accumulates correctly
 
 ---
 
 ## Migration Notes
 
-### For the Backend Server
+### Backend
+- **No database migration needed:** The `soldCount` field has a default value of 0
+- Existing products in MongoDB will automatically have `soldCount: 0`
+- Field will populate organically as new orders are created
+- Optional: backfill `soldCount` from historical orders (requires custom migration script — not included)
 
-After deploying these changes, the backend server must be **restarted** to apply the unique index on the Product model.
+### Android
+- **No data migration needed:** Changes are non-breaking
+- Existing cart items: will now load images correctly (previously showed placeholder)
+- Existing favorites: continue to work (heart button now visible in product cards)
 
-**Important:** If the server is restarted while duplicate products exist in the database, the unique index creation will **fail**. However, the diagnostic confirmed **0 duplicates exist**, so the index will be created successfully.
-
-**How to verify the index was created:**
-```bash
-# Connect to MongoDB
-mongosh "<your-connection-string>"
-
-# Switch to your database
-use <database-name>
-
-# List indexes on the products collection
-db.products.getIndexes()
-
-# Expected output should include:
-# { name: 1, category: 1 }  with unique: true
-```
-
-### For the Android App
-
-After deploying the ProductSyncManager change, the app must be **rebuilt and reinstalled**:
-
-```bash
-cd "c:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop"
-.\gradlew clean assembleDebug
-# Install the APK on device/emulator
-```
-
-**Optional:** Clear app cache after installation to force a fresh sync:
-- Settings → Apps → HookaDrop → Storage → Clear Cache (NOT Clear Data)
+### Deployment Order
+1. Deploy backend changes first (add `soldCount` field and endpoint)
+2. Deploy Android app update (reads new endpoint and displays heart button)
+3. No downtime required — backward compatible
 
 ---
 
-## Risk Assessment
+## Known Limitations
 
-| Change | Risk | Mitigation |
-|--------|------|------------|
-| **Unique index on Product** | Index creation fails if duplicates exist | Diagnostic confirmed 0 duplicates — no risk |
-| **Duplicate check in createProduct** | Performance impact from regex query | Uses indexed field (`name`), impact <10ms per query |
-| **ProductSyncManager merge removal** | App shows 0 products if offline AND cache empty | Fallback logic preserved — static products used only when DB is empty |
-| **Dashboard duplicate warning** | Extra API call on every product creation | Only runs for NEW products, not edits; typical latency <100ms |
-| **seedProducts.js category check** | Might skip legitimate products | More strict = fewer false negatives; existing products matched correctly |
+1. **Popular Products with Zero Sales:** If no orders have been placed, all products have `soldCount: 0`. The endpoint will return products sorted by `_id` (MongoDB ObjectId, which includes creation timestamp). This is acceptable initial behavior.
 
-**Overall risk:** ✅ Low — All changes are safe and reversible.
+2. **Offline Fallback:** When backend is unreachable, the home screen shows the first 6 static products from `DataProvider` instead of popular products. This is by design to ensure the app always displays content.
 
----
+3. **Favorite Button Styling:** The heart button uses a semi-transparent black background. This works on light product images but may be less visible on dark images. Consider adding a white border or adjusting opacity if visibility is an issue.
 
-## Manual Actions Required
+4. **Cart Image Loading Performance:** Glide loads remote images asynchronously. First load may show placeholder briefly while image is fetched and cached. Subsequent loads are instant (Glide caches by default).
 
-### 1. Restart Backend Server
-```bash
-cd c:\Users\GAMING\Downloads\raaa\e-commerce-backend-main
-npm start
-```
-
-The unique index will be automatically created on the products collection when the server starts.
-
-### 2. Rebuild and Reinstall Android App
-```bash
-cd "c:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop"
-.\gradlew clean assembleDebug
-# Install the generated APK on device/emulator
-```
-
-### 3. (Optional) Verify Index Creation
-Connect to MongoDB and run:
-```js
-db.products.getIndexes()
-```
-
-Look for:
-```json
-{
-  "v": 2,
-  "key": { "name": 1, "category": 1 },
-  "name": "name_1_category_1",
-  "unique": true
-}
-```
-
-### 4. (Optional) Clear Android App Cache
-If duplicates still appear after installing the updated app:
-- Settings → Apps → HookaDrop → Storage → Clear Cache
-
-This forces the app to fetch products from the backend again with the new merge logic.
+5. **SoldCount Accuracy:** The `soldCount` increment happens in `createOrder` (when order is created), NOT when payment is confirmed. If the app has a payment flow that can fail after order creation, `soldCount` may include unpaid orders. Consider moving the increment to the payment confirmation webhook if this is a concern.
 
 ---
 
-## Summary
+## Rollback Plan
 
-✅ **Root cause identified:** Android app merging static products with DB products using non-matching IDs
+If issues are discovered after deployment:
 
-✅ **Database is clean:** 0 duplicates found in MongoDB
+### Backend Rollback
+- Remove the `soldCount` field from `Product.js` schema
+- Remove the `getPopularProducts` controller and route
+- Remove the `soldCount` increment logic from `createOrder`
+- Restart backend server
 
-✅ **5 fixes implemented:**
-1. Backend: Unique index on (name, category)
-2. Backend: Duplicate check in product creation
-3. Backend: Improved seed script duplicate check
-4. **Android: Removed static product merge (critical fix)**
-5. Dashboard: Pre-submit duplicate warning
+### Android Rollback
+- Revert `HomeActivity.kt` to call `getProducts()` instead of `getPopularProducts()`
+- Revert `ProductAdapter.kt` to remove heart button logic
+- Revert `CartItemAdapter.kt` to previous image loading logic
+- Revert `item_product.xml` to remove `btnFavorite` view
+- Delete `bg_favorite_button.xml`
+- Rebuild and redeploy app
 
-✅ **Cleanup script created** (not needed, but available for future use)
-
-✅ **No data loss:** All valid products preserved
-
-✅ **Low risk:** All changes are safe and reversible
+**Note:** The `soldCount` field in the database does not need to be removed (it's harmless if unused). Existing data is not affected.
 
 ---
 
 ## Next Steps
 
-1. **Restart the backend server** to apply the unique index
-2. **Rebuild and reinstall the Android app** with the updated ProductSyncManager
-3. **Test the Tobacco category** — should see 5 products, not 10
-4. **Test offline mode** — static products should appear only when backend is unreachable
-5. **Test dashboard duplicate prevention** — should get warning when creating duplicate
-6. **Monitor logs** for any E11000 duplicate key errors (should be none)
+1. **Manual Testing:** Follow the testing checklist above to verify all three fixes work as expected
+2. **Monitor Logs:** Watch backend logs for any errors when incrementing `soldCount`
+3. **User Feedback:** Monitor user reports for issues with favorites or cart images
+4. **Analytics (Optional):** Track how many users interact with the new heart button
+5. **Future Enhancement:** Consider adding a "Trending" section based on recent sales (e.g., last 7 days) vs all-time `soldCount`
 
 ---
 
-**Fix completed:** 2025-01-XX  
-**Diagnostic before fix:** 38 products, 0 duplicates in DB  
-**Diagnostic after fix:** (pending — run after server restart and app reinstall)
+**Implementation completed:** 2025-01-XX  
+**All syntax checks:** ✅ Passed  
+**Manual compilation:** ⚠️ Pending (Java not configured)  
+**End-to-end testing:** ⚠️ Pending (requires app deployment)

@@ -62,6 +62,19 @@ export const createOrder = async (req, res) => {
   try {
     const order = await Order.create(req.body);
 
+    // Increment soldCount for each product in the order
+    if (order.orderItems && order.orderItems.length > 0) {
+      const Product = (await import("../models/Product.js")).default;
+      for (const item of order.orderItems) {
+        if (item.product && item.qty) {
+          await Product.findByIdAndUpdate(
+            item.product,
+            { $inc: { soldCount: item.qty } }
+          ).catch(err => console.error(`Failed to update soldCount for product ${item.product}:`, err));
+        }
+      }
+    }
+
     // Record promo redemption if a code was applied
     if (req.body.promoCode && req.user?._id) {
       const { recordRedemption } = await import("../controller/promotion.js");

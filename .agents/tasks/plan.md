@@ -1,830 +1,233 @@
-# HookaDrop Product Duplication Bug — Investigation Report
+# Implementation Plan: Fix Popular Products Issues and Add Sales Tracking
 
-## Executive Summary
+This plan addresses three distinct problems in the e-commerce app:
 
-**Root Cause Confirmed:** The product duplication issue is caused by **multiple independent sources of truth** operating without coordination:
-
-1. **seedProducts.js runs repeatedly** — Creates products from local image folders on every execution, checking for existing products by name (case-insensitive regex) but **no server startup hook prevents re-running**.
-2. **Static DataProvider.kt in Android app** — Contains hardcoded 35 products (p1–p35) that are displayed **alongside** database products when ProductSyncManager merges them.
-3. **No unique constraint in MongoDB** — The Product model has an index on `name` but **no unique constraint** on name+category or SKU, allowing multiple identical products.
-4. **Legacy products.json seed file** — Contains 35 products with simple IDs ("p1", "p2") that conflict with the Android app's hardcoded IDs.
-
-The **Tobacco category** is especially affected because:
-- 5 tobacco products exist in `DataProvider.kt` (p3, p11–p14)
-- The same products were seeded from `seedProducts.js` with different MongoDB `_id` values
-- ProductSyncManager's merge logic adds static products that are "NOT in DB" **but they ARE in DB with different IDs**, creating display duplicates
-
-## Detailed Investigation Findings
-
-### A. Backend Investigation
-
-#### File: `server.js`
-- **Lines 86–91**: Server connects to MongoDB then starts listening.
-- **No automatic seed/sync call** — The server does NOT call `seedProducts.js` on startup.
-- **Implication**: `seedProducts.js` is run manually by the developer, but each run can create duplicates if the name-matching logic fails (e.g., due to whitespace, accents, or case differences).
-
-#### File: `seedProducts.js`
-- **Lines 92–97**: **Duplicate check** — Uses case-insensitive regex match on `name`:
-  ```js
-  const existing = await Product.findOne({
-    name: { $regex: new RegExp(`^${productName.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}$`, "i") }
-  });
-  if (existing) {
-    console.log(`     ⚠️  Produit existant (skip) : ${productName}`);
-    skippedProducts++;
-    continue;
-  }
-  ```
-- **Problem 1**: This check is **BY NAME ONLY** — If two legitimately different products share the same name but have different variants (size, flavor, packaging), the second one is skipped instead of inserted.
-- **Problem 2**: If the same product is created via the dashboard with a slightly different name (e.g., "Ways 200 Grammes" vs "Ways 200 grammes"), it's treated as a new product.
-- **Problem 3**: The function `fileToProductName()` (lines 60–66) converts filenames like `"ways 200-grammes.png"` to `"Ways 200 Grammes"` — **case and spacing matter**. If the dashboard admin enters "Ways 200g" instead, no match is found.
-
-#### File: `models/Product.js`
-- **Line 5**: `name` has an index (`index: true`) but **no unique constraint**.
-- **Missing**: No compound unique index on `(name, category)` or a dedicated `sku` field with unique constraint.
-- **Implication**: MongoDB allows unlimited duplicate products with the same name+category combination.
-
-#### File: `controller/product.js`
-- **Function `createProduct` (lines 64–87)**: **No duplicate check before insertion**.
-  ```js
-  const product = new Product({ name, mark, description, price, discount, category, stock, ... });
-  await product.save();
-  ```
-- **Risk**: Every POST /products creates a new document, even if an identical product already exists.
-- **Implication**: If the dashboard admin clicks "Create Product" twice (double-click, network retry, browser back-button refresh), two identical products are inserted.
-
-#### File: `hookaDrop App/backend/data/products.json`
-- **35 products** with IDs `"p1"` to `"p35"` and `category` fields like `"hookahs"`, `"tobacco"`, `"coals"`.
-- **These are the SAME products** as in Android's `DataProvider.kt`.
-- **Discrepancy**: The JSON uses `"_id": "p1"` but MongoDB auto-generates ObjectIds. When this file is imported (via legacy backend or manual script), the IDs may be lost or converted.
+1. **Popular Products "Add to Favorites" does nothing** (Android HomeActivity issue)
+2. **Products added to cart from Popular Products show without photos** (Android cart serialization issue)
+3. **Popular Products must display most-sold products** (Backend + Android: requires sales tracking)
 
 ---
 
-### B. Dashboard Investigation
+## Problem Analysis
 
-#### File: `dashboard/src/pages/ProductForm.jsx`
-- **Lines 120–138**: `handleSubmit` sends a POST (create) or PUT (update) request.
-  ```js
-  if (isEdit) {
-    await api.put('/products/' + id, payload)
-  } else {
-    await api.post('/products', payload)
-  }
-  ```
-- **No client-side duplicate check** — The form does not warn if a product with the same name+category already exists.
-- **Risk**: Admin can accidentally create duplicate products by:
-  - Clicking "Create Product" multiple times.
-  - Not searching for existing products before creating a new one.
-  - Copy-pasting product details from an existing product and forgetting to change the name.
+### Problem 1: Add to Favorites Not Working in Popular Products
 
-#### File: `dashboard/src/pages/Products.jsx`
-- **Line 101**: Fetches all products with `{ params: { page: 1, limit: 1000 } }`.
-- **No bulk import/sync button** — Dashboard does not have a "sync from folder" or "import CSV" feature.
-- **Implication**: Each product is created individually via ProductForm. No batch operations that could accidentally duplicate.
+**Root Cause**: The `ProductAdapter` used in `HomeActivity.kt` does NOT expose or wire up an `onFavoriteClick` listener. The adapter only has:
+- `onProductClick` (works)
+- `onCartChanged` (works - the + button adds to cart)
+- `onFavoriteChanged` (exists but is NEVER CALLED because there is no heart button in `item_product.xml`)
 
-#### File: `dashboard/src/utils/api.js`
-- **Line 7**: Base URL is `/api` (proxied in dev) or `VITE_API_URL` in production.
-- **Line 18**: Attaches `Authorization: Bearer ${token}` on every request.
-- **No custom retry logic** — Axios default retry might send a POST twice if the first request times out, causing server-side duplication.
+**Evidence**: 
+- `ProductAdapter.kt` (line 70-82) only has a `btnAddToCart` click listener
+- No heart/favorite icon exists in the product card layout
+- `CategoryProductsActivity` likely uses a different adapter that properly implements favorites
 
----
+**Fix Required**: The ProductAdapter needs to be enhanced to include a heart button and wire it to FavoritesManager.
 
-### C. Android App Investigation
+### Problem 2: Cart Products Show Without Photos
 
-#### File: `data/ProductSyncManager.kt`
+**Root Cause**: Image field mismatch between how products are added to cart vs. how CartItemAdapter displays them.
 
-**THIS IS THE PRIMARY CULPRIT.**
+**Evidence**:
+- `CartItemAdapter.kt` (line 43-48) tries to resolve the image using `DataProvider.getProductById()` which works for static products but may fail for backend products
+- Backend products use `imageUrl` (Cloudinary URLs) stored in the Product model
+- When products are serialized to SharedPreferences (CartManager uses Gson), the `imageRes` field (an Int drawable ID) may not survive or may be incorrect
+- The cart adapter falls back to `item.product.imageRes` which may be the placeholder `R.drawable.ic_hookah_neon` for backend products
 
-- **Lines 62–68**: `getAllProducts()` calls `sync()` → fetches from backend → **merges with DataProvider.products**:
-  ```kotlin
-  // Build a fresh map from DB results (DB is source of truth)
-  val freshMap = LinkedHashMap<String, Product>()
-  dbProducts.forEach { freshMap[it.id] = it }
+**Fix Required**: CartItemAdapter must check `imageUrl` first before falling back to `imageRes`, using Glide to load remote images just like ProductAdapter does.
 
-  // Merge static products that are NOT in DB (offline gap filler)
-  DataProvider.products.forEach { staticProduct ->
-      if (!freshMap.containsKey(staticProduct.id)) {
-          freshMap[staticProduct.id] = staticProduct
-      }
-  }
-  ```
-- **Problem**: The merge is **keyed by product.id**.
-  - Static products in `DataProvider.kt` have IDs `"p1"`, `"p2"`, ..., `"p35"`.
-  - Database products have MongoDB ObjectIds like `"675b1c2e3f4a5b6c7d8e9f01"`.
-  - **The IDs never match** → static products are ALWAYS added alongside database products.
-  
-- **Result**: If "Ways 200 Grammes" exists in the database with `_id = "675..."` AND in `DataProvider.products` with `id = "p3"`, both are displayed in the app because their IDs don't match.
+### Problem 3: Popular Products Must Show Most-Sold
 
-#### File: `data/DataProvider.kt`
-- **Lines 37–301**: Hardcoded 35 products.
-- **Tobacco products**: p3 (Ways 200g), p11 (Booster Ways), p12 (Ice Frutz 50), p13 (Icecool 300), p14 (Zero 200g).
-- **These products were intended as offline fallback** but are now **permanently duplicated** alongside the live database versions.
+**Root Cause**: The backend Product model has NO `soldCount` or `salesCount` field. The Order model stores `orderItems` with product references but never updates product sales counters.
 
-#### File: `data/RemoteDataProvider.kt`
-- **Lines 27–40**: Delegates to `ProductSyncManager` — no duplication logic here.
+**Current Behavior**: 
+- `HomeActivity.kt` loads products via `RemoteDataProvider.getProducts()` which calls `/api/products` 
+- The backend returns products sorted by `createdAt: -1` (newest first)
+- No "popular" or "best-selling" endpoint exists
 
-#### File: `network/ApiModels.kt`
-- **Lines 26–65**: `JSONObject.toProduct()` maps backend JSON to Android `Product` data class.
-- **Line 28**: `val id = optString("_id", optString("id", ""))`
-  - Backend sends `_id: "675..."` → Android product has `id = "675..."`.
-  - Static `DataProvider` product has `id = "p3"`.
-  - **These never collide in the ProductSyncManager map** → both are kept.
-
-#### File: `CategoryProductsActivity.kt`
-- **Lines 127–133**: `loadFromBackend()` → `RemoteDataProvider.getProductsByCategory()` → uses ProductSyncManager.
-- **No deduplication by name** — The activity displays whatever ProductSyncManager returns.
-
-#### File: `adapter/ProductAdapter.kt`
-- **Lines 40–65**: Renders each product in the list.
-- **No duplicate detection** — Just displays whatever list is passed in.
+**Fix Required**:
+1. Add `soldCount` field to Product model (backend)
+2. Increment `soldCount` when orders are confirmed (backend order controller)
+3. Create new endpoint `/api/products/popular` that sorts by `soldCount` descending
+4. Update Android to call the new endpoint for the Popular Products section in HomeActivity
 
 ---
 
-### D. Tobacco Category Special Inspection
+## Implementation Steps
 
-**Static DataProvider.kt Tobacco products (5):**
-1. p3  — Ways 200 Grammes
-2. p11 — Booster Ways
-3. p12 — Ice Frutz 50
-4. p13 — Icecool 300
-5. p14 — Zero 200 Grammes
+- [ ] **1. Add soldCount field to Product model and create popular products endpoint**
+      
+      **Backend Changes:**
+      - Add `soldCount: { type: Number, default: 0 }` to the Product schema in `c:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\models\Product.js` after the `stock` field
+      - Add a new controller function `getPopularProducts` in `c:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\controller\product.js` that queries products sorted by `soldCount` descending, limited to 10 items, with the same `categoryId` alias mapping as `getAllProducts`
+      - Add a new route `router.get("/products/popular", getPopularProducts);` in `c:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\routes\product.js` BEFORE the `router.get("/products/:id"` route (order matters - specific routes before parameterized routes)
+      
+      **Files**:
+      - `c:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\models\Product.js`
+      - `c:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\controller\product.js`
+      - `c:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\routes\product.js`
+      
+      **Verify**: Start the backend with `npm run dev`, then run `curl http://localhost:8000/api/products/popular` and confirm it returns a JSON array (initially empty or sorted by soldCount=0). Check that the server starts without errors.
 
-**Legacy products.json Tobacco products (5):**
-Same 5 products with identical names and descriptions.
+- [ ] **2. Increment soldCount when orders transition to paid/confirmed status**
+      
+      **Backend Changes:**
+      - Find the order controller at `c:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\controller\order.js` (you may need to check the routes/order.js to locate the right file)
+      - In the function that handles order status updates (likely `updateOrder` or in the Stripe payment confirmation webhook), add logic: when `isPaid` becomes true OR when status becomes "confirmed", iterate through `orderItems`, extract each `product` ObjectId, and call `Product.findByIdAndUpdate(productId, { $inc: { soldCount: qty } })`
+      - This ensures that soldCount is incremented by the quantity ordered for each product
+      
+      **Files**:
+      - Find and modify the order controller (likely `c:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\controller\order.js` or similar)
+      
+      **Verify**: Create a test order via the Android app or Postman, mark it as paid/confirmed, then query the product via `/api/products/:id` and confirm `soldCount` has incremented by the ordered quantity.
 
-**If seedProducts.js was run:**
-The script would have created MongoDB documents for these 5 products (assuming the image files exist in `C:\Users\GAMING\Desktop\hookaDrop\article\tobacco\`).
+- [ ] **3. Add getPopularProducts method to Android RemoteDataProvider**
+      
+      **Android Changes:**
+      - Add a new suspend function `getPopularProducts()` in `c:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\java\com\hookahdrop\app\data\RemoteDataProvider.kt` (around line 50, after `getProductsByCategory`)
+      - Function body: `withContext(Dispatchers.IO) { val r = ApiClient.get("/api/products/popular"); if (r.isSuccess) r.jsonArray("data").toProductList() else DataProvider.products.take(6) }`
+      - The fallback ensures the app shows static products if the backend is unavailable
+      
+      **Files**:
+      - `c:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\java\com\hookahdrop\app\data\RemoteDataProvider.kt`
+      
+      **Verify**: Build the Android app with `./gradlew assembleDebug` from the `hookaDrop App\HookahDrop` directory and confirm no compilation errors.
 
-**Result in Android app:**
-- Database returns 5 products with `_id = "675..."`.
-- Static `DataProvider` provides 5 products with `id = "p3"`, `"p11"`, etc.
-- **ProductSyncManager adds all 10 to the map** because their IDs don't overlap.
-- **Tobacco category displays 10 product cards** — 5 duplicates.
+- [ ] **4. Update HomeActivity to load popular products from the new endpoint**
+      
+      **Android Changes:**
+      - In `c:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\java\com\hookahdrop\app\HomeActivity.kt`, locate the `loadDataFromBackend()` function (around line 150)
+      - Change the product loading block from `RemoteDataProvider.getProducts()` to `RemoteDataProvider.getPopularProducts()`
+      - The rest of the logic (taking 6 products, updating the adapter) remains the same
+      - Update the section title if desired: change `b.tvProductsTitle.text = "Popular Products"` or add a TextView in the layout if it doesn't exist
+      
+      **Files**:
+      - `c:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\java\com\hookahdrop\app\HomeActivity.kt`
+      
+      **Verify**: Run the Android app on an emulator or device, observe the home screen Popular Products section. It should load products sorted by soldCount. Check logcat for network errors.
 
----
+- [ ] **5. Add heart button to item_product.xml layout**
+      
+      **Android Changes:**
+      - Open the product card layout at `c:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\res\layout\item_product.xml`
+      - Add an ImageView for the favorite/heart icon in the top-right corner of the card (use a FrameLayout or ConstraintLayout positioning)
+      - The ImageView should have: `android:id="@+id/btnFavorite"`, a heart drawable (e.g. `@drawable/ic_heart_outline` and `@drawable/ic_heart_filled` - create these if they don't exist or use existing drawables), `android:clickable="true"`, and appropriate padding/margin
+      - Position it at the top-right: `android:layout_gravity="top|end"` (if using FrameLayout parent) or use ConstraintLayout constraints: `app:layout_constraintEnd_toEndOf="parent"` and `app:layout_constraintTop_toTopOf="parent"`
+      
+      **Files**:
+      - `c:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\res\layout\item_product.xml`
+      - May need to add heart drawables to `app\src\main\res\drawable\` (e.g. `ic_heart_outline.xml` and `ic_heart_filled.xml`) if they don't exist
+      
+      **Verify**: Build the app, open the home screen. Each product card should show a heart icon in the top-right corner.
 
-### E. Database Diagnostic
+- [ ] **6. Wire up the heart button in ProductAdapter to toggle favorites**
+      
+      **Android Changes:**
+      - In `c:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\java\com\hookahdrop\app\adapter\ProductAdapter.kt`, add `FavoritesManager.init()` check at the adapter level (or rely on it being initialized in activities)
+      - In `onBindViewHolder` (around line 35), after the cart button setup:
+        - Get reference to the heart button: `val btnFavorite = holder.b.btnFavorite`
+        - Set the initial icon state: `val isFav = FavoritesManager.isFavorite(p.id); btnFavorite.setImageResource(if (isFav) R.drawable.ic_heart_filled else R.drawable.ic_heart_outline)`
+        - Set click listener: `btnFavorite.setOnClickListener { val newState = FavoritesManager.toggle(p.id); btnFavorite.setImageResource(if (newState) R.drawable.ic_heart_filled else R.drawable.ic_heart_outline); btnFavorite.animate().scaleX(1.3f).scaleY(1.3f).setDuration(150).withEndAction { btnFavorite.animate().scaleX(1f).scaleY(1f).setDuration(150).start() }.start(); onFavoriteChanged() }`
+      - This adds a scale animation (heart pop effect) and calls the existing `onFavoriteChanged` callback
+      
+      **Files**:
+      - `c:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\java\com\hookahdrop\app\adapter\ProductAdapter.kt`
+      
+      **Verify**: Run the app, navigate to home screen, tap the heart icon on a Popular Product. The icon should toggle between outline and filled, and the product should appear in the Favorites screen. Check that the icon state persists when scrolling/returning to the home screen.
 
-**Script location:** `c:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\.agents\tasks\check-duplicates.mjs`
-
-**What it does:**
-1. Connects to MongoDB using `MONGO_DB_URI` from `.env`.
-2. Counts total products and products per category.
-3. Finds **exact duplicates** (same name AND same category, case-insensitive).
-4. Finds **near-duplicates** (same name, different _id, possibly different category).
-5. Lists all Tobacco products with their `_id`, name, price, stock, createdAt.
-6. Writes a JSON report to `c:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\.agents\tasks\duplicate-report.json`.
-
-**How to run:**
-```bash
-cd c:\Users\GAMING\Downloads\raaa\e-commerce-backend-main
-node .agents\tasks\check-duplicates.mjs
-```
-
-**Expected output:** Will reveal how many actual duplicate documents exist in MongoDB vs. how many are "phantom duplicates" caused by the Android app's merge logic.
-
----
-
-## Root Cause Summary
-
-| Source | Issue | Impact |
-|--------|-------|--------|
-| **Backend: seedProducts.js** | Checks for duplicates by name only (case-insensitive regex). Can create duplicates if names differ slightly (whitespace, punctuation). No server startup hook prevents re-running. | Medium — Only if script is run multiple times manually. |
-| **Backend: Product model** | No unique constraint on name+category or SKU. No compound index. | High — Allows unlimited database-level duplicates. |
-| **Backend: createProduct controller** | No duplicate check before inserting. | High — Every POST creates a new document, even if identical product exists. |
-| **Android: ProductSyncManager** | Merges static DataProvider products with database products by ID. IDs never match (static="p1", DB="675..."), so both are added. | **CRITICAL** — This is the direct cause of visual duplicates in the Android app, especially in Tobacco category. |
-| **Android: DataProvider.kt** | Hardcoded 35 products intended as offline fallback but permanently displayed alongside live data. | **CRITICAL** — Should be removed or replaced with a "load from assets only if no network" strategy. |
-| **Dashboard: ProductForm** | No client-side duplicate check. | Low — Admin can accidentally create duplicates, but not the primary cause. |
-
-**Primary culprit:** Android `ProductSyncManager.kt` merging logic + hardcoded `DataProvider.kt` products.
-
-**Secondary culprit:** Backend has no unique constraint or duplicate prevention in `createProduct`.
-
----
-
-## Required Changes
-
-### 1. Android App: Remove Hardcoded Products from Live Flow
-
-**Problem:** `DataProvider.kt` products are merged with database products, causing permanent duplication.
-
-**Solution:** Modify `ProductSyncManager.kt` to **NOT merge static products** when database products are available.
-
-**File:** `c:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\java\com\hookahdrop\app\data\ProductSyncManager.kt`
-
-**Change:** Lines 97–106 (the `sync()` function's merge logic):
-
-**Current:**
-```kotlin
-// Merge static products that are NOT in DB (offline gap filler)
-DataProvider.products.forEach { staticProduct ->
-    if (!freshMap.containsKey(staticProduct.id)) {
-        freshMap[staticProduct.id] = staticProduct
-    }
-}
-```
-
-**New:**
-```kotlin
-// Only merge static products if the database is completely empty (offline mode)
-if (dbProducts.isEmpty()) {
-    Log.w(TAG, "Database empty — using static fallback products")
-    DataProvider.products.forEach { staticProduct ->
-        freshMap[staticProduct.id] = staticProduct
-    }
-}
-```
-
-**Rationale:** Static products are fallback for **offline mode only**. If the backend returned any products (even 1), it means the network is reachable → use DB as source of truth. Static products should NOT be displayed alongside live data.
-
-**Risk:** If a category has 0 products in the database, the app will show 0 products instead of the static fallback for that category. This is correct behavior — if the admin deleted all products in a category, the app should reflect that.
-
----
-
-### 2. Backend: Add Unique Constraint to Product Model
-
-**Problem:** MongoDB allows unlimited duplicate products with the same name+category.
-
-**Solution:** Add a compound unique index on `(name, category)`.
-
-**File:** `c:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\models\Product.js`
-
-**Change:** After line 13 (the schema definition, before the export):
-
-**Add:**
-```js
-// Create a compound unique index on name+category to prevent duplicates
-productSchema.index({ name: 1, category: 1 }, { unique: true });
-```
-
-**Full schema (lines 3–15):**
-```js
-const productSchema = new mongoose.Schema(
-  {
-    name: { type: String, required: true, index: true },
-    description: { type: String, required: true },
-    price: { type: Number, required: true },
-    image: { type: String, required: true },
-    image1: { type: String },
-    image2: { type: String },
-    image3: { type: String },
-    discount: { type: Number },
-    mark: { type: String, required: true },
-    category: { type: String, required: true },
-    stock: { type: Number, required: true },
-  },
-  { timestamps: true }
-);
-
-// Create a compound unique index on name+category to prevent duplicates
-productSchema.index({ name: 1, category: 1 }, { unique: true });
-```
-
-**Impact:** Future attempts to insert a product with the same `(name, category)` pair will fail with a MongoDB duplicate key error.
-
-**Risk:** If duplicate products already exist in the database, this index creation will **fail**. Solution: Clean up existing duplicates first (see step 5).
-
----
-
-### 3. Backend: Add Duplicate Check in createProduct Controller
-
-**Problem:** No server-side validation before inserting a new product.
-
-**Solution:** Check if a product with the same `(name, category)` already exists. If yes, return a 409 Conflict error.
-
-**File:** `c:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\controller\product.js`
-
-**Change:** Lines 64–87 (the `createProduct` function):
-
-**Current:**
-```js
-export const createProduct = async (req, res) => {
-  try {
-    const { name, description, price, discount, category, stock, mark, ... } = req.body;
-    // ... image upload logic ...
-    const product = new Product({ name, mark, description, price, discount, category, stock, ... });
-    await product.save();
-    res.status(201).json({ success: true, data: product });
-  } catch (error) {
-    console.error("Error creating product:", error);
-    res.status(500).json({ success: false, error: "Product creation failed" });
-  }
-};
-```
-
-**New:**
-```js
-export const createProduct = async (req, res) => {
-  try {
-    const { name, description, price, discount, category, stock, mark,
-            image: bodyImage, image1: bodyImage1, image2: bodyImage2, image3: bodyImage3 } = req.body;
-
-    // ── Duplicate check: prevent creating products with the same name+category ─
-    const existing = await Product.findOne({
-      name: { $regex: new RegExp(`^${name.trim().replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}$`, 'i') },
-      category: category.trim()
-    });
-    if (existing) {
-      return res.status(409).json({
-        success: false,
-        error: `Product "${name}" already exists in category "${category}". Use the edit form to update it.`,
-        existingProductId: existing._id
-      });
-    }
-
-    let imageUrls = [bodyImage || null, bodyImage1 || null, bodyImage2 || null, bodyImage3 || null];
-
-    // If files were uploaded (multipart), upload them to Cloudinary and override URLs
-    if (req.files && req.files.length > 0) {
-      const uploadResults = await Promise.all(
-        req.files.map((file) =>
-          cloudinary.uploader.upload(file.path, { folder: "products" })
-        )
-      );
-      imageUrls = uploadResults.map((r) => r.secure_url);
-    }
-
-    const product = new Product({
-      name,
-      mark,
-      description,
-      price,
-      discount,
-      category,
-      stock,
-      image:  imageUrls[0] || null,
-      image1: imageUrls[1] || null,
-      image2: imageUrls[2] || null,
-      image3: imageUrls[3] || imageUrls[0] || null,
-    });
-
-    await product.save();
-    res.status(201).json({ success: true, data: product });
-  } catch (error) {
-    console.error("Error creating product:", error);
-    // If the unique index was violated (E11000 duplicate key error)
-    if (error.code === 11000) {
-      return res.status(409).json({
-        success: false,
-        error: "A product with this name and category already exists."
-      });
-    }
-    res.status(500).json({ success: false, error: "Product creation failed" });
-  }
-};
-```
-
-**Rationale:** This prevents accidental duplicate creation from the dashboard. If the admin tries to create a duplicate, they get a clear error message and the existing product ID.
-
----
-
-### 4. Dashboard: Show Duplicate Warning in ProductForm
-
-**Problem:** Dashboard admin can accidentally create duplicates without any client-side warning.
-
-**Solution:** Add a client-side check that searches for existing products before submission.
-
-**File:** `c:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\dashboard\src\pages\ProductForm.jsx`
-
-**Change:** Lines 86–123 (the `handleSubmit` function):
-
-**Add a pre-submit check:**
-```js
-const handleSubmit = async (e) => {
-  e.preventDefault()
-  if (!form.image.trim()) {
-    toast.error('Main image is required')
-    return
-  }
-
-  // ── Pre-submit duplicate check (only for new products) ────────────────────
-  if (!isEdit) {
-    try {
-      const { data } = await api.get('/products', {
-        params: { name: form.name, category: form.category, limit: 10 }
-      })
-      const matches = (Array.isArray(data) ? data : (data?.data ?? []))
-        .filter(p => p.name.toLowerCase() === form.name.toLowerCase() &&
-                     p.category.toLowerCase() === form.category.toLowerCase())
-      if (matches.length > 0) {
-        const confirmed = window.confirm(
-          `A product named "${form.name}" already exists in ${form.category}.\n\n` +
-          `Do you want to edit the existing product instead?`
-        )
-        if (confirmed) {
-          navigate(`/products/edit/${matches[0]._id}`)
-          return
+- [ ] **7. Fix CartItemAdapter to load remote images with Glide**
+      
+      **Android Changes:**
+      - In `c:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\java\com\hookahdrop\app\adapter\CartItemAdapter.kt`, locate the image loading block in `onBindViewHolder` (lines 43-48)
+      - Replace the entire image loading block with:
+        ```kotlin
+        // Load image: prefer remote URL (backend products) over local drawable
+        val freshProduct = DataProvider.getProductById(item.product.id) ?: item.product
+        if (freshProduct.imageUrl.isNotEmpty() && freshProduct.isRemote) {
+            Glide.with(imgProduct.context)
+                .load(freshProduct.imageUrl)
+                .placeholder(R.drawable.ic_hookah_neon)
+                .error(R.drawable.ic_hookah_neon)
+                .centerCrop()
+                .into(imgProduct)
+        } else if (freshProduct.imageRes != 0) {
+            imgProduct.setImageResource(freshProduct.imageRes)
         } else {
-          return // User chose to cancel
+            imgProduct.setImageResource(R.drawable.ic_hookah_neon)
         }
-      }
-    } catch (err) {
-      // Ignore check failure — let the backend reject if duplicate
-    }
-  }
+        ```
+      - Add Glide import at the top: `import com.bumptech.glide.Glide`
+      
+      **Files**:
+      - `c:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\java\com\hookahdrop\app\adapter\CartItemAdapter.kt`
+      
+      **Verify**: Add a product from the Popular Products section (backend product with Cloudinary URL) to cart, then open the cart screen. The product image should display correctly using the remote URL, not a placeholder. Compare with products added from category screens (which already work) - both should now show images correctly.
 
-  setSubmitting(true)
-  try {
-    const payload = {
-      ...form,
-      price:    Number(form.price),
-      discount: Number(form.discount),
-      stock:    Number(form.stock),
-    }
-    if (isEdit) {
-      await api.put('/products/' + id, payload)
-      toast.success('Product updated')
-    } else {
-      await api.post('/products', payload)
-      toast.success('Product created')
-    }
-    navigate('/products')
-  } catch (err) {
-    const message = err?.response?.data?.error || err?.response?.data?.message || 'Failed to save product'
-    toast.error(message)
-  } finally {
-    setSubmitting(false)
-  }
-}
-```
-
-**Rationale:** Provides immediate feedback to the admin before sending the POST request. If a duplicate is detected, the admin can navigate to the existing product's edit page instead.
-
-**Risk:** The check relies on the `/products` GET endpoint supporting `name` and `category` query params. Current implementation filters by `name` only (lines 41–45 in `controller/product.js` `getAllProducts`). The filter is applied server-side, so the check will work correctly.
+- [ ] **8. Test end-to-end: Popular Products workflow**
+      
+      **Manual Testing Steps:**
+      1. Start the backend: `cd c:\Users\GAMING\Downloads\raaa\e-commerce-backend-main && npm run dev`
+      2. Build and run the Android app: `cd "c:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop" && ./gradlew installDebug` (or use Android Studio)
+      3. Open the app home screen
+      4. Verify the Popular Products section shows products (initially sorted by soldCount, all 0, so order may match current behavior)
+      5. Tap the heart icon on a Popular Product → verify it toggles to filled and the product appears in Favorites
+      6. Tap the + icon to add the product to cart → verify the checkmark animation plays
+      7. Navigate to Cart → verify the product shows with its correct image (not a placeholder)
+      8. Complete an order for that product
+      9. Query the backend `GET /api/products/:id` for that product → verify `soldCount` has incremented
+      10. Return to home screen, pull to refresh or restart app → verify products with higher soldCount appear first in Popular Products
+      
+      **Expected Outcome**: All three problems are resolved:
+      - Heart button works in Popular Products ✓
+      - Cart shows product images correctly ✓
+      - Popular Products displays most-sold items ✓
+      
+      **Verify**: Manual testing as described above. No automated tests are required for this task (the project has no existing test suite for these features).
 
 ---
 
-### 5. Database Cleanup: Remove Existing Duplicates
+## Notes
 
-**Problem:** Existing duplicate documents in MongoDB will prevent the unique index from being created and cause the app to show duplicates until cleaned up.
+- **Database Migration**: Existing products in the database will have `soldCount: 0` after adding the field. The field will auto-populate as new orders are placed. If you want to backfill soldCount from historical orders, that would be a separate migration script (not included in this plan).
 
-**Solution:** Write a safe cleanup script that:
-1. Runs the diagnostic script to generate `duplicate-report.json`.
-2. For each duplicate group, keeps the **oldest document** (by `createdAt`) and deletes the rest.
-3. Updates any references in orders, carts, favorites to point to the kept document.
-4. Creates a backup JSON file before deletion.
+- **Static Products**: The Android app has static fallback products in `DataProvider` (for offline mode). These products use drawable resource IDs (`imageRes`) and will continue to work. The cart fix ensures both static and remote products display correctly.
 
-**File to create:** `c:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\.agents\tasks\cleanup-duplicates.mjs`
+- **Heart Icon Drawables**: If `ic_heart_outline` and `ic_heart_filled` don't exist in the drawable resources, you can:
+  1. Use existing heart icons in the project (search for heart or favorite in res/)
+  2. Create simple vector drawables (use Android Studio → New → Vector Asset)
+  3. Use Material Icons: `@drawable/ic_favorite_border` and `@drawable/ic_favorite`
 
-**Content:**
-```js
-import 'dotenv/config';
-import mongoose from 'mongoose';
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
+- **Backend API Changes**: The new `/products/popular` endpoint is public (no auth required) since it's consumed by the home screen before login.
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
+- **Performance**: Sorting by `soldCount` on every request is acceptable for small datasets. If the product catalog grows large (>10,000 products), consider adding an index: `productSchema.index({ soldCount: -1 })` in `Product.js`.
 
-// ── Models ────────────────────────────────────────────────────────────────────
-const ProductSchema = new mongoose.Schema({
-  name:        { type: String, required: true },
-  description: { type: String, required: true },
-  price:       { type: Number, required: true },
-  image:       { type: String, required: true },
-  image1:      String,
-  image2:      String,
-  image3:      String,
-  discount:    Number,
-  mark:        { type: String, required: true },
-  category:    { type: String, required: true },
-  stock:       { type: Number, required: true },
-}, { timestamps: true });
-
-const Product = mongoose.models.Product || mongoose.model('Product', ProductSchema);
-
-// ── Main ──────────────────────────────────────────────────────────────────────
-async function cleanup() {
-  console.log('🔌 Connecting to MongoDB...');
-  await mongoose.connect(process.env.MONGO_DB_URI || process.env.MONGODB_URI);
-  console.log('✅ Connected\n');
-
-  // 1. Find all products grouped by (name, category) — case-insensitive
-  const allProducts = await Product.find({}).sort({ createdAt: 1 });
-  const groupMap = new Map(); // key: "name|category" → [products]
-
-  for (const product of allProducts) {
-    const key = `${product.name.toLowerCase().trim()}|${product.category.toLowerCase().trim()}`;
-    if (!groupMap.has(key)) {
-      groupMap.set(key, []);
-    }
-    groupMap.get(key).push(product);
-  }
-
-  // 2. Identify duplicate groups (more than 1 product per key)
-  const duplicateGroups = [];
-  for (const [key, products] of groupMap.entries()) {
-    if (products.length > 1) {
-      duplicateGroups.push({ key, products });
-    }
-  }
-
-  console.log(`🔍 Found ${duplicateGroups.length} duplicate groups\n`);
-
-  if (duplicateGroups.length === 0) {
-    console.log('✅ No duplicates to clean up!');
-    await mongoose.disconnect();
-    return;
-  }
-
-  // 3. For each group, keep the oldest (first by createdAt) and mark the rest for deletion
-  const toDelete = [];
-  const toKeep   = [];
-  const backupData = [];
-
-  for (const group of duplicateGroups) {
-    const [keep, ...duplicates] = group.products; // First is oldest (sorted by createdAt)
-    toKeep.push(keep);
-    toDelete.push(...duplicates);
-
-    console.log(`📦 "${keep.name}" in ${keep.category}:`);
-    console.log(`   ✅ KEEP:   ${keep._id} (created ${keep.createdAt.toISOString()})`);
-    duplicates.forEach(dup => {
-      console.log(`   ❌ DELETE: ${dup._id} (created ${dup.createdAt.toISOString()})`);
-    });
-    console.log('');
-
-    // Backup all duplicates before deletion
-    backupData.push({
-      kept: keep.toObject(),
-      deleted: duplicates.map(d => d.toObject())
-    });
-  }
-
-  // 4. Write backup file
-  const backupPath = path.join(__dirname, `duplicate-backup-${Date.now()}.json`);
-  fs.writeFileSync(backupPath, JSON.stringify(backupData, null, 2), 'utf-8');
-  console.log(`💾 Backup written to: ${backupPath}\n`);
-
-  // 5. Confirm deletion
-  console.log(`⚠️  About to delete ${toDelete.length} duplicate products.`);
-  console.log(`   The oldest product in each group will be kept.`);
-  console.log(`   A backup has been saved to ${backupPath}\n`);
-  console.log(`   To proceed, set DELETE_CONFIRMED=true in the script.\n`);
-
-  const DELETE_CONFIRMED = process.env.DELETE_CONFIRMED === 'true';
-
-  if (!DELETE_CONFIRMED) {
-    console.log('❌ Deletion NOT confirmed. Exiting safely.');
-    await mongoose.disconnect();
-    return;
-  }
-
-  // 6. Delete duplicates
-  const idsToDelete = toDelete.map(p => p._id);
-  const result = await Product.deleteMany({ _id: { $in: idsToDelete } });
-  console.log(`✅ Deleted ${result.deletedCount} duplicate products\n`);
-
-  // 7. Verify cleanup
-  const remaining = await Product.countDocuments();
-  console.log(`📦 Total products remaining: ${remaining}`);
-
-  await mongoose.disconnect();
-  console.log('✅ Cleanup complete!');
-}
-
-cleanup().catch(err => {
-  console.error('❌ Error:', err.message);
-  process.exit(1);
-});
-```
-
-**How to run:**
-```bash
-cd c:\Users\GAMING\Downloads\raaa\e-commerce-backend-main
-# Dry run (preview only, no deletion):
-node .agents\tasks\cleanup-duplicates.mjs
-
-# Actual deletion (after reviewing the preview):
-DELETE_CONFIRMED=true node .agents\tasks\cleanup-duplicates.mjs
-```
-
-**Safety:** The script creates a backup JSON file before deletion. If something goes wrong, products can be manually re-inserted from the backup.
+- **Image Loading**: Glide is already a dependency in the project (used in `ProductAdapter`). No need to add it to `build.gradle`.
 
 ---
 
-### 6. Update seedProducts.js to Be Idempotent
+## Build & Test Commands
 
-**Problem:** Running `seedProducts.js` multiple times can create duplicates if the name-matching logic fails.
+**Backend:**
+- Start dev server: `npm run dev` (from `c:\Users\GAMING\Downloads\raaa\e-commerce-backend-main`)
+- Runs on: `http://localhost:8000` (or port specified in .env)
 
-**Solution:** Improve the duplicate check to use the compound index (name, category) and normalize the name before comparison.
+**Android:**
+- Build debug APK: `./gradlew assembleDebug` (from `c:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop`)
+- Install on device/emulator: `./gradlew installDebug`
+- Build and run: Open in Android Studio and click Run
 
-**File:** `c:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\seedProducts.js`
-
-**Change:** Lines 92–97 (the duplicate check in the seed loop):
-
-**Current:**
-```js
-const existing = await Product.findOne({
-  name: { $regex: new RegExp(`^${productName.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}$`, "i") },
-});
-if (existing) {
-  console.log(`     ⚠️  Produit existant (skip) : ${productName}`);
-  skippedProducts++;
-  continue;
-}
-```
-
-**New:**
-```js
-// Normalize name: trim whitespace, collapse multiple spaces
-const normalizedName = productName.trim().replace(/\s+/g, ' ');
-
-const existing = await Product.findOne({
-  name: { $regex: new RegExp(`^${normalizedName.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}$`, "i") },
-  category: { $regex: new RegExp(`^${catName}$`, "i") }
-});
-if (existing) {
-  console.log(`     ⚠️  Produit existant (skip) : ${normalizedName} in ${catName}`);
-  skippedProducts++;
-  continue;
-}
-```
-
-**Rationale:** This ensures the check matches both name AND category (aligned with the unique index). Normalizing the name prevents false negatives from extra spaces.
+**API Testing:**
+- Get popular products: `curl http://localhost:8000/api/products/popular`
+- Get product by ID: `curl http://localhost:8000/api/products/<PRODUCT_ID>`
 
 ---
 
-## Implementation Order & Verification
+## Summary
 
-### Safe Implementation Sequence
+This plan systematically fixes all three reported issues:
 
-1. **Run diagnostic script** to understand current database state:
-   ```bash
-   node .agents\tasks\check-duplicates.mjs
-   ```
-   Review `duplicate-report.json` to see how many duplicates exist.
+1. **Favorites**: Add heart button UI + wire ProductAdapter to FavoritesManager
+2. **Cart Photos**: Update CartItemAdapter to use Glide for remote image URLs
+3. **Most Sold**: Add backend soldCount tracking + new popular endpoint + Android integration
 
-2. **Write cleanup script** (`cleanup-duplicates.mjs`) as specified above.
-
-3. **Run cleanup script (dry run first)**:
-   ```bash
-   node .agents\tasks\cleanup-duplicates.mjs
-   ```
-   Review the output. If satisfied, run:
-   ```bash
-   DELETE_CONFIRMED=true node .agents\tasks\cleanup-duplicates.mjs
-   ```
-
-4. **Modify Android `ProductSyncManager.kt`** (change #1) to stop merging static products when DB is populated.
-
-5. **Test Android app**:
-   - Open Tobacco category → should see 5 products (not 10).
-   - Disconnect from network → should see static fallback products.
-   - Reconnect → should see only DB products.
-
-6. **Modify backend `models/Product.js`** (change #2) to add unique index.
-   - **Important:** This will only work after step 3 (cleanup) is complete.
-   - Restart the backend server to apply the index.
-
-7. **Modify backend `controller/product.js`** (change #3) to add duplicate check.
-
-8. **Test backend**:
-   - Try to create a product via Dashboard with the same name+category → should get 409 error.
-   - Try to create a product with a unique name → should succeed.
-
-9. **Modify dashboard `ProductForm.jsx`** (change #4) to add client-side warning.
-
-10. **Test dashboard**:
-    - Create a new product → should work.
-    - Try to create a duplicate → should see warning dialog with option to edit existing.
-
-11. **Update `seedProducts.js`** (change #6) to improve duplicate checking.
-
-12. **Re-run diagnostic script** to verify no duplicates remain:
-    ```bash
-    node .agents\tasks\check-duplicates.mjs
-    ```
-
----
-
-## Verification Test Plan
-
-### Test 1: Synchronize products twice (backend)
-- Run `seedProducts.js` once → note product count.
-- Run `seedProducts.js` again → product count should NOT increase.
-- **Expected:** All products are skipped with "Produit existant (skip)" messages.
-
-### Test 2: Open Tobacco category repeatedly (Android)
-- Open the app → navigate to Tobacco category.
-- Count visible product cards.
-- Close app → clear cache (optional) → reopen → navigate to Tobacco.
-- **Expected:** Same product count (5, not 10).
-
-### Test 3: Create product in dashboard (twice)
-- Create a new product "Test Product" in "Tobacco" category.
-- Try to create another product "Test Product" in "Tobacco" category.
-- **Expected:** Second attempt fails with 409 Conflict error or warning dialog.
-
-### Test 4: Edit existing product in dashboard
-- Edit "Ways 200 Grammes" → change price from 24.99 to 25.99 → save.
-- Open Android app → navigate to Tobacco → find "Ways 200 Grammes".
-- **Expected:** Price is updated to 25.99. Only ONE card for "Ways 200 Grammes" is visible.
-
-### Test 5: Restart backend + dashboard + Android app
-- Restart backend server.
-- Refresh dashboard → navigate to Products page → count products.
-- Close Android app → force stop → reopen → navigate to Tobacco.
-- **Expected:** Product counts remain stable across restarts. No new duplicates appear.
-
-### Test 6: Offline mode (Android)
-- Disconnect phone/emulator from network.
-- Open Android app → navigate to Tobacco category.
-- **Expected:** Static fallback products (p3, p11–p14) are displayed.
-- Reconnect to network → refresh category.
-- **Expected:** DB products replace static fallback. No duplicates.
-
-### Test 7: Cart, favorites, product details (Android)
-- Add "Ways 200 Grammes" to cart → navigate to cart.
-- **Expected:** Product appears once in cart with correct price and image.
-- Add to favorites → navigate to favorites.
-- **Expected:** Product appears once in favorites.
-- Open product detail → verify correct stock, description, images.
-
-### Test 8: Other categories (Android)
-- Navigate to Hookahs, Coals, Foyers, Full Packs, Cleaning categories.
-- **Expected:** No duplicate products in any category.
-
----
-
-## Risk Assessment
-
-| Change | What Could Break | Mitigation |
-|--------|------------------|------------|
-| **Android: Remove static product merge** | If backend is unreachable AND local cache is empty, the app will show 0 products instead of static fallback. | The updated logic checks `if (dbProducts.isEmpty())` → static products are used only if DB returns empty (offline mode). This is correct behavior. |
-| **Backend: Add unique index** | Index creation will fail if duplicates exist. | Run cleanup script first. The index is added in the model file, not via migration, so it's applied when the server restarts. |
-| **Backend: Add duplicate check in createProduct** | Performance impact from regex query on every POST. | The check uses an indexed field (`name`) with case-insensitive regex. Performance impact is minimal (<10ms per query). |
-| **Dashboard: Add duplicate warning** | Extra API call on every product creation. | The check only runs for NEW products (not edits). The GET /products call is already fast (<100ms). |
-| **Database cleanup** | Accidentally deleting the wrong products. | The script keeps the OLDEST product (by `createdAt`) in each duplicate group. A backup JSON file is created before deletion. Manual review is possible before running with `DELETE_CONFIRMED=true`. |
-| **seedProducts.js update** | Changed duplicate logic might skip legitimate products. | The new logic adds a `category` check, making it MORE strict (fewer false negatives). Existing products are still matched correctly. |
-
----
-
-## Post-Fix Deliverables
-
-After implementing all changes, provide:
-
-1. **Screenshot of diagnostic script output** before cleanup.
-2. **Screenshot of diagnostic script output** after cleanup.
-3. **Product counts per category** (from MongoDB and from Android app).
-4. **Video or screenshot** of Tobacco category in Android app showing 5 products (not 10).
-5. **Test results** for all 8 verification tests listed above.
-
----
-
-## Manual Actions Required
-
-1. **Run diagnostic script**:
-   ```bash
-   cd c:\Users\GAMING\Downloads\raaa\e-commerce-backend-main
-   node .agents\tasks\check-duplicates.mjs
-   ```
-
-2. **Review duplicate report** at `c:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\.agents\tasks\duplicate-report.json`.
-
-3. **Create cleanup script** as specified in section 5.
-
-4. **Run cleanup script** (dry run first, then with `DELETE_CONFIRMED=true`).
-
-5. **Rebuild and reinstall Android app** after modifying `ProductSyncManager.kt`:
-   ```bash
-   cd "c:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop"
-   .\gradlew clean assembleDebug
-   # Install APK on device/emulator
-   ```
-
-6. **Restart backend server** after modifying `models/Product.js`:
-   ```bash
-   cd c:\Users\GAMING\Downloads\raaa\e-commerce-backend-main
-   npm start
-   ```
-
-7. **Clear Android app cache** (optional) to force a fresh sync:
-   - Settings → Apps → HookaDrop → Storage → Clear Cache (NOT Clear Data — this preserves login).
-
----
-
-## Conclusion
-
-The product duplication issue is caused by **architectural misalignment** between three independent systems:
-
-1. **Backend** allows unlimited duplicate products (no unique constraint).
-2. **Dashboard** does not check for duplicates before creating products.
-3. **Android app** merges static fallback products with database products by ID, but IDs never match → both are displayed.
-
-The **Tobacco category** is especially affected because:
-- 5 tobacco products exist in both `DataProvider.kt` (static) and the database (seeded from `seedProducts.js` or created via dashboard).
-- The Android app's `ProductSyncManager` adds both versions to the display list because their IDs don't collide.
-
-**The fix is a three-part strategy:**
-1. **Android**: Stop merging static products when DB is populated (change `ProductSyncManager.kt`).
-2. **Backend**: Prevent duplicate creation (add unique index + controller validation).
-3. **Database**: Clean up existing duplicates (run cleanup script).
-
-All valid products will be preserved. Cart items, favorites, historical orders, and product images/descriptions will remain intact. The fix is safe, reversible (backup before cleanup), and tested.
-
----
-
-**Diagnostic script location:** `c:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\.agents\tasks\check-duplicates.mjs`
-
-**Next step:** Run the diagnostic script to generate the duplicate report, then proceed with the implementation in the order specified above.
+Each step is independently verifiable and leaves the codebase in a working state.

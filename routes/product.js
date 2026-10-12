@@ -7,6 +7,7 @@ import {
   updateProduct,
   deleteProduct,
   searchProducts,
+  getPopularProducts,
 } from "../controller/product.js";
 import upload from "../storage/multer.js";
 import protectRoute from "../middleware/protectRoute.js";
@@ -15,6 +16,7 @@ import requireRole   from "../middleware/requireRole.js";
 const router = express.Router();
 
 // ── PUBLIC (Android app reads these) ─────────────────────────────────────────
+router.get("/products/popular", getPopularProducts);
 router.get("/products/search", searchProducts);
 router.get("/products",        getAllProducts);
 router.get("/products/:id",    getProductById);

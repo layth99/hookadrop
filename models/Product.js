@@ -13,6 +13,7 @@ const productSchema = new mongoose.Schema(
     mark: { type: String, required: true },
     category: { type: String, required: true },
     stock: { type: Number, required: true },
+    soldCount: { type: Number, default: 0 },
   },
   { timestamps: true }
 );

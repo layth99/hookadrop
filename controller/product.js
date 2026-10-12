@@ -255,4 +255,28 @@ export const deleteProduct = async (req, res) => {
   }
 };
 
+// GET popular products (sorted by soldCount descending)
+export const getPopularProducts = async (req, res) => {
+  try {
+    const products = await Product.find()
+      .sort({ soldCount: -1 })
+      .limit(10);
+    
+    // Add categoryId alias so the Android app's toProduct() can read it
+    const mappedProducts = products.map((p) => ({
+      ...p.toObject(),
+      categoryId: p.category,
+    }));
+    
+    return res.status(200).json({
+      success: true,
+      data: mappedProducts,
+    });
+  } catch (error) {
+    console.error("Error fetching popular products:", error);
+    return res.status(500).json({ success: false, error: "Failed to fetch popular products" });
+  }
+};
+
+
 // Search products
