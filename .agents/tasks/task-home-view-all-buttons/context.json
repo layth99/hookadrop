@@ -1,0 +1,31 @@
+{
+  "project_type": "Native Android app (Kotlin), single-module Gradle project",
+  "language": "Kotlin",
+  "build_system": "Gradle with Kotlin DSL wrapper; groovy build.gradle; compileSdk 34, minSdk 24. ViewBinding enabled. No unit tests present in the project.",
+  "test_framework": "None found in project — no test source sets configured",
+  "build_command": ".\\gradlew.bat assembleDebug",
+  "test_command": ".\\gradlew.bat assembleDebug",
+  "verification_instructions": "Run `.\\gradlew.bat assembleDebug` from `c:\\Users\\GAMING\\Downloads\\raaa\\e-commerce-backend-main\\hookaDrop App\\HookahDrop`. Expect BUILD SUCCESSFUL. Then manually test on device/emulator: (1) Home page no longer shows top-right 'View All' TextViews; (2) 'View All Categories' button appears below category grid and opens CategoriesActivity; (3) 'View All Products' button appears below Popular Products RecyclerView and opens PopularProductsActivity; (4) PopularProductsActivity loads products in a 2-column grid with images, prices, favorite and add-to-cart buttons working.",
+  "snapshot_or_generated_files": null,
+  "environment_constraints": "Windows PowerShell. Gradle wrapper is gradlew.bat. Project uses Firebase Google Services but no google-services.json issue was seen. Backend server must be running for product API calls; fallback to DataProvider static data is already coded.",
+  "contribution_requirements": "No AGENTS.md or CONTRIBUTING.md found. Follow existing code patterns exactly: ViewBinding, coroutines with Dispatchers.Main/IO, LocaleManager.wrap in attachBaseContext, CartManager/FavoritesManager.init in onCreate, overridePendingTransition for all navigation.",
+  "key_patterns": "Every Activity: (1) overrides attachBaseContext with LocaleManager.wrap(base), (2) uses ViewBinding via ActivityXxxBinding.inflate(layoutInflater), (3) calls CartManager.init(this) and FavoritesManager.init(this) in onCreate, (4) registers/removes cartListener in onCreate/onDestroy, (5) uses BottomNavManager for bottom navigation, (6) uses overridePendingTransition(R.anim.nav_enter, R.anim.nav_exit) for forward navigation and (R.anim.nav_back_enter, R.anim.nav_back_exit) for back. ProductAdapter takes (products, onProductClick, onFavoriteChanged, onCartChanged) and has updateProducts(). RemoteDataProvider.getPopularProducts() exists, calls /api/products/popular, falls back to DataProvider.products.take(6).",
+  "relevant_files": [
+    "app/src/main/res/layout/activity_home.xml",
+    "app/src/main/java/com/hookahdrop/app/HomeActivity.kt",
+    "app/src/main/res/layout/activity_category_products.xml",
+    "app/src/main/java/com/hookahdrop/app/CategoryProductsActivity.kt",
+    "app/src/main/java/com/hookahdrop/app/CategoriesActivity.kt",
+    "app/src/main/java/com/hookahdrop/app/adapter/ProductAdapter.kt",
+    "app/src/main/java/com/hookahdrop/app/data/RemoteDataProvider.kt",
+    "app/src/main/java/com/hookahdrop/app/data/Models.kt",
+    "app/src/main/AndroidManifest.xml",
+    "app/src/main/res/layout/item_product.xml",
+    "app/src/main/res/values/colors.xml",
+    "app/src/main/res/values/themes.xml",
+    "app/src/main/res/drawable/bg_card_dark.xml",
+    "app/src/main/res/drawable/ic_arrow_right.xml",
+    "app/src/main/res/anim/nav_enter.xml"
+  ],
+  "directory_structure": "HookahDrop/ — root. app/src/main/java/com/hookahdrop/app/ — all Activity .kt files at root of this package; adapter/ — RecyclerView adapters; data/ — Models.kt, RemoteDataProvider.kt, DataProvider.kt, CartManager.kt, FavoritesManager.kt, SessionManager.kt; network/ — ApiClient.kt, ApiModels.kt; ui/ — BottomNavManager.kt. app/src/main/res/layout/ — all XML layouts. app/src/main/res/drawable/ — all XML and PNG drawables. app/src/main/res/anim/ — transition animations. app/src/main/res/values/ — colors.xml, themes.xml, strings.xml."
+}

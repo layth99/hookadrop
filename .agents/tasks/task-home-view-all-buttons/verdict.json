@@ -1,0 +1,7 @@
+{
+  "verdict": "APPROVED",
+  "changes_requested": [
+    "loadPopularProducts() uses CoroutineScope(Dispatchers.Main).launch instead of lifecycleScope.launch — the coroutine is not tied to the Activity lifecycle and leaks if the user navigates away before the network call returns. Replace with lifecycleScope.launch for automatic cancellation on onDestroy."
+  ],
+  "summary": "All eight acceptance criteria pass. Both top-right View All TextViews are absent from activity_home.xml; Button elements with ids btnViewAllCategories and btnViewAllProducts appear after their respective RecyclerViews using bg_view_all_button.xml background, white text, and the chevron drawable. PopularProductsActivity.kt follows the ViewBinding + coroutine + LocaleManager pattern. AndroidManifest.xml registers .PopularProductsActivity with exported=false and Theme.HookahDrop.Main. HomeActivity.kt btnViewAllProducts now starts PopularProductsActivity, not CategoriesActivity. Build succeeded (BUILD SUCCESSFUL in 41s per FEAT-002 findings). One non-blocking concern: the bare CoroutineScope in loadPopularProducts() should be replaced with lifecycleScope to avoid a coroutine leak on back navigation."
+}

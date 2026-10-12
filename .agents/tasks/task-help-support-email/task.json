@@ -1,7 +1,7 @@
 {
   "task_id": "task-help-support-email",
   "task_description": "Wire the Help & Support form in HelpSupportActivity.kt to a new POST /api/support backend endpoint that sends an HTML notification email to hookadrop@gmail.com and a confirmation email to the submitting user, reusing the existing mailSender from controller/mailerSender.js.",
-  "status": "pending",
+  "status": "completed",
   "feature_order": ["FEAT-001", "FEAT-002"],
   "blocked_reason": null
 }

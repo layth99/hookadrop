@@ -1,0 +1,23 @@
+{
+  "id": "FEAT-001",
+  "type": "feat",
+  "description": "Replace both top-right 'View All' TextViews in activity_home.xml with styled bottom section buttons, create the button background and chevron drawables, and fix the btnViewAllCategories click handler in HomeActivity.kt to open CategoriesActivity (it already does — verify it remains correct). Also fix btnViewAllProducts to open the new PopularProductsActivity (currently it calls goToCategories() — this must be updated in FEAT-002 after the activity exists). This FEAT prepares all visual and layout changes.",
+  "status": "completed",
+  "steps": [
+    "1. CREATE app/src/main/res/drawable/bg_view_all_button.xml: a <selector> with pressed state (solid #252535, stroke 1dp #2A2A3E, corners 12dp) and default state (solid #1E1E2E, stroke 1dp #2A2A3E, corners 12dp). This gives press feedback without MaterialButton tint interference.",
+    "2. CREATE app/src/main/res/drawable/ic_chevron_right_white.xml: copy of ic_arrow_right.xml with strokeColor changed from @color/gold to @color/white. Width/height 16dp, viewportWidth/Height 24, same pathData 'M9,18l6,-6 -6,-6'.",
+    "3. MODIFY app/src/main/res/layout/activity_home.xml:\n   a. In the Categories header LinearLayout, remove the TextView with id btnViewAllCategories (the gold 'View All' text at the end of the row). Leave the 'Categories' title TextView and the header LinearLayout itself intact.\n   b. After <androidx.recyclerview.widget.RecyclerView android:id='@+id/rvCategories'>, INSERT a Button:\n      android:id='@+id/btnViewAllCategories'\n      android:layout_width='match_parent'\n      android:layout_height='50dp'\n      android:layout_marginHorizontal='16dp'\n      android:layout_marginTop='12dp'\n      android:layout_marginBottom='4dp'\n      android:background='@drawable/bg_view_all_button'\n      android:text='View All Categories'\n      android:textColor='@color/white'\n      android:textSize='16sp'\n      android:drawableEnd='@drawable/ic_chevron_right_white'\n      android:drawablePadding='8dp'\n      android:textAllCaps='false'\n      android:stateListAnimator='@null'\n      android:paddingHorizontal='20dp'\n   c. In the Popular Products header LinearLayout, remove the TextView with id btnViewAllProducts (the gold 'View All' text).\n   d. After <androidx.recyclerview.widget.RecyclerView android:id='@+id/rvProducts'>, INSERT a Button:\n      android:id='@+id/btnViewAllProducts'\n      same attributes as btnViewAllCategories but text='View All Products'",
+    "4. Verify activity_home.xml XML is well-formed (no duplicate ids, both section headers still have the title TextViews, both RecyclerViews keep their ids)."
+  ],
+  "acceptance_criteria": [
+    "bg_view_all_button.xml and ic_chevron_right_white.xml exist in res/drawable/",
+    "activity_home.xml has no TextView with id btnViewAllCategories or btnViewAllProducts — only Button elements with those ids",
+    "Both Button elements appear after their respective RecyclerViews in the XML, not inside the header LinearLayouts",
+    "Running .\\gradlew.bat assembleDebug from the HookahDrop directory returns BUILD SUCCESSFUL"
+  ],
+  "verification": [
+    "cd 'c:\\Users\\GAMING\\Downloads\\raaa\\e-commerce-backend-main\\hookaDrop App\\HookahDrop' && .\\gradlew.bat assembleDebug — expect BUILD SUCCESSFUL"
+  ],
+  "blocked_reason": null,
+  "findings": "gradle-wrapper.jar was missing from the repo; downloaded from gradle/gradle v8.4.0 on GitHub before build. HomeActivity.kt accesses btnViewAllCategories and btnViewAllProducts via ViewBinding — changing them from TextView to Button is fully backwards-compatible (Button extends TextView). BUILD SUCCESSFUL confirmed."
+}

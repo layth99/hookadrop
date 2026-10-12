@@ -1,5 +1,13 @@
 import { mailSender } from "../controller/mailerSender.js";
 
+/** Minimal HTML-escape to prevent user input from injecting markup into emails. */
+const esc = (s) =>
+  String(s ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+
 export const submitSupportRequest = async (req, res) => {
   try {
     const { subject, category, description, orderNumber } = req.body;
@@ -10,7 +18,7 @@ export const submitSupportRequest = async (req, res) => {
     }
 
     // req.user is populated by protectRoute middleware
-    const userName  = req.user.fullname || req.user.name || req.user.username || "Unknown";
+    const userName  = req.user.name || "Unknown";
     const userEmail = req.user.email;
 
     // ── Admin notification email ──────────────────────────────────────────────
@@ -37,23 +45,23 @@ export const submitSupportRequest = async (req, res) => {
         <table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;">
           <tr>
             <td style="padding:10px 0;border-bottom:1px solid #222;width:140px;color:#888;font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;">Subject</td>
-            <td style="padding:10px 0 10px 16px;border-bottom:1px solid #222;color:#FFFFFF;font-size:14px;">${subject}</td>
+            <td style="padding:10px 0 10px 16px;border-bottom:1px solid #222;color:#FFFFFF;font-size:14px;">${esc(subject)}</td>
           </tr>
           <tr>
             <td style="padding:10px 0;border-bottom:1px solid #222;color:#888;font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;">Category</td>
-            <td style="padding:10px 0 10px 16px;border-bottom:1px solid #222;color:#FFFFFF;font-size:14px;">${category}</td>
+            <td style="padding:10px 0 10px 16px;border-bottom:1px solid #222;color:#FFFFFF;font-size:14px;">${esc(category)}</td>
           </tr>
           <tr>
             <td style="padding:10px 0;border-bottom:1px solid #222;color:#888;font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;">Description</td>
-            <td style="padding:10px 0 10px 16px;border-bottom:1px solid #222;color:#CCCCCC;font-size:14px;line-height:1.7;">${description.replace(/\n/g, "<br/>")}</td>
+            <td style="padding:10px 0 10px 16px;border-bottom:1px solid #222;color:#CCCCCC;font-size:14px;line-height:1.7;">${esc(description).replace(/\n/g, "<br/>")}</td>
           </tr>
           <tr>
             <td style="padding:10px 0;border-bottom:1px solid #222;color:#888;font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;">Order #</td>
-            <td style="padding:10px 0 10px 16px;border-bottom:1px solid #222;color:${orderNumber ? "#FFFFFF" : "#555"};font-size:14px;">${orderNumber || "Not provided"}</td>
+            <td style="padding:10px 0 10px 16px;border-bottom:1px solid #222;color:${orderNumber ? "#FFFFFF" : "#555"};font-size:14px;">${orderNumber ? esc(orderNumber) : "Not provided"}</td>
           </tr>
           <tr>
             <td style="padding:10px 0;color:#888;font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;">Submitted By</td>
-            <td style="padding:10px 0 10px 16px;color:#FFD000;font-size:14px;">${userName} &lt;${userEmail}&gt;</td>
+            <td style="padding:10px 0 10px 16px;color:#FFD000;font-size:14px;">${esc(userName)} &lt;${esc(userEmail)}&gt;</td>
           </tr>
         </table>
       </td></tr>
@@ -82,7 +90,7 @@ export const submitSupportRequest = async (req, res) => {
       </td></tr>
       <!-- Body -->
       <tr><td style="background:#111111;padding:36px 40px;">
-        <p style="color:#CCCCCC;font-size:16px;margin:0 0 8px;">Hello <strong style="color:#FFD000;">${userName}</strong>,</p>
+        <p style="color:#CCCCCC;font-size:16px;margin:0 0 8px;">Hello <strong style="color:#FFD000;">${esc(userName)}</strong>,</p>
         <p style="color:#999;font-size:14px;line-height:1.7;margin:0 0 24px;">
           We have received your support request and our team will review it shortly.
         </p>
@@ -90,7 +98,7 @@ export const submitSupportRequest = async (req, res) => {
         <!-- Confirmation card -->
         <div style="background:#1A1A1A;border:1px solid #2A2A2A;border-radius:12px;padding:24px;margin-bottom:28px;">
           <p style="color:#888;font-size:12px;text-transform:uppercase;letter-spacing:2px;margin:0 0 6px;">Your request subject</p>
-          <p style="color:#FFFFFF;font-size:16px;font-weight:600;margin:0 0 16px;">${subject}</p>
+          <p style="color:#FFFFFF;font-size:16px;font-weight:600;margin:0 0 16px;">${esc(subject)}</p>
           <p style="color:#888;font-size:12px;text-transform:uppercase;letter-spacing:2px;margin:0 0 4px;">Expected response time</p>
           <p style="color:#FFD000;font-size:14px;font-weight:700;margin:0;">Within 24 hours</p>
         </div>
@@ -111,7 +119,7 @@ export const submitSupportRequest = async (req, res) => {
 </body></html>`;
 
     // Send admin notification (awaited — must succeed)
-    await mailSender("hookadrop@gmail.com", `New Support Request: ${subject}`, adminHtml);
+    await mailSender("hookadrop@gmail.com", `New Support Request: ${esc(subject)}`, adminHtml);
 
     // Send user confirmation (fire-and-forget)
     mailSender(userEmail, "We received your request — HookaDrop Support", confirmHtml)
