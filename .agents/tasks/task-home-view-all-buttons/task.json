@@ -1,0 +1,7 @@
+{
+  "task_id": "task-home-view-all-buttons",
+  "task_description": "Improve both 'View All' buttons on the HookaDrop Android Home page: remove top-right TextViews, add styled bottom buttons, create PopularProductsActivity for the products button, wire up navigation correctly.",
+  "status": "completed",
+  "feature_order": ["FEAT-001", "FEAT-002"],
+  "blocked_reason": null
+}
