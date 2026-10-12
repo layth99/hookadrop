@@ -256,6 +256,9 @@ export const deleteProduct = async (req, res) => {
 };
 
 // GET popular products (sorted by soldCount descending)
+// When all products have soldCount=0 (no sales yet), products are sorted by
+// MongoDB _id (creation order), effectively showing newest products first.
+// This provides a better UX than an empty list for new stores.
 export const getPopularProducts = async (req, res) => {
   try {
     const products = await Product.find()

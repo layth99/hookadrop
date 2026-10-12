@@ -48,6 +48,21 @@ const getOrCreateStripeCustomer = async (user) => {
   return customer.id;
 };
 
+// ── Helper: increment soldCount when order is paid ───────────────────────────
+const incrementSoldCount = async (order) => {
+  if (!order.orderItems || order.orderItems.length === 0) return;
+  
+  const Product = (await import("../models/Product.js")).default;
+  for (const item of order.orderItems) {
+    if (item.product && item.qty) {
+      await Product.findByIdAndUpdate(
+        item.product,
+        { $inc: { soldCount: item.qty } }
+      ).catch(err => console.error(`Failed to update soldCount for product ${item.product}:`, err));
+    }
+  }
+};
+
 // ── POST /api/stripe/setup-intent ─────────────────────────────────────────────
 // Called when user opens "Add Card". Returns a SetupIntent client_secret.
 router.post("/setup-intent", protectRoute, async (req, res) => {
@@ -330,12 +345,15 @@ router.post("/confirm-payment", protectRoute, async (req, res) => {
     }
 
     // Payment confirmed by Stripe — update the order
-    await Order.findByIdAndUpdate(order._id, {
+    const updatedOrder = await Order.findByIdAndUpdate(order._id, {
       isPaid:              true,
       paidAt:              new Date(),
       status:              "confirmed",
       stripePaymentStatus: "succeeded",
-    });
+    }, { new: true }).populate('orderItems.product');
+
+    // Increment soldCount for each product now that payment is confirmed
+    await incrementSoldCount(updatedOrder);
 
     console.log(`[confirm-payment] Order ${order.orderId} marked as paid via PI ${pi.id}`);
     res.json({ success: true, message: "Payment confirmed and order updated" });
@@ -481,8 +499,11 @@ router.post(
                 stripePaymentStatus: "succeeded",
               },
               { new: true }
-            );
+            ).populate('orderItems.product');
+            
             if (updated) {
+              // Increment soldCount for each product now that payment is confirmed
+              await incrementSoldCount(updated);
               console.log(`[webhook] Order ${updated.orderId} marked as paid`);
             } else {
               console.log(`[webhook] PaymentIntent ${pi.id} — order not found or already paid (idempotent skip)`);
