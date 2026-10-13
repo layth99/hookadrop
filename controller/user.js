@@ -91,6 +91,27 @@ export async function Register(req, res) {
     // ── Check duplicate ─────────────────────────────────────────────────────
     const existingUser = await User.findOne({ email });
     if (existingUser) {
+      // If account exists but is not verified, allow re-sending the code
+      if (!existingUser.emailVerified) {
+        // Generate fresh code and update the existing pending account
+        const otp     = generateOtp();
+        const otpHash = hashOtp(otp);
+        existingUser.verificationCode      = otpHash;
+        existingUser.verificationExpiresAt = new Date(Date.now() + 10 * 60 * 1000);
+        existingUser.verificationAttempts  = 0;
+        existingUser.lastVerificationSentAt = new Date();
+        await existingUser.save();
+        try {
+          await sendVerificationEmail(email, existingUser.name, otp);
+        } catch (emailErr) {
+          console.error("[Register] Failed to resend to existing pending user:", emailErr.message);
+        }
+        return res.status(200).json({
+          success: true,
+          message: "A new verification code has been sent to your email.",
+          userId: existingUser._id,
+        });
+      }
       return res.status(400).json({ success: false, message: "This email is already registered." });
     }
 
