@@ -34,6 +34,16 @@ export async function Login(req, res) {
       return res.status(400).json({ message: "Wrong password" });
     }
 
+    // ── Block unverified accounts ────────────────────────────────────────────
+    if (!user.emailVerified) {
+      return res.status(403).json({
+        message: "Please verify your email before signing in.",
+        requiresVerification: true,
+        userId: user._id,
+        email:  user.email,
+      });
+    }
+
     const tokenData = { userId: user._id, isAdmin: user.isAdmin };
     const token     = jwt.sign(tokenData, secretOrPrivateKey, { expiresIn: "7d" });
 
