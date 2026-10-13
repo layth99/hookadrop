@@ -390,8 +390,25 @@ export async function changePassword(req, res) {
       return res.status(401).json({ success: false, message: "Current password is incorrect." });
     }
 
+    // ── 20-day cooldown ──────────────────────────────────────────────────────
+    if (user.lastPasswordChangedAt) {
+      const MS_PER_DAY = 24 * 60 * 60 * 1000;
+      const daysSince = Math.floor(
+        (Date.now() - new Date(user.lastPasswordChangedAt).getTime()) / MS_PER_DAY
+      );
+      const daysLeft = 20 - daysSince;
+      if (daysLeft > 0) {
+        return res.status(429).json({
+          success: false,
+          message: `You can change your password again in ${daysLeft} day${daysLeft === 1 ? '' : 's'}.`,
+          daysLeft,
+        });
+      }
+    }
+
     // Save new password — pre-save hook hashes it
     user.password = newPassword;
+    user.lastPasswordChangedAt = new Date();
     await user.save();
 
     // Fire security notification (non-blocking)

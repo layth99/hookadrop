@@ -70,6 +70,7 @@ const userSchema = new mongoose.Schema(
     },
     fcmToken: { type: String, default: null },
     notificationsEnabled: { type: Boolean, default: true },
+    lastPasswordChangedAt: { type: Date, default: null },
   },
   { timestamps: true }
 );
