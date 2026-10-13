@@ -1,22 +1,54 @@
 import { Resend } from "resend";
+import nodemailer  from "nodemailer";
 import User        from "../models/User.js";
 import otpGenerator from "otp-generator";
 
 // ─────────────────────────────────────────────────────────────────────────────
-//  Resend client — uses RESEND_API_KEY from .env
+//  TRANSPORT 1 — Resend (used only for Help & Support → hookadrop@gmail.com)
 // ─────────────────────────────────────────────────────────────────────────────
 const getResend = () => new Resend(process.env.RESEND_API_KEY);
-
-const FROM_ADDRESS = `${process.env.EMAIL_FROM_NAME || "HookaDrop"} <${process.env.EMAIL_FROM || "onboarding@resend.dev"}>`;
+const RESEND_FROM = `${process.env.EMAIL_FROM_NAME || "HookaDrop"} <${process.env.EMAIL_FROM || "onboarding@resend.dev"}>`;
 
 // ─────────────────────────────────────────────────────────────────────────────
-//  Generic low-level sender — uses Resend
+//  TRANSPORT 2 — Gmail SMTP via Nodemailer (used for OTP verification emails)
+//  Sends FROM hookadrop@gmail.com TO the user's email
+// ─────────────────────────────────────────────────────────────────────────────
+const createGmailTransporter = () =>
+  nodemailer.createTransport({
+    host:   "smtp.gmail.com",
+    port:   587,
+    secure: false,
+    auth: {
+      user: process.env.GMAIL_USER,
+      pass: process.env.GMAIL_APP_PASSWORD,
+    },
+  });
+
+const GMAIL_FROM = `HookaDrop <${process.env.GMAIL_USER || "hookadrop@gmail.com"}>`;
+
+// ─────────────────────────────────────────────────────────────────────────────
+//  Low-level Gmail sender (for OTPs — sends to user email)
+// ─────────────────────────────────────────────────────────────────────────────
+const gmailSend = async (to, subject, html) => {
+  const transporter = createGmailTransporter();
+  const info = await transporter.sendMail({
+    from:    GMAIL_FROM,
+    to,
+    subject,
+    html,
+  });
+  console.log(`[gmailSend] ✅ Sent to ${to} — messageId: ${info.messageId}`);
+  return info;
+};
+
+// ─────────────────────────────────────────────────────────────────────────────
+//  Low-level Resend sender (for Help & Support only)
 // ─────────────────────────────────────────────────────────────────────────────
 export const mailSender = async (email, subject, html) => {
   try {
     const resend = getResend();
     const { data, error } = await resend.emails.send({
-      from:    FROM_ADDRESS,
+      from:    RESEND_FROM,
       to:      [email],
       subject,
       html,
@@ -33,7 +65,7 @@ export const mailSender = async (email, subject, html) => {
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
-//  Verification email — sent immediately after Sign Up
+//  Verification email — uses Gmail SMTP (FROM hookadrop@gmail.com TO user)
 // ─────────────────────────────────────────────────────────────────────────────
 export const sendVerificationEmail = async (email, name, code) => {
   const displayName = name?.trim() || "there";
@@ -46,19 +78,19 @@ export const sendVerificationEmail = async (email, name, code) => {
 <table width="100%" cellpadding="0" cellspacing="0" style="background:#0A0A0A;padding:40px 20px;">
   <tr><td align="center">
     <table width="520" cellpadding="0" cellspacing="0" style="max-width:520px;width:100%;">
-      <tr><td align="center" style="background:linear-gradient(135deg,#111111 0%,#1a1200 100%);border-radius:16px 16px 0 0;padding:36px 40px 28px;border-bottom:2px solid #FFD000;">
-        <h1 style="color:#FFD000;font-size:30px;font-weight:900;letter-spacing:-0.5px;margin:0;">HookaDrop</h1>
+      <tr><td align="center" style="background:#111111;border-radius:16px 16px 0 0;padding:36px 40px 28px;border-bottom:2px solid #08B9F5;">
+        <h1 style="color:#08B9F5;font-size:30px;font-weight:900;letter-spacing:-0.5px;margin:0;">HookaDrop</h1>
         <p style="color:#666;font-size:12px;margin:6px 0 0;letter-spacing:2px;text-transform:uppercase;">Email Verification</p>
       </td></tr>
       <tr><td style="background:#111111;padding:40px;">
-        <p style="color:#CCCCCC;font-size:16px;margin:0 0 8px;">Hello <strong style="color:#FFD000;">${displayName}</strong>,</p>
+        <p style="color:#CCCCCC;font-size:16px;margin:0 0 8px;">Hello <strong style="color:#08B9F5;">${displayName}</strong>,</p>
         <p style="color:#999;font-size:14px;line-height:1.6;margin:0 0 32px;">
-          Welcome to HookaDrop! To complete your registration, enter the verification code below in the app.
+          Welcome to HookaDrop! Enter the verification code below to complete your registration.
         </p>
-        <div style="background:#1A1A1A;border:2px solid #FFD000;border-radius:16px;padding:28px;text-align:center;margin-bottom:28px;">
+        <div style="background:#1A1A1A;border:2px solid #08B9F5;border-radius:16px;padding:28px;text-align:center;margin-bottom:28px;">
           <p style="color:#888;font-size:12px;text-transform:uppercase;letter-spacing:3px;margin:0 0 12px;">Your verification code</p>
-          <p style="color:#FFD000;font-size:48px;font-weight:900;letter-spacing:16px;margin:0;">${code}</p>
-          <p style="color:#555;font-size:12px;margin:16px 0 0;">Expires in <strong style="color:#FFD000;">10 minutes</strong></p>
+          <p style="color:#08B9F5;font-size:48px;font-weight:900;letter-spacing:16px;margin:0;">${code}</p>
+          <p style="color:#555;font-size:12px;margin:16px 0 0;">Expires in <strong style="color:#08B9F5;">10 minutes</strong></p>
         </div>
         <p style="color:#555;font-size:13px;line-height:1.6;margin:0;">
           If you did not create a HookaDrop account, you can safely ignore this email.
@@ -72,8 +104,8 @@ export const sendVerificationEmail = async (email, name, code) => {
 </table>
 </body></html>`;
 
-  await mailSender(email, "Verify your HookaDrop account 🔐", html);
-  console.log(`[sendVerificationEmail] ✅ Code sent to ${email}`);
+  await gmailSend(email, "Verify your HookaDrop account 🔐", html);
+  console.log(`[sendVerificationEmail] ✅ Code sent via Gmail to ${email}`);
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -225,7 +257,7 @@ export const sendWelcomeEmail = async (userId, name, email) => {
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
-//  Password reset OTP
+//  Password reset OTP — uses Gmail SMTP (FROM hookadrop@gmail.com TO user)
 // ─────────────────────────────────────────────────────────────────────────────
 export const sendMail = async (email) => {
   const otp = otpGenerator.generate(6, {
@@ -237,25 +269,25 @@ export const sendMail = async (email) => {
   const user = await User.findOne({ email });
   if (!user) throw new Error("User not found");
 
-  user.resetOtp  = otp;
+  user.resetOtp   = otp;
   user.otpExpires = Date.now() + 3600000; // 1 hour
   await user.save();
 
   const html = `
 <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;background:#0A0A0A;padding:40px 20px;">
   <div style="max-width:480px;margin:0 auto;background:#111;border:1px solid #222;border-radius:16px;overflow:hidden;">
-    <div style="background:linear-gradient(135deg,#111111,#1a1200);padding:32px 32px 24px;border-bottom:2px solid #FFD000;text-align:center;">
-      <h1 style="color:#FFD000;font-size:28px;font-weight:900;margin:0;">HookaDrop</h1>
+    <div style="background:#111111;padding:32px 32px 24px;border-bottom:2px solid #08B9F5;text-align:center;">
+      <h1 style="color:#08B9F5;font-size:28px;font-weight:900;margin:0;">HookaDrop</h1>
     </div>
     <div style="padding:32px;">
       <h2 style="color:#fff;font-size:20px;margin:0 0 12px;">Password Reset</h2>
       <p style="color:#999;font-size:14px;line-height:1.6;margin:0 0 24px;">
         We received a request to reset your HookaDrop password.<br/>
-        Use the code below — it expires in <strong style="color:#FFD000;">1 hour</strong>.
+        Use the code below — it expires in <strong style="color:#08B9F5;">1 hour</strong>.
       </p>
-      <div style="background:#1A1A1A;border:1px solid #333;border-radius:12px;padding:20px;text-align:center;margin-bottom:24px;">
-        <p style="color:#999;font-size:12px;text-transform:uppercase;letter-spacing:2px;margin:0 0 8px;">Your code</p>
-        <p style="color:#FFD000;font-size:36px;font-weight:900;letter-spacing:10px;margin:0;">${otp}</p>
+      <div style="background:#1A1A1A;border:1px solid #08B9F5;border-radius:12px;padding:20px;text-align:center;margin-bottom:24px;">
+        <p style="color:#999;font-size:12px;text-transform:uppercase;letter-spacing:2px;margin:0 0 8px;">Your reset code</p>
+        <p style="color:#08B9F5;font-size:36px;font-weight:900;letter-spacing:10px;margin:0;">${otp}</p>
       </div>
       <p style="color:#555;font-size:12px;margin:0;line-height:1.6;">
         If you didn't request this, you can safely ignore this email.<br/>
@@ -268,11 +300,7 @@ export const sendMail = async (email) => {
   </div>
 </div>`;
 
-  try {
-    const response = await mailSender(email, "HookaDrop — Password Reset Code", html);
-    return response;
-  } catch (error) {
-    console.error("[sendMail] Error sending OTP email:", error.message);
-    throw error;
-  }
+  const response = await gmailSend(email, "HookaDrop — Password Reset Code", html);
+  console.log(`[sendMail] ✅ Password reset OTP sent via Gmail to ${email}`);
+  return response;
 };
