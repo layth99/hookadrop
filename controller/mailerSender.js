@@ -29,7 +29,19 @@ const GMAIL_FROM = `HookaDrop <${process.env.GMAIL_USER || "hookadrop@gmail.com"
 // ─────────────────────────────────────────────────────────────────────────────
 //  Low-level Gmail sender (for OTPs — sends to user email)
 // ─────────────────────────────────────────────────────────────────────────────
+//  Startup validation — log warning if Gmail creds are missing
+// ─────────────────────────────────────────────────────────────────────────────
+if (!process.env.GMAIL_USER || !process.env.GMAIL_APP_PASSWORD) {
+  console.error("⚠️  [mailerSender] GMAIL_USER or GMAIL_APP_PASSWORD is not set! OTP emails will fail.");
+} else {
+  console.log(`✅ [mailerSender] Gmail SMTP ready — sending from ${process.env.GMAIL_USER}`);
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
 const gmailSend = async (to, subject, html) => {
+  if (!process.env.GMAIL_USER || !process.env.GMAIL_APP_PASSWORD) {
+    throw new Error("Gmail SMTP is not configured. Set GMAIL_USER and GMAIL_APP_PASSWORD on Render.");
+  }
   const transporter = createGmailTransporter();
   const info = await transporter.sendMail({
     from:    GMAIL_FROM,
