@@ -1,37 +1,31 @@
-import nodemailer from "nodemailer";
+import { Resend } from "resend";
 import User        from "../models/User.js";
 import otpGenerator from "otp-generator";
 
 // ─────────────────────────────────────────────────────────────────────────────
-//  Core transporter — built from environment variables only.
-//  Never hardcode credentials here.
+//  Resend client — uses RESEND_API_KEY from .env
 // ─────────────────────────────────────────────────────────────────────────────
-const createTransporter = () =>
-  nodemailer.createTransport({
-    host:   process.env.EMAIL_HOST || "smtp.gmail.com",
-    port:   parseInt(process.env.EMAIL_PORT || "587"),
-    secure: parseInt(process.env.EMAIL_PORT || "587") === 465,
-    auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASSWORD,
-    },
-  });
+const getResend = () => new Resend(process.env.RESEND_API_KEY);
 
-const FROM_ADDRESS = `"${process.env.EMAIL_FROM_NAME || "HookaDrop"}" <${process.env.EMAIL_FROM || process.env.EMAIL_USER}>`;
+const FROM_ADDRESS = `${process.env.EMAIL_FROM_NAME || "HookaDrop"} <${process.env.EMAIL_FROM || "onboarding@resend.dev"}>`;
 
 // ─────────────────────────────────────────────────────────────────────────────
-//  Generic low-level sender
+//  Generic low-level sender — uses Resend
 // ─────────────────────────────────────────────────────────────────────────────
 export const mailSender = async (email, subject, html) => {
   try {
-    const transporter = createTransporter();
-    const info = await transporter.sendMail({
+    const resend = getResend();
+    const { data, error } = await resend.emails.send({
       from:    FROM_ADDRESS,
-      to:      email,
+      to:      [email],
       subject,
       html,
     });
-    return info;
+    if (error) {
+      console.error("[mailSender] Resend error:", error);
+      throw new Error(error.message || "Resend failed");
+    }
+    return data;
   } catch (error) {
     console.error("[mailSender] Failed to send email:", error.message);
     throw error;

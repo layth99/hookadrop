@@ -1,0 +1,7 @@
+{
+  "task_id": "task-notification-system",
+  "task_description": "Build a complete, real-time notification system for HookaDrop: backend Notification model + API + FCM integration, Android in-app notification center + push notifications + profile toggle, and admin dashboard Notifications page.",
+  "status": "pending",
+  "feature_order": ["FEAT-001", "FEAT-002", "FEAT-003"],
+  "blocked_reason": null
+}

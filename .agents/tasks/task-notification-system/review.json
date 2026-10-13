@@ -1,0 +1,9 @@
+{
+  "verdict": "CHANGES_REQUESTED",
+  "changes_requested": [
+    "Login flood in notification center: notifySecurityEvent fires for every successful login with no deduplication. Add a recency guard (skip if a new_login notification exists for this user in the last 10 minutes) or implement device fingerprinting to match the 'new/unrecognized device' requirement.",
+    "Broadcast type not validated against enum: POST /api/notifications/admin/broadcast passes the client-supplied type directly to Notification.insertMany. Any type outside ['order','security','product','promo','account'] causes a Mongoose ValidationError and a 500 response. Add an explicit enum check before the insert.",
+    "Double listener on ProfileActivity switch after resume: loadServerNotificationPreference() calls setOnCheckedChangeListener(null) then sets a new listener, but the original listener from setupMenuItems() (set in onCreate) is never removed. After the first onResume both listeners are active, causing double sync calls on any toggle. Restructure to store the listener as a field and reuse it."
+  ],
+  "reviewDoc": ".agents/tasks/task-notification-system/2026-10-13-002643-review.md"
+}
