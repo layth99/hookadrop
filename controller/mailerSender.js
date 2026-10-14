@@ -1,32 +1,42 @@
-import nodemailer   from "nodemailer";
 import User         from "../models/User.js";
 import otpGenerator from "otp-generator";
 
 // ─────────────────────────────────────────────────────────────────────────────
-//  Gmail SMTP — port 465 (SSL)
-//  Port 465 is NOT blocked by Render free plan (unlike port 587)
+//  Postmark HTTP API — port 443 HTTPS (never blocked by Render)
+//  Server API Token stored in POSTMARK_API_TOKEN env var
 // ─────────────────────────────────────────────────────────────────────────────
-const createTransporter = () =>
-  nodemailer.createTransport({
-    host:   "smtp.gmail.com",
-    port:   465,
-    secure: true,   // SSL — required for port 465
-    auth: {
-      user: process.env.GMAIL_USER,
-      pass: process.env.GMAIL_APP_PASSWORD,
-    },
-  });
-
-const FROM = `HookaDrop <${process.env.GMAIL_USER || "hookadrop@gmail.com"}>`;
+const POSTMARK_TOKEN = process.env.POSTMARK_API_TOKEN;
+const FROM_EMAIL     = process.env.POSTMARK_FROM || "hookadrop@gmail.com";
 
 // ─────────────────────────────────────────────────────────────────────────────
-//  Generic low-level sender
+//  Generic low-level sender — Postmark REST API
 // ─────────────────────────────────────────────────────────────────────────────
 export const mailSender = async (to, subject, html) => {
-  const transporter = createTransporter();
-  const info = await transporter.sendMail({ from: FROM, to, subject, html });
-  console.log(`[mailSender] ✅ Sent to ${to} — ${info.messageId}`);
-  return info;
+  const resp = await fetch("https://api.postmarkapp.com/email", {
+    method:  "POST",
+    headers: {
+      "Accept":                  "application/json",
+      "Content-Type":            "application/json",
+      "X-Postmark-Server-Token": POSTMARK_TOKEN,
+    },
+    body: JSON.stringify({
+      From:     `HookaDrop <${FROM_EMAIL}>`,
+      To:       Array.isArray(to) ? to.join(",") : to,
+      Subject:  subject,
+      HtmlBody: html,
+      MessageStream: "outbound",
+    }),
+  });
+
+  const data = await resp.json();
+
+  if (!resp.ok || data.ErrorCode) {
+    console.error("[mailSender] Postmark error:", JSON.stringify(data));
+    throw new Error(data.Message || "Postmark send failed");
+  }
+
+  console.log(`[mailSender] ✅ Sent to ${to} — MessageID: ${data.MessageID}`);
+  return data;
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
