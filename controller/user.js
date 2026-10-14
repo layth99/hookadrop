@@ -34,15 +34,8 @@ export async function Login(req, res) {
       return res.status(400).json({ message: "Wrong password" });
     }
 
-    // ── Block unverified accounts ────────────────────────────────────────────
-    if (!user.emailVerified) {
-      return res.status(403).json({
-        message: "Please verify your email before signing in.",
-        requiresVerification: true,
-        userId: user._id,
-        email:  user.email,
-      });
-    }
+    // NOTE: email verification check disabled temporarily
+    // Will be re-enabled when Render is upgraded to paid plan
 
     const tokenData = { userId: user._id, isAdmin: user.isAdmin };
     const token     = jwt.sign(tokenData, secretOrPrivateKey, { expiresIn: "7d" });
@@ -91,72 +84,39 @@ export async function Register(req, res) {
     // ── Check duplicate ─────────────────────────────────────────────────────
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-      // If account exists but is not verified, allow re-sending the code
-      if (!existingUser.emailVerified) {
-        // Generate fresh code and update the existing pending account
-        const otp     = generateOtp();
-        const otpHash = hashOtp(otp);
-        existingUser.verificationCode      = otpHash;
-        existingUser.verificationExpiresAt = new Date(Date.now() + 10 * 60 * 1000);
-        existingUser.verificationAttempts  = 0;
-        existingUser.lastVerificationSentAt = new Date();
-        await existingUser.save();
-        try {
-          await sendVerificationEmail(email, existingUser.name, otp);
-        } catch (emailErr) {
-          console.error("[Register] Failed to resend to existing pending user:", emailErr.message);
-        }
-        return res.status(200).json({
-          success: true,
-          message: "A new verification code has been sent to your email.",
-          userId: existingUser._id,
-        });
-      }
       return res.status(400).json({ success: false, message: "This email is already registered." });
     }
 
     // ── Rate-limit: prevent spam registrations ──────────────────────────────
     // No pending user check needed — we store code on the user record
 
-    // ── Generate verification code ──────────────────────────────────────────
-    const otp     = generateOtp();
-    const otpHash = hashOtp(otp);
-
-    // ── Create UNVERIFIED account ───────────────────────────────────────────
+    // ── Create VERIFIED account directly (OTP disabled temporarily) ───────────
     const newUser = new User({
       name,
       email,
       password,
       phone,
-      age:                   ageNum,
-      role:                  "user",
-      isAdmin:               false,
-      emailVerified:         false,
-      emailStatus:           "pending",
-      verificationCode:      otpHash,
-      verificationExpiresAt: new Date(Date.now() + 10 * 60 * 1000), // 10 min
-      verificationAttempts:  0,
-      lastVerificationSentAt: new Date(),
+      age:           ageNum,
+      role:          "user",
+      isAdmin:       false,
+      emailVerified: true,       // auto-verified — no OTP required
+      emailStatus:   "pending",
     });
     await newUser.save();
 
-    // ── Send verification email ─────────────────────────────────────────────
-    try {
-      await sendVerificationEmail(email, name, otp);
-    } catch (emailErr) {
-      console.error("[Register] Failed to send verification email:", emailErr.message);
-      // Still return success — user can resend
-      return res.status(201).json({
-        success: true,
-        message: "Account created but verification email failed. Please use Resend.",
-        userId: newUser._id,
-      });
-    }
+    // Issue JWT immediately
+    const tokenData = { userId: newUser._id, isAdmin: newUser.isAdmin };
+    const token     = jwt.sign(tokenData, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "7d" });
+
+    const userObj = newUser.toObject();
+    delete userObj.password;
 
     return res.status(201).json({
       success: true,
-      message: "Verification code sent to your email.",
-      userId: newUser._id,
+      message: "Account created successfully. Welcome to HookaDrop!",
+      userId:  newUser._id,
+      token,
+      user:    userObj,
     });
   } catch (error) {
     console.error("[Register]", error);
@@ -277,7 +237,13 @@ export async function ResendVerification(req, res) {
       lastVerificationSentAt: new Date(),
     });
 
-    await sendVerificationEmail(user.email, user.name, otp);
+    setImmediate(async () => {
+      try {
+        await sendVerificationEmail(user.email, user.name, otp);
+      } catch (err) {
+        console.error("[ResendVerification] Email failed:", err.message);
+      }
+    });
 
     return res.status(200).json({ success: true, message: "New verification code sent." });
   } catch (error) {
