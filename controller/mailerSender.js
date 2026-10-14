@@ -1,32 +1,32 @@
-import { Resend }    from "resend";
+import nodemailer   from "nodemailer";
 import User         from "../models/User.js";
 import otpGenerator from "otp-generator";
 
 // ─────────────────────────────────────────────────────────────────────────────
-//  Resend client — uses HTTPS (port 443), works on all hosting platforms
-//  including Render free plan which blocks SMTP port 587.
-//  API key: RESEND_API_KEY in .env / Render environment variables
+//  Gmail SMTP — port 465 (SSL)
+//  Port 465 is NOT blocked by Render free plan (unlike port 587)
 // ─────────────────────────────────────────────────────────────────────────────
-const getResend = () => new Resend(process.env.RESEND_API_KEY);
-const FROM = `HookaDrop <${process.env.RESEND_FROM || "onboarding@resend.dev"}>`;
+const createTransporter = () =>
+  nodemailer.createTransport({
+    host:   "smtp.gmail.com",
+    port:   465,
+    secure: true,   // SSL — required for port 465
+    auth: {
+      user: process.env.GMAIL_USER,
+      pass: process.env.GMAIL_APP_PASSWORD,
+    },
+  });
+
+const FROM = `HookaDrop <${process.env.GMAIL_USER || "hookadrop@gmail.com"}>`;
 
 // ─────────────────────────────────────────────────────────────────────────────
 //  Generic low-level sender
 // ─────────────────────────────────────────────────────────────────────────────
 export const mailSender = async (to, subject, html) => {
-  const resend = getResend();
-  const { data, error } = await resend.emails.send({
-    from:    FROM,
-    to:      Array.isArray(to) ? to : [to],
-    subject,
-    html,
-  });
-  if (error) {
-    console.error("[mailSender] Resend error:", JSON.stringify(error));
-    throw new Error(error.message || "Email send failed");
-  }
-  console.log(`[mailSender] ✅ Sent to ${to} — id: ${data?.id}`);
-  return data;
+  const transporter = createTransporter();
+  const info = await transporter.sendMail({ from: FROM, to, subject, html });
+  console.log(`[mailSender] ✅ Sent to ${to} — ${info.messageId}`);
+  return info;
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
