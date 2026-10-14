@@ -34,8 +34,15 @@ export async function Login(req, res) {
       return res.status(400).json({ message: "Wrong password" });
     }
 
-    // NOTE: email verification check disabled temporarily
-    // Will be re-enabled when Render is upgraded to paid plan
+    // ── Block unverified accounts ────────────────────────────────────────────
+    if (!user.emailVerified) {
+      return res.status(403).json({
+        message: "Please verify your email before signing in.",
+        requiresVerification: true,
+        userId: user._id,
+        email:  user.email,
+      });
+    }
 
     const tokenData = { userId: user._id, isAdmin: user.isAdmin };
     const token     = jwt.sign(tokenData, secretOrPrivateKey, { expiresIn: "7d" });
@@ -90,33 +97,41 @@ export async function Register(req, res) {
     // ── Rate-limit: prevent spam registrations ──────────────────────────────
     // No pending user check needed — we store code on the user record
 
-    // ── Create VERIFIED account directly (OTP disabled temporarily) ───────────
+    // ── Generate verification code ──────────────────────────────────────────
+    const otp     = generateOtp();
+    const otpHash = hashOtp(otp);
+
+    // ── Create UNVERIFIED account ───────────────────────────────────────────
     const newUser = new User({
       name,
       email,
       password,
       phone,
-      age:           ageNum,
-      role:          "user",
-      isAdmin:       false,
-      emailVerified: true,       // auto-verified — no OTP required
-      emailStatus:   "pending",
+      age:                   ageNum,
+      role:                  "user",
+      isAdmin:               false,
+      emailVerified:         false,
+      emailStatus:           "pending",
+      verificationCode:      otpHash,
+      verificationExpiresAt: new Date(Date.now() + 10 * 60 * 1000),
+      verificationAttempts:  0,
+      lastVerificationSentAt: new Date(),
     });
     await newUser.save();
 
-    // Issue JWT immediately
-    const tokenData = { userId: newUser._id, isAdmin: newUser.isAdmin };
-    const token     = jwt.sign(tokenData, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "7d" });
-
-    const userObj = newUser.toObject();
-    delete userObj.password;
+    // ── Send verification email (non-blocking) ──────────────────────────────
+    setImmediate(async () => {
+      try {
+        await sendVerificationEmail(email, name, otp);
+      } catch (emailErr) {
+        console.error("[Register] Failed to send verification email:", emailErr.message);
+      }
+    });
 
     return res.status(201).json({
       success: true,
-      message: "Account created successfully. Welcome to HookaDrop!",
-      userId:  newUser._id,
-      token,
-      user:    userObj,
+      message: "Verification code sent to your email.",
+      userId: newUser._id,
     });
   } catch (error) {
     console.error("[Register]", error);
