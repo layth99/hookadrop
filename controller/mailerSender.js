@@ -1,40 +1,32 @@
-import nodemailer   from "nodemailer";
+import { Resend }    from "resend";
 import User         from "../models/User.js";
 import otpGenerator from "otp-generator";
 
 // ─────────────────────────────────────────────────────────────────────────────
-//  Single Gmail SMTP transporter — used for ALL emails
-//  Credentials: GMAIL_USER + GMAIL_APP_PASSWORD from .env / Render env vars
+//  Resend client — uses HTTPS (port 443), works on all hosting platforms
+//  including Render free plan which blocks SMTP port 587.
+//  API key: RESEND_API_KEY in .env / Render environment variables
 // ─────────────────────────────────────────────────────────────────────────────
-const createTransporter = () =>
-  nodemailer.createTransport({
-    host:   "smtp.gmail.com",
-    port:   587,
-    secure: false,
-    auth: {
-      user: process.env.GMAIL_USER,
-      pass: process.env.GMAIL_APP_PASSWORD,
-    },
-  });
-
-const FROM = `HookaDrop <${process.env.GMAIL_USER || "hookadrop@gmail.com"}>`;
-
-if (!process.env.GMAIL_USER || !process.env.GMAIL_APP_PASSWORD) {
-  console.warn("⚠️  [mailerSender] GMAIL_USER or GMAIL_APP_PASSWORD not set — emails will fail.");
-} else {
-  console.log(`✅ [mailerSender] Gmail SMTP ready — from: ${process.env.GMAIL_USER}`);
-}
+const getResend = () => new Resend(process.env.RESEND_API_KEY);
+const FROM = `HookaDrop <${process.env.RESEND_FROM || "onboarding@resend.dev"}>`;
 
 // ─────────────────────────────────────────────────────────────────────────────
-//  Generic low-level sender  (used by all functions below)
+//  Generic low-level sender
 // ─────────────────────────────────────────────────────────────────────────────
 export const mailSender = async (to, subject, html) => {
-  if (!process.env.GMAIL_USER || !process.env.GMAIL_APP_PASSWORD) {
-    throw new Error("Gmail not configured — set GMAIL_USER and GMAIL_APP_PASSWORD on Render.");
+  const resend = getResend();
+  const { data, error } = await resend.emails.send({
+    from:    FROM,
+    to:      Array.isArray(to) ? to : [to],
+    subject,
+    html,
+  });
+  if (error) {
+    console.error("[mailSender] Resend error:", JSON.stringify(error));
+    throw new Error(error.message || "Email send failed");
   }
-  const transporter = createTransporter();  const info = await transporter.sendMail({ from: FROM, to, subject, html });
-  console.log(`[mailSender] ✅ Sent to ${to} — ${info.messageId}`);
-  return info;
+  console.log(`[mailSender] ✅ Sent to ${to} — id: ${data?.id}`);
+  return data;
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
