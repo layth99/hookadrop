@@ -3,26 +3,32 @@ import User         from "../models/User.js";
 import otpGenerator from "otp-generator";
 
 // ─────────────────────────────────────────────────────────────────────────────
-//  Brevo SMTP — port 587, works on Render (no IP restrictions)
-//  Credentials: BREVO_USER + BREVO_SMTP_KEY from .env / Render env vars
+//  Gmail SMTP — sends ALL transactional emails FROM hookadrop@gmail.com
+//  Uses port 465 (SSL) which is not blocked on Render free plan.
+//  Credentials loaded from environment variables only — never hardcoded.
+//    SMTP_USER = hookadrop@gmail.com
+//    SMTP_PASS = Gmail App Password (16-char, generated in Google Account)
 // ─────────────────────────────────────────────────────────────────────────────
 const createTransporter = () =>
   nodemailer.createTransport({
-    host:   "smtp-relay.brevo.com",
-    port:   587,
-    secure: false,
+    host:   "smtp.gmail.com",
+    port:   465,
+    secure: true,            // SSL on port 465
     auth: {
-      user: process.env.BREVO_USER,
-      pass: process.env.BREVO_SMTP_KEY,
+      user: process.env.SMTP_USER,
+      pass: process.env.SMTP_PASS,
     },
   });
 
-const FROM = `HookaDrop <hookadrop@gmail.com>`;
+const FROM = `HookaDrop <${process.env.SMTP_USER || "hookadrop@gmail.com"}>`;
 
 // ─────────────────────────────────────────────────────────────────────────────
-//  Generic low-level sender
+//  Generic low-level sender — used by all email functions below
 // ─────────────────────────────────────────────────────────────────────────────
 export const mailSender = async (to, subject, html) => {
+  if (!process.env.SMTP_USER || !process.env.SMTP_PASS) {
+    throw new Error("SMTP_USER and SMTP_PASS environment variables are required.");
+  }
   const transporter = createTransporter();
   const info = await transporter.sendMail({ from: FROM, to, subject, html });
   console.log(`[mailSender] ✅ Sent to ${to} — ${info.messageId}`);
