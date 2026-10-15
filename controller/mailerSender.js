@@ -1,38 +1,48 @@
-import nodemailer   from "nodemailer";
+import { Resend }    from "resend";
 import User         from "../models/User.js";
 import otpGenerator from "otp-generator";
 
 // ─────────────────────────────────────────────────────────────────────────────
-//  Gmail SMTP — sends ALL transactional emails FROM hookadrop@gmail.com
-//  Uses port 465 (SSL) which is not blocked on Render free plan.
-//  Credentials loaded from environment variables only — never hardcoded.
-//    SMTP_USER = hookadrop@gmail.com
-//    SMTP_PASS = Gmail App Password (16-char, generated in Google Account)
+//  Resend HTTPS API — delivers ALL transactional emails via port 443
+//  Works on Render Free (no outbound SMTP restrictions apply).
+//
+//  Required environment variables:
+//    EMAIL_API_KEY  — Resend API key  (re_xxxxxxxxxxxxxxxx)
+//    EMAIL_FROM     — Verified sender address shown to recipients
+//                     Must be verified in Resend dashboard → Domains or
+//                     Sender Signatures.  Free plan: use onboarding@resend.dev
+//                     to send to any address; or add hookadrop@gmail.com as a
+//                     Sender Signature (one-click email confirmation).
+//
+//  Free tier: 3 000 emails/month, 100/day — sufficient for development.
 // ─────────────────────────────────────────────────────────────────────────────
-const createTransporter = () =>
-  nodemailer.createTransport({
-    host:   "smtp.gmail.com",
-    port:   465,
-    secure: true,            // SSL on port 465
-    auth: {
-      user: process.env.SMTP_USER,
-      pass: process.env.SMTP_PASS,
-    },
-  });
-
-const FROM = `HookaDrop <${process.env.SMTP_USER || "hookadrop@gmail.com"}>`;
 
 // ─────────────────────────────────────────────────────────────────────────────
-//  Generic low-level sender — used by all email functions below
+//  Generic low-level sender — used by every email function below
 // ─────────────────────────────────────────────────────────────────────────────
 export const mailSender = async (to, subject, html) => {
-  if (!process.env.SMTP_USER || !process.env.SMTP_PASS) {
-    throw new Error("SMTP_USER and SMTP_PASS environment variables are required.");
+  const apiKey = process.env.EMAIL_API_KEY;
+  if (!apiKey) {
+    throw new Error("[mailSender] EMAIL_API_KEY is not set. Add it to .env and Render environment.");
   }
-  const transporter = createTransporter();
-  const info = await transporter.sendMail({ from: FROM, to, subject, html });
-  console.log(`[mailSender] ✅ Sent to ${to} — ${info.messageId}`);
-  return info;
+
+  const from = process.env.EMAIL_FROM || "HookaDrop <onboarding@resend.dev>";
+
+  const resend = new Resend(apiKey);
+  const { data, error } = await resend.emails.send({
+    from,
+    to:      Array.isArray(to) ? to : [to],
+    subject,
+    html,
+  });
+
+  if (error) {
+    console.error("[mailSender] Resend API error:", JSON.stringify(error));
+    throw new Error(error.message || "Email delivery failed");
+  }
+
+  console.log(`[mailSender] ✅ Sent to ${to} — id: ${data?.id}`);
+  return data;
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
