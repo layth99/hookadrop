@@ -23,10 +23,12 @@ import otpGenerator from "otp-generator";
 export const mailSender = async (to, subject, html) => {
   const apiKey = process.env.EMAIL_API_KEY;
   if (!apiKey) {
+    console.error("[mailSender] ❌ EMAIL_API_KEY is not set!");
     throw new Error("[mailSender] EMAIL_API_KEY is not set. Add it to .env and Render environment.");
   }
 
   const from = process.env.EMAIL_FROM || "HookaDrop <onboarding@resend.dev>";
+  console.log(`[mailSender] Sending to ${to} via Resend (from: ${from})...`);
 
   const resend = new Resend(apiKey);
   const { data, error } = await resend.emails.send({
