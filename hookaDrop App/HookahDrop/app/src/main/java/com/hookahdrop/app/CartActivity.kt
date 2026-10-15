@@ -691,12 +691,18 @@ class CartActivity : AppCompatActivity() {
                 CoroutineScope(Dispatchers.IO).launch {
                     cancelPendingOrder(pendingOrderId ?: "", session.getJwtToken())
                 }
+                pendingOrderId    = null
+                pendingOrderCode  = null
+                pendingOrderTotal = 0.0
                 Toast.makeText(this, "Payment cancelled.", Toast.LENGTH_SHORT).show()
             }
             is PaymentSheetResult.Failed -> {
                 CoroutineScope(Dispatchers.IO).launch {
                     cancelPendingOrder(pendingOrderId ?: "", session.getJwtToken())
                 }
+                pendingOrderId    = null
+                pendingOrderCode  = null
+                pendingOrderTotal = 0.0
                 val msg = paymentSheetResult.error.localizedMessage ?: "Payment failed. Please try again."
                 Toast.makeText(this, msg, Toast.LENGTH_LONG).show()
             }
@@ -737,14 +743,18 @@ class CartActivity : AppCompatActivity() {
             .show()
     }
 
-    /** Cancel a pending order if payment failed/was cancelled */
+    /**
+     * Deletes a pending, unpaid card order when Stripe payment is cancelled or fails.
+     * Uses DELETE /api/orders/my-orders/:id — a user-scoped route that only allows
+     * deletion of orders that belong to the user AND are still pending + unpaid.
+     * The admin-only PUT /api/orders/:id route is intentionally NOT used here.
+     */
     private suspend fun cancelPendingOrder(orderId: String, token: String?) {
         if (orderId.isEmpty() || token == null) return
         try {
-            val body = JSONObject().apply { put("status", "cancelled") }
-            ApiClient.put("/api/orders/$orderId", body, token)
+            ApiClient.delete("/api/orders/my-orders/$orderId", token)
         } catch (_: Exception) {
-            // Best-effort cancel — log silently
+            // Best-effort — log silently
         }
     }
 

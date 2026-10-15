@@ -121,17 +121,18 @@ class FavoritesActivity : AppCompatActivity() {
             }
 
             // Step 2 — sync backend wishlist if user is logged in
+            // getWishlist() returns null on network/API error and a list (possibly empty)
+            // on a successful response. We only replace local state when the call succeeded.
             val userId = session.getUserId()
             if (!userId.isNullOrEmpty()) {
                 val backendIds = withContext(Dispatchers.IO) {
                     RemoteDataProvider.getWishlist(userId)
                 }
-                if (backendIds.isNotEmpty()) {
+                if (backendIds != null) {
+                    // Authoritative backend result — replace local set exactly
                     FavoritesManager.replaceAll(backendIds)
-                } else {
-                    // No backend favorites — clear local set so it matches the authoritative empty list
-                    FavoritesManager.replaceAll(emptyList())
                 }
+                // If backendIds is null (network/API failure), keep local state intact
             }
 
             // Step 3 — build + display
