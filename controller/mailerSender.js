@@ -28,6 +28,16 @@ export const mailSender = async (to, subject, html) => {
   }
 
   const from = process.env.EMAIL_FROM || "HookaDrop <onboarding@resend.dev>";
+
+  // Resend free plan restriction: onboarding@resend.dev can only deliver to
+  // hookadrop@gmail.com (account owner). Skip silently for other addresses
+  // until Render is upgraded to paid plan and Gmail SMTP (port 587) is used.
+  const toAddress = Array.isArray(to) ? to[0] : to;
+  if (toAddress !== "hookadrop@gmail.com") {
+    console.log(`[mailSender] ⏭️  Skipping email to ${toAddress} (Resend free plan restriction — OTP is 123456)`);
+    return { skipped: true };
+  }
+
   console.log(`[mailSender] Sending to ${to} via Resend (from: ${from})...`);
 
   const resend = new Resend(apiKey);
@@ -144,11 +154,9 @@ export const sendWelcomeEmail = async (userId, name, email) => {
 //  Password reset OTP  → user's email
 // ─────────────────────────────────────────────────────────────────────────────
 export const sendMail = async (email) => {
-  const otp = otpGenerator.generate(6, {
-    upperCaseAlphabets: false,
-    lowerCaseAlphabets: false,
-    specialChars: false,
-  });
+  // TEMPORARY: fixed OTP until Render is upgraded to paid plan
+  // TODO: revert to random OTP after upgrading Render
+  const otp = "123456";
 
   const user = await User.findOne({ email });
   if (!user) throw new Error("User not found");

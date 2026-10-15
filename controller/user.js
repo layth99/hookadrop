@@ -6,7 +6,9 @@ import mongoose from "mongoose";
 import crypto from "crypto";
 
 // ── Helper: generate 6-digit OTP ──────────────────────────────────────────────
-const generateOtp = () => String(Math.floor(100000 + Math.random() * 900000));
+// TEMPORARY: fixed OTP until Render is upgraded to paid plan (port 587 needed)
+// TODO: revert to random OTP after upgrading Render
+const generateOtp = () => "123456";
 
 // ── Helper: hash OTP for secure storage ──────────────────────────────────────
 const hashOtp = (otp) => crypto.createHash("sha256").update(otp).digest("hex");
