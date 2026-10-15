@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_screen"
+    android:fitsSystemWindows="true">
+
+    <!-- ── Bottom nav ────────────────────────────────────────────────────── -->
+    <include
+        android:id="@+id/bottomNav"
+        layout="@layout/layout_bottom_nav"
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:layout_alignParentBottom="true" />
+
+    <!-- ── Scrollable content ────────────────────────────────────────────── -->
+    <ScrollView
+        android:id="@+id/scrollContent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/bottomNav"
+        android:scrollbars="none"
+        android:overScrollMode="never"
+        android:fillViewport="false">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- ── HEADER ─────────────────────────────────────────────── -->
+            <LinearLayout
+                android:id="@+id/headerLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingHorizontal="16dp"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp">
+
+                <!-- Back button -->
+                <FrameLayout
+                    android:id="@+id/btnBack"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/bg_icon_circle">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_arrow_back"
+                        android:contentDescription="Back" />
+                </FrameLayout>
+
+                <!-- Title + subtitle — takes all remaining space, centered -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Favorites"
+                        android:textColor="@color/white"
+                        android:textSize="22sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:text="Your saved hookahs &amp; accessories"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <!-- Search button -->
+                <FrameLayout
+                    android:id="@+id/btnSearch"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/bg_icon_circle">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_search_white"
+                        android:contentDescription="Search" />
+                </FrameLayout>
+
+            </LinearLayout>
+
+            <!-- ── COUNT + SORT BAR ───────────────────────────────────── -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingHorizontal="16dp"
+                android:paddingBottom="14dp">
+
+                <TextView
+                    android:id="@+id/tvItemCount"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:text="0 items saved" />
+
+                <!-- Sort by button -->
+                <LinearLayout
+                    android:id="@+id/btnSortBy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="32dp"
+                    android:background="@drawable/bg_sort_btn"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:paddingHorizontal="12dp">
+
+                    <TextView
+                        android:id="@+id/tvSortLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Sort by"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="12sp" />
+
+                    <ImageView
+                        android:layout_width="14dp"
+                        android:layout_height="14dp"
+                        android:layout_marginStart="4dp"
+                        android:src="@drawable/ic_chevron_down"
+                        android:contentDescription="Sort options" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- ── SEARCH BAR (hidden by default, shown on search tap) ── -->
+            <LinearLayout
+                android:id="@+id/searchBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingHorizontal="16dp"
+                android:paddingBottom="12dp"
+                android:visibility="gone">
+
+                <EditText
+                    android:id="@+id/etSearch"
+                    android:layout_width="0dp"
+                    android:layout_height="44dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_input_field"
+                    android:hint="Search favorites…"
+                    android:textColorHint="@color/hint_color"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    android:paddingHorizontal="14dp"
+                    android:inputType="text"
+                    android:imeOptions="actionSearch"
+                    android:singleLine="true" />
+
+                <FrameLayout
+                    android:id="@+id/btnClearSearch"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/bg_icon_circle"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_close"
+                        android:contentDescription="Clear search" />
+                </FrameLayout>
+            </LinearLayout>
+
+            <!-- ── SKELETON LOADER (3 ghost cards) ───────────────────── -->
+            <LinearLayout
+                android:id="@+id/skeletonContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="130dp"
+                    android:layout_marginHorizontal="14dp"
+                    android:layout_marginBottom="12dp"
+                    android:background="@drawable/bg_fav_card"
+                    android:alpha="0.5" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="130dp"
+                    android:layout_marginHorizontal="14dp"
+                    android:layout_marginBottom="12dp"
+                    android:background="@drawable/bg_fav_card"
+                    android:alpha="0.3" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="130dp"
+                    android:layout_marginHorizontal="14dp"
+                    android:layout_marginBottom="12dp"
+                    android:background="@drawable/bg_fav_card"
+                    android:alpha="0.15" />
+            </LinearLayout>
+
+            <!-- ── FAVORITES LIST ─────────────────────────────────────── -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvFavorites"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"
+                android:overScrollMode="never"
+                android:visibility="gone"
+                android:clipToPadding="false" />
+
+            <!-- ── EMPTY STATE ────────────────────────────────────────── -->
+            <LinearLayout
+                android:id="@+id/emptyState"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:paddingTop="60dp"
+                android:paddingBottom="32dp"
+                android:paddingHorizontal="32dp"
+                android:visibility="gone">
+
+                <FrameLayout
+                    android:layout_width="96dp"
+                    android:layout_height="96dp"
+                    android:background="@drawable/bg_empty_cart_icon">
+
+                    <ImageView
+                        android:layout_width="44dp"
+                        android:layout_height="44dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_favorite"
+                        android:contentDescription="No favorites"
+                        android:alpha="0.5" />
+                </FrameLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="No favorites yet"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Save your favorite hookahs and accessories to find them here."
+                    android:textColor="@color/text_secondary"
+                    android:textSize="13sp"
+                    android:gravity="center" />
+
+                <Button
+                    android:id="@+id/btnExplore"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="24dp"
+                    android:paddingHorizontal="32dp"
+                    android:background="@drawable/bg_checkout_btn"
+                    android:text="Explore Products"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textAllCaps="false"
+                    android:stateListAnimator="@null" />
+            </LinearLayout>
+
+            <!-- ── ERROR STATE ────────────────────────────────────────── -->
+            <LinearLayout
+                android:id="@+id/errorState"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:paddingTop="72dp"
+                android:paddingHorizontal="32dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Unable to load your favorites."
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/btnRetry"
+                    android:layout_width="wrap_content"
+                    android:layout_height="44dp"
+                    android:layout_marginTop="16dp"
+                    android:paddingHorizontal="24dp"
+                    android:background="@drawable/bg_checkout_btn"
+                    android:text="Retry"
+                    android:textColor="@color/white"
+                    android:textAllCaps="false"
+                    android:stateListAnimator="@null" />
+            </LinearLayout>
+
+            <View android:layout_width="match_parent" android:layout_height="16dp" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

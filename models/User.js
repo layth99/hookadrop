@@ -33,7 +33,6 @@ const userSchema = new mongoose.Schema(
       default: 'user',
     },
     avatar: { type: String, default: null },
-    phone: { type: String, default: null },
     twoFactorSecret: { type: String, default: null, select: false },
     twoFactorEnabled: { type: Boolean, default: false },
     resetOtp: String,
