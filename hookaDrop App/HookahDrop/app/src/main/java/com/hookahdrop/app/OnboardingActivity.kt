@@ -694,8 +694,8 @@ class OnboardingActivity : AppCompatActivity(), SensorEventListener {
         if (event.sensor.type == Sensor.TYPE_ACCELEROMETER) {
             val x = -event.values[0] / 9.8f
             
-            // Smooth parallax
-            currentParallaxX = currentParallaxX * 0.9f + x * 0.1f
+            // Smooth parallax with bounds to prevent accumulation
+            currentParallaxX = (currentParallaxX * 0.9f + x * 0.1f).coerceIn(-1f, 1f)
             
             b.cardLeft.translationX = currentParallaxX * 8f * resources.displayMetrics.density
             b.cardTopRight.translationX = currentParallaxX * 14f * resources.displayMetrics.density
