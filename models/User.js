@@ -70,6 +70,11 @@ const userSchema = new mongoose.Schema(
     fcmToken: { type: String, default: null },
     notificationsEnabled: { type: Boolean, default: true },
     lastPasswordChangedAt: { type: Date, default: null },
+    // ── Edit Profile extended fields ───────────────────────────────────────
+    firstName:   { type: String, default: null },
+    lastName:    { type: String, default: null },
+    username:    { type: String, default: null },
+    dateOfBirth: { type: String, default: null },
   },
   { timestamps: true }
 );

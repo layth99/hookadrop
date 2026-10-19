@@ -79,11 +79,11 @@ class ProfileActivity : BaseProfileActivity() {
             Glide.with(this)
                 .load(avatarUrl)
                 .circleCrop()
-                .placeholder(R.drawable.ic_profile)
-                .error(R.drawable.ic_profile)
+                .placeholder(R.drawable.bg_avatar_default)
+                .error(R.drawable.bg_avatar_default)
                 .into(b.imgAvatar)
         } else {
-            b.imgAvatar.setImageResource(R.drawable.ic_profile)
+            b.imgAvatar.setImageResource(R.drawable.bg_avatar_default)
         }
     }
 
@@ -96,7 +96,12 @@ class ProfileActivity : BaseProfileActivity() {
                 val orders = withContext(Dispatchers.IO) {
                     RemoteDataProvider.getMyOrders(userId, token)
                 }
-                b.tvOrderCount.text = orders.size.toString()
+                // Count only PAID or COD orders (exclude cancelled and pending card payments)
+                val validOrders = orders.filter { order ->
+                    (order.isPaid || order.paymentMethod.equals("Cash on Delivery", ignoreCase = true)) &&
+                    order.status.lowercase() != "cancelled"
+                }
+                b.tvOrderCount.text = validOrders.size.toString()
             } catch (e: Exception) {
                 // Keep showing 0 silently on error
             }

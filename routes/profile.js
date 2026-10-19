@@ -7,11 +7,13 @@ import {
   enable2FA,
   disable2FA,
   getMyProfile,
+  updateFullProfile,
 } from '../controller/profileController.js'
 
 const router = express.Router()
 
 router.get('/me', protectRoute, getMyProfile)
+router.put('/update', protectRoute, updateFullProfile)
 router.post('/avatar', protectRoute, upload.single('avatar'), uploadAvatar)
 router.post('/2fa/generate', protectRoute, generate2FA)
 router.post('/2fa/enable', protectRoute, enable2FA)

@@ -52,6 +52,7 @@ class EditProfileActivity : BaseProfileActivity() {
     }
 
     private fun loadProfile() {
+        // Show cached data immediately
         b.etFirstName.setText(session.getFirstName())
         b.etLastName.setText(session.getLastName())
         b.etUsername.setText(session.getUserName())
@@ -77,8 +78,70 @@ class EditProfileActivity : BaseProfileActivity() {
             Glide.with(this)
                 .load(avatarUrl)
                 .circleCrop()
-                .placeholder(R.drawable.ic_profile)
+                .placeholder(R.drawable.bg_avatar_default)
+                .error(R.drawable.bg_avatar_default)
                 .into(b.ivAvatarPhoto)
+        } else {
+            b.ivAvatarPhoto.setImageResource(R.drawable.bg_avatar_default)
+        }
+
+        // Fetch latest from server in background
+        val token = session.getJwtToken() ?: return
+        CoroutineScope(Dispatchers.Main).launch {
+            try {
+                val response = withContext(Dispatchers.IO) {
+                    ApiClient.get("/api/profile/me", token)
+                }
+                if (response.isSuccess) {
+                    val user = response.json().optJSONObject("data")
+                    if (user != null) {
+                        // Update all fields from server
+                        val firstName   = user.optString("firstName", "")
+                        val lastName    = user.optString("lastName", "")
+                        val username    = user.optString("username", user.optString("name", ""))
+                        val email       = user.optString("email", "")
+                        val phone       = user.optString("phone", "")
+                        val dateOfBirth = user.optString("dateOfBirth", "")
+                        val avatar      = user.optString("avatar", "")
+
+                        b.etFirstName.setText(firstName)
+                        b.etLastName.setText(lastName)
+                        b.etUsername.setText(username)
+                        b.etEmail.setText(email)
+
+                        // Parse phone
+                        val matchedCountry2 = countriesList
+                            .sortedByDescending { it.dialCode.length }
+                            .firstOrNull { phone.startsWith(it.dialCode) }
+                        if (matchedCountry2 != null) {
+                            selectedCountry = matchedCountry2
+                            b.etPhone.setText(phone.removePrefix(matchedCountry2.dialCode).trimStart())
+                            b.tvCountryFlag.text = selectedCountry.flag
+                            b.tvCountryCode.text = selectedCountry.dialCode
+                        } else {
+                            b.etPhone.setText(phone)
+                        }
+
+                        b.etDob.setText(dateOfBirth)
+
+                        // Load avatar
+                        if (avatar.isNotEmpty()) {
+                            Glide.with(this@EditProfileActivity)
+                                .load(avatar)
+                                .circleCrop()
+                                .placeholder(R.drawable.bg_avatar_default)
+                                .error(R.drawable.bg_avatar_default)
+                                .into(b.ivAvatarPhoto)
+                        }
+
+                        // Save to cache
+                        session.saveProfileFromServer(user)
+                    }
+                }
+                // Silently ignore errors (offline fallback to cached data)
+            } catch (e: Exception) {
+                // Non-critical: use cached data
+            }
         }
     }
 
@@ -160,10 +223,51 @@ class EditProfileActivity : BaseProfileActivity() {
         b.btnSave.isEnabled = false
         b.btnSave.text = "Saving..."
 
-        session.saveProfile(first, last, username, email, phone, dob)
+        val token = session.getJwtToken()
+        if (token == null) {
+            toast("Not signed in")
+            b.btnSave.isEnabled = true
+            b.btnSave.text = "Save Changes"
+            return false
+        }
 
-        b.btnSave.isEnabled = true
-        b.btnSave.text = "Save Changes"
+        CoroutineScope(Dispatchers.Main).launch {
+            try {
+                val body = org.json.JSONObject().apply {
+                    put("firstName", first)
+                    put("lastName", last)
+                    put("username", username)
+                    put("email", email)
+                    put("phone", phone)
+                    put("dateOfBirth", dob)
+                }
+
+                val response = withContext(Dispatchers.IO) {
+                    ApiClient.put("/api/profile/update", body, token)
+                }
+
+                if (response.isSuccess) {
+                    val updatedUser = response.json().optJSONObject("user")
+                    if (updatedUser != null) {
+                        session.saveProfileFromServer(updatedUser)
+                    } else {
+                        // Fallback: save locally
+                        session.saveProfile(first, last, username, email, phone, dob)
+                    }
+                    toast("Profile saved successfully")
+                    navigateBack()
+                } else {
+                    val errorMsg = response.json().optString("message", response.userFriendlyError())
+                    toast(errorMsg)
+                }
+            } catch (e: Exception) {
+                toast("Failed to save: ${e.message}")
+            } finally {
+                b.btnSave.isEnabled = true
+                b.btnSave.text = "Save Changes"
+            }
+        }
+
         return true
     }
 
@@ -255,7 +359,8 @@ class EditProfileActivity : BaseProfileActivity() {
                         Glide.with(this@EditProfileActivity)
                             .load(avatarUrl)
                             .circleCrop()
-                            .placeholder(R.drawable.ic_profile)
+                            .placeholder(R.drawable.bg_avatar_default)
+                            .error(R.drawable.bg_avatar_default)
                             .into(b.ivAvatarPhoto)
                     }
                     toast("Profile photo updated!")
