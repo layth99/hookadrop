@@ -96,12 +96,7 @@ class ProfileActivity : BaseProfileActivity() {
                 val orders = withContext(Dispatchers.IO) {
                     RemoteDataProvider.getMyOrders(userId, token)
                 }
-                // Count only PAID or COD orders (exclude cancelled and pending card payments)
-                val validOrders = orders.filter { order ->
-                    (order.isPaid || order.paymentMethod.equals("Cash on Delivery", ignoreCase = true)) &&
-                    order.status.lowercase() != "cancelled"
-                }
-                b.tvOrderCount.text = validOrders.size.toString()
+                b.tvOrderCount.text = orders.size.toString()
             } catch (e: Exception) {
                 // Keep showing 0 silently on error
             }
