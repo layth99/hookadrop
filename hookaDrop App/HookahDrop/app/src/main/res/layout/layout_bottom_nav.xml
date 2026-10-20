@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    HookaDrop — Premium Bottom Navigation
+    Dark · Minimal · Smooth · Elegant
+    ─────────────────────────────────────
+    Structure:
+      FrameLayout root (72dp)
+      └── bg_nav_bar
+      └── navActiveIndicator  ← sliding pill at top (translated by BottomNavManager)
+      └── LinearLayout row
+          └── 5x FrameLayout tabs  (Home | Categories | Cart | Favorites | Profile)
+              └── View (glow oval, alpha=0 initially)
+              └── LinearLayout (icon + label)
+-->
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="72dp"
+    android:background="@drawable/bg_nav_bar">
+
+    <!-- ── Sliding pill indicator (top edge) ─────────────────────────── -->
+    <View
+        android:id="@+id/navActiveIndicator"
+        android:layout_width="32dp"
+        android:layout_height="3dp"
+        android:layout_gravity="top|start"
+        android:layout_marginTop="0dp"
+        android:background="@drawable/bg_nav_indicator"
+        android:translationX="0dp" />
+
+    <!-- ── Tab row ────────────────────────────────────────────────────── -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:paddingBottom="2dp">
+
+        <!-- ── HOME ── -->
+        <FrameLayout
+            android:id="@+id/navHome"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackgroundBorderless">
+
+            <!-- Glow blob -->
+            <View
+                android:id="@+id/navHomeGlow"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:layout_gravity="center"
+                android:background="@drawable/bg_nav_glow"
+                android:alpha="0" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:paddingTop="6dp">
+
+                <ImageView
+                    android:id="@+id/navHomeIcon"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:src="@drawable/ic_home"
+                    android:contentDescription="Home"
+                    android:scaleType="fitCenter" />
+
+                <TextView
+                    android:id="@+id/navHomeLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Home"
+                    android:textSize="10sp"
+                    android:letterSpacing="0.02"
+                    android:textColor="@color/nav_unselected"
+                    android:layout_marginTop="3dp" />
+            </LinearLayout>
+        </FrameLayout>
+
+        <!-- ── CATEGORIES ── -->
+        <FrameLayout
+            android:id="@+id/navCategories"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackgroundBorderless">
+
+            <View
+                android:id="@+id/navCategoriesGlow"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:layout_gravity="center"
+                android:background="@drawable/bg_nav_glow"
+                android:alpha="0" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:paddingTop="6dp">
+
+                <ImageView
+                    android:id="@+id/navCategoriesIcon"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:src="@drawable/ic_categories"
+                    android:contentDescription="Categories"
+                    android:scaleType="fitCenter" />
+
+                <TextView
+                    android:id="@+id/navCategoriesLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Categories"
+                    android:textSize="10sp"
+                    android:letterSpacing="0.02"
+                    android:textColor="@color/nav_unselected"
+                    android:layout_marginTop="3dp" />
+            </LinearLayout>
+        </FrameLayout>
+
+        <!-- ── CART ── -->
+        <FrameLayout
+            android:id="@+id/navCart"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackgroundBorderless">
+
+            <View
+                android:id="@+id/navCartGlow"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:layout_gravity="center"
+                android:background="@drawable/bg_nav_glow"
+                android:alpha="0" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:paddingTop="6dp">
+
+                <!-- Icon + badge -->
+                <FrameLayout
+                    android:layout_width="28dp"
+                    android:layout_height="28dp">
+
+                    <ImageView
+                        android:id="@+id/navCartIcon"
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_cart"
+                        android:contentDescription="Cart"
+                        android:scaleType="fitCenter" />
+
+                    <TextView
+                        android:id="@+id/navCartBadge"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:layout_gravity="top|end"
+                        android:background="@drawable/bg_badge"
+                        android:textColor="@color/white"
+                        android:textSize="9sp"
+                        android:gravity="center"
+                        android:textStyle="bold"
+                        android:text="0"
+                        android:visibility="gone" />
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/navCartLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cart"
+                    android:textSize="10sp"
+                    android:letterSpacing="0.02"
+                    android:textColor="@color/nav_unselected"
+                    android:layout_marginTop="3dp" />
+            </LinearLayout>
+        </FrameLayout>
+
+        <!-- ── FAVORITES ── -->
+        <FrameLayout
+            android:id="@+id/navFavorites"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackgroundBorderless">
+
+            <View
+                android:id="@+id/navFavoritesGlow"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:layout_gravity="center"
+                android:background="@drawable/bg_nav_glow"
+                android:alpha="0" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:paddingTop="6dp">
+
+                <ImageView
+                    android:id="@+id/navFavoritesIcon"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:src="@drawable/ic_favorite"
+                    android:contentDescription="Favorites"
+                    android:scaleType="fitCenter" />
+
+                <TextView
+                    android:id="@+id/navFavoritesLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Favorites"
+                    android:textSize="10sp"
+                    android:letterSpacing="0.02"
+                    android:textColor="@color/nav_unselected"
+                    android:layout_marginTop="3dp" />
+            </LinearLayout>
+        </FrameLayout>
+
+        <!-- ── PROFILE ── -->
+        <FrameLayout
+            android:id="@+id/navProfile"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackgroundBorderless">
+
+            <View
+                android:id="@+id/navProfileGlow"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:layout_gravity="center"
+                android:background="@drawable/bg_nav_glow"
+                android:alpha="0" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:paddingTop="6dp">
+
+                <ImageView
+                    android:id="@+id/navProfileIcon"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:src="@drawable/ic_profile"
+                    android:contentDescription="Profile"
+                    android:scaleType="fitCenter" />
+
+                <TextView
+                    android:id="@+id/navProfileLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Profile"
+                    android:textSize="10sp"
+                    android:letterSpacing="0.02"
+                    android:textColor="@color/nav_unselected"
+                    android:layout_marginTop="3dp" />
+            </LinearLayout>
+        </FrameLayout>
+
+    </LinearLayout>
+</FrameLayout>

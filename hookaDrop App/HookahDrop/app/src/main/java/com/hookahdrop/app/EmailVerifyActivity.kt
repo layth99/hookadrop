@@ -56,7 +56,7 @@ class EmailVerifyActivity : AppCompatActivity() {
 
         session = SessionManager(this)
         CartManager.init(this)
-        FavoritesManager.init(this)
+        FavoritesManager.init(this) { session.getUserId() }
 
         b.tvEmail.text = maskEmail(email)
 

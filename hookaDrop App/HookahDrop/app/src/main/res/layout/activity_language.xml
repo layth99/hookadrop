@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="@color/bg_screen">
+
+    <!-- Header -->
+    <LinearLayout android:id="@+id/header"
+        android:layout_width="match_parent" android:layout_height="56dp"
+        android:orientation="horizontal" android:gravity="center_vertical"
+        android:paddingHorizontal="16dp" android:layout_alignParentTop="true">
+
+        <ImageButton android:id="@+id/btnBack"
+            android:layout_width="40dp" android:layout_height="40dp"
+            android:background="@drawable/bg_back_button"
+            android:src="@drawable/ic_arrow_back"
+            android:contentDescription="Back" android:padding="10dp"/>
+
+        <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+            android:layout_weight="1" android:gravity="center"
+            android:text="Language" android:textColor="@color/white"
+            android:textSize="17sp" android:textStyle="bold"/>
+
+        <View android:layout_width="40dp" android:layout_height="40dp"/>
+    </LinearLayout>
+
+    <!-- Language list -->
+    <LinearLayout
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@id/header"
+        android:padding="16dp">
+
+        <!-- English -->
+        <LinearLayout android:id="@+id/rowEnglish"
+            android:layout_width="match_parent" android:layout_height="64dp"
+            android:orientation="horizontal" android:gravity="center_vertical"
+            android:background="@drawable/bg_menu_item"
+            android:paddingHorizontal="16dp" android:clickable="true" android:focusable="true"
+            android:layout_marginBottom="10dp">
+
+            <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="English" android:textColor="@color/white"
+                android:textSize="16sp"/>
+
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="English" android:textColor="@color/text_secondary"
+                android:textSize="13sp" android:layout_marginEnd="12dp"/>
+
+            <ImageView android:id="@+id/checkEnglish"
+                android:layout_width="22dp" android:layout_height="22dp"
+                android:src="@drawable/ic_check" android:contentDescription="Selected"
+                android:visibility="visible"/>
+        </LinearLayout>
+
+        <!-- French -->
+        <LinearLayout android:id="@+id/rowFrench"
+            android:layout_width="match_parent" android:layout_height="64dp"
+            android:orientation="horizontal" android:gravity="center_vertical"
+            android:background="@drawable/bg_menu_item"
+            android:paddingHorizontal="16dp" android:clickable="true" android:focusable="true"
+            android:layout_marginBottom="10dp">
+
+            <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Français" android:textColor="@color/white"
+                android:textSize="16sp"/>
+
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="French" android:textColor="@color/text_secondary"
+                android:textSize="13sp" android:layout_marginEnd="12dp"/>
+
+            <ImageView android:id="@+id/checkFrench"
+                android:layout_width="22dp" android:layout_height="22dp"
+                android:src="@drawable/ic_check" android:contentDescription="Selected"
+                android:visibility="gone"/>
+        </LinearLayout>
+
+        <!-- Arabic -->
+        <LinearLayout android:id="@+id/rowArabic"
+            android:layout_width="match_parent" android:layout_height="64dp"
+            android:orientation="horizontal" android:gravity="center_vertical"
+            android:background="@drawable/bg_menu_item"
+            android:paddingHorizontal="16dp" android:clickable="true" android:focusable="true"
+            android:layout_marginBottom="32dp">
+
+            <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="العربية" android:textColor="@color/white"
+                android:textSize="16sp"/>
+
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="Arabic" android:textColor="@color/text_secondary"
+                android:textSize="13sp" android:layout_marginEnd="12dp"/>
+
+            <ImageView android:id="@+id/checkArabic"
+                android:layout_width="22dp" android:layout_height="22dp"
+                android:src="@drawable/ic_check" android:contentDescription="Selected"
+                android:visibility="gone"/>
+        </LinearLayout>
+
+        <!-- Apply button -->
+        <Button android:id="@+id/btnApply"
+            android:layout_width="match_parent" android:layout_height="54dp"
+            android:text="Apply" android:textSize="15sp"
+            android:textColor="@color/white" android:background="@drawable/bg_button_gold"
+            android:textAllCaps="false"/>
+
+    </LinearLayout>
+</RelativeLayout>

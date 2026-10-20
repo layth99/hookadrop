@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_screen"
+    android:fitsSystemWindows="true">
+
+    <!-- ── AppBar (header + filter chips) ───────────────────────── -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bg_screen"
+        android:elevation="0dp"
+        app:elevation="0dp">
+
+        <!-- Header row -->
+        <LinearLayout
+            android:id="@+id/topBar"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingHorizontal="16dp">
+
+            <!-- Back button -->
+            <FrameLayout
+                android:id="@+id/btnBack"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:background="@drawable/bg_back_button"
+                android:clickable="true"
+                android:focusable="true">
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_arrow_back"
+                    android:contentDescription="Back"/>
+            </FrameLayout>
+
+            <!-- Title -->
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="12dp"
+                android:text="Notifications"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.02"
+                android:gravity="start"/>
+
+            <!-- Unread count badge pill -->
+            <TextView
+                android:id="@+id/tvUnreadBadge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_unread_badge_pill"
+                android:textColor="@color/accent_cyan"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="3dp"
+                android:layout_marginEnd="10dp"
+                android:visibility="gone"
+                android:text="0"/>
+
+            <!-- Mark all read -->
+            <TextView
+                android:id="@+id/tvMarkAll"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mark all"
+                android:textColor="@color/text_secondary"
+                android:textSize="12sp"
+                android:padding="6dp"
+                android:visibility="gone"/>
+        </LinearLayout>
+
+        <!-- Divider -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/divider"/>
+
+        <!-- ── Filter chips row ──────────────────────────────────── -->
+        <HorizontalScrollView
+            android:id="@+id/filterScroll"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:scrollbars="none"
+            android:fadingEdge="horizontal">
+
+            <LinearLayout
+                android:id="@+id/filterRow"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="10dp">
+
+                <TextView
+                    android:id="@+id/chipAll"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="All"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="7dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/bg_filter_chip_active"
+                    android:textColor="@color/bg_screen"/>
+
+                <TextView
+                    android:id="@+id/chipOrders"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Orders"
+                    android:textSize="12sp"
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="7dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/bg_filter_chip_inactive"
+                    android:textColor="@color/text_secondary"/>
+
+                <TextView
+                    android:id="@+id/chipPayments"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Payments"
+                    android:textSize="12sp"
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="7dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/bg_filter_chip_inactive"
+                    android:textColor="@color/text_secondary"/>
+
+                <TextView
+                    android:id="@+id/chipSecurity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Security"
+                    android:textSize="12sp"
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="7dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/bg_filter_chip_inactive"
+                    android:textColor="@color/text_secondary"/>
+
+                <TextView
+                    android:id="@+id/chipSystem"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="System"
+                    android:textSize="12sp"
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="7dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/bg_filter_chip_inactive"
+                    android:textColor="@color/text_secondary"/>
+
+            </LinearLayout>
+        </HorizontalScrollView>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- ── Loading indicator ─────────────────────────────────────── -->
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:indeterminateTint="@color/accent_cyan"
+        android:visibility="gone"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+    <!-- ── Empty state ───────────────────────────────────────────── -->
+    <LinearLayout
+        android:id="@+id/emptyState"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="48dp"
+        android:visibility="gone"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <ImageView
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:src="@drawable/ic_notification"
+            android:alpha="0.25"
+            android:contentDescription="No notifications"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tout est à jour !"
+            android:textColor="@color/white"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Vous n'avez aucune notification pour le moment."
+            android:textColor="@color/text_secondary"
+            android:textSize="13sp"
+            android:gravity="center"
+            android:layout_marginTop="8dp"/>
+    </LinearLayout>
+
+    <!-- ── SwipeRefreshLayout + RecyclerView ─────────────────────── -->
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvNotifications"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="8dp"
+            android:paddingBottom="16dp"
+            android:clipToPadding="false"
+            android:overScrollMode="never"
+            android:scrollbars="none"/>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

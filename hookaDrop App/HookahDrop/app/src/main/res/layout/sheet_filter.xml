@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="#0E1016"
+    android:paddingTop="12dp"
+    android:paddingBottom="24dp">
+
+    <!-- Handle -->
+    <View
+        android:layout_width="40dp"
+        android:layout_height="4dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="16dp"
+        android:background="#2E3540"/>
+
+    <!-- Title -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="20dp"
+        android:paddingBottom="16dp"
+        android:text="Filter &amp; Sort"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:textStyle="bold"/>
+
+    <!-- ── SORT BY ─────────────────────────────────────────────────────── -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="20dp"
+        android:paddingBottom="8dp"
+        android:text="SORT BY"
+        android:textColor="@color/text_secondary"
+        android:textSize="11sp"
+        android:letterSpacing="0.1"/>
+
+    <!-- Default -->
+    <LinearLayout android:id="@+id/sortDefault"
+        android:layout_width="match_parent" android:layout_height="48dp"
+        android:orientation="horizontal" android:gravity="center_vertical"
+        android:paddingHorizontal="20dp">
+        <TextView android:id="@+id/tvSortDefault"
+            android:layout_width="0dp" android:layout_height="wrap_content"
+            android:layout_weight="1" android:text="Default"
+            android:textColor="@color/white" android:textSize="14sp"/>
+        <View android:id="@+id/checkSortDefault"
+            android:layout_width="8dp" android:layout_height="8dp"
+            android:background="@drawable/bg_badge" android:visibility="invisible"/>
+    </LinearLayout>
+
+    <!-- Price Low to High -->
+    <LinearLayout android:id="@+id/sortPriceLow"
+        android:layout_width="match_parent" android:layout_height="48dp"
+        android:orientation="horizontal" android:gravity="center_vertical"
+        android:paddingHorizontal="20dp">
+        <TextView android:id="@+id/tvSortPriceLow"
+            android:layout_width="0dp" android:layout_height="wrap_content"
+            android:layout_weight="1" android:text="Price: Low to High"
+            android:textColor="@color/white" android:textSize="14sp"/>
+        <View android:id="@+id/checkSortPriceLow"
+            android:layout_width="8dp" android:layout_height="8dp"
+            android:background="@drawable/bg_badge" android:visibility="invisible"/>
+    </LinearLayout>
+
+    <!-- Price High to Low -->
+    <LinearLayout android:id="@+id/sortPriceHigh"
+        android:layout_width="match_parent" android:layout_height="48dp"
+        android:orientation="horizontal" android:gravity="center_vertical"
+        android:paddingHorizontal="20dp">
+        <TextView android:id="@+id/tvSortPriceHigh"
+            android:layout_width="0dp" android:layout_height="wrap_content"
+            android:layout_weight="1" android:text="Price: High to Low"
+            android:textColor="@color/white" android:textSize="14sp"/>
+        <View android:id="@+id/checkSortPriceHigh"
+            android:layout_width="8dp" android:layout_height="8dp"
+            android:background="@drawable/bg_badge" android:visibility="invisible"/>
+    </LinearLayout>
+
+    <!-- Rating -->
+    <LinearLayout android:id="@+id/sortRating"
+        android:layout_width="match_parent" android:layout_height="48dp"
+        android:orientation="horizontal" android:gravity="center_vertical"
+        android:paddingHorizontal="20dp">
+        <TextView android:id="@+id/tvSortRating"
+            android:layout_width="0dp" android:layout_height="wrap_content"
+            android:layout_weight="1" android:text="Highest Rated"
+            android:textColor="@color/white" android:textSize="14sp"/>
+        <View android:id="@+id/checkSortRating"
+            android:layout_width="8dp" android:layout_height="8dp"
+            android:background="@drawable/bg_badge" android:visibility="invisible"/>
+    </LinearLayout>
+
+    <!-- Divider -->
+    <View android:layout_width="match_parent" android:layout_height="1dp"
+        android:layout_marginHorizontal="20dp" android:layout_marginVertical="8dp"
+        android:background="@color/divider"/>
+
+    <!-- ── FILTER ──────────────────────────────────────────────────────── -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="20dp"
+        android:paddingBottom="8dp"
+        android:text="FILTER"
+        android:textColor="@color/text_secondary"
+        android:textSize="11sp"
+        android:letterSpacing="0.1"/>
+
+    <!-- New arrivals -->
+    <LinearLayout android:id="@+id/rowFilterNew"
+        android:layout_width="match_parent" android:layout_height="48dp"
+        android:orientation="horizontal" android:gravity="center_vertical"
+        android:paddingHorizontal="20dp">
+        <TextView android:id="@+id/tvFilterNew"
+            android:layout_width="0dp" android:layout_height="wrap_content"
+            android:layout_weight="1" android:text="New Arrivals"
+            android:textColor="@color/white" android:textSize="14sp"/>
+        <View android:id="@+id/checkFilterNew"
+            android:layout_width="8dp" android:layout_height="8dp"
+            android:background="@drawable/bg_badge" android:visibility="invisible"/>
+    </LinearLayout>
+
+    <!-- Discounted -->
+    <LinearLayout android:id="@+id/rowFilterDiscount"
+        android:layout_width="match_parent" android:layout_height="48dp"
+        android:orientation="horizontal" android:gravity="center_vertical"
+        android:paddingHorizontal="20dp">
+        <TextView android:id="@+id/tvFilterDiscount"
+            android:layout_width="0dp" android:layout_height="wrap_content"
+            android:layout_weight="1" android:text="On Sale"
+            android:textColor="@color/white" android:textSize="14sp"/>
+        <View android:id="@+id/checkFilterDiscount"
+            android:layout_width="8dp" android:layout_height="8dp"
+            android:background="@drawable/bg_badge" android:visibility="invisible"/>
+    </LinearLayout>
+
+    <!-- Divider -->
+    <View android:layout_width="match_parent" android:layout_height="1dp"
+        android:layout_marginHorizontal="20dp" android:layout_marginTop="8dp" android:layout_marginBottom="16dp"
+        android:background="@color/divider"/>
+
+    <!-- Action buttons -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingHorizontal="20dp">
+
+        <Button android:id="@+id/btnResetSheet"
+            android:layout_width="0dp" android:layout_height="48dp"
+            android:layout_weight="1" android:layout_marginEnd="10dp"
+            android:background="@drawable/bg_view_btn"
+            android:text="Reset" android:textColor="@color/white"
+            android:textSize="14sp" android:textAllCaps="false"
+            android:stateListAnimator="@null"/>
+
+        <Button android:id="@+id/btnApplyFilters"
+            android:layout_width="0dp" android:layout_height="48dp"
+            android:layout_weight="2"
+            android:background="@drawable/bg_checkout_btn"
+            android:text="Apply Filters" android:textColor="@color/white"
+            android:textSize="14sp" android:textAllCaps="false"
+            android:stateListAnimator="@null"/>
+    </LinearLayout>
+
+</LinearLayout>

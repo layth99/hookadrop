@@ -234,6 +234,11 @@
                 android:clipToPadding="false"
                 android:paddingBottom="4dp" />
 
+            <!-- ── Pagination controls ────────────────────────────────── -->
+            <include
+                android:id="@+id/paginationComponent"
+                layout="@layout/component_pagination" />
+
             <!-- ── Empty state ────────────────────────────────────────── -->
             <LinearLayout
                 android:id="@+id/emptyState"

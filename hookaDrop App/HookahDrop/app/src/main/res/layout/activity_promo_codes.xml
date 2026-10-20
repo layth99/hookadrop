@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="@color/bg_screen" android:fitsSystemWindows="true">
+
+    <!-- Header -->
+    <LinearLayout android:id="@+id/header"
+        android:layout_width="match_parent" android:layout_height="56dp"
+        android:orientation="horizontal" android:gravity="center_vertical"
+        android:paddingHorizontal="16dp" android:layout_alignParentTop="true">
+
+        <ImageButton android:id="@+id/btnBack"
+            android:layout_width="40dp" android:layout_height="40dp"
+            android:background="@drawable/bg_back_button"
+            android:src="@drawable/ic_arrow_back"
+            android:contentDescription="Back" android:padding="10dp"/>
+
+        <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+            android:layout_weight="1" android:gravity="center"
+            android:text="Promo Codes"
+            android:textColor="@color/white" android:textSize="17sp" android:textStyle="bold"/>
+
+        <View android:layout_width="40dp" android:layout_height="40dp"/>
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent" android:layout_height="match_parent"
+        android:layout_below="@id/header"
+        android:scrollbars="none" android:overScrollMode="never">
+
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="vertical" android:paddingHorizontal="16dp" android:paddingBottom="40dp">
+
+            <!-- ── APPLIED CODE CARD (visible when code applied) ── -->
+            <LinearLayout android:id="@+id/appliedCard"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/bg_promo_applied_card"
+                android:padding="16dp" android:layout_marginTop="12dp"
+                android:layout_marginBottom="4dp"
+                android:visibility="gone">
+
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="horizontal" android:gravity="center_vertical">
+
+                    <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+                        android:layout_weight="1" android:orientation="vertical">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:text="✓ Code Applied"
+                            android:textColor="@color/success" android:textSize="12sp" android:textStyle="bold"/>
+                        <TextView android:id="@+id/tvAppliedCode"
+                            android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:textColor="@color/gold_neon" android:textSize="20sp"
+                            android:textStyle="bold" android:fontFamily="monospace"
+                            android:layout_marginTop="2dp"/>
+                        <TextView android:id="@+id/tvAppliedDiscount"
+                            android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:textColor="@color/text_secondary" android:textSize="12sp"
+                            android:layout_marginTop="2dp"/>
+                    </LinearLayout>
+
+                    <Button android:id="@+id/btnRemoveCode"
+                        android:layout_width="wrap_content" android:layout_height="36dp"
+                        android:text="Remove" android:textSize="12sp"
+                        android:textColor="@color/input_border_error"
+                        android:background="@drawable/bg_menu_item"
+                        android:textAllCaps="false" android:paddingHorizontal="12dp"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- ── ENTER CODE ── -->
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="Have a Promo Code?"
+                android:textColor="@color/white" android:textSize="15sp" android:textStyle="bold"
+                android:layout_marginTop="20dp" android:layout_marginBottom="10dp"/>
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="52dp"
+                android:orientation="horizontal" android:gravity="center_vertical">
+
+                <EditText android:id="@+id/etPromoCode"
+                    android:layout_width="0dp" android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_input_field"
+                    android:hint="Enter code e.g. WELCOME10"
+                    android:textColorHint="@color/hint_color"
+                    android:textColor="@color/white"
+                    android:textAllCaps="true"
+                    android:inputType="textCapCharacters"
+                    android:paddingHorizontal="16dp"
+                    android:textSize="14sp"/>
+
+                <Button android:id="@+id/btnApplyCode"
+                    android:layout_width="wrap_content" android:layout_height="match_parent"
+                    android:text="Apply" android:textSize="14sp"
+                    android:textColor="@color/black"
+                    android:background="@drawable/bg_button_gold"
+                    android:textAllCaps="false"
+                    android:layout_marginStart="10dp"
+                    android:paddingHorizontal="20dp"/>
+            </LinearLayout>
+
+            <!-- Error / success message -->
+            <TextView android:id="@+id/tvCodeMessage"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:textSize="13sp" android:layout_marginTop="8dp"
+                android:visibility="gone"/>
+
+            <!-- ── AVAILABLE PROMOTIONS ── -->
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="Available Offers"
+                android:textColor="@color/white" android:textSize="15sp" android:textStyle="bold"
+                android:layout_marginTop="28dp" android:layout_marginBottom="4dp"/>
+
+            <!-- Loading -->
+            <ProgressBar android:id="@+id/progressPromos"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:indeterminateTint="@color/accent_cyan"
+                android:layout_marginTop="24dp"
+                android:visibility="gone"/>
+
+            <!-- Promo cards container -->
+            <LinearLayout android:id="@+id/promoCardsContainer"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="vertical"/>
+
+            <!-- Empty state -->
+            <LinearLayout android:id="@+id/emptyPromos"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="vertical" android:gravity="center"
+                android:padding="32dp" android:visibility="gone">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="🎟" android:textSize="48sp"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="No promotions available right now."
+                    android:textColor="@color/white" android:textSize="16sp" android:textStyle="bold"
+                    android:gravity="center" android:layout_marginTop="12dp"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="Check back soon for exclusive offers!"
+                    android:textColor="@color/text_secondary" android:textSize="13sp"
+                    android:gravity="center" android:layout_marginTop="6dp"/>
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

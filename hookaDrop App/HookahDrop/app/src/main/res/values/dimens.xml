@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="screen_padding">24dp</dimen>
+    <dimen name="input_height">56dp</dimen>
+    <dimen name="button_height">56dp</dimen>
+    <dimen name="corner_radius">28dp</dimen>
+    <dimen name="text_title">22sp</dimen>
+    <dimen name="text_body">15sp</dimen>
+    <dimen name="text_small">13sp</dimen>
+    <dimen name="header_top_extra">8dp</dimen>
+    <dimen name="page_number_size">32dp</dimen>
+    <dimen name="page_number_margin">6dp</dimen>
+</resources>
