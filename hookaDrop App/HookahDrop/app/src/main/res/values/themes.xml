@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="Theme.HookahDrop" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/accent_cyan</item>
+        <item name="colorPrimaryVariant">@color/accent_cyan_dim</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSecondary">@color/neon_blue</item>
+        <item name="colorSurface">@color/bg_dark</item>
+        <item name="android:windowBackground">@color/bg_dark</item>
+        <item name="android:statusBarColor">@color/black</item>
+        <item name="android:navigationBarColor">#0C0E13</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar" tools:ignore="NewApi">false</item>
+    </style>
+
+    <!-- Splash: fully transparent so background drawable shows -->
+    <style name="Theme.HookahDrop.Splash" parent="Theme.HookahDrop">
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowBackground">@color/black</item>
+        <item name="android:navigationBarColor">#FF000000</item>
+    </style>
+
+    <!-- Input field style -->
+    <style name="InputField" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">@color/input_border</item>
+        <item name="boxBackgroundColor">@color/input_bg</item>
+        <item name="android:textColorHint">@color/hint_color</item>
+        <item name="hintTextColor">@color/hint_color</item>
+        <item name="boxCornerRadiusTopStart">50dp</item>
+        <item name="boxCornerRadiusTopEnd">50dp</item>
+        <item name="boxCornerRadiusBottomStart">50dp</item>
+        <item name="boxCornerRadiusBottomEnd">50dp</item>
+    </style>
+
+    <!-- Primary action button — blue/cyan accent -->
+    <style name="GoldButton" parent="Widget.MaterialComponents.Button">
+        <item name="android:background">@drawable/bg_button_gold</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:letterSpacing">0.04</item>
+        <item name="android:paddingTop">16dp</item>
+        <item name="android:paddingBottom">16dp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="cornerRadius">50dp</item>
+        <item name="backgroundTint">@null</item>
+    </style>
+
+    <!-- Home / main app theme -->
+    <style name="Theme.HookahDrop.Main" parent="Theme.HookahDrop">
+        <item name="android:windowBackground">@color/bg_screen</item>
+        <item name="colorSurface">@color/card_bg</item>
+        <item name="android:navigationBarColor">#0C0E13</item>
+        <item name="android:windowActivityTransitions">true</item>
+        <item name="android:windowContentTransitions">true</item>
+        <item name="android:windowAllowEnterTransitionOverlap">true</item>
+        <item name="android:windowAllowReturnTransitionOverlap">true</item>
+        <item name="android:windowAnimationStyle">@style/NavAnimationStyle</item>
+    </style>
+
+    <!-- Global nav transition style -->
+    <style name="NavAnimationStyle" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/window_anim_enter</item>
+        <item name="android:activityOpenExitAnimation">@anim/window_anim_exit</item>
+        <item name="android:activityCloseEnterAnimation">@anim/nav_back_enter</item>
+        <item name="android:activityCloseExitAnimation">@anim/nav_back_exit</item>
+    </style>
+
+    <!-- Transparent theme for bottom sheet activities (ProductDetail) -->
+    <style name="Theme.HookahDrop.Transparent" parent="Theme.HookahDrop">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation</item>
+        <item name="android:navigationBarColor">#00000000</item>
+        <item name="android:statusBarColor">#00000000</item>
+    </style>
+
+    <!-- Dark bottom sheet theme for filter sheet -->
+    <style name="BottomSheetTheme" parent="Theme.MaterialComponents.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/BottomSheetStyle</item>
+        <item name="android:windowIsFloating">false</item>
+    </style>
+
+    <style name="BottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+</resources>

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="@color/bg_screen" android:fitsSystemWindows="true">
+
+    <LinearLayout android:id="@+id/header"
+        android:layout_width="match_parent" android:layout_height="56dp"
+        android:orientation="horizontal" android:gravity="center_vertical"
+        android:paddingHorizontal="16dp" android:layout_alignParentTop="true">
+        <ImageButton android:id="@+id/btnBack"
+            android:layout_width="40dp" android:layout_height="40dp"
+            android:background="@drawable/bg_back_button" android:src="@drawable/ic_arrow_back"
+            android:padding="10dp" android:contentDescription="Back"/>
+        <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+            android:layout_weight="1" android:text="Help &amp; Support"
+            android:textColor="@color/white" android:textSize="17sp" android:textStyle="bold"
+            android:gravity="center"/>
+        <View android:layout_width="40dp" android:layout_height="40dp"/>
+    </LinearLayout>
+
+    <ScrollView android:layout_width="match_parent" android:layout_height="match_parent"
+        android:layout_below="@id/header" android:layout_above="@+id/bottomNav"
+        android:scrollbars="none" android:overScrollMode="never">
+
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="vertical" android:paddingBottom="24dp">
+
+            <!-- Hero -->
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="vertical" android:gravity="center"
+                android:background="@drawable/bg_profile_card"
+                android:layout_marginHorizontal="16dp" android:layout_marginTop="8dp"
+                android:layout_marginBottom="20dp" android:paddingVertical="24dp"
+                android:paddingHorizontal="16dp">
+                <ImageView android:layout_width="48dp" android:layout_height="48dp"
+                    android:src="@drawable/ic_headset" android:contentDescription="Support"
+                    android:layout_marginBottom="10dp"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="How can we help you?"
+                    android:textColor="@color/white" android:textSize="18sp" android:textStyle="bold"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="Browse the FAQ or send us a message."
+                    android:textColor="@color/text_secondary" android:textSize="13sp"
+                    android:layout_marginTop="4dp"/>
+            </LinearLayout>
+
+            <!-- FAQ section label -->
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="FREQUENTLY ASKED QUESTIONS"
+                android:textColor="@color/text_secondary" android:textSize="11sp"
+                android:textStyle="bold" android:letterSpacing="0.1"
+                android:layout_marginHorizontal="20dp" android:layout_marginBottom="10dp"/>
+
+            <!-- FAQ container â€” populated programmatically -->
+            <LinearLayout android:id="@+id/faqContainer"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="vertical" android:layout_marginHorizontal="16dp"/>
+
+            <!-- Contact Support label -->
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="CONTACT SUPPORT"
+                android:textColor="@color/text_secondary" android:textSize="11sp"
+                android:textStyle="bold" android:letterSpacing="0.1"
+                android:layout_marginHorizontal="20dp" android:layout_marginTop="28dp"
+                android:layout_marginBottom="10dp"/>
+
+            <!-- Contact form -->
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="vertical" android:background="@drawable/bg_profile_card"
+                android:layout_marginHorizontal="16dp" android:padding="16dp">
+
+                <!-- Subject -->
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="Subject" android:textColor="@color/text_secondary"
+                    android:textSize="12sp" android:layout_marginBottom="4dp"/>
+                <EditText android:id="@+id/etSubject"
+                    android:layout_width="match_parent" android:layout_height="48dp"
+                    android:background="@drawable/bg_input_profile"
+                    android:textColor="@color/white" android:textSize="14sp"
+                    android:textColorHint="@color/hint_color" android:hint="Brief subject"
+                    android:paddingHorizontal="14dp" android:inputType="text"
+                    android:layout_marginBottom="14dp"/>
+
+                <!-- Category spinner -->
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="Category" android:textColor="@color/text_secondary"
+                    android:textSize="12sp" android:layout_marginBottom="4dp"/>
+                <Spinner android:id="@+id/spinnerCategory"
+                    android:layout_width="match_parent" android:layout_height="48dp"
+                    android:background="@drawable/bg_input_profile"
+                    android:paddingHorizontal="14dp"
+                    android:layout_marginBottom="14dp"/>
+
+                <!-- Description -->
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="Description" android:textColor="@color/text_secondary"
+                    android:textSize="12sp" android:layout_marginBottom="4dp"/>
+                <EditText android:id="@+id/etDescription"
+                    android:layout_width="match_parent" android:layout_height="100dp"
+                    android:background="@drawable/bg_input_profile"
+                    android:textColor="@color/white" android:textSize="14sp"
+                    android:textColorHint="@color/hint_color"
+                    android:hint="Describe your issue in detail..."
+                    android:paddingHorizontal="14dp" android:paddingVertical="10dp"
+                    android:inputType="textMultiLine" android:gravity="top"
+                    android:layout_marginBottom="14dp"/>
+
+                <!-- Order number (optional) -->
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="Order Number (optional)"
+                    android:textColor="@color/text_secondary" android:textSize="12sp"
+                    android:layout_marginBottom="4dp"/>
+                <EditText android:id="@+id/etOrderNumber"
+                    android:layout_width="match_parent" android:layout_height="48dp"
+                    android:background="@drawable/bg_input_profile"
+                    android:textColor="@color/white" android:textSize="14sp"
+                    android:textColorHint="@color/hint_color" android:hint="#ORD-XXXX"
+                    android:paddingHorizontal="14dp" android:inputType="text"
+                    android:layout_marginBottom="18dp"/>
+
+                <!-- Submit -->
+                <Button android:id="@+id/btnSubmit"
+                    android:layout_width="match_parent" android:layout_height="52dp"
+                    android:text="Submit Request"
+                    android:textColor="@color/white" android:textSize="15sp"
+                    android:textStyle="bold" android:textAllCaps="false"
+                    android:background="@drawable/bg_button_blue"/>
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <include layout="@layout/layout_bottom_nav" android:id="@+id/bottomNav"
+        android:layout_width="match_parent" android:layout_height="72dp"
+        android:layout_alignParentBottom="true"/>
+</RelativeLayout>

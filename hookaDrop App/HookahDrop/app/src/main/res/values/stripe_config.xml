@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+    ╔══════════════════════════════════════════════════════════════════╗
+    ║  STRIPE PUBLISHABLE KEY — REPLACE THE VALUE BELOW               ║
+    ║                                                                  ║
+    ║  HOW TO GET YOUR KEY:                                            ║
+    ║  1. Go to https://dashboard.stripe.com/apikeys                  ║
+    ║  2. Copy your PUBLISHABLE key (starts with pk_test_ or pk_live_)║
+    ║  3. Paste it below                                               ║
+    ║                                                                  ║
+    ║  ⚠️  NEVER put your SECRET KEY (sk_...) here.                   ║
+    ║  ⚠️  The publishable key is safe to include in the APK.         ║
+    ║  ⚠️  Never commit stripe_config.xml with a real live key.       ║
+    ║                                                                  ║
+    ║  STRIPE DASHBOARD SETUP:                                         ║
+    ║  • Enable "Payment Methods" → Cards in your Stripe Dashboard     ║
+    ║  • For SetupIntents: your backend must create them               ║
+    ║    (see BACKEND_NOTES.md in the project root)                    ║
+    ╚══════════════════════════════════════════════════════════════════╝
+    -->
+    <string name="stripe_publishable_key" translatable="false">pk_test_51UNLssQdqs2T9ydDFXO780O8rGkn5omlWiRbxb7dQEXFi2XDc98RtTs1HpDol4IoiFwWK57DktAW6ylXmYEttE1I0034guToLX</string>
+</resources>

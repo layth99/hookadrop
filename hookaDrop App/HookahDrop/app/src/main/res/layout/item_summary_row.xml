@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  A single row in the order summary section.
+  Left: "N × Product Name"  |  Right: "14.99 $"
+  Populated programmatically in CartActivity.rebuildSummary().
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:paddingTop="4dp"
+    android:paddingBottom="4dp">
+
+    <!-- "N × Product Name" — takes all available space, truncates if needed -->
+    <TextView
+        android:id="@+id/tvSummaryLabel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textColor="@color/text_secondary"
+        android:textSize="12sp"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:paddingEnd="8dp" />
+
+    <!-- "14.99 $" — always right-aligned, never wraps, min width holds alignment -->
+    <TextView
+        android:id="@+id/tvSummaryPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        android:textStyle="normal"
+        android:gravity="end"
+        android:minWidth="72dp"
+        android:maxLines="1" />
+
+</LinearLayout>

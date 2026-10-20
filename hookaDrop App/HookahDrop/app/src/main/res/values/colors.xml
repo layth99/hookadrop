@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Core palette -->
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="bg_dark">#0A0A0A</color>
+
+    <!-- Gold / Neon gold -->
+    <color name="gold">#B8960C</color>
+    <color name="gold_light">#D4AC0D</color>
+    <color name="gold_neon">#FFD700</color>
+    <color name="gold_dim">#7A6408</color>
+
+    <!-- Neon blue (smoke / accent) -->
+    <color name="neon_blue">#00CFFF</color>
+    <color name="neon_blue_dim">#0099CC</color>
+
+    <!-- Input fields -->
+    <color name="input_bg">#1A1A1A</color>
+    <color name="input_border">#2E2E2E</color>
+    <color name="input_border_error">#FF4444</color>
+    <color name="hint_color">#666666</color>
+
+    <!-- Button -->
+    <color name="btn_gold">#B8960C</color>
+    <color name="btn_gold_pressed">#8A6F09</color>
+
+    <!-- Text -->
+    <color name="text_white">#FFFFFFFF</color>
+    <color name="text_muted">#999999</color>
+    <color name="text_gold">#B8960C</color>
+
+    <!-- Social icons bg -->
+    <color name="social_bg">#1E1E1E</color>
+
+    <!-- Overlay circles -->
+    <color name="circle_stroke">#30FFFFFF</color>
+
+    <!-- Home / Categories screens -->
+    <color name="bg_screen">#050608</color>
+    <color name="card_bg">#101216</color>
+    <color name="card_border">#252A30</color>
+    <color name="accent_cyan">#00BFFF</color>
+    <color name="accent_cyan_dim">#0080AA</color>
+    <color name="accent_cyan_alpha">#3300BFFF</color>
+    <color name="text_secondary">#8A8FA0</color>
+    <color name="badge_red">#E53935</color>
+    <color name="warning">#FFB300</color>
+    <color name="success">#4CAF50</color>
+    <color name="nav_selected">#00BFFF</color>
+    <color name="nav_unselected">#4A5060</color>
+    <color name="hero_overlay">#CC050608</color>
+    <color name="promo_bg">#0D1520</color>
+    <color name="favorite_active">#E53935</color>
+    <color name="favorite_inactive">#4A5060</color>
+    <color name="search_bg">#0D0F14</color>
+    <color name="divider">#1A1E28</color>
+    <color name="cyan">#08B9F5</color>
+</resources>

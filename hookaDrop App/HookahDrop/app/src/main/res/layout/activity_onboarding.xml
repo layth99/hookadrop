@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000">
+
+    <!-- SMOKE LAYER — top-left -->
+    <ImageView
+        android:id="@+id/smokeTL"
+        android:layout_width="280dp"
+        android:layout_height="280dp"
+        android:src="@drawable/smk"
+        android:scaleType="centerCrop"
+        android:alpha="0.35"
+        android:layout_gravity="top|start"
+        android:layout_marginStart="-60dp"
+        android:layout_marginTop="-60dp"
+        android:contentDescription=""/>
+
+    <!-- SMOKE LAYER — top-right -->
+    <ImageView
+        android:id="@+id/smokeTR"
+        android:layout_width="280dp"
+        android:layout_height="280dp"
+        android:src="@drawable/smk"
+        android:scaleType="centerCrop"
+        android:alpha="0.30"
+        android:rotation="90"
+        android:scaleX="-1"
+        android:layout_gravity="top|end"
+        android:layout_marginEnd="-60dp"
+        android:layout_marginTop="-60dp"
+        android:contentDescription=""/>
+
+    <!-- SMOKE LAYER — bottom-left -->
+    <ImageView
+        android:id="@+id/smokeBL"
+        android:layout_width="280dp"
+        android:layout_height="280dp"
+        android:src="@drawable/smk"
+        android:scaleType="centerCrop"
+        android:alpha="0.40"
+        android:rotation="270"
+        android:layout_gravity="bottom|start"
+        android:layout_marginStart="-60dp"
+        android:layout_marginBottom="-60dp"
+        android:contentDescription=""/>
+
+    <!-- SMOKE LAYER — bottom-right -->
+    <ImageView
+        android:id="@+id/smokeBR"
+        android:layout_width="280dp"
+        android:layout_height="280dp"
+        android:src="@drawable/smk"
+        android:scaleType="centerCrop"
+        android:alpha="0.35"
+        android:rotation="180"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="-60dp"
+        android:layout_marginBottom="-60dp"
+        android:contentDescription=""/>
+
+    <!-- MAIN SCROLLABLE CONTENT -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#00000000"
+        android:fillViewport="true"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="32dp"
+            android:minHeight="600dp">
+
+            <!-- LOGO -->
+            <ImageView
+                android:id="@+id/ivLogo"
+                android:layout_width="260dp"
+                android:layout_height="100dp"
+                android:src="@drawable/logoo"
+                android:scaleType="fitCenter"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="40dp"
+                android:alpha="0"
+                android:contentDescription="HookaDrop logo"/>
+
+            <!-- IMAGE COLLAGE -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="340dp"
+                android:orientation="horizontal"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp">
+
+                <!-- Left large portrait image -->
+                <ImageView
+                    android:id="@+id/imgHookah1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.0"
+                    android:src="@drawable/hookah_photo_1"
+                    android:scaleType="centerCrop"
+                    android:background="@drawable/bg_collage_left"
+                    android:clipToOutline="true"
+                    android:layout_marginEnd="6dp"
+                    android:alpha="0"
+                    android:contentDescription="Hookah 1"/>
+
+                <!-- Right column: 2 stacked images -->
+                <LinearLayout
+                    android:id="@+id/rightColumn"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.75"
+                    android:orientation="vertical"
+                    android:alpha="0">
+
+                    <ImageView
+                        android:id="@+id/imgHookah2"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/hookah_photo_2"
+                        android:scaleType="centerCrop"
+                        android:background="@drawable/bg_collage_right"
+                        android:clipToOutline="true"
+                        android:layout_marginBottom="6dp"
+                        android:contentDescription="Hookah 2"/>
+
+                    <ImageView
+                        android:id="@+id/imgHookah3"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/hookah_photo_3"
+                        android:scaleType="centerCrop"
+                        android:background="@drawable/bg_collage_right"
+                        android:clipToOutline="true"
+                        android:contentDescription="Hookah 3"/>
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- EYEBROW LABEL -->
+            <LinearLayout
+                android:id="@+id/layoutEyebrow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical|center_horizontal"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:alpha="0">
+
+                <View
+                    android:layout_width="40dp"
+                    android:layout_height="1dp"
+                    android:background="#333344"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="PREMIUM HOOKAH EXPERIENCE"
+                    android:textSize="10sp"
+                    android:letterSpacing="0.15"
+                    android:textColor="#888899"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"/>
+
+                <View
+                    android:layout_width="40dp"
+                    android:layout_height="1dp"
+                    android:background="#333344"/>
+
+            </LinearLayout>
+
+            <!-- HEADLINE -->
+            <TextView
+                android:id="@+id/tvSubtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="The experience you&apos;ve\nbeen waiting for"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:lineSpacingMultiplier="1.1"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:alpha="0"/>
+
+            <!-- DESCRIPTION -->
+            <TextView
+                android:id="@+id/tvDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Buy or rent your favorite hookah with fast home delivery."
+                android:textSize="14sp"
+                android:textColor="#AAAAAA"
+                android:gravity="center"
+                android:lineSpacingMultiplier="1.3"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginEnd="32dp"
+                android:alpha="0"/>
+
+            <!-- FEATURES ROW -->
+            <LinearLayout
+                android:id="@+id/layoutFeatures"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="3"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:gravity="center_vertical"
+                android:alpha="0">
+
+                <!-- Feature 1: Fast Delivery -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="44dp"
+                        android:layout_height="44dp"
+                        android:src="@drawable/ic_in_transit"
+                        android:background="@drawable/bg_feature_icon"
+                        android:padding="8dp"
+                        android:scaleType="fitCenter"
+                        android:contentDescription="Delivery icon"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Fast Delivery"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/white"
+                        android:gravity="center"
+                        android:layout_marginTop="6dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="To your door"
+                        android:textSize="10sp"
+                        android:textColor="#888899"
+                        android:gravity="center"
+                        android:layout_marginTop="2dp"/>
+
+                </LinearLayout>
+
+                <!-- Divider -->
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="40dp"
+                    android:background="#222233"/>
+
+                <!-- Feature 2: Premium Products -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:id="@+id/ivFeature2Icon"
+                        android:layout_width="44dp"
+                        android:layout_height="44dp"
+                        android:src="@drawable/ic_dimd"
+                        android:background="@drawable/bg_feature_icon"
+                        android:padding="8dp"
+                        android:scaleType="fitCenter"
+                        android:contentDescription="Premium icon"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Premium Products"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/white"
+                        android:gravity="center"
+                        android:layout_marginTop="6dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="100% Authentic"
+                        android:textSize="10sp"
+                        android:textColor="#888899"
+                        android:gravity="center"
+                        android:layout_marginTop="2dp"/>
+
+                </LinearLayout>
+
+                <!-- Divider -->
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="40dp"
+                    android:background="#222233"/>
+
+                <!-- Feature 3: 24/7 Support -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="44dp"
+                        android:layout_height="44dp"
+                        android:src="@drawable/ic_headset"
+                        android:background="@drawable/bg_feature_icon"
+                        android:padding="10dp"
+                        android:scaleType="fitCenter"
+                        android:contentDescription="Support icon"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="24/7 Support"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/white"
+                        android:gravity="center"
+                        android:layout_marginTop="6dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Always here for you"
+                        android:textSize="10sp"
+                        android:textColor="#888899"
+                        android:gravity="center"
+                        android:layout_marginTop="2dp"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- CTA BUTTON -->
+            <Button
+                android:id="@+id/btnGetStart"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:text="Let&apos;s Get Started  &#8594;"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:background="@drawable/bg_button_cyan"
+                android:textAllCaps="false"
+                android:layout_marginTop="24dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:alpha="0"/>
+
+            <!-- PAGE INDICATOR DOTS -->
+            <LinearLayout
+                android:id="@+id/layoutDots"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="16dp"
+                android:gravity="center_vertical"
+                android:alpha="0">
+
+                <View
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:background="@drawable/bg_indicator_active"/>
+
+                <View
+                    android:layout_width="8dp"
+                    android:layout_height="8dp"
+                    android:background="@drawable/bg_indicator_inactive"
+                    android:layout_marginStart="6dp"/>
+
+                <View
+                    android:layout_width="8dp"
+                    android:layout_height="8dp"
+                    android:background="@drawable/bg_indicator_inactive"
+                    android:layout_marginStart="6dp"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</FrameLayout>

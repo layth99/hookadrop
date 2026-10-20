@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:background="@color/card_bg" android:scrollbars="none">
+
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="vertical" android:padding="20dp">
+
+        <TextView android:id="@+id/tvDialogTitle"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="New Address" android:textColor="@color/white"
+            android:textSize="17sp" android:textStyle="bold" android:layout_marginBottom="18dp"/>
+
+        <!-- Label -->
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="Label (Home / Work / Other)"
+            android:textColor="@color/text_secondary" android:textSize="12sp" android:layout_marginBottom="4dp"/>
+        <EditText android:id="@+id/etLabel" android:layout_width="match_parent" android:layout_height="48dp"
+            android:background="@drawable/bg_input_profile" android:textColor="@color/white"
+            android:textSize="14sp" android:textColorHint="@color/hint_color" android:hint="Home"
+            android:paddingHorizontal="14dp" android:inputType="text" android:layout_marginBottom="12dp"/>
+
+        <!-- Full Name -->
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="Full Name" android:textColor="@color/text_secondary"
+            android:textSize="12sp" android:layout_marginBottom="4dp"/>
+        <EditText android:id="@+id/etFullName" android:layout_width="match_parent" android:layout_height="48dp"
+            android:background="@drawable/bg_input_profile" android:textColor="@color/white"
+            android:textSize="14sp" android:textColorHint="@color/hint_color" android:hint="Full name"
+            android:paddingHorizontal="14dp" android:inputType="textPersonName" android:layout_marginBottom="12dp"/>
+
+        <!-- Phone -->
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="Phone" android:textColor="@color/text_secondary"
+            android:textSize="12sp" android:layout_marginBottom="4dp"/>
+        <EditText android:id="@+id/etPhone" android:layout_width="match_parent" android:layout_height="48dp"
+            android:background="@drawable/bg_input_profile" android:textColor="@color/white"
+            android:textSize="14sp" android:textColorHint="@color/hint_color" android:hint="+216 XX XXX XXX"
+            android:paddingHorizontal="14dp" android:inputType="phone" android:layout_marginBottom="12dp"/>
+
+        <!-- Street -->
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="Street / Address" android:textColor="@color/text_secondary"
+            android:textSize="12sp" android:layout_marginBottom="4dp"/>
+        <EditText android:id="@+id/etStreet" android:layout_width="match_parent" android:layout_height="48dp"
+            android:background="@drawable/bg_input_profile" android:textColor="@color/white"
+            android:textSize="14sp" android:textColorHint="@color/hint_color" android:hint="Street address"
+            android:paddingHorizontal="14dp" android:inputType="textPostalAddress" android:layout_marginBottom="12dp"/>
+
+        <!-- City -->
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="City" android:textColor="@color/text_secondary"
+            android:textSize="12sp" android:layout_marginBottom="4dp"/>
+        <EditText android:id="@+id/etCity" android:layout_width="match_parent" android:layout_height="48dp"
+            android:background="@drawable/bg_input_profile" android:textColor="@color/white"
+            android:textSize="14sp" android:textColorHint="@color/hint_color" android:hint="City"
+            android:paddingHorizontal="14dp" android:inputType="text" android:layout_marginBottom="12dp"/>
+
+        <!-- Postal Code -->
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="Postal Code" android:textColor="@color/text_secondary"
+            android:textSize="12sp" android:layout_marginBottom="4dp"/>
+        <EditText android:id="@+id/etPostal" android:layout_width="match_parent" android:layout_height="48dp"
+            android:background="@drawable/bg_input_profile" android:textColor="@color/white"
+            android:textSize="14sp" android:textColorHint="@color/hint_color" android:hint="Postal code"
+            android:paddingHorizontal="14dp" android:inputType="number" android:layout_marginBottom="12dp"/>
+
+        <!-- Country -->
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="Country" android:textColor="@color/text_secondary"
+            android:textSize="12sp" android:layout_marginBottom="4dp"/>
+        <EditText android:id="@+id/etCountry" android:layout_width="match_parent" android:layout_height="48dp"
+            android:background="@drawable/bg_input_profile" android:textColor="@color/white"
+            android:textSize="14sp" android:textColorHint="@color/hint_color" android:hint="Country"
+            android:paddingHorizontal="14dp" android:inputType="text" android:layout_marginBottom="16dp"/>
+
+        <!-- Default checkbox -->
+        <CheckBox android:id="@+id/cbDefault"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="Set as default address"
+            android:textColor="@color/white" android:textSize="14sp"
+            android:buttonTint="@color/accent_cyan" android:layout_marginBottom="20dp"/>
+
+        <!-- Save -->
+        <Button android:id="@+id/btnSaveAddress"
+            android:layout_width="match_parent" android:layout_height="50dp"
+            android:text="Save Address" android:textColor="@color/white"
+            android:textSize="14sp" android:textStyle="bold" android:textAllCaps="false"
+            android:background="@drawable/bg_button_blue"/>
+    </LinearLayout>
+</ScrollView>

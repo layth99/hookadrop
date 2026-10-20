@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_screen"
+    android:fitsSystemWindows="true">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottomNav"
+        android:scrollbars="none"
+        android:overScrollMode="never">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="24dp">
+
+            <!-- TOP BAR -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingHorizontal="16dp"
+                android:paddingTop="8dp">
+
+                <View android:layout_width="36dp" android:layout_height="36dp"/>
+
+                <TextView
+                    android:layout_width="0dp" android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="PROFILE"
+                    android:textColor="@color/accent_cyan"
+                    android:textSize="18sp" android:textStyle="bold"
+                    android:letterSpacing="0.1" android:gravity="center"/>
+
+                <FrameLayout
+                    android:id="@+id/btnEditProfileIcon"
+                    android:layout_width="36dp" android:layout_height="36dp"
+                    android:background="@drawable/bg_icon_circle">
+                    <ImageView
+                        android:layout_width="18dp" android:layout_height="18dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_edit"
+                        android:contentDescription="Edit"/>
+                </FrameLayout>
+            </LinearLayout>
+
+            <!-- USER BANNER (fully clickable → EditProfile) -->
+            <LinearLayout
+                android:id="@+id/bannerUserCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="@drawable/bg_profile_card"
+                android:padding="20dp"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="8dp"
+                android:clickable="true"
+                android:focusable="true">
+
+                <!-- Avatar (also clickable for image change) -->
+                <FrameLayout
+                    android:id="@+id/avatarContainer"
+                    android:layout_width="70dp" android:layout_height="70dp">
+
+                    <FrameLayout
+                        android:layout_width="70dp" android:layout_height="70dp"
+                        android:background="@drawable/bg_avatar_circle"
+                        android:clipToOutline="true">
+                        <ImageView
+                            android:id="@+id/imgAvatar"
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_profile"
+                            android:scaleType="centerCrop"
+                            android:contentDescription="Avatar"/>
+                    </FrameLayout>
+
+                    <!-- Camera badge -->
+                    <FrameLayout
+                        android:layout_width="22dp" android:layout_height="22dp"
+                        android:layout_gravity="bottom|end"
+                        android:background="@drawable/bg_button_cyan">
+                        <ImageView
+                            android:layout_width="12dp" android:layout_height="12dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_camera"
+                            android:contentDescription="Change photo"/>
+                    </FrameLayout>
+                </FrameLayout>
+
+                <!-- Name + email + badge -->
+                <LinearLayout
+                    android:layout_width="0dp" android:layout_height="wrap_content"
+                    android:layout_weight="1" android:orientation="vertical"
+                    android:layout_marginStart="14dp">
+
+                    <TextView
+                        android:id="@+id/tvProfileName"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="Guest"
+                        android:textColor="@color/white"
+                        android:textSize="18sp" android:textStyle="bold"/>
+
+                    <TextView
+                        android:id="@+id/tvProfileEmail"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="12sp" android:layout_marginTop="2dp"
+                        android:maxLines="1" android:ellipsize="end"/>
+
+                    <TextView
+                        android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="MEMBER"
+                        android:textColor="@color/accent_cyan"
+                        android:textSize="10sp" android:textStyle="bold"
+                        android:letterSpacing="0.1"
+                        android:background="@drawable/bg_member_badge"
+                        android:paddingHorizontal="10dp" android:paddingVertical="3dp"
+                        android:layout_marginTop="6dp"/>
+                </LinearLayout>
+
+                <!-- Divider -->
+                <View
+                    android:layout_width="1dp" android:layout_height="50dp"
+                    android:background="@color/card_border"
+                    android:layout_marginHorizontal="12dp"/>
+
+                <!-- Orders count -->
+                <LinearLayout
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:orientation="vertical" android:gravity="center">
+                    <TextView
+                        android:id="@+id/tvOrderCount"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textColor="@color/white"
+                        android:textSize="26sp" android:textStyle="bold"/>
+                    <TextView
+                        android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="Orders"
+                        android:textColor="@color/text_secondary" android:textSize="11sp"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- ACCOUNT SECTION -->
+            <TextView
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="Account"
+                android:textColor="@color/text_secondary"
+                android:textSize="12sp" android:textStyle="bold"
+                android:letterSpacing="0.1"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="24dp" android:layout_marginBottom="8dp"/>
+
+            <LinearLayout android:id="@+id/itemMyOrders"
+                android:layout_width="match_parent" android:layout_height="60dp"
+                android:orientation="horizontal" android:gravity="center_vertical"
+                android:background="@drawable/bg_menu_item"
+                android:layout_marginHorizontal="16dp" android:layout_marginBottom="8dp"
+                android:paddingHorizontal="16dp" android:clickable="true" android:focusable="true">
+                <FrameLayout android:layout_width="38dp" android:layout_height="38dp" android:background="@drawable/bg_menu_icon">
+                    <ImageView android:layout_width="20dp" android:layout_height="20dp" android:layout_gravity="center" android:src="@drawable/ic_orders" android:contentDescription="Orders"/>
+                </FrameLayout>
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginStart="14dp" android:text="My Orders" android:textColor="@color/white" android:textSize="15sp"/>
+                <ImageView android:layout_width="16dp" android:layout_height="16dp" android:src="@drawable/ic_arrow_right" android:contentDescription="Go"/>
+            </LinearLayout>
+
+            <LinearLayout android:id="@+id/itemAddresses"
+                android:layout_width="match_parent" android:layout_height="60dp"
+                android:orientation="horizontal" android:gravity="center_vertical"
+                android:background="@drawable/bg_menu_item"
+                android:layout_marginHorizontal="16dp" android:layout_marginBottom="8dp"
+                android:paddingHorizontal="16dp" android:clickable="true" android:focusable="true">
+                <FrameLayout android:layout_width="38dp" android:layout_height="38dp" android:background="@drawable/bg_menu_icon">
+                    <ImageView android:layout_width="20dp" android:layout_height="20dp" android:layout_gravity="center" android:src="@drawable/ic_address" android:contentDescription="Address"/>
+                </FrameLayout>
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginStart="14dp" android:text="Saved Addresses" android:textColor="@color/white" android:textSize="15sp"/>
+                <ImageView android:layout_width="16dp" android:layout_height="16dp" android:src="@drawable/ic_arrow_right" android:contentDescription="Go"/>
+            </LinearLayout>
+
+            <LinearLayout android:id="@+id/itemPayment"
+                android:layout_width="match_parent" android:layout_height="60dp"
+                android:orientation="horizontal" android:gravity="center_vertical"
+                android:background="@drawable/bg_menu_item"
+                android:layout_marginHorizontal="16dp"
+                android:paddingHorizontal="16dp" android:clickable="true" android:focusable="true">
+                <FrameLayout android:layout_width="38dp" android:layout_height="38dp" android:background="@drawable/bg_menu_icon">
+                    <ImageView android:layout_width="20dp" android:layout_height="20dp" android:layout_gravity="center" android:src="@drawable/ic_payment" android:contentDescription="Payment"/>
+                </FrameLayout>
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginStart="14dp" android:text="Payment Methods" android:textColor="@color/white" android:textSize="15sp"/>
+                <ImageView android:layout_width="16dp" android:layout_height="16dp" android:src="@drawable/ic_arrow_right" android:contentDescription="Go"/>
+            </LinearLayout>
+
+            <!-- PROMO CODES -->
+            <LinearLayout android:id="@+id/itemPromoCodes"
+                android:layout_width="match_parent" android:layout_height="60dp"
+                android:orientation="horizontal" android:gravity="center_vertical"
+                android:background="@drawable/bg_menu_item"
+                android:layout_marginHorizontal="16dp" android:layout_marginTop="8dp"
+                android:paddingHorizontal="16dp" android:clickable="true" android:focusable="true">
+                <FrameLayout android:layout_width="38dp" android:layout_height="38dp" android:background="@drawable/bg_menu_icon">
+                    <ImageView android:layout_width="20dp" android:layout_height="20dp" android:layout_gravity="center" android:src="@drawable/ic_promo" android:contentDescription="Promo"/>
+                </FrameLayout>
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginStart="14dp" android:text="Promo Codes" android:textColor="@color/white" android:textSize="15sp"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:id="@+id/tvPromoIndicator"
+                    android:text="NEW" android:textColor="@color/black" android:textSize="9sp"
+                    android:textStyle="bold" android:background="@drawable/bg_button_gold"
+                    android:paddingHorizontal="6dp" android:paddingVertical="2dp"
+                    android:layout_marginEnd="8dp" android:visibility="visible"/>
+                <ImageView android:layout_width="16dp" android:layout_height="16dp" android:src="@drawable/ic_arrow_right" android:contentDescription="Go"/>
+            </LinearLayout>
+
+            <!-- PREFERENCES SECTION -->
+            <TextView
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="Preferences"
+                android:textColor="@color/text_secondary"
+                android:textSize="12sp" android:textStyle="bold" android:letterSpacing="0.1"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="20dp" android:layout_marginBottom="8dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent" android:layout_height="60dp"
+                android:orientation="horizontal" android:gravity="center_vertical"
+                android:background="@drawable/bg_menu_item"
+                android:layout_marginHorizontal="16dp" android:layout_marginBottom="8dp"
+                android:paddingHorizontal="16dp">
+                <FrameLayout android:layout_width="38dp" android:layout_height="38dp" android:background="@drawable/bg_menu_icon">
+                    <ImageView android:layout_width="20dp" android:layout_height="20dp" android:layout_gravity="center" android:src="@drawable/ic_notification" android:contentDescription="Notifications"/>
+                </FrameLayout>
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginStart="14dp" android:text="Notifications" android:textColor="@color/white" android:textSize="15sp"/>
+                <Switch
+                    android:id="@+id/switchNotifications"
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:thumbTint="@color/white"
+                    android:trackTint="@color/accent_cyan"/>
+            </LinearLayout>
+
+            <LinearLayout android:id="@+id/itemSettings"
+                android:layout_width="match_parent" android:layout_height="60dp"
+                android:orientation="horizontal" android:gravity="center_vertical"
+                android:background="@drawable/bg_menu_item"
+                android:layout_marginHorizontal="16dp" android:layout_marginBottom="8dp"
+                android:paddingHorizontal="16dp" android:clickable="true" android:focusable="true">
+                <FrameLayout android:layout_width="38dp" android:layout_height="38dp" android:background="@drawable/bg_menu_icon">
+                    <ImageView android:layout_width="20dp" android:layout_height="20dp" android:layout_gravity="center" android:src="@drawable/ic_settings" android:contentDescription="Settings"/>
+                </FrameLayout>
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginStart="14dp" android:text="Settings" android:textColor="@color/white" android:textSize="15sp"/>
+                <ImageView android:layout_width="16dp" android:layout_height="16dp" android:src="@drawable/ic_arrow_right" android:contentDescription="Go"/>
+            </LinearLayout>
+
+            <LinearLayout android:id="@+id/itemHelp"
+                android:layout_width="match_parent" android:layout_height="60dp"
+                android:orientation="horizontal" android:gravity="center_vertical"
+                android:background="@drawable/bg_menu_item"
+                android:layout_marginHorizontal="16dp"
+                android:paddingHorizontal="16dp" android:clickable="true" android:focusable="true">
+                <FrameLayout android:layout_width="38dp" android:layout_height="38dp" android:background="@drawable/bg_menu_icon">
+                    <ImageView android:layout_width="20dp" android:layout_height="20dp" android:layout_gravity="center" android:src="@drawable/ic_help" android:contentDescription="Help"/>
+                </FrameLayout>
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginStart="14dp" android:text="Help &amp; Support" android:textColor="@color/white" android:textSize="15sp"/>
+                <ImageView android:layout_width="16dp" android:layout_height="16dp" android:src="@drawable/ic_arrow_right" android:contentDescription="Go"/>
+            </LinearLayout>
+
+            <!-- SIGN OUT — dark cyan style matching the app theme -->
+            <Button
+                android:id="@+id/btnSignOut"
+                android:layout_width="match_parent" android:layout_height="54dp"
+                android:layout_marginHorizontal="16dp" android:layout_marginTop="28dp"
+                android:text="Sign Out"
+                android:textColor="@color/white"
+                android:textSize="15sp" android:textStyle="bold" android:textAllCaps="false"
+                android:background="@drawable/bg_signout_button"
+                android:drawableStart="@drawable/ic_logout"
+                android:drawablePadding="10dp"/>
+
+            <TextView
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="HookahDrop v1.0"
+                android:textColor="@color/hint_color" android:textSize="11sp"
+                android:gravity="center" android:layout_marginTop="14dp"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <include layout="@layout/layout_bottom_nav"
+        android:id="@+id/bottomNav"
+        android:layout_width="match_parent" android:layout_height="72dp"
+        android:layout_alignParentBottom="true"/>
+
+</RelativeLayout>

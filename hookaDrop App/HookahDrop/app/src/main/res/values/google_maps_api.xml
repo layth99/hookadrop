@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+    ╔══════════════════════════════════════════════════════════════════╗
+    ║  GOOGLE MAPS API KEY — REPLACE THE VALUE BELOW                  ║
+    ║                                                                  ║
+    ║  1. Go to https://console.cl9oud.google.com                       ║
+    ║  2. Create a project → Enable:                                   ║
+    ║       • Maps SDK for Android                                     ║
+    ║       • Geocoding API                                            ║
+    ║       • Places API  (optional, for autocomplete)                 ║
+    ║  3. Create an API key → restrict it to this app package:         ║
+    ║       com.hookahdrop.app                                         ║
+    ║  4. Paste the key below replacing YOUR_GOOGLE_MAPS_API_KEY       ║
+    ║  5. Never commit this file to a public repository                ║
+    ╚══════════════════════════════════════════════════════════════════╝
+    -->
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">
+        YOUR_GOOGLE_MAPS_API_KEY
+    </string>
+</resources>
+
