@@ -5,102 +5,117 @@
     android:layout_height="match_parent"
     android:background="@color/black">
 
-    <!-- Smoke corners -->
-    <ImageView android:id="@+id/smokeTL"
-        android:layout_width="300dp" android:layout_height="300dp"
+    <!-- Smoke layers at corners -->
+    <ImageView
+        android:id="@+id/smokeTL"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
         android:layout_gravity="top|start"
-        android:layout_marginStart="-80dp" android:layout_marginTop="-80dp"
-        android:src="@drawable/smk" android:scaleType="centerCrop"
-        android:alpha="0" android:contentDescription=""/>
+        android:src="@drawable/smk"
+        android:scaleType="fitXY"
+        android:alpha="0"
+        android:contentDescription="" />
 
-    <ImageView android:id="@+id/smokeTR"
-        android:layout_width="300dp" android:layout_height="300dp"
+    <ImageView
+        android:id="@+id/smokeTR"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
         android:layout_gravity="top|end"
-        android:layout_marginEnd="-80dp" android:layout_marginTop="-80dp"
-        android:src="@drawable/smk" android:scaleType="centerCrop"
-        android:alpha="0" android:scaleX="-1"
-        android:contentDescription=""/>
+        android:src="@drawable/smk"
+        android:scaleType="fitXY"
+        android:scaleX="-1"
+        android:alpha="0"
+        android:contentDescription="" />
 
-    <ImageView android:id="@+id/smokeBL"
-        android:layout_width="280dp" android:layout_height="280dp"
+    <ImageView
+        android:id="@+id/smokeBL"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
         android:layout_gravity="bottom|start"
-        android:layout_marginStart="-70dp" android:layout_marginBottom="-70dp"
-        android:src="@drawable/smk" android:scaleType="centerCrop"
-        android:alpha="0" android:rotation="270"
-        android:contentDescription=""/>
+        android:src="@drawable/smk"
+        android:scaleType="fitXY"
+        android:scaleY="-1"
+        android:alpha="0"
+        android:contentDescription="" />
 
-    <ImageView android:id="@+id/smokeBR"
-        android:layout_width="280dp" android:layout_height="280dp"
+    <ImageView
+        android:id="@+id/smokeBR"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
         android:layout_gravity="bottom|end"
-        android:layout_marginEnd="-70dp" android:layout_marginBottom="-70dp"
-        android:src="@drawable/smk" android:scaleType="centerCrop"
-        android:alpha="0" android:rotation="180"
-        android:contentDescription=""/>
+        android:src="@drawable/smk"
+        android:scaleType="fitXY"
+        android:scaleX="-1"
+        android:scaleY="-1"
+        android:alpha="0"
+        android:contentDescription="" />
 
     <!-- Cyan halo behind logo -->
-    <View android:id="@+id/cyanHalo"
-        android:layout_width="240dp" android:layout_height="240dp"
+    <View
+        android:id="@+id/cyanHalo"
+        android:layout_width="280dp"
+        android:layout_height="280dp"
         android:layout_gravity="center"
         android:background="@drawable/bg_cyan_halo"
-        android:alpha="0"/>
+        android:alpha="0" />
 
     <!-- Center logo container -->
     <FrameLayout
         android:id="@+id/logoContainer"
-        android:layout_width="260dp"
-        android:layout_height="260dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:alpha="0">
 
-        <View
+        <ImageView
             android:id="@+id/glowRing"
-            android:layout_width="256dp"
-            android:layout_height="256dp"
+            android:layout_width="220dp"
+            android:layout_height="220dp"
             android:layout_gravity="center"
-            android:background="@drawable/glow_ring"
+            android:src="@drawable/glow_ring"
             android:alpha="0" />
 
-        <View
+        <ImageView
             android:id="@+id/glowRing2"
             android:layout_width="220dp"
             android:layout_height="220dp"
             android:layout_gravity="center"
-            android:background="@drawable/bg_ring_small"
+            android:src="@drawable/bg_ring_small"
+            android:tint="#08B9F5"
             android:alpha="0" />
-
-        <!-- Shimmer sweep overlay -->
-        <View
-            android:id="@+id/shimmerOverlay"
-            android:layout_width="60dp"
-            android:layout_height="200dp"
-            android:layout_gravity="center"
-            android:background="@drawable/bg_shimmer_sweep"
-            android:alpha="0"
-            android:rotation="20"/>
 
         <ImageView
             android:id="@+id/imgLogo"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
             android:layout_gravity="center"
             android:src="@drawable/ic_hookah_neon"
             android:scaleType="fitCenter"
             android:contentDescription="HookahDrop" />
 
+        <View
+            android:id="@+id/shimmerOverlay"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
+            android:layout_gravity="center"
+            android:background="@drawable/bg_shimmer_sweep"
+            android:alpha="0" />
+
     </FrameLayout>
 
-    <!-- Loading bar at bottom -->
+    <!-- Loading bar area at bottom -->
     <FrameLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:layout_marginBottom="48dp"
-        android:layout_marginHorizontal="40dp">
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="48dp">
 
         <View
-            android:layout_width="match_parent"
+            android:id="@+id/loadingTrack"
+            android:layout_width="200dp"
             android:layout_height="3dp"
-            android:background="@drawable/loading_track" />
+            android:background="@drawable/loading_track"
+            android:alpha="0" />
 
         <View
             android:id="@+id/loadingBar"
