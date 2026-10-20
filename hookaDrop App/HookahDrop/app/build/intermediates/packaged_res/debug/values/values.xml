@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:ns1="http://schemas.android.com/tools">
+    <color name="accent_cyan">#00BFFF</color>
+    <color name="accent_cyan_alpha">#3300BFFF</color>
+    <color name="accent_cyan_dim">#0080AA</color>
+    <color name="badge_red">#E53935</color>
+    <color name="bg_dark">#0A0A0A</color>
+    <color name="bg_screen">#050608</color>
+    <color name="black">#FF000000</color>
+    <color name="btn_gold">#B8960C</color>
+    <color name="btn_gold_pressed">#8A6F09</color>
+    <color name="card_bg">#101216</color>
+    <color name="card_border">#252A30</color>
+    <color name="circle_stroke">#30FFFFFF</color>
+    <color name="cyan">#08B9F5</color>
+    <color name="divider">#1A1E28</color>
+    <color name="favorite_active">#E53935</color>
+    <color name="favorite_inactive">#4A5060</color>
+    <color name="gold">#B8960C</color>
+    <color name="gold_dim">#7A6408</color>
+    <color name="gold_light">#D4AC0D</color>
+    <color name="gold_neon">#FFD700</color>
+    <color name="hero_overlay">#CC050608</color>
+    <color name="hint_color">#666666</color>
+    <color name="ic_launcher_background">#132025</color>
+    <color name="input_bg">#1A1A1A</color>
+    <color name="input_border">#2E2E2E</color>
+    <color name="input_border_error">#FF4444</color>
+    <color name="nav_selected">#00BFFF</color>
+    <color name="nav_unselected">#4A5060</color>
+    <color name="neon_blue">#00CFFF</color>
+    <color name="neon_blue_dim">#0099CC</color>
+    <color name="promo_bg">#0D1520</color>
+    <color name="search_bg">#0D0F14</color>
+    <color name="social_bg">#1E1E1E</color>
+    <color name="success">#4CAF50</color>
+    <color name="text_gold">#B8960C</color>
+    <color name="text_muted">#999999</color>
+    <color name="text_secondary">#8A8FA0</color>
+    <color name="text_white">#FFFFFFFF</color>
+    <color name="warning">#FFB300</color>
+    <color name="white">#FFFFFFFF</color>
+    <dimen name="button_height">56dp</dimen>
+    <dimen name="corner_radius">28dp</dimen>
+    <dimen name="header_top_extra">8dp</dimen>
+    <dimen name="input_height">56dp</dimen>
+    <dimen name="page_number_margin">6dp</dimen>
+    <dimen name="page_number_size">32dp</dimen>
+    <dimen name="screen_padding">24dp</dimen>
+    <dimen name="text_body">15sp</dimen>
+    <dimen name="text_small">13sp</dimen>
+    <dimen name="text_title">22sp</dimen>
+    <string name="add_to_cart">Add to Cart</string>
+    <string name="added_to_cart">added to cart</string>
+    <string name="already_have_account">Already have an account? </string>
+    <string name="app_name">HookahDrop</string>
+    <string name="app_version">App Version</string>
+    <string name="apply">Apply</string>
+    <string name="cart_empty">Your cart is empty</string>
+    <string name="categories">Categories</string>
+    <string name="change_password">Change Password</string>
+    <string name="checkout">Checkout</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="create_account">CREATE ACCOUNT</string>
+    <string name="delete_account">Delete Account</string>
+    <string name="description">Description</string>
+    <string name="dont_have_account">Don\'t have an account? </string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="email">Email</string>
+    <string name="error_age">You must be 20 years old or older to create a HookaDrop account.</string>
+    <string name="error_invalid_email">Please enter a valid email address.</string>
+    <string name="error_network">Unable to connect. Please check your internet connection.</string>
+    <string name="error_password_mismatch">Passwords do not match.</string>
+    <string name="error_required">This field is required.</string>
+    <string name="explore">Explore</string>
+    <string name="favorites_empty">No favorites yet</string>
+    <string name="forgot_password">FORGOT PASSWORD</string>
+    <string name="forgot_password_link">Forgot password?</string>
+    <string name="forgot_subtitle">Please enter your email address to receive a verification code</string>
+    <string name="free">FREE</string>
+    <string name="gcm_defaultSenderId" translatable="false">000000000000</string>
+    <string name="google_api_key" translatable="false">PLACEHOLDER_API_KEY_REPLACE_WITH_REAL_KEY</string>
+    <string name="google_app_id" translatable="false">1:000000000000:android:0000000000000000</string>
+    <string name="google_crash_reporting_api_key" translatable="false">PLACEHOLDER_API_KEY_REPLACE_WITH_REAL_KEY</string>
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">
+        YOUR_GOOGLE_MAPS_API_KEY
+    </string>
+    <string name="google_storage_bucket" translatable="false">hookahdrop-placeholder.appspot.com</string>
+    <string name="in_stock">In Stock</string>
+    <string name="lang_arabic">العربية</string>
+    <string name="lang_english">English</string>
+    <string name="lang_french">Français</string>
+    <string name="language">Language</string>
+    <string name="lets_get_start">Let\'s Get Start →</string>
+    <string name="logout">Logout</string>
+    <string name="my_addresses">My Addresses</string>
+    <string name="my_orders">My Orders</string>
+    <string name="name">Name</string>
+    <string name="nav_cart">Cart</string>
+    <string name="nav_categories">Categories</string>
+    <string name="nav_favorites">Favorites</string>
+    <string name="nav_home">Home</string>
+    <string name="nav_profile">Profile</string>
+    <string name="new_pass_subtitle">Your new password must be different from previously used password.</string>
+    <string name="new_password">NEW PASSWORD</string>
+    <string name="notifications">Notifications</string>
+    <string name="onboarding_title">The experience you\'ve been waiting for is almost here</string>
+    <string name="order_status_cancelled">Cancelled</string>
+    <string name="order_status_confirmed">Confirmed</string>
+    <string name="order_status_delivered">Delivered</string>
+    <string name="order_status_pending">Pending</string>
+    <string name="order_status_shipped">Shipped</string>
+    <string name="orders_empty">No orders yet</string>
+    <string name="out_of_stock">Out of Stock</string>
+    <string name="password">Password</string>
+    <string name="placeholder_email">example@gmail.com</string>
+    <string name="placeholder_name">John Doe</string>
+    <string name="placeholder_password">••••••••••••••</string>
+    <string name="popular_products">Popular Products</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="privacy_settings">Privacy Settings</string>
+    <string name="project_id" translatable="false">hookahdrop-placeholder</string>
+    <string name="quantity">Quantity</string>
+    <string name="remove">Remove</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="reviews">reviews</string>
+    <string name="select_language">Select Language</string>
+    <string name="send_code_again">Send code again</string>
+    <string name="settings">Settings</string>
+    <string name="shipping">Shipping</string>
+    <string name="shop_now">Shop Now</string>
+    <string name="sign_in">SIGN IN</string>
+    <string name="sign_up">SIGN UP</string>
+    <string name="stripe_publishable_key" translatable="false">pk_test_51UNLssQdqs2T9ydDFXO780O8rGkn5omlWiRbxb7dQEXFi2XDc98RtTs1HpDol4IoiFwWK57DktAW6ylXmYEttE1I0034guToLX</string>
+    <string name="subtotal">Subtotal</string>
+    <string name="terms_conditions">Terms &amp; Conditions</string>
+    <string name="total">Total</string>
+    <string name="verify">Verify</string>
+    <string name="verify_code">VERIFY CODE</string>
+    <string name="verify_subtitle">Please enter the code we just sent to email</string>
+    <string name="view_all">View All</string>
+    <string name="welcome_back">Welcome back,</string>
+    <style name="BottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+    <style name="BottomSheetTheme" parent="Theme.MaterialComponents.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/BottomSheetStyle</item>
+        <item name="android:windowIsFloating">false</item>
+    </style>
+    <style name="GoldButton" parent="Widget.MaterialComponents.Button">
+        <item name="android:background">@drawable/bg_button_gold</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:letterSpacing">0.04</item>
+        <item name="android:paddingTop">16dp</item>
+        <item name="android:paddingBottom">16dp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="cornerRadius">50dp</item>
+        <item name="backgroundTint">@null</item>
+    </style>
+    <style name="InputField" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">@color/input_border</item>
+        <item name="boxBackgroundColor">@color/input_bg</item>
+        <item name="android:textColorHint">@color/hint_color</item>
+        <item name="hintTextColor">@color/hint_color</item>
+        <item name="boxCornerRadiusTopStart">50dp</item>
+        <item name="boxCornerRadiusTopEnd">50dp</item>
+        <item name="boxCornerRadiusBottomStart">50dp</item>
+        <item name="boxCornerRadiusBottomEnd">50dp</item>
+    </style>
+    <style name="NavAnimationStyle" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/window_anim_enter</item>
+        <item name="android:activityOpenExitAnimation">@anim/window_anim_exit</item>
+        <item name="android:activityCloseEnterAnimation">@anim/nav_back_enter</item>
+        <item name="android:activityCloseExitAnimation">@anim/nav_back_exit</item>
+    </style>
+    <style name="Theme.HookahDrop" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/accent_cyan</item>
+        <item name="colorPrimaryVariant">@color/accent_cyan_dim</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSecondary">@color/neon_blue</item>
+        <item name="colorSurface">@color/bg_dark</item>
+        <item name="android:windowBackground">@color/bg_dark</item>
+        <item name="android:statusBarColor">@color/black</item>
+        <item name="android:navigationBarColor">#0C0E13</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar" ns1:ignore="NewApi">false</item>
+    </style>
+    <style name="Theme.HookahDrop.Main" parent="Theme.HookahDrop">
+        <item name="android:windowBackground">@color/bg_screen</item>
+        <item name="colorSurface">@color/card_bg</item>
+        <item name="android:navigationBarColor">#0C0E13</item>
+        <item name="android:windowActivityTransitions">true</item>
+        <item name="android:windowContentTransitions">true</item>
+        <item name="android:windowAllowEnterTransitionOverlap">true</item>
+        <item name="android:windowAllowReturnTransitionOverlap">true</item>
+        <item name="android:windowAnimationStyle">@style/NavAnimationStyle</item>
+    </style>
+    <style name="Theme.HookahDrop.Splash" parent="Theme.HookahDrop">
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowBackground">@color/black</item>
+        <item name="android:navigationBarColor">#FF000000</item>
+    </style>
+    <style name="Theme.HookahDrop.Transparent" parent="Theme.HookahDrop">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation</item>
+        <item name="android:navigationBarColor">#00000000</item>
+        <item name="android:statusBarColor">#00000000</item>
+    </style>
+</resources>

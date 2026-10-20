@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">هوكادروب</string>
+
+    <!-- Auth -->
+    <string name="sign_in">تسجيل الدخول</string>
+    <string name="sign_up">إنشاء حساب</string>
+    <string name="create_account">إنشاء حساب جديد</string>
+    <string name="name">الاسم</string>
+    <string name="email">البريد الإلكتروني</string>
+    <string name="password">كلمة المرور</string>
+    <string name="confirm_password">تأكيد كلمة المرور</string>
+    <string name="forgot_password">نسيت كلمة المرور</string>
+    <string name="verify_code">التحقق من الرمز</string>
+    <string name="new_password">كلمة مرور جديدة</string>
+    <string name="reset_password">إعادة تعيين كلمة المرور</string>
+    <string name="verify">تحقق</string>
+    <string name="send_code_again">إعادة إرسال الرمز</string>
+    <string name="already_have_account">لديك حساب بالفعل؟ </string>
+    <string name="dont_have_account">ليس لديك حساب؟ </string>
+    <string name="forgot_password_link">نسيت كلمة المرور؟</string>
+    <string name="onboarding_title">التجربة التي كنت تنتظرها على وشك البدء</string>
+    <string name="placeholder_name">أحمد محمد</string>
+    <string name="placeholder_email">example@gmail.com</string>
+    <string name="placeholder_password">••••••••••••••</string>
+    <string name="verify_subtitle">أدخل الرمز المُرسَل إلى بريدك الإلكتروني</string>
+    <string name="forgot_subtitle">أدخل بريدك الإلكتروني لاستقبال رمز التحقق</string>
+    <string name="new_pass_subtitle">يجب أن تكون كلمة المرور الجديدة مختلفة عن السابقة.</string>
+
+    <!-- Navigation -->
+    <string name="nav_home">الرئيسية</string>
+    <string name="nav_categories">الفئات</string>
+    <string name="nav_cart">السلة</string>
+    <string name="nav_favorites">المفضلة</string>
+    <string name="nav_profile">الملف الشخصي</string>
+
+    <!-- Home -->
+    <string name="welcome_back">مرحباً بعودتك،</string>
+    <string name="view_all">عرض الكل</string>
+    <string name="categories">الفئات</string>
+    <string name="popular_products">المنتجات الشائعة</string>
+    <string name="shop_now">تسوق الآن</string>
+
+    <!-- Cart -->
+    <string name="cart_empty">سلتك فارغة</string>
+    <string name="add_to_cart">أضف إلى السلة</string>
+    <string name="checkout">إتمام الشراء</string>
+    <string name="total">الإجمالي</string>
+    <string name="subtotal">المجموع الفرعي</string>
+    <string name="shipping">الشحن</string>
+    <string name="free">مجاني</string>
+    <string name="remove">إزالة</string>
+
+    <!-- Product -->
+    <string name="in_stock">متوفر</string>
+    <string name="out_of_stock">غير متوفر</string>
+    <string name="description">الوصف</string>
+    <string name="quantity">الكمية</string>
+    <string name="reviews">تقييمات</string>
+    <string name="added_to_cart">أُضيف إلى السلة</string>
+
+    <!-- Profile & Settings -->
+    <string name="settings">الإعدادات</string>
+    <string name="edit_profile">تعديل الملف الشخصي</string>
+    <string name="change_password">تغيير كلمة المرور</string>
+    <string name="notifications">الإشعارات</string>
+    <string name="language">اللغة</string>
+    <string name="privacy_settings">إعدادات الخصوصية</string>
+    <string name="terms_conditions">الشروط والأحكام</string>
+    <string name="privacy_policy">سياسة الخصوصية</string>
+    <string name="app_version">إصدار التطبيق</string>
+    <string name="delete_account">حذف الحساب</string>
+    <string name="logout">تسجيل الخروج</string>
+    <string name="my_orders">طلباتي</string>
+    <string name="my_addresses">عناويني</string>
+
+    <!-- Favorites -->
+    <string name="favorites_empty">لا توجد مفضلات بعد</string>
+    <string name="explore">استكشف</string>
+
+    <!-- Orders -->
+    <string name="orders_empty">لا توجد طلبات بعد</string>
+    <string name="order_status_pending">قيد الانتظار</string>
+    <string name="order_status_confirmed">مؤكد</string>
+    <string name="order_status_shipped">تم الشحن</string>
+    <string name="order_status_delivered">تم التسليم</string>
+    <string name="order_status_cancelled">ملغى</string>
+
+    <!-- Errors -->
+    <string name="error_network">تعذر الاتصال. تحقق من اتصالك بالإنترنت.</string>
+    <string name="error_required">هذا الحقل مطلوب.</string>
+    <string name="error_invalid_email">أدخل عنوان بريد إلكتروني صحيح.</string>
+    <string name="error_password_mismatch">كلمتا المرور غير متطابقتين.</string>
+    <string name="error_age">يجب أن يكون عمرك 20 عامًا أو أكثر لإنشاء حساب.</string>
+
+    <!-- Language screen -->
+    <string name="select_language">اختر اللغة</string>
+    <string name="lang_english">English</string>
+    <string name="lang_french">Français</string>
+    <string name="lang_arabic">العربية</string>
+    <string name="apply">تطبيق</string>
+</resources>

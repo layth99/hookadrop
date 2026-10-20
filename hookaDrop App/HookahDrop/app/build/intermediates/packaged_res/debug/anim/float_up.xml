@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Smoke / floating upward drift -->
+<set xmlns:android="http://schemas.android.com/apk/res/android">
+    <translate
+        android:duration="2000"
+        android:fromYDelta="0"
+        android:interpolator="@android:interpolator/decelerate_quad"
+        android:repeatCount="infinite"
+        android:repeatMode="restart"
+        android:toYDelta="-40dp" />
+    <alpha
+        android:duration="2000"
+        android:fromAlpha="0.6"
+        android:repeatCount="infinite"
+        android:repeatMode="restart"
+        android:toAlpha="0.0" />
+</set>

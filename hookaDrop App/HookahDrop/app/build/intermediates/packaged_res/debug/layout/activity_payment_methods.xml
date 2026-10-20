@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="@color/bg_screen" android:fitsSystemWindows="true">
+
+    <LinearLayout android:id="@+id/header"
+        android:layout_width="match_parent" android:layout_height="56dp"
+        android:orientation="horizontal" android:gravity="center_vertical"
+        android:paddingHorizontal="16dp" android:layout_alignParentTop="true">
+        <ImageButton android:id="@+id/btnBack"
+            android:layout_width="40dp" android:layout_height="40dp"
+            android:background="@drawable/bg_back_button" android:src="@drawable/ic_arrow_back"
+            android:padding="10dp" android:contentDescription="Back"/>
+        <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+            android:layout_weight="1" android:text="Payment Methods"
+            android:textColor="@color/white" android:textSize="17sp" android:textStyle="bold"
+            android:gravity="center"/>
+        <View android:layout_width="40dp" android:layout_height="40dp"/>
+    </LinearLayout>
+
+    <ScrollView android:layout_width="match_parent" android:layout_height="match_parent"
+        android:layout_below="@id/header" android:layout_above="@+id/bottomNav"
+        android:scrollbars="none" android:overScrollMode="never">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="vertical" android:paddingHorizontal="16dp"
+            android:paddingTop="8dp" android:paddingBottom="16dp">
+
+            <!-- Security notice -->
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="horizontal" android:gravity="center_vertical"
+                android:background="@drawable/bg_profile_card"
+                android:padding="14dp" android:layout_marginBottom="16dp">
+                <ImageView android:layout_width="20dp" android:layout_height="20dp"
+                    android:src="@drawable/ic_lock" android:contentDescription="Secure"
+                    android:layout_marginEnd="10dp"/>
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Your payment information is stored securely. We never display full card numbers."
+                    android:textColor="@color/text_secondary" android:textSize="12sp"
+                    android:lineSpacingMultiplier="1.4"/>
+            </LinearLayout>
+
+            <!-- Cards container -->
+            <LinearLayout android:id="@+id/cardsContainer"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="vertical"/>
+
+            <!-- Empty state -->
+            <LinearLayout android:id="@+id/emptyState"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="vertical" android:gravity="center"
+                android:paddingVertical="40dp" android:visibility="gone">
+                <ImageView android:layout_width="60dp" android:layout_height="60dp"
+                    android:src="@drawable/ic_credit_card" android:alpha="0.2"
+                    android:contentDescription="No cards"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="No payment methods"
+                    android:textColor="@color/white" android:textSize="17sp" android:textStyle="bold"
+                    android:layout_marginTop="16dp"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="Add a card to pay faster at checkout."
+                    android:textColor="@color/text_secondary" android:textSize="13sp"
+                    android:layout_marginTop="6dp"/>
+            </LinearLayout>
+
+            <!-- Add button -->
+            <Button android:id="@+id/btnAddPayment"
+                android:layout_width="match_parent" android:layout_height="52dp"
+                android:text="+ Add Payment Method"
+                android:textColor="@color/white" android:textSize="14sp"
+                android:textStyle="bold" android:textAllCaps="false"
+                android:background="@drawable/bg_add_button" android:layout_marginTop="16dp"/>
+        </LinearLayout>
+    </ScrollView>
+
+    <include layout="@layout/layout_bottom_nav" android:id="@+id/bottomNav"
+        android:layout_width="match_parent" android:layout_height="72dp"
+        android:layout_alignParentBottom="true"/>
+</RelativeLayout>

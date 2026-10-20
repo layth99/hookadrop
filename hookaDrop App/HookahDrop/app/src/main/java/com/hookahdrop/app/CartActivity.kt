@@ -51,6 +51,12 @@ class CartActivity : AppCompatActivity() {
     private var pendingOrderCode: String? = null
     private var pendingOrderTotal: Double = 0.0
 
+    // Pagination state
+    private var currentPage = 1
+    private var totalPages = 1
+    private val itemsPerPage = 4
+    private var allCartItems = listOf<CartItem>()
+
     // Cart listener — runs on any thread, must dispatch to main
     private val cartListener: () -> Unit = {
         runOnUiThread { refreshAll() }
@@ -65,7 +71,7 @@ class CartActivity : AppCompatActivity() {
 
         session = SessionManager(this)
         CartManager.init(this)
-        FavoritesManager.init(this)
+        FavoritesManager.init(this) { session.getUserId() }
 
         // Init Stripe PaymentConfiguration (publishable key — safe in APK)
         val pubKey = getString(R.string.stripe_publishable_key).trim()
@@ -81,6 +87,7 @@ class CartActivity : AppCompatActivity() {
         setupSummaryToggle()
         setupContinueShopping()
         setupRetry()
+        setupPagination()
 
         CartManager.addListener(cartListener)
 
@@ -125,6 +132,27 @@ class CartActivity : AppCompatActivity() {
      */
     private fun showCartContent() {
         b.skeletonContainer.visibility = View.GONE
+        
+        // Load cart from backend if logged in
+        if (session.isLoggedIn()) {
+            lifecycleScope.launch {
+                val token = session.getJwtToken()
+                if (token != null) {
+                    val loaded = withContext(Dispatchers.IO) {
+                        CartManager.loadFromBackend(token)
+                    }
+                    if (!loaded) {
+                        // Failed to load from backend, use local cart
+                    }
+                }
+                displayCart()
+            }
+        } else {
+            displayCart()
+        }
+    }
+    
+    private fun displayCart() {
         val items = CartManager.getItems()
         if (items.isEmpty()) showEmptyState() else showItems(items)
         // Refresh prices from backend so cart display matches Stripe charges
@@ -181,9 +209,24 @@ class CartActivity : AppCompatActivity() {
         b.summaryCard.visibility      = View.VISIBLE
         b.btnCheckout.isEnabled       = true
 
-        adapter.submitList(items)
-        rebuildSummary(items)
+        // Store all items and calculate pagination
+        allCartItems = items
+        totalPages = kotlin.math.ceil(items.size.toDouble() / itemsPerPage).toInt().coerceAtLeast(1)
+        
+        // Ensure current page is valid
+        if (currentPage > totalPages) {
+            currentPage = totalPages
+        }
+        
+        // Show paginated items
+        val startIndex = (currentPage - 1) * itemsPerPage
+        val endIndex = (startIndex + itemsPerPage).coerceAtMost(items.size)
+        val pageItems = items.subList(startIndex, endIndex)
+        
+        adapter.submitList(pageItems)
+        rebuildSummary(allCartItems)  // Summary shows ALL items, not just current page
         updateTitleCount(items.sumOf { it.quantity })
+        updatePaginationUI()
     }
 
     private fun showEmptyState() {
@@ -192,6 +235,7 @@ class CartActivity : AppCompatActivity() {
         b.btnCheckout.isEnabled       = false
         b.emptyState.visibility       = View.VISIBLE
         b.errorState.visibility       = View.GONE
+        b.paginationComponent.paginationContainer.visibility = View.GONE
         updateTitleCount(0)
     }
 
@@ -242,6 +286,7 @@ class CartActivity : AppCompatActivity() {
 
     private fun handleIncrease(item: CartItem) {
         CartManager.updateQuantity(item.product.id, item.quantity + 1)
+        syncCartToBackend()
         // CartManager calls notifyListeners() → cartListener → refreshAll()
     }
 
@@ -253,6 +298,7 @@ class CartActivity : AppCompatActivity() {
             confirmRemove(item)
         } else {
             CartManager.updateQuantity(item.product.id, item.quantity - 1)
+            syncCartToBackend()
         }
     }
 
@@ -262,6 +308,7 @@ class CartActivity : AppCompatActivity() {
      */
     private fun handleRemove(item: CartItem) {
         CartManager.removeProduct(item.product.id)
+        syncCartToBackend()
         // cartListener fires → refreshAll() rebuilds summary + empty state
     }
 
@@ -271,9 +318,24 @@ class CartActivity : AppCompatActivity() {
             .setMessage("Remove \"${item.product.name}\" from your cart?")
             .setPositiveButton("Remove") { _, _ ->
                 CartManager.removeProduct(item.product.id)
+                syncCartToBackend()
             }
             .setNegativeButton("Cancel", null)
             .show()
+    }
+    
+    /**
+     * Syncs cart to backend MongoDB when user is logged in.
+     * Called after any cart modification (add/remove/update quantity).
+     */
+    private fun syncCartToBackend() {
+        if (!session.isLoggedIn()) return
+        val token = session.getJwtToken() ?: return
+        lifecycleScope.launch {
+            withContext(Dispatchers.IO) {
+                CartManager.syncToBackend(token)
+            }
+        }
     }
 
     // ── Summary toggle ────────────────────────────────────────────────────────
@@ -776,6 +838,132 @@ class CartActivity : AppCompatActivity() {
             b.errorState.visibility       = View.GONE
             b.skeletonContainer.visibility = View.VISIBLE
             Handler(Looper.getMainLooper()).postDelayed({ showCartContent() }, 150)
+        }
+    }
+
+    // ── Pagination ────────────────────────────────────────────────────────────
+
+    private fun setupPagination() {
+        b.paginationComponent.btnPrevPage.setOnClickListener {
+            if (currentPage > 1) {
+                currentPage--
+                refreshPagedItems()
+            }
+        }
+
+        b.paginationComponent.btnNextPage.setOnClickListener {
+            if (currentPage < totalPages) {
+                currentPage++
+                refreshPagedItems()
+            }
+        }
+    }
+
+    private fun refreshPagedItems() {
+        // Show items for current page
+        val startIndex = (currentPage - 1) * itemsPerPage
+        val endIndex = (startIndex + itemsPerPage).coerceAtMost(allCartItems.size)
+        val pageItems = allCartItems.subList(startIndex, endIndex)
+        
+        adapter.submitList(pageItems)
+        updatePaginationUI()
+        
+        // Scroll to top of cart items when changing pages
+        b.scrollContent.smoothScrollTo(0, b.rvCartItems.top)
+    }
+
+    private fun updatePaginationUI() {
+        val pagination = b.paginationComponent
+        
+        // Show/hide pagination based on total pages
+        if (totalPages <= 1) {
+            pagination.paginationContainer.visibility = View.GONE
+            return
+        }
+        
+        pagination.paginationContainer.visibility = View.VISIBLE
+        
+        // Update page indicator text
+        pagination.tvPageIndicator.text = "Page $currentPage of $totalPages"
+        
+        // Update Previous arrow button state
+        pagination.btnPrevPage.isEnabled = currentPage > 1
+        pagination.btnPrevPage.alpha = if (currentPage > 1) 1.0f else 0.3f
+        
+        // Update Next arrow button state
+        pagination.btnNextPage.isEnabled = currentPage < totalPages
+        pagination.btnNextPage.alpha = if (currentPage < totalPages) 1.0f else 0.3f
+        
+        // Build page number buttons
+        buildPageNumbers()
+    }
+
+    private fun buildPageNumbers() {
+        val container = b.paginationComponent.pageNumbersContainer
+        container.removeAllViews()
+        
+        // Determine which page numbers to show
+        val maxVisiblePages = 5
+        val pageNumbers = mutableListOf<Int>()
+        
+        when {
+            totalPages <= maxVisiblePages -> {
+                // Show all pages
+                pageNumbers.addAll(1..totalPages)
+            }
+            currentPage <= 3 -> {
+                // Near start: 1 2 3 4 5
+                pageNumbers.addAll(1..maxVisiblePages)
+            }
+            currentPage >= totalPages - 2 -> {
+                // Near end: show last 5 pages
+                pageNumbers.addAll((totalPages - maxVisiblePages + 1)..totalPages)
+            }
+            else -> {
+                // Middle: show current page ± 2
+                pageNumbers.addAll((currentPage - 2)..(currentPage + 2))
+            }
+        }
+        
+        // Create button for each page number
+        pageNumbers.forEach { pageNum ->
+            val isActive = pageNum == currentPage
+            val button = TextView(this).apply {
+                text = pageNum.toString()
+                textSize = 12f
+                gravity = android.view.Gravity.CENTER
+                setTextColor(
+                    ContextCompat.getColor(
+                        this@CartActivity,
+                        if (isActive) R.color.white else R.color.text_secondary
+                    )
+                )
+                background = ContextCompat.getDrawable(
+                    this@CartActivity,
+                    if (isActive) R.drawable.bg_page_number_active
+                    else R.drawable.bg_page_number_inactive
+                )
+                layoutParams = android.widget.LinearLayout.LayoutParams(
+                    resources.getDimensionPixelSize(R.dimen.page_number_size),
+                    resources.getDimensionPixelSize(R.dimen.page_number_size)
+                ).apply {
+                    setMargins(
+                        resources.getDimensionPixelSize(R.dimen.page_number_margin),
+                        0,
+                        resources.getDimensionPixelSize(R.dimen.page_number_margin),
+                        0
+                    )
+                }
+                isClickable = !isActive
+                
+                if (!isActive) {
+                    setOnClickListener {
+                        currentPage = pageNum
+                        refreshPagedItems()
+                    }
+                }
+            }
+            container.addView(button)
         }
     }
 

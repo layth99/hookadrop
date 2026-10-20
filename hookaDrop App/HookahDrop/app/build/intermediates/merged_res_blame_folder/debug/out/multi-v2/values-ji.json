@@ -1,0 +1,19 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.hookahdrop.app-mergeDebugResources-90:/values-ji/values-ji.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\GAMING\\.gradle\\caches\\transforms-3\\67708c0bffa462cb3db40d5153b6efc1\\transformed\\jetified-hcaptcha-20.37.5\\res\\values-ji\\values-ji.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "85",
+                        "endOffsets": "136"
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/bg_profile_card"
+    android:padding="18dp" android:layout_marginTop="12dp">
+
+    <!-- Discount badge -->
+    <TextView android:id="@+id/tvPromoDiscount"
+        android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:textColor="@color/white" android:textSize="13sp" android:textStyle="bold"
+        android:background="@drawable/bg_button_gold"
+        android:paddingHorizontal="12dp" android:paddingVertical="5dp"
+        android:layout_marginBottom="12dp"/>
+
+    <!-- Code row: code text + copy icon -->
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="horizontal" android:gravity="center_vertical"
+        android:layout_marginBottom="8dp">
+
+        <TextView android:id="@+id/tvPromoCode"
+            android:layout_width="0dp" android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/gold_neon" android:textSize="22sp"
+            android:textStyle="bold" android:fontFamily="monospace"
+            android:letterSpacing="0.05"/>
+
+        <!-- Copy icon — tappable -->
+        <ImageView android:id="@+id/btnCopyCode"
+            android:layout_width="28dp" android:layout_height="28dp"
+            android:src="@drawable/ic_copy"
+            android:contentDescription="Copy code"
+            android:padding="2dp"
+            android:clickable="true" android:focusable="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:alpha="0.7"/>
+    </LinearLayout>
+
+    <!-- Title -->
+    <TextView android:id="@+id/tvPromoTitle"
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:textColor="@color/white" android:textSize="16sp" android:textStyle="bold"
+        android:layout_marginBottom="4dp"/>
+
+    <!-- Description -->
+    <TextView android:id="@+id/tvPromoDesc"
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:textColor="@color/text_secondary" android:textSize="14sp"
+        android:lineSpacingMultiplier="1.3"
+        android:layout_marginBottom="4dp"/>
+
+    <!-- Target -->
+    <TextView android:id="@+id/tvPromoTarget"
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:textColor="@color/hint_color" android:textSize="13sp"
+        android:layout_marginBottom="8dp"/>
+
+    <!-- Expiry — bigger and visible -->
+    <LinearLayout android:id="@+id/expiryRow"
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="horizontal" android:gravity="center_vertical"
+        android:layout_marginBottom="14dp"
+        android:visibility="gone">
+
+        <ImageView android:layout_width="14dp" android:layout_height="14dp"
+            android:src="@drawable/ic_notification"
+            android:alpha="0.6"
+            android:contentDescription="Expiry"
+            android:layout_marginEnd="6dp"/>
+
+        <TextView android:id="@+id/tvPromoExpiry"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:textColor="@color/warning" android:textSize="13sp"
+            android:textStyle="bold"/>
+    </LinearLayout>
+
+    <!-- Apply button — full width, white text -->
+    <Button android:id="@+id/btnUseCode"
+        android:layout_width="match_parent" android:layout_height="46dp"
+        android:text="Apply This Code" android:textSize="14sp"
+        android:textColor="@color/white"
+        android:background="@drawable/bg_button_gold"
+        android:textAllCaps="false"/>
+
+</LinearLayout>

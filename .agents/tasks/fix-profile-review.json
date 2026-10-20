@@ -1,0 +1,30 @@
+{
+  "verdict": "CHANGES_REQUESTED",
+  "findings": [
+    {
+      "severity": "MEDIUM",
+      "title": "Username/email enumeration via timing attack",
+      "description": "The uniqueness checks in updateFullProfile query the database and return 400 immediately when a match is found. An attacker with valid credentials can enumerate existing usernames or emails by measuring response times.",
+      "recommendation": "Add constant-time comparison or rate limiting."
+    },
+    {
+      "severity": "MEDIUM",
+      "title": "Phone number stored with country code prefix",
+      "description": "The Android app concatenates selectedCountry.dialCode + localNumber and stores the result in the phone field. Backend queries by phone number require substring matching, and validation via libphonenumber will fail.",
+      "recommendation": "Store country code and local number in separate fields or normalize to E.164 on write."
+    },
+    {
+      "severity": "MEDIUM",
+      "title": "No validation on dateOfBirth format",
+      "description": "The Android app sends dateOfBirth as a display string (\"02 / 03 / 2024\"). The backend stores it as-is without parsing or validation. Backend queries by age or date range will fail.",
+      "recommendation": "Store dates as ISO 8601 strings or Date objects."
+    },
+    {
+      "severity": "HIGH",
+      "title": "Missing authentication on wishlist routes",
+      "description": "The wishlist controller uses :id path params for user identification without protectRoute. Any client can add/remove products from any user's wishlist by guessing user IDs. (Out of scope for this review, but high-severity.)",
+      "recommendation": "Add protectRoute middleware and derive userId from req.user._id, not from the URL."
+    }
+  ],
+  "reviewDoc": "c:\\Users\\GAMING\\Downloads\\raaa\\e-commerce-backend-main\\.agents\\tasks\\fix-profile-review-doc.md"
+}

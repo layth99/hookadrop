@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Promo banner using the real "offre special.png" image as background.
+  The image already contains the full design — we just display it as a clickable card.
+-->
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/promoBanner"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginVertical="12dp"
+    android:background="@drawable/bg_promo_banner"
+    android:clipToOutline="true">
+
+    <!-- Full image — the offre_special.png already has the complete design -->
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/offre_special"
+        android:scaleType="fitXY"
+        android:adjustViewBounds="true"
+        android:contentDescription="Offre spéciale - WELCOME10" />
+
+</FrameLayout>

@@ -46,6 +46,12 @@ class FavoritesActivity : AppCompatActivity() {
     // Source-of-truth order (order items were added to favorites)
     private var favoriteProducts = mutableListOf<Product>()
 
+    // Pagination state
+    private var currentPage = 1
+    private var totalPages = 1
+    private val itemsPerPage = 4
+    private var allFavoriteProducts = listOf<Product>()
+
     // Listener — CartManager / FavoritesManager run on any thread
     private val favListener: () -> Unit = { runOnUiThread { refreshAll() } }
 
@@ -58,7 +64,7 @@ class FavoritesActivity : AppCompatActivity() {
 
         session = SessionManager(this)
         CartManager.init(this)
-        FavoritesManager.init(this)
+        FavoritesManager.init(this) { session.getUserId() }
 
         setupRecyclerView()
         setupHeader()
@@ -67,6 +73,7 @@ class FavoritesActivity : AppCompatActivity() {
         setupEmptyState()
         setupRetry()
         setupBottomNav()
+        setupPagination()
 
         FavoritesManager.addListener(favListener)
 
@@ -114,30 +121,49 @@ class FavoritesActivity : AppCompatActivity() {
         b.skeletonContainer.visibility = View.GONE
 
         CoroutineScope(Dispatchers.Main).launch {
+            // FIRST: Load and display local favorites immediately
+            loadFavoriteProducts()
+            applyFiltersAndDisplay()
+            android.util.Log.d("FavoritesActivity", "Initial display with ${favoriteProducts.size} local favorites")
+
             // Step 1 — warm the product cache if empty so MongoDB IDs can be resolved
             val cache = RemoteDataProvider.getAllCachedProducts()
             if (cache.isEmpty()) {
+                android.util.Log.d("FavoritesActivity", "Loading products from backend...")
                 withContext(Dispatchers.IO) { RemoteDataProvider.getProducts(forceRefresh = true) }
             }
 
             // Step 2 — sync backend wishlist if user is logged in
-            // getWishlist() returns null on network/API error and a list (possibly empty)
-            // on a successful response. We only replace local state when the call succeeded.
             val userId = session.getUserId()
+            android.util.Log.d("FavoritesActivity", "Syncing with backend for userId: $userId")
+            
             if (!userId.isNullOrEmpty()) {
+                val localFavCount = FavoritesManager.getFavoriteIds().size
                 val backendIds = withContext(Dispatchers.IO) {
                     RemoteDataProvider.getWishlist(userId)
                 }
+                android.util.Log.d("FavoritesActivity", "Backend returned: ${backendIds?.size ?: "null"} items")
+                
                 if (backendIds != null) {
-                    // Authoritative backend result — replace local set exactly
-                    FavoritesManager.replaceAll(backendIds)
+                    // CRITICAL FIX: Only replace if backend has data OR if local is empty
+                    if (backendIds.isNotEmpty() || localFavCount == 0) {
+                        android.util.Log.d("FavoritesActivity", "Replacing local favorites with backend")
+                        FavoritesManager.replaceAll(backendIds)
+                    } else {
+                        android.util.Log.w("FavoritesActivity", 
+                            "Backend empty but local has $localFavCount items - keeping local (backend may not be synced yet)")
+                    }
+                } else {
+                    android.util.Log.w("FavoritesActivity", "Backend sync failed, keeping local favorites")
                 }
-                // If backendIds is null (network/API failure), keep local state intact
+            } else {
+                android.util.Log.w("FavoritesActivity", "User not logged in, skipping backend sync")
             }
 
-            // Step 3 — build + display
+            // Step 3 — rebuild + display after sync
             loadFavoriteProducts()
             applyFiltersAndDisplay()
+            android.util.Log.d("FavoritesActivity", "Final display with ${favoriteProducts.size} favorites")
         }
     }
 
@@ -158,13 +184,17 @@ class FavoritesActivity : AppCompatActivity() {
      */
     private fun loadFavoriteProducts() {
         val ids = FavoritesManager.getFavoriteIds()
+        android.util.Log.d("FavoritesActivity", "loadFavoriteProducts() - Found ${ids.size} favorite IDs: ${ids.joinToString()}")
+        
         if (ids.isEmpty()) {
             favoriteProducts = mutableListOf()
+            android.util.Log.d("FavoritesActivity", "No favorites to load")
             return
         }
 
         // Build from whatever is already in the RemoteDataProvider cache
         val allCached = RemoteDataProvider.getAllCachedProducts()
+        android.util.Log.d("FavoritesActivity", "Cached products: ${allCached.size}")
 
         favoriteProducts = ids.mapNotNull { id ->
             // 1. Remote cache (fastest)
@@ -172,6 +202,8 @@ class FavoritesActivity : AppCompatActivity() {
                 // 2. Static DataProvider (hardcoded products with p1, p2… IDs)
                 ?: DataProvider.getProductById(id)
         }.toMutableList()
+        
+        android.util.Log.d("FavoritesActivity", "Resolved ${favoriteProducts.size} products from ${ids.size} IDs")
 
         // If some IDs could not be resolved (MongoDB IDs not yet in cache),
         // trigger a background fetch so the next refresh shows them
@@ -179,6 +211,7 @@ class FavoritesActivity : AppCompatActivity() {
             allCached.none { it.id == id } && DataProvider.getProductById(id) == null
         }
         if (missingIds.isNotEmpty()) {
+            android.util.Log.w("FavoritesActivity", "Missing ${missingIds.size} products from cache, fetching...")
             CoroutineScope(Dispatchers.Main).launch {
                 // Force a full product sync to populate the cache
                 withContext(Dispatchers.IO) { RemoteDataProvider.getProducts(forceRefresh = true) }
@@ -193,6 +226,9 @@ class FavoritesActivity : AppCompatActivity() {
      * Applies current search query + sort order, then updates the UI.
      */
     private fun applyFiltersAndDisplay() {
+        // Reset to page 1 when filters or search change
+        currentPage = 1
+        
         var filtered = if (searchQuery.isBlank()) {
             favoriteProducts.toList()
         } else {
@@ -226,13 +262,30 @@ class FavoritesActivity : AppCompatActivity() {
         b.emptyState.visibility  = View.GONE
         b.errorState.visibility  = View.GONE
         b.rvFavorites.visibility = View.VISIBLE
-        adapter.submitList(products)
+        
+        // Store all products and calculate pagination
+        allFavoriteProducts = products
+        totalPages = kotlin.math.ceil(products.size.toDouble() / itemsPerPage).toInt().coerceAtLeast(1)
+        
+        // Ensure current page is valid
+        if (currentPage > totalPages) {
+            currentPage = totalPages
+        }
+        
+        // Show paginated items
+        val startIndex = (currentPage - 1) * itemsPerPage
+        val endIndex = (startIndex + itemsPerPage).coerceAtMost(products.size)
+        val pageItems = products.subList(startIndex, endIndex)
+        
+        adapter.submitList(pageItems)
+        updatePaginationUI()
     }
 
     private fun showEmptyState() {
         b.rvFavorites.visibility = View.GONE
         b.errorState.visibility  = View.GONE
         b.emptyState.visibility  = View.VISIBLE
+        b.paginationComponent.paginationContainer.visibility = View.GONE
     }
 
     // ── Header ────────────────────────────────────────────────────────────────
@@ -431,6 +484,132 @@ class FavoritesActivity : AppCompatActivity() {
             }
         }
         updateCartBadge()
+    }
+
+    // ── Pagination ────────────────────────────────────────────────────────────
+
+    private fun setupPagination() {
+        b.paginationComponent.btnPrevPage.setOnClickListener {
+            if (currentPage > 1) {
+                currentPage--
+                refreshPagedItems()
+            }
+        }
+
+        b.paginationComponent.btnNextPage.setOnClickListener {
+            if (currentPage < totalPages) {
+                currentPage++
+                refreshPagedItems()
+            }
+        }
+    }
+
+    private fun refreshPagedItems() {
+        // Show items for current page
+        val startIndex = (currentPage - 1) * itemsPerPage
+        val endIndex = (startIndex + itemsPerPage).coerceAtMost(allFavoriteProducts.size)
+        val pageItems = allFavoriteProducts.subList(startIndex, endIndex)
+        
+        adapter.submitList(pageItems)
+        updatePaginationUI()
+        
+        // Scroll to top of favorites list when changing pages
+        b.scrollContent.smoothScrollTo(0, b.rvFavorites.top)
+    }
+
+    private fun updatePaginationUI() {
+        val pagination = b.paginationComponent
+        
+        // Show/hide pagination based on total pages
+        if (totalPages <= 1) {
+            pagination.paginationContainer.visibility = View.GONE
+            return
+        }
+        
+        pagination.paginationContainer.visibility = View.VISIBLE
+        
+        // Update page indicator text
+        pagination.tvPageIndicator.text = "Page $currentPage of $totalPages"
+        
+        // Update Previous arrow button state
+        pagination.btnPrevPage.isEnabled = currentPage > 1
+        pagination.btnPrevPage.alpha = if (currentPage > 1) 1.0f else 0.3f
+        
+        // Update Next arrow button state
+        pagination.btnNextPage.isEnabled = currentPage < totalPages
+        pagination.btnNextPage.alpha = if (currentPage < totalPages) 1.0f else 0.3f
+        
+        // Build page number buttons
+        buildPageNumbers()
+    }
+
+    private fun buildPageNumbers() {
+        val container = b.paginationComponent.pageNumbersContainer
+        container.removeAllViews()
+        
+        // Determine which page numbers to show
+        val maxVisiblePages = 5
+        val pageNumbers = mutableListOf<Int>()
+        
+        when {
+            totalPages <= maxVisiblePages -> {
+                // Show all pages
+                pageNumbers.addAll(1..totalPages)
+            }
+            currentPage <= 3 -> {
+                // Near start: 1 2 3 4 5
+                pageNumbers.addAll(1..maxVisiblePages)
+            }
+            currentPage >= totalPages - 2 -> {
+                // Near end: show last 5 pages
+                pageNumbers.addAll((totalPages - maxVisiblePages + 1)..totalPages)
+            }
+            else -> {
+                // Middle: show current page ± 2
+                pageNumbers.addAll((currentPage - 2)..(currentPage + 2))
+            }
+        }
+        
+        // Create button for each page number
+        pageNumbers.forEach { pageNum ->
+            val isActive = pageNum == currentPage
+            val button = TextView(this).apply {
+                text = pageNum.toString()
+                textSize = 12f
+                gravity = android.view.Gravity.CENTER
+                setTextColor(
+                    ContextCompat.getColor(
+                        this@FavoritesActivity,
+                        if (isActive) R.color.white else R.color.text_secondary
+                    )
+                )
+                background = ContextCompat.getDrawable(
+                    this@FavoritesActivity,
+                    if (isActive) R.drawable.bg_page_number_active
+                    else R.drawable.bg_page_number_inactive
+                )
+                layoutParams = android.widget.LinearLayout.LayoutParams(
+                    resources.getDimensionPixelSize(R.dimen.page_number_size),
+                    resources.getDimensionPixelSize(R.dimen.page_number_size)
+                ).apply {
+                    setMargins(
+                        resources.getDimensionPixelSize(R.dimen.page_number_margin),
+                        0,
+                        resources.getDimensionPixelSize(R.dimen.page_number_margin),
+                        0
+                    )
+                }
+                isClickable = !isActive
+                
+                if (!isActive) {
+                    setOnClickListener {
+                        currentPage = pageNum
+                        refreshPagedItems()
+                    }
+                }
+            }
+            container.addView(button)
+        }
     }
 
     // ── Helpers ───────────────────────────────────────────────────────────────

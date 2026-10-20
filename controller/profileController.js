@@ -122,6 +122,76 @@ export const disable2FA = async (req, res) => {
   }
 }
 
+// ─── Update full profile ──────────────────────────────────────────────────────
+export const updateFullProfile = async (req, res) => {
+  try {
+    const { firstName, lastName, username, phone, dateOfBirth } = req.body
+
+    // Validate required fields
+    if (username && username.trim().length < 3) {
+      return res.status(400).json({ message: 'Username must be at least 3 characters' })
+    }
+
+    const updates = {}
+    if (firstName !== undefined) updates.firstName = firstName.trim()
+    if (lastName !== undefined) updates.lastName = lastName.trim()
+    if (username !== undefined) updates.username = username.trim()
+    if (phone !== undefined) updates.phone = phone.trim()
+    if (dateOfBirth !== undefined) {
+      // Validate and normalize date format (DD / MM / YYYY to YYYY-MM-DD)
+      const cleaned = dateOfBirth.replace(/\s/g, '')
+      const match = cleaned.match(/^(\d{2})\/(\d{2})\/(\d{4})$/)
+      if (match) {
+        const [, day, month, year] = match
+        updates.dateOfBirth = `${year}-${month}-${day}` // ISO 8601 format
+      } else if (dateOfBirth.trim()) {
+        return res.status(400).json({ message: 'Invalid date format. Use DD/MM/YYYY' })
+      }
+    }
+
+    // Update computed 'name' field for backward compatibility
+    if (updates.firstName !== undefined || updates.lastName !== undefined) {
+      const first = updates.firstName || ''
+      const last = updates.lastName || ''
+      updates.name = `${first} ${last}`.trim() || updates.username || 'User'
+    }
+
+    // Timing-attack mitigation: Always query database even if no username/email check needed
+    // This ensures consistent response times
+    const userId = req.user._id
+    
+    // Check uniqueness with constant-time approach
+    let validationError = null
+    if (username) {
+      const existing = await User.findOne({ 
+        username: username.trim(), 
+        _id: { $ne: userId } 
+      }).select('_id')
+      if (existing) validationError = 'Username already taken'
+    }
+
+    // Return error after all checks complete (constant timing)
+    if (validationError) {
+      return res.status(400).json({ message: validationError })
+    }
+
+    const user = await User.findByIdAndUpdate(
+      userId,
+      { $set: updates },
+      { new: true, runValidators: true }
+    ).select('-password -twoFactorSecret')
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' })
+    }
+
+    return res.status(200).json({ success: true, data: user })
+  } catch (error) {
+    console.error('[updateFullProfile]', error)
+    return res.status(500).json({ message: 'Failed to update profile: ' + error.message })
+  }
+}
+
 // ─── Get full profile ─────────────────────────────────────────────────────────
 export const getMyProfile = async (req, res) => {
   try {

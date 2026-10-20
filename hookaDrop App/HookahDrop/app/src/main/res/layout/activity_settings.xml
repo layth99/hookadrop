@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="@color/bg_screen" android:fitsSystemWindows="true">
+
+    <LinearLayout android:id="@+id/header"
+        android:layout_width="match_parent" android:layout_height="56dp"
+        android:orientation="horizontal" android:gravity="center_vertical"
+        android:paddingHorizontal="16dp" android:layout_alignParentTop="true">
+        <ImageButton android:id="@+id/btnBack"
+            android:layout_width="40dp" android:layout_height="40dp"
+            android:background="@drawable/bg_back_button" android:src="@drawable/ic_arrow_back"
+            android:padding="10dp" android:contentDescription="Back"/>
+        <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+            android:layout_weight="1" android:text="Settings"
+            android:textColor="@color/white" android:textSize="17sp" android:textStyle="bold"
+            android:gravity="center"/>
+        <View android:layout_width="40dp" android:layout_height="40dp"/>
+    </LinearLayout>
+
+    <ScrollView android:layout_width="match_parent" android:layout_height="match_parent"
+        android:layout_below="@id/header" android:layout_above="@+id/bottomNav"
+        android:scrollbars="none" android:overScrollMode="never">
+
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="vertical" android:paddingBottom="24dp">
+
+            <!-- ACCOUNT section -->
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="ACCOUNT" android:textColor="@color/text_secondary"
+                android:textSize="11sp" android:textStyle="bold" android:letterSpacing="0.12"
+                android:layout_marginHorizontal="20dp" android:layout_marginTop="20dp"
+                android:layout_marginBottom="8dp"/>
+
+            <LinearLayout android:id="@+id/settingEditProfile"
+                android:layout_width="match_parent" android:layout_height="56dp"
+                android:orientation="horizontal" android:gravity="center_vertical"
+                android:background="@drawable/bg_menu_item"
+                android:layout_marginHorizontal="16dp" android:layout_marginBottom="8dp"
+                android:paddingHorizontal="16dp" android:clickable="true" android:focusable="true">
+                <FrameLayout android:layout_width="36dp" android:layout_height="36dp" android:background="@drawable/bg_menu_icon">
+                    <ImageView android:layout_width="18dp" android:layout_height="18dp" android:layout_gravity="center" android:src="@drawable/ic_edit" android:contentDescription="Edit"/>
+                </FrameLayout>
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginStart="14dp" android:text="Edit Profile" android:textColor="@color/white" android:textSize="15sp"/>
+                <ImageView android:layout_width="14dp" android:layout_height="14dp" android:src="@drawable/ic_arrow_right" android:contentDescription="Go"/>
+            </LinearLayout>
+
+            <LinearLayout android:id="@+id/settingChangePassword"
+                android:layout_width="match_parent" android:layout_height="56dp"
+                android:orientation="horizontal" android:gravity="center_vertical"
+                android:background="@drawable/bg_menu_item"
+                android:layout_marginHorizontal="16dp" android:layout_marginBottom="8dp"
+                android:paddingHorizontal="16dp" android:clickable="true" android:focusable="true">
+                <FrameLayout android:layout_width="36dp" android:layout_height="36dp" android:background="@drawable/bg_menu_icon">
+                    <ImageView android:layout_width="18dp" android:layout_height="18dp" android:layout_gravity="center" android:src="@drawable/ic_lock" android:contentDescription="Password"/>
+                </FrameLayout>
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginStart="14dp" android:text="Change Password" android:textColor="@color/white" android:textSize="15sp"/>
+                <ImageView android:layout_width="14dp" android:layout_height="14dp" android:src="@drawable/ic_arrow_right" android:contentDescription="Go"/>
+            </LinearLayout>
+
+            <!-- PREFERENCES section -->
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="PREFERENCES" android:textColor="@color/text_secondary"
+                android:textSize="11sp" android:textStyle="bold" android:letterSpacing="0.12"
+                android:layout_marginHorizontal="20dp" android:layout_marginTop="20dp"
+                android:layout_marginBottom="8dp"/>
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="56dp"
+                android:orientation="horizontal" android:gravity="center_vertical"
+                android:background="@drawable/bg_menu_item"
+                android:layout_marginHorizontal="16dp" android:layout_marginBottom="8dp"
+                android:paddingHorizontal="16dp">
+                <FrameLayout android:layout_width="36dp" android:layout_height="36dp" android:background="@drawable/bg_menu_icon">
+                    <ImageView android:layout_width="18dp" android:layout_height="18dp" android:layout_gravity="center" android:src="@drawable/ic_notification" android:contentDescription="Notifications"/>
+                </FrameLayout>
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginStart="14dp" android:text="Notifications" android:textColor="@color/white" android:textSize="15sp"/>
+                <Switch android:id="@+id/switchNotifications"
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:thumbTint="@color/white" android:trackTint="@color/accent_cyan"/>
+            </LinearLayout>
+
+            <LinearLayout android:id="@+id/settingLanguage"
+                android:layout_width="match_parent" android:layout_height="56dp"
+                android:orientation="horizontal" android:gravity="center_vertical"
+                android:background="@drawable/bg_menu_item"
+                android:layout_marginHorizontal="16dp" android:layout_marginBottom="8dp"
+                android:paddingHorizontal="16dp" android:clickable="true" android:focusable="true">
+                <FrameLayout android:layout_width="36dp" android:layout_height="36dp" android:background="@drawable/bg_menu_icon">
+                    <ImageView android:layout_width="18dp" android:layout_height="18dp" android:layout_gravity="center" android:src="@drawable/ic_language" android:contentDescription="Language"/>
+                </FrameLayout>
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginStart="14dp" android:text="Language" android:textColor="@color/white" android:textSize="15sp"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="English" android:textColor="@color/text_secondary" android:textSize="13sp"
+                    android:layout_marginEnd="8dp"/>
+                <ImageView android:layout_width="14dp" android:layout_height="14dp" android:src="@drawable/ic_arrow_right" android:contentDescription="Go"/>
+            </LinearLayout>
+
+            <!-- PRIVACY section -->
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="PRIVACY &amp; SECURITY" android:textColor="@color/text_secondary"
+                android:textSize="11sp" android:textStyle="bold" android:letterSpacing="0.12"
+                android:layout_marginHorizontal="20dp" android:layout_marginTop="20dp"
+                android:layout_marginBottom="8dp"/>
+
+            <LinearLayout android:id="@+id/settingPrivacy"
+                android:layout_width="match_parent" android:layout_height="56dp"
+                android:orientation="horizontal" android:gravity="center_vertical"
+                android:background="@drawable/bg_menu_item"
+                android:layout_marginHorizontal="16dp" android:layout_marginBottom="8dp"
+                android:paddingHorizontal="16dp" android:clickable="true" android:focusable="true">
+                <FrameLayout android:layout_width="36dp" android:layout_height="36dp" android:background="@drawable/bg_menu_icon">
+                    <ImageView android:layout_width="18dp" android:layout_height="18dp" android:layout_gravity="center" android:src="@drawable/ic_privacy" android:contentDescription="Privacy"/>
+                </FrameLayout>
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginStart="14dp" android:text="Privacy Settings" android:textColor="@color/white" android:textSize="15sp"/>
+                <ImageView android:layout_width="14dp" android:layout_height="14dp" android:src="@drawable/ic_arrow_right" android:contentDescription="Go"/>
+            </LinearLayout>
+
+            <!-- ABOUT section -->
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="ABOUT" android:textColor="@color/text_secondary"
+                android:textSize="11sp" android:textStyle="bold" android:letterSpacing="0.12"
+                android:layout_marginHorizontal="20dp" android:layout_marginTop="20dp"
+                android:layout_marginBottom="8dp"/>
+
+            <LinearLayout android:id="@+id/settingTerms"
+                android:layout_width="match_parent" android:layout_height="56dp"
+                android:orientation="horizontal" android:gravity="center_vertical"
+                android:background="@drawable/bg_menu_item"
+                android:layout_marginHorizontal="16dp" android:layout_marginBottom="8dp"
+                android:paddingHorizontal="16dp" android:clickable="true" android:focusable="true">
+                <FrameLayout android:layout_width="36dp" android:layout_height="36dp" android:background="@drawable/bg_menu_icon">
+                    <ImageView android:layout_width="18dp" android:layout_height="18dp" android:layout_gravity="center" android:src="@drawable/ic_info" android:contentDescription="Terms"/>
+                </FrameLayout>
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginStart="14dp" android:text="Terms &amp; Conditions" android:textColor="@color/white" android:textSize="15sp"/>
+                <ImageView android:layout_width="14dp" android:layout_height="14dp" android:src="@drawable/ic_arrow_right" android:contentDescription="Go"/>
+            </LinearLayout>
+
+            <LinearLayout android:id="@+id/settingPrivacyPolicy"
+                android:layout_width="match_parent" android:layout_height="56dp"
+                android:orientation="horizontal" android:gravity="center_vertical"
+                android:background="@drawable/bg_menu_item"
+                android:layout_marginHorizontal="16dp" android:layout_marginBottom="8dp"
+                android:paddingHorizontal="16dp" android:clickable="true" android:focusable="true">
+                <FrameLayout android:layout_width="36dp" android:layout_height="36dp" android:background="@drawable/bg_menu_icon">
+                    <ImageView android:layout_width="18dp" android:layout_height="18dp" android:layout_gravity="center" android:src="@drawable/ic_privacy" android:contentDescription="Privacy Policy"/>
+                </FrameLayout>
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginStart="14dp" android:text="Privacy Policy" android:textColor="@color/white" android:textSize="15sp"/>
+                <ImageView android:layout_width="14dp" android:layout_height="14dp" android:src="@drawable/ic_arrow_right" android:contentDescription="Go"/>
+            </LinearLayout>
+
+            <!-- App version -->
+            <LinearLayout android:layout_width="match_parent" android:layout_height="56dp"
+                android:orientation="horizontal" android:gravity="center_vertical"
+                android:background="@drawable/bg_menu_item"
+                android:layout_marginHorizontal="16dp"
+                android:paddingHorizontal="16dp">
+                <FrameLayout android:layout_width="36dp" android:layout_height="36dp" android:background="@drawable/bg_menu_icon">
+                    <ImageView android:layout_width="18dp" android:layout_height="18dp" android:layout_gravity="center" android:src="@drawable/ic_info" android:contentDescription="About"/>
+                </FrameLayout>
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginStart="14dp" android:text="App Version" android:textColor="@color/white" android:textSize="15sp"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="v1.0.0" android:textColor="@color/text_secondary" android:textSize="13sp"/>
+            </LinearLayout>
+
+            <!-- Delete account -->
+            <LinearLayout android:id="@+id/settingDeleteAccount"
+                android:layout_width="match_parent" android:layout_height="56dp"
+                android:orientation="horizontal" android:gravity="center_vertical"
+                android:background="@drawable/bg_menu_item"
+                android:layout_marginHorizontal="16dp" android:layout_marginTop="20dp"
+                android:paddingHorizontal="16dp" android:clickable="true" android:focusable="true">
+                <FrameLayout android:layout_width="36dp" android:layout_height="36dp" android:background="@drawable/bg_menu_icon">
+                    <ImageView android:layout_width="18dp" android:layout_height="18dp" android:layout_gravity="center" android:src="@drawable/ic_delete" android:contentDescription="Delete"/>
+                </FrameLayout>
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginStart="14dp" android:text="Delete Account" android:textColor="#E53935" android:textSize="15sp"/>
+                <ImageView android:layout_width="14dp" android:layout_height="14dp" android:src="@drawable/ic_arrow_right" android:contentDescription="Go"/>
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <include layout="@layout/layout_bottom_nav" android:id="@+id/bottomNav"
+        android:layout_width="match_parent" android:layout_height="72dp"
+        android:layout_alignParentBottom="true"/>
+</RelativeLayout>

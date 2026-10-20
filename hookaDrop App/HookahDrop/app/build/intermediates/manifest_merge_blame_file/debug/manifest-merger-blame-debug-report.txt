@@ -1,0 +1,966 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.hookahdrop.app"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="24"
+9        android:targetSdkVersion="34" />
+10
+11    <uses-permission android:name="android.permission.INTERNET" />
+11-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:4:5-67
+11-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:4:22-64
+12    <uses-permission
+12-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:5:5-6:38
+13        android:name="android.permission.READ_EXTERNAL_STORAGE"
+13-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:5:22-77
+14        android:maxSdkVersion="32" />
+14-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:6:9-35
+15    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+15-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:7:5-76
+15-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:7:22-73
+16    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+16-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:8:5-78
+16-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:8:22-76
+17    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+17-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:9:5-80
+17-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:9:22-78
+18    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+18-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:10:5-76
+18-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:10:22-74
+19
+20    <!-- See https://developer.android.com/training/package-visibility/declaring for more details. -->
+21    <queries>
+21-->[com.stripe:payments-core:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\976eef22bd7f08298b6e75f43f5621e0\transformed\jetified-payments-core-20.37.5\AndroidManifest.xml:8:5-12:15
+22
+23        <!-- Added to check if Chrome is installed for browser-based payment authentication (e.g. 3DS1). -->
+24        <package android:name="com.android.chrome" />
+24-->[com.stripe:payments-core:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\976eef22bd7f08298b6e75f43f5621e0\transformed\jetified-payments-core-20.37.5\AndroidManifest.xml:11:9-54
+24-->[com.stripe:payments-core:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\976eef22bd7f08298b6e75f43f5621e0\transformed\jetified-payments-core-20.37.5\AndroidManifest.xml:11:18-51
+25        <!-- Needs to be explicitly declared on Android R+ -->
+26        <package android:name="com.google.android.apps.maps" />
+26-->[com.google.android.gms:play-services-maps:18.2.0] C:\Users\GAMING\.gradle\caches\transforms-3\c84f98f8b631d7f4fbe042393d4393b2\transformed\jetified-play-services-maps-18.2.0\AndroidManifest.xml:33:9-64
+26-->[com.google.android.gms:play-services-maps:18.2.0] C:\Users\GAMING\.gradle\caches\transforms-3\c84f98f8b631d7f4fbe042393d4393b2\transformed\jetified-play-services-maps-18.2.0\AndroidManifest.xml:33:18-61
+27    </queries> <!-- Include required permissions for Google Maps API to run. -->
+28    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+28-->[com.google.android.gms:play-services-maps:18.2.0] C:\Users\GAMING\.gradle\caches\transforms-3\c84f98f8b631d7f4fbe042393d4393b2\transformed\jetified-play-services-maps-18.2.0\AndroidManifest.xml:23:5-79
+28-->[com.google.android.gms:play-services-maps:18.2.0] C:\Users\GAMING\.gradle\caches\transforms-3\c84f98f8b631d7f4fbe042393d4393b2\transformed\jetified-play-services-maps-18.2.0\AndroidManifest.xml:23:22-76
+29
+30    <uses-feature
+30-->[com.google.android.gms:play-services-maps:18.2.0] C:\Users\GAMING\.gradle\caches\transforms-3\c84f98f8b631d7f4fbe042393d4393b2\transformed\jetified-play-services-maps-18.2.0\AndroidManifest.xml:26:5-28:35
+31        android:glEsVersion="0x00020000"
+31-->[com.google.android.gms:play-services-maps:18.2.0] C:\Users\GAMING\.gradle\caches\transforms-3\c84f98f8b631d7f4fbe042393d4393b2\transformed\jetified-play-services-maps-18.2.0\AndroidManifest.xml:27:9-41
+32        android:required="true" />
+32-->[com.google.android.gms:play-services-maps:18.2.0] C:\Users\GAMING\.gradle\caches\transforms-3\c84f98f8b631d7f4fbe042393d4393b2\transformed\jetified-play-services-maps-18.2.0\AndroidManifest.xml:28:9-32
+33
+34    <uses-permission android:name="android.permission.WAKE_LOCK" /> <!-- Required by older versions of Google Play services to create IID tokens -->
+34-->[com.google.firebase:firebase-messaging:23.4.1] C:\Users\GAMING\.gradle\caches\transforms-3\0068d3e3d7c2523f9da10a4009788bf5\transformed\jetified-firebase-messaging-23.4.1\AndroidManifest.xml:24:5-68
+34-->[com.google.firebase:firebase-messaging:23.4.1] C:\Users\GAMING\.gradle\caches\transforms-3\0068d3e3d7c2523f9da10a4009788bf5\transformed\jetified-firebase-messaging-23.4.1\AndroidManifest.xml:24:22-65
+35    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+35-->[com.google.firebase:firebase-messaging:23.4.1] C:\Users\GAMING\.gradle\caches\transforms-3\0068d3e3d7c2523f9da10a4009788bf5\transformed\jetified-firebase-messaging-23.4.1\AndroidManifest.xml:26:5-82
+35-->[com.google.firebase:firebase-messaging:23.4.1] C:\Users\GAMING\.gradle\caches\transforms-3\0068d3e3d7c2523f9da10a4009788bf5\transformed\jetified-firebase-messaging-23.4.1\AndroidManifest.xml:26:22-79
+36
+37    <permission
+37-->[androidx.core:core:1.12.0] C:\Users\GAMING\.gradle\caches\transforms-3\6109f6cdcf4585bbd595f6f90177ed94\transformed\core-1.12.0\AndroidManifest.xml:22:5-24:47
+38        android:name="com.hookahdrop.app.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+38-->[androidx.core:core:1.12.0] C:\Users\GAMING\.gradle\caches\transforms-3\6109f6cdcf4585bbd595f6f90177ed94\transformed\core-1.12.0\AndroidManifest.xml:23:9-81
+39        android:protectionLevel="signature" />
+39-->[androidx.core:core:1.12.0] C:\Users\GAMING\.gradle\caches\transforms-3\6109f6cdcf4585bbd595f6f90177ed94\transformed\core-1.12.0\AndroidManifest.xml:24:9-44
+40
+41    <uses-permission android:name="com.hookahdrop.app.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+41-->[androidx.core:core:1.12.0] C:\Users\GAMING\.gradle\caches\transforms-3\6109f6cdcf4585bbd595f6f90177ed94\transformed\core-1.12.0\AndroidManifest.xml:26:5-97
+41-->[androidx.core:core:1.12.0] C:\Users\GAMING\.gradle\caches\transforms-3\6109f6cdcf4585bbd595f6f90177ed94\transformed\core-1.12.0\AndroidManifest.xml:26:22-94
+42
+43    <application
+43-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:12:5-175:19
+44        android:name="com.hookahdrop.app.HookahDropApplication"
+44-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:13:9-46
+45        android:allowBackup="true"
+45-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:14:9-35
+46        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+46-->[androidx.core:core:1.12.0] C:\Users\GAMING\.gradle\caches\transforms-3\6109f6cdcf4585bbd595f6f90177ed94\transformed\core-1.12.0\AndroidManifest.xml:28:18-86
+47        android:debuggable="true"
+48        android:extractNativeLibs="false"
+49        android:icon="@drawable/ic_launcher"
+49-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:15:9-45
+50        android:label="@string/app_name"
+50-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:16:9-41
+51        android:roundIcon="@drawable/ic_launcher"
+51-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:17:9-50
+52        android:supportsRtl="true"
+52-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:18:9-35
+53        android:testOnly="true"
+54        android:theme="@style/Theme.HookahDrop"
+54-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:20:9-48
+55        android:usesCleartextTraffic="true" >
+55-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:19:9-44
+56
+57        <!-- Google Maps API key -->
+58        <meta-data
+58-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:23:9-25:54
+59            android:name="com.google.android.geo.API_KEY"
+59-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:24:13-58
+60            android:value="@string/google_maps_key" />
+60-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:25:13-52
+61
+62        <!-- ── Auth flow ───────────────────────────────────────────────── -->
+63        <activity
+63-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:28:9-35:20
+64            android:name="com.hookahdrop.app.SplashActivity"
+64-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:28:19-49
+65            android:exported="true"
+65-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:28:50-73
+66            android:screenOrientation="portrait"
+66-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:29:13-49
+67            android:theme="@style/Theme.HookahDrop.Splash" >
+67-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:30:13-59
+68            <intent-filter>
+68-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:31:13-34:29
+69                <action android:name="android.intent.action.MAIN" />
+69-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:32:17-68
+69-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:32:25-66
+70
+71                <category android:name="android.intent.category.LAUNCHER" />
+71-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:33:17-76
+71-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:33:27-74
+72            </intent-filter>
+73        </activity>
+74        <activity
+74-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:37:9-38:51
+75            android:name="com.hookahdrop.app.OnboardingActivity"
+75-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:37:19-53
+76            android:exported="false"
+76-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:37:54-78
+77            android:screenOrientation="portrait" />
+77-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:38:13-49
+78        <activity
+78-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:40:9-42:57
+79            android:name="com.hookahdrop.app.SignInActivity"
+79-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:40:19-49
+80            android:exported="false"
+80-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:40:50-74
+81            android:screenOrientation="portrait"
+81-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:41:13-49
+82            android:windowSoftInputMode="adjustResize" />
+82-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:42:13-55
+83        <activity
+83-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:44:9-46:57
+84            android:name="com.hookahdrop.app.SignUpActivity"
+84-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:44:19-49
+85            android:exported="false"
+85-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:44:50-74
+86            android:screenOrientation="portrait"
+86-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:45:13-49
+87            android:windowSoftInputMode="adjustResize" />
+87-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:46:13-55
+88        <activity
+88-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:48:9-50:57
+89            android:name="com.hookahdrop.app.ForgotPasswordActivity"
+89-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:48:19-57
+90            android:exported="false"
+90-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:48:58-82
+91            android:screenOrientation="portrait"
+91-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:49:13-49
+92            android:windowSoftInputMode="adjustResize" />
+92-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:50:13-55
+93        <activity
+93-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:52:9-54:57
+94            android:name="com.hookahdrop.app.VerifyCodeActivity"
+94-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:52:19-53
+95            android:exported="false"
+95-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:52:54-78
+96            android:screenOrientation="portrait"
+96-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:53:13-49
+97            android:windowSoftInputMode="adjustResize" />
+97-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:54:13-55
+98        <activity
+98-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:56:9-58:57
+99            android:name="com.hookahdrop.app.EmailVerifyActivity"
+99-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:56:19-54
+100            android:exported="false"
+100-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:56:55-79
+101            android:screenOrientation="portrait"
+101-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:57:13-49
+102            android:windowSoftInputMode="adjustResize" />
+102-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:58:13-55
+103        <activity
+103-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:60:9-62:57
+104            android:name="com.hookahdrop.app.NewPasswordActivity"
+104-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:60:19-54
+105            android:exported="false"
+105-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:60:55-79
+106            android:screenOrientation="portrait"
+106-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:61:13-49
+107            android:windowSoftInputMode="adjustResize" />
+107-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:62:13-55
+108
+109        <!-- ── Main app ────────────────────────────────────────────────── -->
+110        <activity
+110-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:65:9-67:59
+111            android:name="com.hookahdrop.app.FavoritesActivity"
+111-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:65:19-52
+112            android:exported="false"
+112-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:65:53-77
+113            android:screenOrientation="portrait"
+113-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:66:13-49
+114            android:theme="@style/Theme.HookahDrop.Main" />
+114-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:67:13-57
+115        <activity
+115-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:69:9-71:59
+116            android:name="com.hookahdrop.app.CartActivity"
+116-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:69:19-47
+117            android:exported="false"
+117-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:69:48-72
+118            android:screenOrientation="portrait"
+118-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:70:13-49
+119            android:theme="@style/Theme.HookahDrop.Main" />
+119-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:71:13-57
+120        <activity
+120-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:73:9-75:59
+121            android:name="com.hookahdrop.app.HomeActivity"
+121-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:73:19-47
+122            android:exported="false"
+122-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:73:48-72
+123            android:screenOrientation="portrait"
+123-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:74:13-49
+124            android:theme="@style/Theme.HookahDrop.Main" />
+124-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:75:13-57
+125        <activity
+125-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:77:9-79:59
+126            android:name="com.hookahdrop.app.PopularProductsActivity"
+126-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:77:19-58
+127            android:exported="false"
+127-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:77:59-83
+128            android:screenOrientation="portrait"
+128-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:78:13-49
+129            android:theme="@style/Theme.HookahDrop.Main" />
+129-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:79:13-57
+130        <activity
+130-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:81:9-83:59
+131            android:name="com.hookahdrop.app.CategoryProductsActivity"
+131-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:81:19-59
+132            android:exported="false"
+132-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:81:60-84
+133            android:screenOrientation="portrait"
+133-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:82:13-49
+134            android:theme="@style/Theme.HookahDrop.Main" />
+134-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:83:13-57
+135        <activity
+135-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:85:9-88:59
+136            android:name="com.hookahdrop.app.CategoriesActivity"
+136-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:85:19-53
+137            android:exported="false"
+137-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:85:54-78
+138            android:screenOrientation="portrait"
+138-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:86:13-49
+139            android:theme="@style/Theme.HookahDrop.Main"
+139-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:88:13-57
+140            android:windowSoftInputMode="adjustResize" />
+140-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:87:13-55
+141        <activity
+141-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:90:9-92:66
+142            android:name="com.hookahdrop.app.ProductDetailActivity"
+142-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:90:19-56
+143            android:exported="false"
+143-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:90:57-81
+144            android:screenOrientation="portrait"
+144-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:91:13-49
+145            android:theme="@style/Theme.HookahDrop.Transparent" />
+145-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:92:13-64
+146
+147        <!-- ── Profile system ──────────────────────────────────────────── -->
+148        <activity
+148-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:95:9-97:59
+149            android:name="com.hookahdrop.app.ProfileActivity"
+149-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:95:19-50
+150            android:exported="false"
+150-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:95:51-75
+151            android:screenOrientation="portrait"
+151-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:96:13-49
+152            android:theme="@style/Theme.HookahDrop.Main" />
+152-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:97:13-57
+153        <activity
+153-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:99:9-102:59
+154            android:name="com.hookahdrop.app.EditProfileActivity"
+154-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:99:19-54
+155            android:exported="false"
+155-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:99:55-79
+156            android:screenOrientation="portrait"
+156-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:100:13-49
+157            android:theme="@style/Theme.HookahDrop.Main"
+157-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:102:13-57
+158            android:windowSoftInputMode="adjustResize" />
+158-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:101:13-55
+159        <activity
+159-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:104:9-106:59
+160            android:name="com.hookahdrop.app.OrdersActivity"
+160-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:104:19-49
+161            android:exported="false"
+161-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:104:50-74
+162            android:screenOrientation="portrait"
+162-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:105:13-49
+163            android:theme="@style/Theme.HookahDrop.Main" />
+163-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:106:13-57
+164        <activity
+164-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:108:9-110:59
+165            android:name="com.hookahdrop.app.OrderDetailActivity"
+165-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:108:19-54
+166            android:exported="false"
+166-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:108:55-79
+167            android:screenOrientation="portrait"
+167-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:109:13-49
+168            android:theme="@style/Theme.HookahDrop.Main" />
+168-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:110:13-57
+169        <activity
+169-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:112:9-115:59
+170            android:name="com.hookahdrop.app.PromoCodesActivity"
+170-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:112:19-53
+171            android:exported="false"
+171-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:112:54-78
+172            android:screenOrientation="portrait"
+172-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:113:13-49
+173            android:theme="@style/Theme.HookahDrop.Main"
+173-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:115:13-57
+174            android:windowSoftInputMode="adjustResize" />
+174-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:114:13-55
+175        <activity
+175-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:117:9-120:59
+176            android:name="com.hookahdrop.app.AddressesActivity"
+176-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:117:19-52
+177            android:exported="false"
+177-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:117:53-77
+178            android:screenOrientation="portrait"
+178-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:118:13-49
+179            android:theme="@style/Theme.HookahDrop.Main"
+179-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:120:13-57
+180            android:windowSoftInputMode="adjustResize" />
+180-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:119:13-55
+181        <activity
+181-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:122:9-125:59
+182            android:name="com.hookahdrop.app.AddMapActivity"
+182-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:122:19-49
+183            android:exported="false"
+183-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:122:50-74
+184            android:screenOrientation="portrait"
+184-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:123:13-49
+185            android:theme="@style/Theme.HookahDrop.Main"
+185-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:125:13-57
+186            android:windowSoftInputMode="adjustPan" />
+186-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:124:13-52
+187        <activity
+187-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:127:9-129:59
+188            android:name="com.hookahdrop.app.PaymentMethodsActivity"
+188-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:127:19-57
+189            android:exported="false"
+189-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:127:58-82
+190            android:screenOrientation="portrait"
+190-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:128:13-49
+191            android:theme="@style/Theme.HookahDrop.Main" />
+191-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:129:13-57
+192        <activity
+192-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:131:9-134:59
+193            android:name="com.hookahdrop.app.AddPaymentActivity"
+193-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:131:19-53
+194            android:exported="false"
+194-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:131:54-78
+195            android:screenOrientation="portrait"
+195-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:132:13-49
+196            android:theme="@style/Theme.HookahDrop.Main"
+196-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:134:13-57
+197            android:windowSoftInputMode="adjustResize" />
+197-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:133:13-55
+198        <activity
+198-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:136:9-138:59
+199            android:name="com.hookahdrop.app.SettingsActivity"
+199-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:136:19-51
+200            android:exported="false"
+200-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:136:52-76
+201            android:screenOrientation="portrait"
+201-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:137:13-49
+202            android:theme="@style/Theme.HookahDrop.Main" />
+202-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:138:13-57
+203        <activity
+203-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:140:9-143:59
+204            android:name="com.hookahdrop.app.ChangePasswordActivity"
+204-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:140:19-57
+205            android:exported="false"
+205-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:140:58-82
+206            android:screenOrientation="portrait"
+206-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:141:13-49
+207            android:theme="@style/Theme.HookahDrop.Main"
+207-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:143:13-57
+208            android:windowSoftInputMode="adjustResize" />
+208-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:142:13-55
+209        <activity
+209-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:145:9-147:59
+210            android:name="com.hookahdrop.app.LanguageActivity"
+210-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:145:19-51
+211            android:exported="false"
+211-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:145:52-76
+212            android:screenOrientation="portrait"
+212-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:146:13-49
+213            android:theme="@style/Theme.HookahDrop.Main" />
+213-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:147:13-57
+214        <activity
+214-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:149:9-151:59
+215            android:name="com.hookahdrop.app.TermsActivity"
+215-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:149:19-48
+216            android:exported="false"
+216-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:149:49-73
+217            android:screenOrientation="portrait"
+217-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:150:13-49
+218            android:theme="@style/Theme.HookahDrop.Main" />
+218-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:151:13-57
+219        <activity
+219-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:153:9-155:59
+220            android:name="com.hookahdrop.app.PrivacyPolicyActivity"
+220-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:153:19-56
+221            android:exported="false"
+221-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:153:57-81
+222            android:screenOrientation="portrait"
+222-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:154:13-49
+223            android:theme="@style/Theme.HookahDrop.Main" />
+223-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:155:13-57
+224        <activity
+224-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:157:9-160:59
+225            android:name="com.hookahdrop.app.HelpSupportActivity"
+225-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:157:19-54
+226            android:exported="false"
+226-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:157:55-79
+227            android:screenOrientation="portrait"
+227-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:158:13-49
+228            android:theme="@style/Theme.HookahDrop.Main"
+228-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:160:13-57
+229            android:windowSoftInputMode="adjustResize" />
+229-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:159:13-55
+230
+231        <!-- ── Notification system ─────────────────────────────────── -->
+232        <activity
+232-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:163:9-165:59
+233            android:name="com.hookahdrop.app.NotificationsActivity"
+233-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:163:19-56
+234            android:exported="false"
+234-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:163:57-81
+235            android:screenOrientation="portrait"
+235-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:164:13-49
+236            android:theme="@style/Theme.HookahDrop.Main" />
+236-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:165:13-57
+237
+238        <service
+238-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:167:9-173:19
+239            android:name="com.hookahdrop.app.HookahDropFirebaseService"
+239-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:168:13-54
+240            android:exported="false" >
+240-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:169:13-37
+241            <intent-filter>
+241-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:170:13-172:29
+242                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+242-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:171:17-77
+242-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:171:25-75
+243            </intent-filter>
+244        </service>
+245
+246        <activity
+246-->[com.stripe:paymentsheet:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\65e31b031c591534b961ca047f543f63\transformed\jetified-paymentsheet-20.37.5\AndroidManifest.xml:8:9-12:58
+247            android:name="com.stripe.android.paymentsheet.PaymentSheetActivity"
+247-->[com.stripe:paymentsheet:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\65e31b031c591534b961ca047f543f63\transformed\jetified-paymentsheet-20.37.5\AndroidManifest.xml:9:13-80
+248            android:exported="false"
+248-->[com.stripe:paymentsheet:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\65e31b031c591534b961ca047f543f63\transformed\jetified-paymentsheet-20.37.5\AndroidManifest.xml:10:13-37
+249            android:theme="@style/StripePaymentSheetDefaultTheme"
+249-->[com.stripe:paymentsheet:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\65e31b031c591534b961ca047f543f63\transformed\jetified-paymentsheet-20.37.5\AndroidManifest.xml:11:13-66
+250            android:windowSoftInputMode="adjustResize" />
+250-->[com.stripe:paymentsheet:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\65e31b031c591534b961ca047f543f63\transformed\jetified-paymentsheet-20.37.5\AndroidManifest.xml:12:13-55
+251        <activity
+251-->[com.stripe:paymentsheet:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\65e31b031c591534b961ca047f543f63\transformed\jetified-paymentsheet-20.37.5\AndroidManifest.xml:13:9-17:58
+252            android:name="com.stripe.android.paymentsheet.PaymentOptionsActivity"
+252-->[com.stripe:paymentsheet:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\65e31b031c591534b961ca047f543f63\transformed\jetified-paymentsheet-20.37.5\AndroidManifest.xml:14:13-82
+253            android:exported="false"
+253-->[com.stripe:paymentsheet:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\65e31b031c591534b961ca047f543f63\transformed\jetified-paymentsheet-20.37.5\AndroidManifest.xml:15:13-37
+254            android:theme="@style/StripePaymentSheetDefaultTheme"
+254-->[com.stripe:paymentsheet:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\65e31b031c591534b961ca047f543f63\transformed\jetified-paymentsheet-20.37.5\AndroidManifest.xml:16:13-66
+255            android:windowSoftInputMode="adjustResize" />
+255-->[com.stripe:paymentsheet:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\65e31b031c591534b961ca047f543f63\transformed\jetified-paymentsheet-20.37.5\AndroidManifest.xml:17:13-55
+256        <activity
+256-->[com.stripe:paymentsheet:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\65e31b031c591534b961ca047f543f63\transformed\jetified-paymentsheet-20.37.5\AndroidManifest.xml:18:9-22:58
+257            android:name="com.stripe.android.customersheet.CustomerSheetActivity"
+257-->[com.stripe:paymentsheet:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\65e31b031c591534b961ca047f543f63\transformed\jetified-paymentsheet-20.37.5\AndroidManifest.xml:19:13-82
+258            android:exported="false"
+258-->[com.stripe:paymentsheet:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\65e31b031c591534b961ca047f543f63\transformed\jetified-paymentsheet-20.37.5\AndroidManifest.xml:20:13-37
+259            android:theme="@style/StripePaymentSheetDefaultTheme"
+259-->[com.stripe:paymentsheet:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\65e31b031c591534b961ca047f543f63\transformed\jetified-paymentsheet-20.37.5\AndroidManifest.xml:21:13-66
+260            android:windowSoftInputMode="adjustResize" />
+260-->[com.stripe:paymentsheet:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\65e31b031c591534b961ca047f543f63\transformed\jetified-paymentsheet-20.37.5\AndroidManifest.xml:22:13-55
+261        <activity
+261-->[com.stripe:paymentsheet:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\65e31b031c591534b961ca047f543f63\transformed\jetified-paymentsheet-20.37.5\AndroidManifest.xml:23:9-26:69
+262            android:name="com.stripe.android.paymentsheet.addresselement.AddressElementActivity"
+262-->[com.stripe:paymentsheet:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\65e31b031c591534b961ca047f543f63\transformed\jetified-paymentsheet-20.37.5\AndroidManifest.xml:24:13-97
+263            android:exported="false"
+263-->[com.stripe:paymentsheet:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\65e31b031c591534b961ca047f543f63\transformed\jetified-paymentsheet-20.37.5\AndroidManifest.xml:25:13-37
+264            android:theme="@style/StripePaymentSheetDefaultTheme" />
+264-->[com.stripe:paymentsheet:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\65e31b031c591534b961ca047f543f63\transformed\jetified-paymentsheet-20.37.5\AndroidManifest.xml:26:13-66
+265        <activity
+265-->[com.stripe:paymentsheet:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\65e31b031c591534b961ca047f543f63\transformed\jetified-paymentsheet-20.37.5\AndroidManifest.xml:27:9-30:69
+266            android:name="com.stripe.android.paymentsheet.paymentdatacollection.bacs.BacsMandateConfirmationActivity"
+266-->[com.stripe:paymentsheet:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\65e31b031c591534b961ca047f543f63\transformed\jetified-paymentsheet-20.37.5\AndroidManifest.xml:28:13-118
+267            android:exported="false"
+267-->[com.stripe:paymentsheet:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\65e31b031c591534b961ca047f543f63\transformed\jetified-paymentsheet-20.37.5\AndroidManifest.xml:29:13-37
+268            android:theme="@style/StripePaymentSheetDefaultTheme" />
+268-->[com.stripe:paymentsheet:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\65e31b031c591534b961ca047f543f63\transformed\jetified-paymentsheet-20.37.5\AndroidManifest.xml:30:13-66
+269        <activity
+269-->[com.stripe:paymentsheet:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\65e31b031c591534b961ca047f543f63\transformed\jetified-paymentsheet-20.37.5\AndroidManifest.xml:31:9-34:69
+270            android:name="com.stripe.android.paymentsheet.paymentdatacollection.polling.PollingActivity"
+270-->[com.stripe:paymentsheet:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\65e31b031c591534b961ca047f543f63\transformed\jetified-paymentsheet-20.37.5\AndroidManifest.xml:32:13-105
+271            android:exported="false"
+271-->[com.stripe:paymentsheet:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\65e31b031c591534b961ca047f543f63\transformed\jetified-paymentsheet-20.37.5\AndroidManifest.xml:33:13-37
+272            android:theme="@style/StripePaymentSheetDefaultTheme" />
+272-->[com.stripe:paymentsheet:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\65e31b031c591534b961ca047f543f63\transformed\jetified-paymentsheet-20.37.5\AndroidManifest.xml:34:13-66
+273        <activity
+273-->[com.stripe:paymentsheet:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\65e31b031c591534b961ca047f543f63\transformed\jetified-paymentsheet-20.37.5\AndroidManifest.xml:35:9-38:69
+274            android:name="com.stripe.android.paymentsheet.ui.SepaMandateActivity"
+274-->[com.stripe:paymentsheet:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\65e31b031c591534b961ca047f543f63\transformed\jetified-paymentsheet-20.37.5\AndroidManifest.xml:36:13-82
+275            android:exported="false"
+275-->[com.stripe:paymentsheet:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\65e31b031c591534b961ca047f543f63\transformed\jetified-paymentsheet-20.37.5\AndroidManifest.xml:37:13-37
+276            android:theme="@style/StripePaymentSheetDefaultTheme" />
+276-->[com.stripe:paymentsheet:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\65e31b031c591534b961ca047f543f63\transformed\jetified-paymentsheet-20.37.5\AndroidManifest.xml:38:13-66
+277        <activity
+277-->[com.stripe:link:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\f80d72e0fa6cb546197a067f8406923a\transformed\jetified-link-20.37.5\AndroidManifest.xml:8:9-13:61
+278            android:name="com.stripe.android.link.LinkForegroundActivity"
+278-->[com.stripe:link:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\f80d72e0fa6cb546197a067f8406923a\transformed\jetified-link-20.37.5\AndroidManifest.xml:9:13-74
+279            android:autoRemoveFromRecents="true"
+279-->[com.stripe:link:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\f80d72e0fa6cb546197a067f8406923a\transformed\jetified-link-20.37.5\AndroidManifest.xml:10:13-49
+280            android:configChanges="orientation|keyboard|keyboardHidden|screenLayout|screenSize|smallestScreenSize"
+280-->[com.stripe:link:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\f80d72e0fa6cb546197a067f8406923a\transformed\jetified-link-20.37.5\AndroidManifest.xml:11:13-115
+281            android:launchMode="singleTop"
+281-->[com.stripe:link:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\f80d72e0fa6cb546197a067f8406923a\transformed\jetified-link-20.37.5\AndroidManifest.xml:12:13-43
+282            android:theme="@style/StripeTransparentTheme" />
+282-->[com.stripe:link:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\f80d72e0fa6cb546197a067f8406923a\transformed\jetified-link-20.37.5\AndroidManifest.xml:13:13-58
+283        <activity
+283-->[com.stripe:link:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\f80d72e0fa6cb546197a067f8406923a\transformed\jetified-link-20.37.5\AndroidManifest.xml:14:9-31:20
+284            android:name="com.stripe.android.link.LinkRedirectHandlerActivity"
+284-->[com.stripe:link:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\f80d72e0fa6cb546197a067f8406923a\transformed\jetified-link-20.37.5\AndroidManifest.xml:15:13-79
+285            android:autoRemoveFromRecents="true"
+285-->[com.stripe:link:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\f80d72e0fa6cb546197a067f8406923a\transformed\jetified-link-20.37.5\AndroidManifest.xml:16:13-49
+286            android:exported="true"
+286-->[com.stripe:link:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\f80d72e0fa6cb546197a067f8406923a\transformed\jetified-link-20.37.5\AndroidManifest.xml:17:13-36
+287            android:launchMode="singleInstance"
+287-->[com.stripe:link:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\f80d72e0fa6cb546197a067f8406923a\transformed\jetified-link-20.37.5\AndroidManifest.xml:18:13-48
+288            android:theme="@style/StripeTransparentTheme" >
+288-->[com.stripe:link:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\f80d72e0fa6cb546197a067f8406923a\transformed\jetified-link-20.37.5\AndroidManifest.xml:19:13-58
+289            <intent-filter>
+289-->[com.stripe:link:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\f80d72e0fa6cb546197a067f8406923a\transformed\jetified-link-20.37.5\AndroidManifest.xml:20:13-30:29
+290                <action android:name="android.intent.action.VIEW" />
+290-->[com.stripe:link:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\f80d72e0fa6cb546197a067f8406923a\transformed\jetified-link-20.37.5\AndroidManifest.xml:21:17-69
+290-->[com.stripe:link:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\f80d72e0fa6cb546197a067f8406923a\transformed\jetified-link-20.37.5\AndroidManifest.xml:21:25-66
+291
+292                <category android:name="android.intent.category.DEFAULT" />
+292-->[com.stripe:link:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\f80d72e0fa6cb546197a067f8406923a\transformed\jetified-link-20.37.5\AndroidManifest.xml:23:17-76
+292-->[com.stripe:link:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\f80d72e0fa6cb546197a067f8406923a\transformed\jetified-link-20.37.5\AndroidManifest.xml:23:27-73
+293                <category android:name="android.intent.category.BROWSABLE" />
+293-->[com.stripe:link:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\f80d72e0fa6cb546197a067f8406923a\transformed\jetified-link-20.37.5\AndroidManifest.xml:24:17-78
+293-->[com.stripe:link:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\f80d72e0fa6cb546197a067f8406923a\transformed\jetified-link-20.37.5\AndroidManifest.xml:24:27-75
+294
+295                <data
+295-->[com.stripe:link:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\f80d72e0fa6cb546197a067f8406923a\transformed\jetified-link-20.37.5\AndroidManifest.xml:26:17-29:51
+296                    android:host="complete"
+296-->[com.stripe:link:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\f80d72e0fa6cb546197a067f8406923a\transformed\jetified-link-20.37.5\AndroidManifest.xml:27:21-44
+297                    android:path="/com.hookahdrop.app"
+297-->[com.stripe:link:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\f80d72e0fa6cb546197a067f8406923a\transformed\jetified-link-20.37.5\AndroidManifest.xml:28:21-53
+298                    android:scheme="link-popup" />
+298-->[com.stripe:link:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\f80d72e0fa6cb546197a067f8406923a\transformed\jetified-link-20.37.5\AndroidManifest.xml:29:21-48
+299            </intent-filter>
+300        </activity>
+301        <activity
+301-->[com.stripe:payments-ui-core:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\c52c3cc2c3120bb24a26124150d3ff0e\transformed\jetified-payments-ui-core-20.37.5\AndroidManifest.xml:8:9-11:69
+302            android:name="com.stripe.android.ui.core.cardscan.CardScanActivity"
+302-->[com.stripe:payments-ui-core:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\c52c3cc2c3120bb24a26124150d3ff0e\transformed\jetified-payments-ui-core-20.37.5\AndroidManifest.xml:9:13-80
+303            android:exported="false"
+303-->[com.stripe:payments-ui-core:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\c52c3cc2c3120bb24a26124150d3ff0e\transformed\jetified-payments-ui-core-20.37.5\AndroidManifest.xml:10:13-37
+304            android:theme="@style/StripePaymentSheetDefaultTheme" />
+304-->[com.stripe:payments-ui-core:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\c52c3cc2c3120bb24a26124150d3ff0e\transformed\jetified-payments-ui-core-20.37.5\AndroidManifest.xml:11:13-66
+305        <activity
+305-->[com.stripe:payments-core:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\976eef22bd7f08298b6e75f43f5621e0\transformed\jetified-payments-core-20.37.5\AndroidManifest.xml:15:9-18:57
+306            android:name="com.stripe.android.view.AddPaymentMethodActivity"
+306-->[com.stripe:payments-core:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\976eef22bd7f08298b6e75f43f5621e0\transformed\jetified-payments-core-20.37.5\AndroidManifest.xml:16:13-76
+307            android:exported="false"
+307-->[com.stripe:payments-core:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\976eef22bd7f08298b6e75f43f5621e0\transformed\jetified-payments-core-20.37.5\AndroidManifest.xml:17:13-37
+308            android:theme="@style/StripeDefaultTheme" />
+308-->[com.stripe:payments-core:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\976eef22bd7f08298b6e75f43f5621e0\transformed\jetified-payments-core-20.37.5\AndroidManifest.xml:18:13-54
+309        <activity
+309-->[com.stripe:payments-core:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\976eef22bd7f08298b6e75f43f5621e0\transformed\jetified-payments-core-20.37.5\AndroidManifest.xml:19:9-22:57
+310            android:name="com.stripe.android.view.PaymentMethodsActivity"
+310-->[com.stripe:payments-core:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\976eef22bd7f08298b6e75f43f5621e0\transformed\jetified-payments-core-20.37.5\AndroidManifest.xml:20:13-74
+311            android:exported="false"
+311-->[com.stripe:payments-core:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\976eef22bd7f08298b6e75f43f5621e0\transformed\jetified-payments-core-20.37.5\AndroidManifest.xml:21:13-37
+312            android:theme="@style/StripeDefaultTheme" />
+312-->[com.stripe:payments-core:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\976eef22bd7f08298b6e75f43f5621e0\transformed\jetified-payments-core-20.37.5\AndroidManifest.xml:22:13-54
+313        <activity
+313-->[com.stripe:payments-core:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\976eef22bd7f08298b6e75f43f5621e0\transformed\jetified-payments-core-20.37.5\AndroidManifest.xml:23:9-26:57
+314            android:name="com.stripe.android.view.PaymentFlowActivity"
+314-->[com.stripe:payments-core:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\976eef22bd7f08298b6e75f43f5621e0\transformed\jetified-payments-core-20.37.5\AndroidManifest.xml:24:13-71
+315            android:exported="false"
+315-->[com.stripe:payments-core:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\976eef22bd7f08298b6e75f43f5621e0\transformed\jetified-payments-core-20.37.5\AndroidManifest.xml:25:13-37
+316            android:theme="@style/StripeDefaultTheme" />
+316-->[com.stripe:payments-core:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\976eef22bd7f08298b6e75f43f5621e0\transformed\jetified-payments-core-20.37.5\AndroidManifest.xml:26:13-54
+317        <activity
+317-->[com.stripe:payments-core:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\976eef22bd7f08298b6e75f43f5621e0\transformed\jetified-payments-core-20.37.5\AndroidManifest.xml:27:9-31:58
+318            android:name="com.stripe.android.view.PaymentAuthWebViewActivity"
+318-->[com.stripe:payments-core:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\976eef22bd7f08298b6e75f43f5621e0\transformed\jetified-payments-core-20.37.5\AndroidManifest.xml:28:13-78
+319            android:exported="false"
+319-->[com.stripe:payments-core:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\976eef22bd7f08298b6e75f43f5621e0\transformed\jetified-payments-core-20.37.5\AndroidManifest.xml:29:13-37
+320            android:theme="@style/StripeDefaultTheme"
+320-->[com.stripe:payments-core:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\976eef22bd7f08298b6e75f43f5621e0\transformed\jetified-payments-core-20.37.5\AndroidManifest.xml:30:13-54
+321            android:windowSoftInputMode="adjustResize" />
+321-->[com.stripe:payments-core:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\976eef22bd7f08298b6e75f43f5621e0\transformed\jetified-payments-core-20.37.5\AndroidManifest.xml:31:13-55
+322        <activity
+322-->[com.stripe:payments-core:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\976eef22bd7f08298b6e75f43f5621e0\transformed\jetified-payments-core-20.37.5\AndroidManifest.xml:32:9-35:61
+323            android:name="com.stripe.android.view.PaymentRelayActivity"
+323-->[com.stripe:payments-core:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\976eef22bd7f08298b6e75f43f5621e0\transformed\jetified-payments-core-20.37.5\AndroidManifest.xml:33:13-72
+324            android:exported="false"
+324-->[com.stripe:payments-core:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\976eef22bd7f08298b6e75f43f5621e0\transformed\jetified-payments-core-20.37.5\AndroidManifest.xml:34:13-37
+325            android:theme="@style/StripeTransparentTheme" />
+325-->[com.stripe:payments-core:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\976eef22bd7f08298b6e75f43f5621e0\transformed\jetified-payments-core-20.37.5\AndroidManifest.xml:35:13-58
+326        <!--
+327        Set android:launchMode="singleTop" so that the StripeBrowserLauncherActivity instance that
+328        launched the browser Activity will also handle the return URL deep link.
+329        -->
+330        <activity
+330-->[com.stripe:payments-core:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\976eef22bd7f08298b6e75f43f5621e0\transformed\jetified-payments-core-20.37.5\AndroidManifest.xml:41:9-45:61
+331            android:name="com.stripe.android.payments.StripeBrowserLauncherActivity"
+331-->[com.stripe:payments-core:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\976eef22bd7f08298b6e75f43f5621e0\transformed\jetified-payments-core-20.37.5\AndroidManifest.xml:42:13-85
+332            android:exported="false"
+332-->[com.stripe:payments-core:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\976eef22bd7f08298b6e75f43f5621e0\transformed\jetified-payments-core-20.37.5\AndroidManifest.xml:43:13-37
+333            android:launchMode="singleTask"
+333-->[com.stripe:payments-core:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\976eef22bd7f08298b6e75f43f5621e0\transformed\jetified-payments-core-20.37.5\AndroidManifest.xml:44:13-44
+334            android:theme="@style/StripeTransparentTheme" />
+334-->[com.stripe:payments-core:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\976eef22bd7f08298b6e75f43f5621e0\transformed\jetified-payments-core-20.37.5\AndroidManifest.xml:45:13-58
+335        <activity
+335-->[com.stripe:payments-core:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\976eef22bd7f08298b6e75f43f5621e0\transformed\jetified-payments-core-20.37.5\AndroidManifest.xml:46:9-63:20
+336            android:name="com.stripe.android.payments.StripeBrowserProxyReturnActivity"
+336-->[com.stripe:payments-core:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\976eef22bd7f08298b6e75f43f5621e0\transformed\jetified-payments-core-20.37.5\AndroidManifest.xml:47:13-88
+337            android:exported="true"
+337-->[com.stripe:payments-core:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\976eef22bd7f08298b6e75f43f5621e0\transformed\jetified-payments-core-20.37.5\AndroidManifest.xml:48:13-36
+338            android:launchMode="singleTask"
+338-->[com.stripe:payments-core:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\976eef22bd7f08298b6e75f43f5621e0\transformed\jetified-payments-core-20.37.5\AndroidManifest.xml:49:13-44
+339            android:theme="@style/StripeTransparentTheme" >
+339-->[com.stripe:payments-core:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\976eef22bd7f08298b6e75f43f5621e0\transformed\jetified-payments-core-20.37.5\AndroidManifest.xml:50:13-58
+340            <intent-filter>
+340-->[com.stripe:payments-core:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\976eef22bd7f08298b6e75f43f5621e0\transformed\jetified-payments-core-20.37.5\AndroidManifest.xml:51:13-62:29
+341                <action android:name="android.intent.action.VIEW" />
+341-->[com.stripe:link:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\f80d72e0fa6cb546197a067f8406923a\transformed\jetified-link-20.37.5\AndroidManifest.xml:21:17-69
+341-->[com.stripe:link:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\f80d72e0fa6cb546197a067f8406923a\transformed\jetified-link-20.37.5\AndroidManifest.xml:21:25-66
+342
+343                <category android:name="android.intent.category.DEFAULT" />
+343-->[com.stripe:link:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\f80d72e0fa6cb546197a067f8406923a\transformed\jetified-link-20.37.5\AndroidManifest.xml:23:17-76
+343-->[com.stripe:link:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\f80d72e0fa6cb546197a067f8406923a\transformed\jetified-link-20.37.5\AndroidManifest.xml:23:27-73
+344                <category android:name="android.intent.category.BROWSABLE" />
+344-->[com.stripe:link:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\f80d72e0fa6cb546197a067f8406923a\transformed\jetified-link-20.37.5\AndroidManifest.xml:24:17-78
+344-->[com.stripe:link:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\f80d72e0fa6cb546197a067f8406923a\transformed\jetified-link-20.37.5\AndroidManifest.xml:24:27-75
+345
+346                <!-- Must match `DefaultReturnUrl#value`. -->
+347                <data
+347-->[com.stripe:link:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\f80d72e0fa6cb546197a067f8406923a\transformed\jetified-link-20.37.5\AndroidManifest.xml:26:17-29:51
+348                    android:host="payment_return_url"
+348-->[com.stripe:link:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\f80d72e0fa6cb546197a067f8406923a\transformed\jetified-link-20.37.5\AndroidManifest.xml:27:21-44
+349                    android:path="/com.hookahdrop.app"
+349-->[com.stripe:link:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\f80d72e0fa6cb546197a067f8406923a\transformed\jetified-link-20.37.5\AndroidManifest.xml:28:21-53
+350                    android:scheme="stripesdk" />
+350-->[com.stripe:link:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\f80d72e0fa6cb546197a067f8406923a\transformed\jetified-link-20.37.5\AndroidManifest.xml:29:21-48
+351            </intent-filter>
+352        </activity>
+353        <activity
+353-->[com.stripe:payments-core:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\976eef22bd7f08298b6e75f43f5621e0\transformed\jetified-payments-core-20.37.5\AndroidManifest.xml:64:9-67:57
+354            android:name="com.stripe.android.payments.core.authentication.threeds2.Stripe3ds2TransactionActivity"
+354-->[com.stripe:payments-core:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\976eef22bd7f08298b6e75f43f5621e0\transformed\jetified-payments-core-20.37.5\AndroidManifest.xml:65:13-114
+355            android:exported="false"
+355-->[com.stripe:payments-core:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\976eef22bd7f08298b6e75f43f5621e0\transformed\jetified-payments-core-20.37.5\AndroidManifest.xml:66:13-37
+356            android:theme="@style/StripeDefaultTheme" />
+356-->[com.stripe:payments-core:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\976eef22bd7f08298b6e75f43f5621e0\transformed\jetified-payments-core-20.37.5\AndroidManifest.xml:67:13-54
+357        <activity
+357-->[com.stripe:payments-core:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\976eef22bd7f08298b6e75f43f5621e0\transformed\jetified-payments-core-20.37.5\AndroidManifest.xml:68:9-71:66
+358            android:name="com.stripe.android.googlepaylauncher.GooglePayLauncherActivity"
+358-->[com.stripe:payments-core:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\976eef22bd7f08298b6e75f43f5621e0\transformed\jetified-payments-core-20.37.5\AndroidManifest.xml:69:13-90
+359            android:exported="false"
+359-->[com.stripe:payments-core:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\976eef22bd7f08298b6e75f43f5621e0\transformed\jetified-payments-core-20.37.5\AndroidManifest.xml:70:13-37
+360            android:theme="@style/StripeGooglePayDefaultTheme" />
+360-->[com.stripe:payments-core:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\976eef22bd7f08298b6e75f43f5621e0\transformed\jetified-payments-core-20.37.5\AndroidManifest.xml:71:13-63
+361        <activity
+361-->[com.stripe:payments-core:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\976eef22bd7f08298b6e75f43f5621e0\transformed\jetified-payments-core-20.37.5\AndroidManifest.xml:72:9-75:66
+362            android:name="com.stripe.android.googlepaylauncher.GooglePayPaymentMethodLauncherActivity"
+362-->[com.stripe:payments-core:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\976eef22bd7f08298b6e75f43f5621e0\transformed\jetified-payments-core-20.37.5\AndroidManifest.xml:73:13-103
+363            android:exported="false"
+363-->[com.stripe:payments-core:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\976eef22bd7f08298b6e75f43f5621e0\transformed\jetified-payments-core-20.37.5\AndroidManifest.xml:74:13-37
+364            android:theme="@style/StripeGooglePayDefaultTheme" />
+364-->[com.stripe:payments-core:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\976eef22bd7f08298b6e75f43f5621e0\transformed\jetified-payments-core-20.37.5\AndroidManifest.xml:75:13-63
+365        <activity
+365-->[com.stripe:payments-core:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\976eef22bd7f08298b6e75f43f5621e0\transformed\jetified-payments-core-20.37.5\AndroidManifest.xml:76:9-79:68
+366            android:name="com.stripe.android.payments.paymentlauncher.PaymentLauncherConfirmationActivity"
+366-->[com.stripe:payments-core:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\976eef22bd7f08298b6e75f43f5621e0\transformed\jetified-payments-core-20.37.5\AndroidManifest.xml:77:13-107
+367            android:exported="false"
+367-->[com.stripe:payments-core:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\976eef22bd7f08298b6e75f43f5621e0\transformed\jetified-payments-core-20.37.5\AndroidManifest.xml:78:13-37
+368            android:theme="@style/StripePayLauncherDefaultTheme" />
+368-->[com.stripe:payments-core:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\976eef22bd7f08298b6e75f43f5621e0\transformed\jetified-payments-core-20.37.5\AndroidManifest.xml:79:13-65
+369        <activity
+369-->[com.stripe:payments-core:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\976eef22bd7f08298b6e75f43f5621e0\transformed\jetified-payments-core-20.37.5\AndroidManifest.xml:80:9-83:61
+370            android:name="com.stripe.android.payments.bankaccount.ui.CollectBankAccountActivity"
+370-->[com.stripe:payments-core:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\976eef22bd7f08298b6e75f43f5621e0\transformed\jetified-payments-core-20.37.5\AndroidManifest.xml:81:13-97
+371            android:exported="false"
+371-->[com.stripe:payments-core:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\976eef22bd7f08298b6e75f43f5621e0\transformed\jetified-payments-core-20.37.5\AndroidManifest.xml:82:13-37
+372            android:theme="@style/StripeTransparentTheme" />
+372-->[com.stripe:payments-core:20.37.5] C:\Users\GAMING\.gradle\caches\transforms-3\976eef22bd7f08298b6e75f43f5621e0\transformed\jetified-payments-core-20.37.5\AndroidManifest.xml:83:13-58
+373        <activity
+373-->[com.stripe:stripe-3ds2-android:6.1.8] C:\Users\GAMING\.gradle\caches\transforms-3\e73753811a051d3f76c65c193272eed8\transformed\jetified-stripe-3ds2-android-6.1.8\AndroidManifest.xml:8:9-11:54
+374            android:name="com.stripe.android.stripe3ds2.views.ChallengeActivity"
+374-->[com.stripe:stripe-3ds2-android:6.1.8] C:\Users\GAMING\.gradle\caches\transforms-3\e73753811a051d3f76c65c193272eed8\transformed\jetified-stripe-3ds2-android-6.1.8\AndroidManifest.xml:9:13-81
+375            android:exported="false"
+375-->[com.stripe:stripe-3ds2-android:6.1.8] C:\Users\GAMING\.gradle\caches\transforms-3\e73753811a051d3f76c65c193272eed8\transformed\jetified-stripe-3ds2-android-6.1.8\AndroidManifest.xml:10:13-37
+376            android:theme="@style/Stripe3DS2Theme" /> <!-- Needs to be explicitly declared on P+ -->
+376-->[com.stripe:stripe-3ds2-android:6.1.8] C:\Users\GAMING\.gradle\caches\transforms-3\e73753811a051d3f76c65c193272eed8\transformed\jetified-stripe-3ds2-android-6.1.8\AndroidManifest.xml:11:13-51
+377        <uses-library
+377-->[com.google.android.gms:play-services-maps:18.2.0] C:\Users\GAMING\.gradle\caches\transforms-3\c84f98f8b631d7f4fbe042393d4393b2\transformed\jetified-play-services-maps-18.2.0\AndroidManifest.xml:39:9-41:40
+378            android:name="org.apache.http.legacy"
+378-->[com.google.android.gms:play-services-maps:18.2.0] C:\Users\GAMING\.gradle\caches\transforms-3\c84f98f8b631d7f4fbe042393d4393b2\transformed\jetified-play-services-maps-18.2.0\AndroidManifest.xml:40:13-50
+379            android:required="false" />
+379-->[com.google.android.gms:play-services-maps:18.2.0] C:\Users\GAMING\.gradle\caches\transforms-3\c84f98f8b631d7f4fbe042393d4393b2\transformed\jetified-play-services-maps-18.2.0\AndroidManifest.xml:41:13-37
+380
+381        <service
+381-->[com.google.firebase:firebase-messaging-ktx:23.4.1] C:\Users\GAMING\.gradle\caches\transforms-3\32092b264a5b02a35dc9f8c342a0577d\transformed\jetified-firebase-messaging-ktx-23.4.1\AndroidManifest.xml:23:9-29:19
+382            android:name="com.google.firebase.components.ComponentDiscoveryService"
+382-->[com.google.firebase:firebase-messaging-ktx:23.4.1] C:\Users\GAMING\.gradle\caches\transforms-3\32092b264a5b02a35dc9f8c342a0577d\transformed\jetified-firebase-messaging-ktx-23.4.1\AndroidManifest.xml:24:13-84
+383            android:directBootAware="true"
+383-->[com.google.firebase:firebase-common:20.4.2] C:\Users\GAMING\.gradle\caches\transforms-3\b5e99e605f0878a99a285fd62c1471c7\transformed\jetified-firebase-common-20.4.2\AndroidManifest.xml:32:13-43
+384            android:exported="false" >
+384-->[com.google.firebase:firebase-messaging-ktx:23.4.1] C:\Users\GAMING\.gradle\caches\transforms-3\32092b264a5b02a35dc9f8c342a0577d\transformed\jetified-firebase-messaging-ktx-23.4.1\AndroidManifest.xml:25:13-37
+385            <meta-data
+385-->[com.google.firebase:firebase-messaging-ktx:23.4.1] C:\Users\GAMING\.gradle\caches\transforms-3\32092b264a5b02a35dc9f8c342a0577d\transformed\jetified-firebase-messaging-ktx-23.4.1\AndroidManifest.xml:26:13-28:85
+386                android:name="com.google.firebase.components:com.google.firebase.messaging.ktx.FirebaseMessagingLegacyRegistrar"
+386-->[com.google.firebase:firebase-messaging-ktx:23.4.1] C:\Users\GAMING\.gradle\caches\transforms-3\32092b264a5b02a35dc9f8c342a0577d\transformed\jetified-firebase-messaging-ktx-23.4.1\AndroidManifest.xml:27:17-129
+387                android:value="com.google.firebase.components.ComponentRegistrar" />
+387-->[com.google.firebase:firebase-messaging-ktx:23.4.1] C:\Users\GAMING\.gradle\caches\transforms-3\32092b264a5b02a35dc9f8c342a0577d\transformed\jetified-firebase-messaging-ktx-23.4.1\AndroidManifest.xml:28:17-82
+388            <meta-data
+388-->[com.google.firebase:firebase-messaging:23.4.1] C:\Users\GAMING\.gradle\caches\transforms-3\0068d3e3d7c2523f9da10a4009788bf5\transformed\jetified-firebase-messaging-23.4.1\AndroidManifest.xml:57:13-59:85
+389                android:name="com.google.firebase.components:com.google.firebase.messaging.FirebaseMessagingKtxRegistrar"
+389-->[com.google.firebase:firebase-messaging:23.4.1] C:\Users\GAMING\.gradle\caches\transforms-3\0068d3e3d7c2523f9da10a4009788bf5\transformed\jetified-firebase-messaging-23.4.1\AndroidManifest.xml:58:17-122
+390                android:value="com.google.firebase.components.ComponentRegistrar" />
+390-->[com.google.firebase:firebase-messaging:23.4.1] C:\Users\GAMING\.gradle\caches\transforms-3\0068d3e3d7c2523f9da10a4009788bf5\transformed\jetified-firebase-messaging-23.4.1\AndroidManifest.xml:59:17-82
+391            <meta-data
+391-->[com.google.firebase:firebase-messaging:23.4.1] C:\Users\GAMING\.gradle\caches\transforms-3\0068d3e3d7c2523f9da10a4009788bf5\transformed\jetified-firebase-messaging-23.4.1\AndroidManifest.xml:60:13-62:85
+392                android:name="com.google.firebase.components:com.google.firebase.messaging.FirebaseMessagingRegistrar"
+392-->[com.google.firebase:firebase-messaging:23.4.1] C:\Users\GAMING\.gradle\caches\transforms-3\0068d3e3d7c2523f9da10a4009788bf5\transformed\jetified-firebase-messaging-23.4.1\AndroidManifest.xml:61:17-119
+393                android:value="com.google.firebase.components.ComponentRegistrar" />
+393-->[com.google.firebase:firebase-messaging:23.4.1] C:\Users\GAMING\.gradle\caches\transforms-3\0068d3e3d7c2523f9da10a4009788bf5\transformed\jetified-firebase-messaging-23.4.1\AndroidManifest.xml:62:17-82
+394            <meta-data
+394-->[com.google.firebase:firebase-installations:17.2.0] C:\Users\GAMING\.gradle\caches\transforms-3\b96c42ea87a316e7078e9d534e3fe25a\transformed\jetified-firebase-installations-17.2.0\AndroidManifest.xml:15:13-17:85
+395                android:name="com.google.firebase.components:com.google.firebase.installations.FirebaseInstallationsKtxRegistrar"
+395-->[com.google.firebase:firebase-installations:17.2.0] C:\Users\GAMING\.gradle\caches\transforms-3\b96c42ea87a316e7078e9d534e3fe25a\transformed\jetified-firebase-installations-17.2.0\AndroidManifest.xml:16:17-130
+396                android:value="com.google.firebase.components.ComponentRegistrar" />
+396-->[com.google.firebase:firebase-installations:17.2.0] C:\Users\GAMING\.gradle\caches\transforms-3\b96c42ea87a316e7078e9d534e3fe25a\transformed\jetified-firebase-installations-17.2.0\AndroidManifest.xml:17:17-82
+397            <meta-data
+397-->[com.google.firebase:firebase-installations:17.2.0] C:\Users\GAMING\.gradle\caches\transforms-3\b96c42ea87a316e7078e9d534e3fe25a\transformed\jetified-firebase-installations-17.2.0\AndroidManifest.xml:18:13-20:85
+398                android:name="com.google.firebase.components:com.google.firebase.installations.FirebaseInstallationsRegistrar"
+398-->[com.google.firebase:firebase-installations:17.2.0] C:\Users\GAMING\.gradle\caches\transforms-3\b96c42ea87a316e7078e9d534e3fe25a\transformed\jetified-firebase-installations-17.2.0\AndroidManifest.xml:19:17-127
+399                android:value="com.google.firebase.components.ComponentRegistrar" />
+399-->[com.google.firebase:firebase-installations:17.2.0] C:\Users\GAMING\.gradle\caches\transforms-3\b96c42ea87a316e7078e9d534e3fe25a\transformed\jetified-firebase-installations-17.2.0\AndroidManifest.xml:20:17-82
+400            <meta-data
+400-->[com.google.firebase:firebase-common-ktx:20.4.2] C:\Users\GAMING\.gradle\caches\transforms-3\4587163e5b104cf461f1620183555d50\transformed\jetified-firebase-common-ktx-20.4.2\AndroidManifest.xml:12:13-14:85
+401                android:name="com.google.firebase.components:com.google.firebase.ktx.FirebaseCommonLegacyRegistrar"
+401-->[com.google.firebase:firebase-common-ktx:20.4.2] C:\Users\GAMING\.gradle\caches\transforms-3\4587163e5b104cf461f1620183555d50\transformed\jetified-firebase-common-ktx-20.4.2\AndroidManifest.xml:13:17-116
+402                android:value="com.google.firebase.components.ComponentRegistrar" />
+402-->[com.google.firebase:firebase-common-ktx:20.4.2] C:\Users\GAMING\.gradle\caches\transforms-3\4587163e5b104cf461f1620183555d50\transformed\jetified-firebase-common-ktx-20.4.2\AndroidManifest.xml:14:17-82
+403            <meta-data
+403-->[com.google.firebase:firebase-common:20.4.2] C:\Users\GAMING\.gradle\caches\transforms-3\b5e99e605f0878a99a285fd62c1471c7\transformed\jetified-firebase-common-20.4.2\AndroidManifest.xml:35:13-37:85
+404                android:name="com.google.firebase.components:com.google.firebase.FirebaseCommonKtxRegistrar"
+404-->[com.google.firebase:firebase-common:20.4.2] C:\Users\GAMING\.gradle\caches\transforms-3\b5e99e605f0878a99a285fd62c1471c7\transformed\jetified-firebase-common-20.4.2\AndroidManifest.xml:36:17-109
+405                android:value="com.google.firebase.components.ComponentRegistrar" />
+405-->[com.google.firebase:firebase-common:20.4.2] C:\Users\GAMING\.gradle\caches\transforms-3\b5e99e605f0878a99a285fd62c1471c7\transformed\jetified-firebase-common-20.4.2\AndroidManifest.xml:37:17-82
+406            <meta-data
+406-->[com.google.firebase:firebase-datatransport:18.1.7] C:\Users\GAMING\.gradle\caches\transforms-3\020e4432330e5d546a1b98d89242826d\transformed\jetified-firebase-datatransport-18.1.7\AndroidManifest.xml:27:13-29:85
+407                android:name="com.google.firebase.components:com.google.firebase.datatransport.TransportRegistrar"
+407-->[com.google.firebase:firebase-datatransport:18.1.7] C:\Users\GAMING\.gradle\caches\transforms-3\020e4432330e5d546a1b98d89242826d\transformed\jetified-firebase-datatransport-18.1.7\AndroidManifest.xml:28:17-115
+408                android:value="com.google.firebase.components.ComponentRegistrar" />
+408-->[com.google.firebase:firebase-datatransport:18.1.7] C:\Users\GAMING\.gradle\caches\transforms-3\020e4432330e5d546a1b98d89242826d\transformed\jetified-firebase-datatransport-18.1.7\AndroidManifest.xml:29:17-82
+409        </service>
+410
+411        <receiver
+411-->[com.google.firebase:firebase-messaging:23.4.1] C:\Users\GAMING\.gradle\caches\transforms-3\0068d3e3d7c2523f9da10a4009788bf5\transformed\jetified-firebase-messaging-23.4.1\AndroidManifest.xml:29:9-40:20
+412            android:name="com.google.firebase.iid.FirebaseInstanceIdReceiver"
+412-->[com.google.firebase:firebase-messaging:23.4.1] C:\Users\GAMING\.gradle\caches\transforms-3\0068d3e3d7c2523f9da10a4009788bf5\transformed\jetified-firebase-messaging-23.4.1\AndroidManifest.xml:30:13-78
+413            android:exported="true"
+413-->[com.google.firebase:firebase-messaging:23.4.1] C:\Users\GAMING\.gradle\caches\transforms-3\0068d3e3d7c2523f9da10a4009788bf5\transformed\jetified-firebase-messaging-23.4.1\AndroidManifest.xml:31:13-36
+414            android:permission="com.google.android.c2dm.permission.SEND" >
+414-->[com.google.firebase:firebase-messaging:23.4.1] C:\Users\GAMING\.gradle\caches\transforms-3\0068d3e3d7c2523f9da10a4009788bf5\transformed\jetified-firebase-messaging-23.4.1\AndroidManifest.xml:32:13-73
+415            <intent-filter>
+415-->[com.google.firebase:firebase-messaging:23.4.1] C:\Users\GAMING\.gradle\caches\transforms-3\0068d3e3d7c2523f9da10a4009788bf5\transformed\jetified-firebase-messaging-23.4.1\AndroidManifest.xml:33:13-35:29
+416                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+416-->[com.google.firebase:firebase-messaging:23.4.1] C:\Users\GAMING\.gradle\caches\transforms-3\0068d3e3d7c2523f9da10a4009788bf5\transformed\jetified-firebase-messaging-23.4.1\AndroidManifest.xml:34:17-81
+416-->[com.google.firebase:firebase-messaging:23.4.1] C:\Users\GAMING\.gradle\caches\transforms-3\0068d3e3d7c2523f9da10a4009788bf5\transformed\jetified-firebase-messaging-23.4.1\AndroidManifest.xml:34:25-78
+417            </intent-filter>
+418
+419            <meta-data
+419-->[com.google.firebase:firebase-messaging:23.4.1] C:\Users\GAMING\.gradle\caches\transforms-3\0068d3e3d7c2523f9da10a4009788bf5\transformed\jetified-firebase-messaging-23.4.1\AndroidManifest.xml:37:13-39:40
+420                android:name="com.google.android.gms.cloudmessaging.FINISHED_AFTER_HANDLED"
+420-->[com.google.firebase:firebase-messaging:23.4.1] C:\Users\GAMING\.gradle\caches\transforms-3\0068d3e3d7c2523f9da10a4009788bf5\transformed\jetified-firebase-messaging-23.4.1\AndroidManifest.xml:38:17-92
+421                android:value="true" />
+421-->[com.google.firebase:firebase-messaging:23.4.1] C:\Users\GAMING\.gradle\caches\transforms-3\0068d3e3d7c2523f9da10a4009788bf5\transformed\jetified-firebase-messaging-23.4.1\AndroidManifest.xml:39:17-37
+422        </receiver>
+423        <!--
+424             FirebaseMessagingService performs security checks at runtime,
+425             but set to not exported to explicitly avoid allowing another app to call it.
+426        -->
+427        <service
+427-->[com.google.firebase:firebase-messaging:23.4.1] C:\Users\GAMING\.gradle\caches\transforms-3\0068d3e3d7c2523f9da10a4009788bf5\transformed\jetified-firebase-messaging-23.4.1\AndroidManifest.xml:46:9-53:19
+428            android:name="com.google.firebase.messaging.FirebaseMessagingService"
+428-->[com.google.firebase:firebase-messaging:23.4.1] C:\Users\GAMING\.gradle\caches\transforms-3\0068d3e3d7c2523f9da10a4009788bf5\transformed\jetified-firebase-messaging-23.4.1\AndroidManifest.xml:47:13-82
+429            android:directBootAware="true"
+429-->[com.google.firebase:firebase-messaging:23.4.1] C:\Users\GAMING\.gradle\caches\transforms-3\0068d3e3d7c2523f9da10a4009788bf5\transformed\jetified-firebase-messaging-23.4.1\AndroidManifest.xml:48:13-43
+430            android:exported="false" >
+430-->[com.google.firebase:firebase-messaging:23.4.1] C:\Users\GAMING\.gradle\caches\transforms-3\0068d3e3d7c2523f9da10a4009788bf5\transformed\jetified-firebase-messaging-23.4.1\AndroidManifest.xml:49:13-37
+431            <intent-filter android:priority="-500" >
+431-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:170:13-172:29
+432                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+432-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:171:17-77
+432-->C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\HookahDrop\app\src\main\AndroidManifest.xml:171:25-75
+433            </intent-filter>
+434        </service>
+435
+436        <activity
+436-->[com.google.android.gms:play-services-base:18.3.0] C:\Users\GAMING\.gradle\caches\transforms-3\39172af6fad0abdb7426a21ad537a903\transformed\jetified-play-services-base-18.3.0\AndroidManifest.xml:20:9-22:45
+437            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+437-->[com.google.android.gms:play-services-base:18.3.0] C:\Users\GAMING\.gradle\caches\transforms-3\39172af6fad0abdb7426a21ad537a903\transformed\jetified-play-services-base-18.3.0\AndroidManifest.xml:20:19-85
+438            android:exported="false"
+438-->[com.google.android.gms:play-services-base:18.3.0] C:\Users\GAMING\.gradle\caches\transforms-3\39172af6fad0abdb7426a21ad537a903\transformed\jetified-play-services-base-18.3.0\AndroidManifest.xml:22:19-43
+439            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+439-->[com.google.android.gms:play-services-base:18.3.0] C:\Users\GAMING\.gradle\caches\transforms-3\39172af6fad0abdb7426a21ad537a903\transformed\jetified-play-services-base-18.3.0\AndroidManifest.xml:21:19-78
+440
+441        <provider
+441-->[com.google.firebase:firebase-common:20.4.2] C:\Users\GAMING\.gradle\caches\transforms-3\b5e99e605f0878a99a285fd62c1471c7\transformed\jetified-firebase-common-20.4.2\AndroidManifest.xml:23:9-28:39
+442            android:name="com.google.firebase.provider.FirebaseInitProvider"
+442-->[com.google.firebase:firebase-common:20.4.2] C:\Users\GAMING\.gradle\caches\transforms-3\b5e99e605f0878a99a285fd62c1471c7\transformed\jetified-firebase-common-20.4.2\AndroidManifest.xml:24:13-77
+443            android:authorities="com.hookahdrop.app.firebaseinitprovider"
+443-->[com.google.firebase:firebase-common:20.4.2] C:\Users\GAMING\.gradle\caches\transforms-3\b5e99e605f0878a99a285fd62c1471c7\transformed\jetified-firebase-common-20.4.2\AndroidManifest.xml:25:13-72
+444            android:directBootAware="true"
+444-->[com.google.firebase:firebase-common:20.4.2] C:\Users\GAMING\.gradle\caches\transforms-3\b5e99e605f0878a99a285fd62c1471c7\transformed\jetified-firebase-common-20.4.2\AndroidManifest.xml:26:13-43
+445            android:exported="false"
+445-->[com.google.firebase:firebase-common:20.4.2] C:\Users\GAMING\.gradle\caches\transforms-3\b5e99e605f0878a99a285fd62c1471c7\transformed\jetified-firebase-common-20.4.2\AndroidManifest.xml:27:13-37
+446            android:initOrder="100" />
+446-->[com.google.firebase:firebase-common:20.4.2] C:\Users\GAMING\.gradle\caches\transforms-3\b5e99e605f0878a99a285fd62c1471c7\transformed\jetified-firebase-common-20.4.2\AndroidManifest.xml:28:13-36
+447
+448        <activity
+448-->[androidx.compose.ui:ui-tooling-android:1.5.4] C:\Users\GAMING\.gradle\caches\transforms-3\f35baf4b1c48f5db55c5a2471c6a1e84\transformed\jetified-ui-tooling-release\AndroidManifest.xml:23:9-25:39
+449            android:name="androidx.compose.ui.tooling.PreviewActivity"
+449-->[androidx.compose.ui:ui-tooling-android:1.5.4] C:\Users\GAMING\.gradle\caches\transforms-3\f35baf4b1c48f5db55c5a2471c6a1e84\transformed\jetified-ui-tooling-release\AndroidManifest.xml:24:13-71
+450            android:exported="true" />
+450-->[androidx.compose.ui:ui-tooling-android:1.5.4] C:\Users\GAMING\.gradle\caches\transforms-3\f35baf4b1c48f5db55c5a2471c6a1e84\transformed\jetified-ui-tooling-release\AndroidManifest.xml:25:13-36
+451
+452        <provider
+452-->[androidx.emoji2:emoji2:1.4.0] C:\Users\GAMING\.gradle\caches\transforms-3\ba98324dcf9946844725b4469925467f\transformed\jetified-emoji2-1.4.0\AndroidManifest.xml:24:9-32:20
+453            android:name="androidx.startup.InitializationProvider"
+453-->[androidx.emoji2:emoji2:1.4.0] C:\Users\GAMING\.gradle\caches\transforms-3\ba98324dcf9946844725b4469925467f\transformed\jetified-emoji2-1.4.0\AndroidManifest.xml:25:13-67
+454            android:authorities="com.hookahdrop.app.androidx-startup"
+454-->[androidx.emoji2:emoji2:1.4.0] C:\Users\GAMING\.gradle\caches\transforms-3\ba98324dcf9946844725b4469925467f\transformed\jetified-emoji2-1.4.0\AndroidManifest.xml:26:13-68
+455            android:exported="false" >
+455-->[androidx.emoji2:emoji2:1.4.0] C:\Users\GAMING\.gradle\caches\transforms-3\ba98324dcf9946844725b4469925467f\transformed\jetified-emoji2-1.4.0\AndroidManifest.xml:27:13-37
+456            <meta-data
+456-->[androidx.emoji2:emoji2:1.4.0] C:\Users\GAMING\.gradle\caches\transforms-3\ba98324dcf9946844725b4469925467f\transformed\jetified-emoji2-1.4.0\AndroidManifest.xml:29:13-31:52
+457                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+457-->[androidx.emoji2:emoji2:1.4.0] C:\Users\GAMING\.gradle\caches\transforms-3\ba98324dcf9946844725b4469925467f\transformed\jetified-emoji2-1.4.0\AndroidManifest.xml:30:17-75
+458                android:value="androidx.startup" />
+458-->[androidx.emoji2:emoji2:1.4.0] C:\Users\GAMING\.gradle\caches\transforms-3\ba98324dcf9946844725b4469925467f\transformed\jetified-emoji2-1.4.0\AndroidManifest.xml:31:17-49
+459            <meta-data
+459-->[androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\GAMING\.gradle\caches\transforms-3\fe964a7511c6e46c5ed85a6a6f376e09\transformed\jetified-lifecycle-process-2.7.0\AndroidManifest.xml:29:13-31:52
+460                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+460-->[androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\GAMING\.gradle\caches\transforms-3\fe964a7511c6e46c5ed85a6a6f376e09\transformed\jetified-lifecycle-process-2.7.0\AndroidManifest.xml:30:17-78
+461                android:value="androidx.startup" />
+461-->[androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\GAMING\.gradle\caches\transforms-3\fe964a7511c6e46c5ed85a6a6f376e09\transformed\jetified-lifecycle-process-2.7.0\AndroidManifest.xml:31:17-49
+462            <meta-data
+462-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\GAMING\.gradle\caches\transforms-3\d1cda54da6bff51c27a5071bfefa7df8\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:29:13-31:52
+463                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+463-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\GAMING\.gradle\caches\transforms-3\d1cda54da6bff51c27a5071bfefa7df8\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:30:17-85
+464                android:value="androidx.startup" />
+464-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\GAMING\.gradle\caches\transforms-3\d1cda54da6bff51c27a5071bfefa7df8\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:31:17-49
+465        </provider>
+466
+467        <meta-data
+467-->[com.google.android.gms:play-services-basement:18.3.0] C:\Users\GAMING\.gradle\caches\transforms-3\0207f9e4e5431f43bb996ea9cf056bdd\transformed\jetified-play-services-basement-18.3.0\AndroidManifest.xml:21:9-23:69
+468            android:name="com.google.android.gms.version"
+468-->[com.google.android.gms:play-services-basement:18.3.0] C:\Users\GAMING\.gradle\caches\transforms-3\0207f9e4e5431f43bb996ea9cf056bdd\transformed\jetified-play-services-basement-18.3.0\AndroidManifest.xml:22:13-58
+469            android:value="@integer/google_play_services_version" />
+469-->[com.google.android.gms:play-services-basement:18.3.0] C:\Users\GAMING\.gradle\caches\transforms-3\0207f9e4e5431f43bb996ea9cf056bdd\transformed\jetified-play-services-basement-18.3.0\AndroidManifest.xml:23:13-66
+470
+471        <receiver
+471-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\GAMING\.gradle\caches\transforms-3\d1cda54da6bff51c27a5071bfefa7df8\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:34:9-52:20
+472            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+472-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\GAMING\.gradle\caches\transforms-3\d1cda54da6bff51c27a5071bfefa7df8\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:35:13-76
+473            android:directBootAware="false"
+473-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\GAMING\.gradle\caches\transforms-3\d1cda54da6bff51c27a5071bfefa7df8\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:36:13-44
+474            android:enabled="true"
+474-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\GAMING\.gradle\caches\transforms-3\d1cda54da6bff51c27a5071bfefa7df8\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:37:13-35
+475            android:exported="true"
+475-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\GAMING\.gradle\caches\transforms-3\d1cda54da6bff51c27a5071bfefa7df8\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:38:13-36
+476            android:permission="android.permission.DUMP" >
+476-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\GAMING\.gradle\caches\transforms-3\d1cda54da6bff51c27a5071bfefa7df8\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:39:13-57
+477            <intent-filter>
+477-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\GAMING\.gradle\caches\transforms-3\d1cda54da6bff51c27a5071bfefa7df8\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:40:13-42:29
+478                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+478-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\GAMING\.gradle\caches\transforms-3\d1cda54da6bff51c27a5071bfefa7df8\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:41:17-91
+478-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\GAMING\.gradle\caches\transforms-3\d1cda54da6bff51c27a5071bfefa7df8\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:41:25-88
+479            </intent-filter>
+480            <intent-filter>
+480-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\GAMING\.gradle\caches\transforms-3\d1cda54da6bff51c27a5071bfefa7df8\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:43:13-45:29
+481                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+481-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\GAMING\.gradle\caches\transforms-3\d1cda54da6bff51c27a5071bfefa7df8\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:44:17-85
+481-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\GAMING\.gradle\caches\transforms-3\d1cda54da6bff51c27a5071bfefa7df8\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:44:25-82
+482            </intent-filter>
+483            <intent-filter>
+483-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\GAMING\.gradle\caches\transforms-3\d1cda54da6bff51c27a5071bfefa7df8\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:46:13-48:29
+484                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+484-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\GAMING\.gradle\caches\transforms-3\d1cda54da6bff51c27a5071bfefa7df8\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:47:17-88
+484-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\GAMING\.gradle\caches\transforms-3\d1cda54da6bff51c27a5071bfefa7df8\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:47:25-85
+485            </intent-filter>
+486            <intent-filter>
+486-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\GAMING\.gradle\caches\transforms-3\d1cda54da6bff51c27a5071bfefa7df8\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:49:13-51:29
+487                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+487-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\GAMING\.gradle\caches\transforms-3\d1cda54da6bff51c27a5071bfefa7df8\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:50:17-95
+487-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\GAMING\.gradle\caches\transforms-3\d1cda54da6bff51c27a5071bfefa7df8\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:50:25-92
+488            </intent-filter>
+489        </receiver>
+490
+491        <service
+491-->[com.google.android.datatransport:transport-backend-cct:3.1.8] C:\Users\GAMING\.gradle\caches\transforms-3\1690b798e3b00fb0942edd7ecb36f62e\transformed\jetified-transport-backend-cct-3.1.8\AndroidManifest.xml:28:9-34:19
+492            android:name="com.google.android.datatransport.runtime.backends.TransportBackendDiscovery"
+492-->[com.google.android.datatransport:transport-backend-cct:3.1.8] C:\Users\GAMING\.gradle\caches\transforms-3\1690b798e3b00fb0942edd7ecb36f62e\transformed\jetified-transport-backend-cct-3.1.8\AndroidManifest.xml:29:13-103
+493            android:exported="false" >
+493-->[com.google.android.datatransport:transport-backend-cct:3.1.8] C:\Users\GAMING\.gradle\caches\transforms-3\1690b798e3b00fb0942edd7ecb36f62e\transformed\jetified-transport-backend-cct-3.1.8\AndroidManifest.xml:30:13-37
+494            <meta-data
+494-->[com.google.android.datatransport:transport-backend-cct:3.1.8] C:\Users\GAMING\.gradle\caches\transforms-3\1690b798e3b00fb0942edd7ecb36f62e\transformed\jetified-transport-backend-cct-3.1.8\AndroidManifest.xml:31:13-33:39
+495                android:name="backend:com.google.android.datatransport.cct.CctBackendFactory"
+495-->[com.google.android.datatransport:transport-backend-cct:3.1.8] C:\Users\GAMING\.gradle\caches\transforms-3\1690b798e3b00fb0942edd7ecb36f62e\transformed\jetified-transport-backend-cct-3.1.8\AndroidManifest.xml:32:17-94
+496                android:value="cct" />
+496-->[com.google.android.datatransport:transport-backend-cct:3.1.8] C:\Users\GAMING\.gradle\caches\transforms-3\1690b798e3b00fb0942edd7ecb36f62e\transformed\jetified-transport-backend-cct-3.1.8\AndroidManifest.xml:33:17-36
+497        </service>
+498        <service
+498-->[com.google.android.datatransport:transport-runtime:3.1.8] C:\Users\GAMING\.gradle\caches\transforms-3\7ccb78244096209276df2a199570d92f\transformed\jetified-transport-runtime-3.1.8\AndroidManifest.xml:26:9-30:19
+499            android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.JobInfoSchedulerService"
+499-->[com.google.android.datatransport:transport-runtime:3.1.8] C:\Users\GAMING\.gradle\caches\transforms-3\7ccb78244096209276df2a199570d92f\transformed\jetified-transport-runtime-3.1.8\AndroidManifest.xml:27:13-117
+500            android:exported="false"
+500-->[com.google.android.datatransport:transport-runtime:3.1.8] C:\Users\GAMING\.gradle\caches\transforms-3\7ccb78244096209276df2a199570d92f\transformed\jetified-transport-runtime-3.1.8\AndroidManifest.xml:28:13-37
+501            android:permission="android.permission.BIND_JOB_SERVICE" >
+501-->[com.google.android.datatransport:transport-runtime:3.1.8] C:\Users\GAMING\.gradle\caches\transforms-3\7ccb78244096209276df2a199570d92f\transformed\jetified-transport-runtime-3.1.8\AndroidManifest.xml:29:13-69
+502        </service>
+503
+504        <receiver
+504-->[com.google.android.datatransport:transport-runtime:3.1.8] C:\Users\GAMING\.gradle\caches\transforms-3\7ccb78244096209276df2a199570d92f\transformed\jetified-transport-runtime-3.1.8\AndroidManifest.xml:32:9-34:40
+505            android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.AlarmManagerSchedulerBroadcastReceiver"
+505-->[com.google.android.datatransport:transport-runtime:3.1.8] C:\Users\GAMING\.gradle\caches\transforms-3\7ccb78244096209276df2a199570d92f\transformed\jetified-transport-runtime-3.1.8\AndroidManifest.xml:33:13-132
+506            android:exported="false" />
+506-->[com.google.android.datatransport:transport-runtime:3.1.8] C:\Users\GAMING\.gradle\caches\transforms-3\7ccb78244096209276df2a199570d92f\transformed\jetified-transport-runtime-3.1.8\AndroidManifest.xml:34:13-37
+507
+508        <meta-data
+508-->[com.google.android.instantapps:instantapps:1.1.0] C:\Users\GAMING\.gradle\caches\transforms-3\0cb292452c30f09a029b1c0312cc57e0\transformed\jetified-instantapps-1.1.0\AndroidManifest.xml:10:9-12:33
+509            android:name="aia-compat-api-min-version"
+509-->[com.google.android.instantapps:instantapps:1.1.0] C:\Users\GAMING\.gradle\caches\transforms-3\0cb292452c30f09a029b1c0312cc57e0\transformed\jetified-instantapps-1.1.0\AndroidManifest.xml:11:13-54
+510            android:value="1" />
+510-->[com.google.android.instantapps:instantapps:1.1.0] C:\Users\GAMING\.gradle\caches\transforms-3\0cb292452c30f09a029b1c0312cc57e0\transformed\jetified-instantapps-1.1.0\AndroidManifest.xml:12:13-30
+511    </application>
+512
+513</manifest>

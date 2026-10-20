@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- OTP box — active/success state with gold border -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/input_bg"/>
+    <stroke android:width="2dp" android:color="@color/gold"/>
+    <corners android:radius="12dp"/>
+</shape>

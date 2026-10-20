@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Neon glow pulse for splash logo -->
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+    android:repeatCount="infinite">
+    <scale
+        android:duration="1200"
+        android:fromXScale="1.0"
+        android:fromYScale="1.0"
+        android:interpolator="@android:interpolator/accelerate_decelerate"
+        android:pivotX="50%"
+        android:pivotY="50%"
+        android:repeatCount="infinite"
+        android:repeatMode="reverse"
+        android:toXScale="1.06"
+        android:toYScale="1.06" />
+    <alpha
+        android:duration="1200"
+        android:fromAlpha="0.85"
+        android:interpolator="@android:interpolator/accelerate_decelerate"
+        android:repeatCount="infinite"
+        android:repeatMode="reverse"
+        android:toAlpha="1.0" />
+</set>

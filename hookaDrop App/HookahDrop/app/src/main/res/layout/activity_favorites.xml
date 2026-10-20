@@ -228,6 +228,11 @@
                 android:visibility="gone"
                 android:clipToPadding="false" />
 
+            <!-- ── PAGINATION CONTROLS ────────────────────────────────── -->
+            <include
+                android:id="@+id/paginationComponent"
+                layout="@layout/component_pagination" />
+
             <!-- ── EMPTY STATE ────────────────────────────────────────── -->
             <LinearLayout
                 android:id="@+id/emptyState"

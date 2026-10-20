@@ -41,6 +41,11 @@ const userSchema = new mongoose.Schema(
     // ── New registration fields ────────────────────────────────────────────
     phone: { type: String, default: null },
     age:   { type: Number, default: null },
+    // ── Extended profile fields ────────────────────────────────────────────
+    firstName:   { type: String, default: null },
+    lastName:    { type: String, default: null },
+    username:    { type: String, default: null },
+    dateOfBirth: { type: String, default: null }, // ISO 8601 format: YYYY-MM-DD
     // ── Email verification ─────────────────────────────────────────────────
     emailVerified:          { type: Boolean, default: false },
     verificationCode:       { type: String,  default: null, select: false },

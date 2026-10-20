@@ -47,7 +47,7 @@ class SignInActivity : AppCompatActivity() {
 
         sessionManager = SessionManager(this)
         CartManager.init(this)
-        FavoritesManager.init(this)
+        FavoritesManager.init(this) { sessionManager.getUserId() }
 
         // Already logged in → go straight to Home
         if (sessionManager.isLoggedIn()) {

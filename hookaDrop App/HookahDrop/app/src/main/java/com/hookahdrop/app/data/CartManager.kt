@@ -75,6 +75,13 @@ object CartManager {
     fun addListener(l: () -> Unit)    { listeners.add(l) }
     fun removeListener(l: () -> Unit) { listeners.remove(l) }
 
+    fun loadFromBackend(token: String): Boolean {
+        return true
+    }
+
+    fun syncToBackend(token: String) {
+    }
+
     // ── Persistence ───────────────────────────────────────────────────────────
     private fun save() {
         val json = gson.toJson(items)

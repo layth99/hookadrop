@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="@color/bg_screen" android:fitsSystemWindows="true">
+
+    <!-- Header -->
+    <LinearLayout android:id="@+id/header"
+        android:layout_width="match_parent" android:layout_height="56dp"
+        android:orientation="horizontal" android:gravity="center_vertical"
+        android:paddingHorizontal="16dp" android:layout_alignParentTop="true">
+
+        <ImageButton android:id="@+id/btnBack"
+            android:layout_width="40dp" android:layout_height="40dp"
+            android:background="@drawable/bg_back_button"
+            android:src="@drawable/ic_arrow_back" android:padding="10dp"
+            android:contentDescription="Back"/>
+
+        <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+            android:layout_weight="1" android:text="My Orders"
+            android:textColor="@color/white" android:textSize="17sp" android:textStyle="bold"
+            android:gravity="center"/>
+
+        <View android:layout_width="40dp" android:layout_height="40dp"/>
+    </LinearLayout>
+
+    <!-- Filter tabs -->
+    <HorizontalScrollView
+        android:id="@+id/filterScroll"
+        android:layout_width="match_parent" android:layout_height="48dp"
+        android:layout_below="@id/header"
+        android:scrollbars="none"
+        android:fadingEdge="horizontal">
+
+        <LinearLayout android:id="@+id/filterRow"
+            android:layout_width="wrap_content" android:layout_height="match_parent"
+            android:orientation="horizontal" android:gravity="center_vertical"
+            android:paddingHorizontal="16dp" android:paddingVertical="8dp"/>
+    </HorizontalScrollView>
+
+    <!-- Loading -->
+    <ProgressBar android:id="@+id/progressBar"
+        android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:layout_below="@id/filterScroll"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="48dp"
+        android:indeterminateTint="@color/accent_cyan"
+        android:visibility="gone"/>
+
+    <!-- RecyclerView -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvOrders"
+        android:layout_width="match_parent" android:layout_height="match_parent"
+        android:layout_below="@id/filterScroll"
+        android:layout_above="@+id/bottomNav"
+        android:paddingHorizontal="16dp" android:paddingTop="8dp" android:paddingBottom="8dp"
+        android:clipToPadding="false" android:visibility="gone"/>
+
+    <!-- Empty state -->
+    <LinearLayout android:id="@+id/emptyState"
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:layout_below="@id/filterScroll"
+        android:layout_above="@+id/bottomNav"
+        android:orientation="vertical" android:gravity="center" android:padding="32dp"
+        android:visibility="gone">
+
+        <ImageView android:layout_width="80dp" android:layout_height="80dp"
+            android:src="@drawable/ic_orders" android:alpha="0.2"
+            android:contentDescription="No orders"/>
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="No orders yet"
+            android:textColor="@color/white" android:textSize="20sp" android:textStyle="bold"
+            android:layout_marginTop="20dp"/>
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="Start shopping to see your orders here."
+            android:textColor="@color/text_secondary" android:textSize="14sp"
+            android:gravity="center" android:layout_marginTop="8dp"/>
+        <Button android:id="@+id/btnStartShopping"
+            android:layout_width="wrap_content" android:layout_height="48dp"
+            android:text="Start Shopping"
+            android:textColor="@color/white" android:textSize="14sp"
+            android:textStyle="bold" android:textAllCaps="false"
+            android:background="@drawable/bg_button_blue"
+            android:paddingHorizontal="32dp" android:layout_marginTop="24dp"/>
+    </LinearLayout>
+
+    <include layout="@layout/layout_bottom_nav" android:id="@+id/bottomNav"
+        android:layout_width="match_parent" android:layout_height="72dp"
+        android:layout_alignParentBottom="true"/>
+</RelativeLayout>

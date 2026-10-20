@@ -1,0 +1,206 @@
+[
+    {
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-mergeDebugResources-91:\\layout\\activity_verify_code.xml",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\activity_verify_code.xml"
+    },
+    {
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-mergeDebugResources-91:\\layout\\item_summary_row.xml",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\item_summary_row.xml"
+    },
+    {
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-mergeDebugResources-91:\\layout\\activity_addresses.xml",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\activity_addresses.xml"
+    },
+    {
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-mergeDebugResources-91:\\layout\\activity_add_map.xml",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\activity_add_map.xml"
+    },
+    {
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-mergeDebugResources-91:\\layout\\item_cart.xml",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\item_cart.xml"
+    },
+    {
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-mergeDebugResources-91:\\layout\\layout_bottom_nav.xml",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\layout_bottom_nav.xml"
+    },
+    {
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-mergeDebugResources-91:\\layout\\dialog_address.xml",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\dialog_address.xml"
+    },
+    {
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-mergeDebugResources-91:\\layout\\component_pagination.xml",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\component_pagination.xml"
+    },
+    {
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-mergeDebugResources-91:\\layout\\item_favorite.xml",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\item_favorite.xml"
+    },
+    {
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-mergeDebugResources-91:\\layout\\item_benefit.xml",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\item_benefit.xml"
+    },
+    {
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-mergeDebugResources-91:\\layout\\activity_email_verify.xml",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\activity_email_verify.xml"
+    },
+    {
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-mergeDebugResources-91:\\layout\\activity_payment_methods.xml",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\activity_payment_methods.xml"
+    },
+    {
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-mergeDebugResources-91:\\layout\\activity_popular_products.xml",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\activity_popular_products.xml"
+    },
+    {
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-mergeDebugResources-91:\\layout\\item_category_grid.xml",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\item_category_grid.xml"
+    },
+    {
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-mergeDebugResources-91:\\layout\\activity_profile.xml",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\activity_profile.xml"
+    },
+    {
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-mergeDebugResources-91:\\layout\\activity_category_products.xml",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\activity_category_products.xml"
+    },
+    {
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-mergeDebugResources-91:\\layout\\activity_settings.xml",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\activity_settings.xml"
+    },
+    {
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-mergeDebugResources-91:\\layout\\item_product.xml",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\item_product.xml"
+    },
+    {
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-mergeDebugResources-91:\\layout\\activity_categories.xml",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\activity_categories.xml"
+    },
+    {
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-mergeDebugResources-91:\\layout\\item_promo_card.xml",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\item_promo_card.xml"
+    },
+    {
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-mergeDebugResources-91:\\layout\\activity_product_detail.xml",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\activity_product_detail.xml"
+    },
+    {
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-mergeDebugResources-91:\\layout\\sheet_filter.xml",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\sheet_filter.xml"
+    },
+    {
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-mergeDebugResources-91:\\layout\\activity_change_password.xml",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\activity_change_password.xml"
+    },
+    {
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-mergeDebugResources-91:\\layout\\activity_home.xml",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\activity_home.xml"
+    },
+    {
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-mergeDebugResources-91:\\layout\\item_notification.xml",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\item_notification.xml"
+    },
+    {
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-mergeDebugResources-91:\\layout\\activity_promo_codes.xml",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\activity_promo_codes.xml"
+    },
+    {
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-mergeDebugResources-91:\\layout\\activity_add_payment.xml",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\activity_add_payment.xml"
+    },
+    {
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-mergeDebugResources-91:\\layout\\item_category_list.xml",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\item_category_list.xml"
+    },
+    {
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-mergeDebugResources-91:\\layout\\activity_splash.xml",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\activity_splash.xml"
+    },
+    {
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-mergeDebugResources-91:\\layout\\activity_orders.xml",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\activity_orders.xml"
+    },
+    {
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-mergeDebugResources-91:\\layout\\activity_onboarding.xml",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\activity_onboarding.xml"
+    },
+    {
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-mergeDebugResources-91:\\layout\\activity_cart.xml",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\activity_cart.xml"
+    },
+    {
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-mergeDebugResources-91:\\layout\\activity_sign_up.xml",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\activity_sign_up.xml"
+    },
+    {
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-mergeDebugResources-91:\\layout\\activity_forgot_password.xml",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\activity_forgot_password.xml"
+    },
+    {
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-mergeDebugResources-91:\\layout\\activity_edit_profile.xml",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\activity_edit_profile.xml"
+    },
+    {
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-mergeDebugResources-91:\\layout\\activity_order_detail.xml",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\activity_order_detail.xml"
+    },
+    {
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-mergeDebugResources-91:\\layout\\layout_promo_banner.xml",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\layout_promo_banner.xml"
+    },
+    {
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-mergeDebugResources-91:\\layout\\item_skeleton_product.xml",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\item_skeleton_product.xml"
+    },
+    {
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-mergeDebugResources-91:\\layout\\activity_help_support.xml",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\activity_help_support.xml"
+    },
+    {
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-mergeDebugResources-91:\\layout\\pagination_controls.xml",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\pagination_controls.xml"
+    },
+    {
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-mergeDebugResources-91:\\layout\\activity_sign_in.xml",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\activity_sign_in.xml"
+    },
+    {
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-mergeDebugResources-91:\\layout\\activity_notifications.xml",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\activity_notifications.xml"
+    },
+    {
+        "merged": "com.hookahdrop.app-mergeDebugResources-91:/layout/activity_favorites.xml",
+        "source": "com.hookahdrop.app-main-94:/layout/activity_favorites.xml"
+    },
+    {
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-mergeDebugResources-91:\\layout\\activity_terms.xml",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\activity_terms.xml"
+    },
+    {
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-mergeDebugResources-91:\\layout\\activity_favorites.xml",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\activity_favorites.xml"
+    },
+    {
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-mergeDebugResources-91:\\layout\\activity_new_password.xml",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\activity_new_password.xml"
+    },
+    {
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-mergeDebugResources-91:\\layout\\activity_language.xml",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\activity_language.xml"
+    },
+    {
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-mergeDebugResources-91:\\layout\\activity_onboarding_new.xml",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\activity_onboarding_new.xml"
+    },
+    {
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-mergeDebugResources-91:\\layout\\item_hero_banner.xml",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\item_hero_banner.xml"
+    },
+    {
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-mergeDebugResources-91:\\layout\\item_order_line.xml",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\item_order_line.xml"
+    },
+    {
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-mergeDebugResources-91:\\layout\\item_order.xml",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\item_order.xml"
+    }
+]
