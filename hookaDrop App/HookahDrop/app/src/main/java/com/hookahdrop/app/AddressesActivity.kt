@@ -8,17 +8,26 @@ import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import com.hookahdrop.app.data.Address
 import com.hookahdrop.app.data.ProfileDataManager
+import com.hookahdrop.app.data.RemoteDataProvider
+import com.hookahdrop.app.data.SessionManager
 import com.hookahdrop.app.databinding.ActivityAddressesBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.util.UUID
 
 class AddressesActivity : BaseProfileActivity() {
 
     private lateinit var b: ActivityAddressesBinding
+    private lateinit var sessionManager: SessionManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         b = ActivityAddressesBinding.inflate(layoutInflater)
         setContentView(b.root)
+
+        sessionManager = SessionManager(this)
 
         b.btnBack.setOnClickListener { navigateBack() }
         b.btnAddAddress.setOnClickListener {
@@ -38,9 +47,38 @@ class AddressesActivity : BaseProfileActivity() {
 
     // â”€â”€ Render address cards â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     private fun refreshList() {
-        b.addressContainer.removeAllViews()
-        val addresses = ProfileDataManager.getAddresses()
+        // Show local addresses immediately while fetching from backend
+        renderAddressList(ProfileDataManager.getAddresses())
+        
+        // Fetch from backend in background
+        val token = sessionManager.getJwtToken()
+        if (token != null) {
+            CoroutineScope(Dispatchers.Main).launch {
+                val backendAddresses = withContext(Dispatchers.IO) {
+                    RemoteDataProvider.getAddresses(token)
+                }
+                if (backendAddresses != null) {
+                    // Merge: keep coordinates from local, use backend as source of truth
+                    val localAddresses = ProfileDataManager.getAddresses()
+                    val merged = backendAddresses.map { backend ->
+                        val local = localAddresses.find { it.id == backend.id }
+                        backend.copy(
+                            latitude = local?.latitude ?: 0.0,
+                            longitude = local?.longitude ?: 0.0
+                        )
+                    }
+                    ProfileDataManager.saveAddresses(merged)
+                    renderAddressList(merged)
+                } else {
+                    // Network error or auth failure — keep showing local addresses
+                    android.util.Log.w("AddressesActivity", "Failed to fetch addresses from backend")
+                }
+            }
+        }
+    }
 
+    private fun renderAddressList(addresses: List<Address>) {
+        b.addressContainer.removeAllViews()
         if (addresses.isEmpty()) {
             b.emptyState.visibility = View.VISIBLE
         } else {
@@ -171,10 +209,31 @@ class AddressesActivity : BaseProfileActivity() {
         actionRow.addView(btnDelete)
 
         if (!addr.isDefault) {
-            val btnDefault = createTextButton("Set Default", R.color.text_secondary) {
-                ProfileDataManager.setDefaultAddress(addr.id)
-                refreshList()
-                toast("Default address updated")
+            val btnDefault = createTextButton("Set Default", R.color.text_secondary) { }
+            btnDefault.setOnClickListener { btn ->
+                btn.isEnabled = false  // Disable button immediately to prevent duplicates
+                val token = sessionManager.getJwtToken()
+                if (token != null) {
+                    CoroutineScope(Dispatchers.Main).launch {
+                        val result = withContext(Dispatchers.IO) {
+                            RemoteDataProvider.setDefaultAddress(token, addr.id)
+                        }
+                        btn.isEnabled = true
+                        if (result != null) {
+                            ProfileDataManager.setDefaultAddress(addr.id)
+                            refreshList()
+                            toast("Default address updated")
+                        } else {
+                            toast("Failed to update default address. Check your connection.")
+                        }
+                    }
+                } else {
+                    // No token — fall back to local-only
+                    ProfileDataManager.setDefaultAddress(addr.id)
+                    btn.isEnabled = true
+                    refreshList()
+                    toast("Default address updated locally only — will not sync to other devices")
+                }
             }
             actionRow.addView(btnDefault)
         }
@@ -237,7 +296,7 @@ class AddressesActivity : BaseProfileActivity() {
             if (city.isEmpty()) { etCity.error = "Required"; return@setOnClickListener }
 
             val addr = Address(
-                id          = existing?.id ?: UUID.randomUUID().toString(),
+                id          = existing?.id ?: "",  // Empty ID for new addresses
                 label       = label,
                 fullName    = name,
                 phone       = etPhone.text.toString().trim(),
@@ -245,31 +304,87 @@ class AddressesActivity : BaseProfileActivity() {
                 city        = city,
                 postalCode  = etPostal.text.toString().trim(),
                 country     = etCountry.text.toString().trim().ifEmpty { "Tunisia" },
-                isDefault   = cbDefault.isChecked
+                isDefault   = cbDefault.isChecked,
+                latitude    = existing?.latitude ?: 0.0,
+                longitude   = existing?.longitude ?: 0.0
             )
 
-            if (existing != null) ProfileDataManager.updateAddress(addr)
-            else                  ProfileDataManager.addAddress(addr)
-
-            dialog.dismiss()
-            refreshList()
-            toast(if (existing != null) "Address updated" else "Address added")
+            btnSave.isEnabled = false
+            val token = sessionManager.getJwtToken()
+            
+            if (token != null) {
+                CoroutineScope(Dispatchers.Main).launch {
+                    val result = withContext(Dispatchers.IO) {
+                        if (existing != null) RemoteDataProvider.updateAddress(token, addr)
+                        else RemoteDataProvider.createAddress(token, addr)
+                    }
+                    btnSave.isEnabled = true
+                    if (result != null) {
+                        // Update local storage with backend-assigned ID
+                        if (existing != null) ProfileDataManager.updateAddress(result)
+                        else ProfileDataManager.addAddress(result)
+                        dialog.dismiss()
+                        refreshList()
+                        toast(if (existing != null) "Address updated" else "Address added")
+                    } else {
+                        toast("Failed to save address. Check your connection.")
+                    }
+                }
+            } else {
+                // No token — fall back to local-only
+                if (existing != null) ProfileDataManager.updateAddress(addr.copy(id = existing.id))
+                else ProfileDataManager.addAddress(addr.copy(id = java.util.UUID.randomUUID().toString()))
+                btnSave.isEnabled = true
+                dialog.dismiss()
+                refreshList()
+                toast(if (existing != null) "Address updated locally only — will not sync to other devices" else "Address saved locally only — will not sync to other devices")
+            }
         }
 
         dialog.show()
     }
 
     private fun confirmDelete(addr: Address) {
-        AlertDialog.Builder(this)
+        val dialog = AlertDialog.Builder(this)
             .setTitle("Delete this address?")
             .setMessage("This address will no longer be available during checkout.")
-            .setPositiveButton("Delete") { _, _ ->
-                ProfileDataManager.deleteAddress(addr.id)
-                refreshList()
-                toast("Address deleted")
-            }
+            .setPositiveButton("Delete") { _, _ -> }
             .setNegativeButton("Cancel", null)
-            .show()
+            .create()
+        
+        dialog.show()
+        
+        // Override the positive button's click listener after show() to control dismissal
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
+            // Disable both buttons to prevent duplicate requests
+            dialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled = false
+            dialog.getButton(AlertDialog.BUTTON_NEGATIVE).isEnabled = false
+            
+            val token = sessionManager.getJwtToken()
+            if (token != null) {
+                CoroutineScope(Dispatchers.Main).launch {
+                    val success = withContext(Dispatchers.IO) {
+                        RemoteDataProvider.deleteAddress(token, addr.id)
+                    }
+                    if (success) {
+                        ProfileDataManager.deleteAddress(addr.id)
+                        dialog.dismiss()
+                        refreshList()
+                        toast("Address deleted")
+                    } else {
+                        dialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled = true
+                        dialog.getButton(AlertDialog.BUTTON_NEGATIVE).isEnabled = true
+                        toast("Failed to delete address. Check your connection.")
+                    }
+                }
+            } else {
+                // No token — fall back to local-only
+                ProfileDataManager.deleteAddress(addr.id)
+                dialog.dismiss()
+                refreshList()
+                toast("Address deleted locally only — will not sync to other devices")
+            }
+        }
     }
 
     private fun dp(value: Int) = (value * resources.displayMetrics.density).toInt()

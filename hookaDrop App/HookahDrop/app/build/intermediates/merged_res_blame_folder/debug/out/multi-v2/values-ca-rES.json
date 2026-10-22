@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.hookahdrop.app-mergeDebugResources-90:/values-ca-rES/values-ca-rES.xml",
+            "outputFile": "com.hookahdrop.app-mergeDebugResources-92:/values-ca-rES/values-ca-rES.xml",
             "map": [
                 {
                     "source": "C:\\Users\\GAMING\\.gradle\\caches\\transforms-3\\9b4c5e97e0c150e7cba1e2ffda7b2b31\\transformed\\jetified-stripe-ui-core-20.37.5\\res\\values-ca-rES\\values-ca-rES.xml",

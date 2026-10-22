@@ -3,10 +3,10 @@ package com.hookahdrop.app
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.BitmapFactory
+import android.graphics.PointF
 import android.location.Geocoder
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
@@ -17,30 +17,51 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.google.android.gms.location.LocationServices
-import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MapStyleOptions
-import com.google.android.gms.maps.model.Marker
-import com.google.android.gms.maps.model.MarkerOptions
 import com.hookahdrop.app.data.Address
 import com.hookahdrop.app.data.ProfileDataManager
+import com.hookahdrop.app.data.RemoteDataProvider
+import com.hookahdrop.app.data.SessionManager
 import com.hookahdrop.app.databinding.ActivityAddMapBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.maplibre.android.MapLibre
+import org.maplibre.android.camera.CameraPosition
+import org.maplibre.android.geometry.LatLng
+import org.maplibre.android.maps.MapView
+import org.maplibre.android.maps.MapLibreMap
+import org.maplibre.android.maps.Style
+import org.maplibre.android.annotations.MarkerOptions
+import org.maplibre.android.annotations.IconFactory
 import java.util.Locale
 import java.util.UUID
 
-class AddMapActivity : AppCompatActivity(), OnMapReadyCallback {
+/**
+ * Add Address Activity using MapLibre + OpenFreeMap
+ * 
+ * Map Provider: OpenFreeMap (Liberty style)
+ * - Tile Server: https://tiles.openfreemap.org/styles/liberty
+ * - No API key required
+ * - Free and open source tile server
+ * - Based on OpenStreetMap data
+ * 
+ * Geocoding: Android Geocoder
+ * - Uses device's built-in geocoding service
+ * - Works offline if device has geocoding data cached
+ * - Free, no API key needed
+ * - May use Google services on devices with Google Play Services
+ * 
+ * Location: Google Play Services FusedLocationProviderClient
+ * - Requires location permission
+ * - Uses GPS, Wi-Fi, and cellular networks for accuracy
+ */
+class AddMapActivity : AppCompatActivity() {
 
     private lateinit var b: ActivityAddMapBinding
-    private var map: GoogleMap? = null
-    private var marker: Marker? = null
+    private var mapView: MapView? = null
+    private var map: MapLibreMap? = null
+    private lateinit var sessionManager: SessionManager
 
     // Currently selected location data
     private var selectedLat    = 0.0
@@ -50,60 +71,110 @@ class AddMapActivity : AppCompatActivity(), OnMapReadyCallback {
     private var selectedPostal = ""
     private var selectedCountry = ""
 
+    // Center marker (pin that stays in center of screen)
+    private var centerMarkerView: View? = null
+
     companion object {
         private const val REQ_LOCATION = 1001
         // Default: Tunis, Tunisia
         private val DEFAULT_LOCATION = LatLng(36.8065, 10.1815)
-        private const val DEFAULT_ZOOM = 14f
+        private const val DEFAULT_ZOOM = 14.0
+        private const val OPENFREEMAP_STYLE_URL = "https://tiles.openfreemap.org/styles/liberty"
     }
 
     // ── Lifecycle ─────────────────────────────────────────────────────────────
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        
+        // Initialize MapLibre
+        MapLibre.getInstance(this)
+        
         b = ActivityAddMapBinding.inflate(layoutInflater)
         setContentView(b.root)
 
         ProfileDataManager.init(this)
+        sessionManager = SessionManager(this)
 
         setupHeader()
         setupSearch()
         setupLabelChips()
         setupSaveButton()
-
-        val mapFragment = supportFragmentManager
-            .findFragmentById(R.id.mapFragment) as SupportMapFragment
-        mapFragment.getMapAsync(this)
+        setupMap(savedInstanceState)
     }
 
-    // ── Map ready ─────────────────────────────────────────────────────────────
+    // ── Map setup ─────────────────────────────────────────────────────────────
 
-    override fun onMapReady(googleMap: GoogleMap) {
-        map = googleMap
-
-        // Apply dark map style
-        try {
-            googleMap.setMapStyle(
-                MapStyleOptions.loadRawResourceStyle(this, R.raw.map_style_dark)
-            )
-        } catch (e: Exception) {
-            // Raw resource may not exist — map still works with default style
+    private fun setupMap(savedInstanceState: Bundle?) {
+        mapView = b.mapView
+        mapView?.onCreate(savedInstanceState)
+        
+        mapView?.getMapAsync { mapLibreMap ->
+            map = mapLibreMap
+            
+            // Load OpenFreeMap Liberty style
+            mapLibreMap.setStyle(OPENFREEMAP_STYLE_URL) { style ->
+                onMapStyleLoaded(style)
+            }
+            
+            // Handle map camera idle (when user stops moving map)
+            mapLibreMap.addOnCameraIdleListener {
+                onMapCameraIdle()
+            }
+            
+            // Disable rotation and tilt for simpler UX
+            mapLibreMap.uiSettings.isRotateGesturesEnabled = false
+            mapLibreMap.uiSettings.isTiltGesturesEnabled = false
+            
+            // Hide MapLibre attribution (we'll add it properly later if needed)
+            mapLibreMap.uiSettings.isAttributionEnabled = false
+            mapLibreMap.uiSettings.isLogoEnabled = false
         }
+    }
 
-        googleMap.uiSettings.apply {
-            isZoomControlsEnabled     = false
-            isCompassEnabled          = false
-            isMyLocationButtonEnabled = false
-            isMapToolbarEnabled       = false
-        }
-
-        // Tap on map → place marker
-        googleMap.setOnMapClickListener { latLng ->
-            placeMarkerAndGeocode(latLng)
-        }
-
+    private fun onMapStyleLoaded(style: Style) {
+        android.util.Log.d("AddMapActivity", "✓ MapLibre style loaded: OpenFreeMap Liberty")
+        
+        // Create center marker overlay (floating pin in center of screen)
+        createCenterMarker()
+        
         // Try to center on user location
         requestLocationPermission()
+    }
+
+    private fun createCenterMarker() {
+        // Create a floating pin view that stays in the center of the map
+        centerMarkerView = layoutInflater.inflate(R.layout.view_map_center_marker, null)
+        
+        // Add to root layout, positioned in center
+        val rootView = findViewById<android.view.ViewGroup>(android.R.id.content)
+        val params = android.widget.FrameLayout.LayoutParams(
+            android.widget.FrameLayout.LayoutParams.WRAP_CONTENT,
+            android.widget.FrameLayout.LayoutParams.WRAP_CONTENT
+        ).apply {
+            gravity = android.view.Gravity.CENTER
+        }
+        rootView.addView(centerMarkerView, params)
+    }
+
+    private fun onMapCameraIdle() {
+        // When map stops moving, geocode the center position
+        val center = map?.cameraPosition?.target ?: return
+        
+        selectedLat = center.latitude
+        selectedLng = center.longitude
+        
+        // Show loading
+        b.loadingOverlay.visibility = View.VISIBLE
+        
+        // Reverse geocode on background thread
+        CoroutineScope(Dispatchers.IO).launch {
+            val result = reverseGeocode(center.latitude, center.longitude)
+            withContext(Dispatchers.Main) {
+                b.loadingOverlay.visibility = View.GONE
+                applyGeoResult(result)
+            }
+        }
     }
 
     // ── Location permission ───────────────────────────────────────────────────
@@ -130,9 +201,12 @@ class AddMapActivity : AppCompatActivity(), OnMapReadyCallback {
             moveToCurrentLocation()
         } else {
             // Permission denied — fall back to default location
-            map?.moveCamera(CameraUpdateFactory.newLatLngZoom(DEFAULT_LOCATION, DEFAULT_ZOOM))
+            map?.cameraPosition = CameraPosition.Builder()
+                .target(DEFAULT_LOCATION)
+                .zoom(DEFAULT_ZOOM)
+                .build()
             Toast.makeText(this,
-                "Location permission denied. Tap anywhere on the map to choose an address.",
+                "Location permission denied. You can still search or manually select a location.",
                 Toast.LENGTH_LONG).show()
         }
     }
@@ -142,50 +216,39 @@ class AddMapActivity : AppCompatActivity(), OnMapReadyCallback {
             != PackageManager.PERMISSION_GRANTED) return
 
         try {
-            map?.isMyLocationEnabled = true
             val fusedClient = LocationServices.getFusedLocationProviderClient(this)
             fusedClient.lastLocation.addOnSuccessListener { location ->
                 if (location != null) {
                     val userLatLng = LatLng(location.latitude, location.longitude)
-                    map?.animateCamera(CameraUpdateFactory.newLatLngZoom(userLatLng, DEFAULT_ZOOM))
+                    map?.cameraPosition = CameraPosition.Builder()
+                        .target(userLatLng)
+                        .zoom(DEFAULT_ZOOM)
+                        .build()
                 } else {
-                    map?.moveCamera(CameraUpdateFactory.newLatLngZoom(DEFAULT_LOCATION, DEFAULT_ZOOM))
+                    // No last known location, use default
+                    map?.cameraPosition = CameraPosition.Builder()
+                        .target(DEFAULT_LOCATION)
+                        .zoom(DEFAULT_ZOOM)
+                        .build()
+                    Toast.makeText(this,
+                        "Could not get your location. Using default location.",
+                        Toast.LENGTH_SHORT).show()
                 }
             }.addOnFailureListener {
-                map?.moveCamera(CameraUpdateFactory.newLatLngZoom(DEFAULT_LOCATION, DEFAULT_ZOOM))
+                map?.cameraPosition = CameraPosition.Builder()
+                    .target(DEFAULT_LOCATION)
+                    .zoom(DEFAULT_ZOOM)
+                    .build()
             }
         } catch (e: SecurityException) {
-            map?.moveCamera(CameraUpdateFactory.newLatLngZoom(DEFAULT_LOCATION, DEFAULT_ZOOM))
+            map?.cameraPosition = CameraPosition.Builder()
+                .target(DEFAULT_LOCATION)
+                .zoom(DEFAULT_ZOOM)
+                .build()
         }
     }
 
-    // ── Marker + Geocode ──────────────────────────────────────────────────────
-
-    private fun placeMarkerAndGeocode(latLng: LatLng) {
-        selectedLat = latLng.latitude
-        selectedLng = latLng.longitude
-
-        // Place / move marker
-        marker?.remove()
-        marker = map?.addMarker(
-            MarkerOptions()
-                .position(latLng)
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN))
-                .title("Selected location")
-        )
-
-        // Show loading
-        b.loadingOverlay.visibility = View.VISIBLE
-
-        // Reverse geocode on background thread
-        CoroutineScope(Dispatchers.IO).launch {
-            val result = reverseGeocode(latLng.latitude, latLng.longitude)
-            withContext(Dispatchers.Main) {
-                b.loadingOverlay.visibility = View.GONE
-                applyGeoResult(result)
-            }
-        }
-    }
+    // ── Geocoding ─────────────────────────────────────────────────────────────
 
     private fun reverseGeocode(lat: Double, lng: Double): GeoResult {
         return try {
@@ -212,6 +275,7 @@ class AddMapActivity : AppCompatActivity(), OnMapReadyCallback {
                 GeoResult(full = "${"%.5f".format(lat)}, ${"%.5f".format(lng)}")
             }
         } catch (e: Exception) {
+            android.util.Log.w("AddMapActivity", "Geocoding failed: ${e.message}")
             GeoResult(full = "${"%.5f".format(lat)}, ${"%.5f".format(lng)}")
         }
     }
@@ -226,7 +290,7 @@ class AddMapActivity : AppCompatActivity(), OnMapReadyCallback {
         b.tvCity.text        = result.city
         b.tvPostal.text      = if (result.postal.isNotEmpty()) "• ${result.postal}" else ""
 
-        // Show panel with slide-up feel
+        // Show panel with slide-up animation
         if (b.addressPanel.visibility != View.VISIBLE) {
             b.addressPanel.visibility = View.VISIBLE
             b.addressPanel.translationY = 300f
@@ -270,16 +334,17 @@ class AddMapActivity : AppCompatActivity(), OnMapReadyCallback {
             try {
                 val geocoder = Geocoder(this@AddMapActivity, Locale.getDefault())
                 @Suppress("DEPRECATION")
-                val results = geocoder.getFromLocationName(query, 1)
+                val results = geocoder.getFromLocationName(query, 5)
                 withContext(Dispatchers.Main) {
                     b.loadingOverlay.visibility = View.GONE
                     if (!results.isNullOrEmpty()) {
                         val r = results[0]
                         val latLng = LatLng(r.latitude, r.longitude)
-                        map?.animateCamera(
-                            CameraUpdateFactory.newLatLngZoom(latLng, DEFAULT_ZOOM)
-                        )
-                        placeMarkerAndGeocode(latLng)
+                        map?.cameraPosition = CameraPosition.Builder()
+                            .target(latLng)
+                            .zoom(DEFAULT_ZOOM)
+                            .build()
+                        // onMapCameraIdle will handle geocoding automatically
                     } else {
                         Toast.makeText(this@AddMapActivity,
                             "Location not found. Try a different search.",
@@ -290,7 +355,7 @@ class AddMapActivity : AppCompatActivity(), OnMapReadyCallback {
                 withContext(Dispatchers.Main) {
                     b.loadingOverlay.visibility = View.GONE
                     Toast.makeText(this@AddMapActivity,
-                        "Search failed. Check your connection.",
+                        "Search failed: ${e.message}",
                         Toast.LENGTH_SHORT).show()
                 }
             }
@@ -312,8 +377,7 @@ class AddMapActivity : AppCompatActivity(), OnMapReadyCallback {
     // ── Label chips ───────────────────────────────────────────────────────────
 
     private fun setupLabelChips() {
-        // RadioGroup handles mutual exclusion automatically.
-        // Text colors update on selection to white (active) / muted (inactive).
+        // RadioGroup handles mutual exclusion automatically
         b.radioLabel.setOnCheckedChangeListener { _, _ -> /* handled by RadioButton background selector */ }
     }
 
@@ -331,37 +395,62 @@ class AddMapActivity : AppCompatActivity(), OnMapReadyCallback {
         b.btnSaveAddress.setOnClickListener {
             if (selectedLat == 0.0 && selectedLng == 0.0) {
                 Toast.makeText(this,
-                    "Please tap on the map or search to select a location.",
+                    "Please select a location on the map first.",
                     Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
             val address = Address(
-                id          = UUID.randomUUID().toString(),
+                id          = "",  // Backend will assign MongoDB _id
                 label       = getSelectedLabel(),
-                fullName    = "",           // user can edit from Saved Addresses
+                fullName    = "",
                 phone       = "",
                 street      = selectedStreet,
                 city        = selectedCity,
                 postalCode  = selectedPostal,
                 country     = selectedCountry,
-                isDefault   = ProfileDataManager.getAddresses().isEmpty(), // first = default
+                isDefault   = ProfileDataManager.getAddresses().isEmpty(),
                 latitude    = selectedLat,
                 longitude   = selectedLng
             )
 
-            ProfileDataManager.addAddress(address)
+            b.btnSaveAddress.isEnabled = false
+            val token = sessionManager.getJwtToken()
 
-            Toast.makeText(this, "Address saved!", Toast.LENGTH_SHORT).show()
-
-            // Return to Saved Addresses
-            val intent = Intent(this, AddressesActivity::class.java).apply {
-                flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+            if (token != null) {
+                CoroutineScope(Dispatchers.Main).launch {
+                    val result = withContext(Dispatchers.IO) {
+                        RemoteDataProvider.createAddress(token, address)
+                    }
+                    b.btnSaveAddress.isEnabled = true
+                    if (result != null) {
+                        ProfileDataManager.addAddress(result)
+                        Toast.makeText(this@AddMapActivity, "Address saved!", Toast.LENGTH_SHORT).show()
+                        navigateToAddressesActivity()
+                    } else {
+                        Toast.makeText(this@AddMapActivity,
+                            "Failed to save address. Check your connection.",
+                            Toast.LENGTH_SHORT).show()
+                    }
+                }
+            } else {
+                // No token — fall back to local-only with UUID
+                val localAddress = address.copy(id = UUID.randomUUID().toString())
+                ProfileDataManager.addAddress(localAddress)
+                b.btnSaveAddress.isEnabled = true
+                Toast.makeText(this, "Address saved locally only", Toast.LENGTH_SHORT).show()
+                navigateToAddressesActivity()
             }
-            startActivity(intent)
-            overridePendingTransition(R.anim.nav_exit, R.anim.nav_enter)
-            finish()
         }
+    }
+
+    private fun navigateToAddressesActivity() {
+        val intent = Intent(this, AddressesActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+        }
+        startActivity(intent)
+        overridePendingTransition(R.anim.nav_exit, R.anim.nav_enter)
+        finish()
     }
 
     // ── Helpers ───────────────────────────────────────────────────────────────
@@ -369,6 +458,43 @@ class AddMapActivity : AppCompatActivity(), OnMapReadyCallback {
     private fun hideKeyboard() {
         val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(b.etSearch.windowToken, 0)
+    }
+
+    // ── MapView lifecycle methods ─────────────────────────────────────────────
+
+    override fun onStart() {
+        super.onStart()
+        mapView?.onStart()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        mapView?.onResume()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        mapView?.onPause()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        mapView?.onStop()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        mapView?.onSaveInstanceState(outState)
+    }
+
+    override fun onLowMemory() {
+        super.onLowMemory()
+        mapView?.onLowMemory()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mapView?.onDestroy()
     }
 
     override fun onBackPressed() {

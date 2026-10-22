@@ -3,126 +3,103 @@
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black">
+    android:background="#111111"
+    android:fitsSystemWindows="false">
 
-    <!-- Smoke layers at corners -->
-    <ImageView
-        android:id="@+id/smokeTL"
-        android:layout_width="180dp"
-        android:layout_height="180dp"
-        android:layout_gravity="top|start"
-        android:src="@drawable/smk"
-        android:scaleType="fitXY"
-        android:alpha="0"
-        android:contentDescription="" />
+    <!-- Layer 1: Smoke background with Screen blend, tinted, faded at bottom -->
+    <com.hookahdrop.app.view.SmokeBackgroundView
+        android:id="@+id/smokeBackground"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
-    <ImageView
-        android:id="@+id/smokeTR"
-        android:layout_width="180dp"
-        android:layout_height="180dp"
-        android:layout_gravity="top|end"
-        android:src="@drawable/smk"
-        android:scaleType="fitXY"
-        android:scaleX="-1"
-        android:alpha="0"
-        android:contentDescription="" />
+    <!-- Layer 2: Orbs (3 soft radial glows) and aura -->
+    <com.hookahdrop.app.view.SplashOrbsView
+        android:id="@+id/orbsView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
-    <ImageView
-        android:id="@+id/smokeBL"
-        android:layout_width="180dp"
-        android:layout_height="180dp"
-        android:layout_gravity="bottom|start"
-        android:src="@drawable/smk"
-        android:scaleType="fitXY"
-        android:scaleY="-1"
-        android:alpha="0"
-        android:contentDescription="" />
-
-    <ImageView
-        android:id="@+id/smokeBR"
-        android:layout_width="180dp"
-        android:layout_height="180dp"
-        android:layout_gravity="bottom|end"
-        android:src="@drawable/smk"
-        android:scaleType="fitXY"
-        android:scaleX="-1"
-        android:scaleY="-1"
-        android:alpha="0"
-        android:contentDescription="" />
-
-    <!-- Cyan halo behind logo -->
+    <!-- Layer 3: Bottom scrim for loader readability -->
     <View
-        android:id="@+id/cyanHalo"
-        android:layout_width="280dp"
-        android:layout_height="280dp"
+        android:id="@+id/bottomScrim"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/splash_bottom_scrim" />
+
+    <!-- Layer 4: Particle canvas -->
+    <com.hookahdrop.app.view.SplashParticleView
+        android:id="@+id/particleView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <!-- Layer 5: Logo (232x252dp, centered at 50% width / 40% height) -->
+    <ImageView
+        android:id="@+id/imgLogo"
+        android:layout_width="232dp"
+        android:layout_height="252dp"
         android:layout_gravity="center"
-        android:background="@drawable/bg_cyan_halo"
+        android:layout_marginTop="-60dp"
+        android:src="@drawable/logo_hookadrop"
+        android:scaleType="fitCenter"
+        android:contentDescription="@string/app_name"
         android:alpha="0" />
 
-    <!-- Center logo container -->
-    <FrameLayout
-        android:id="@+id/logoContainer"
+    <!-- Layer 6: Tagline with hairlines -->
+    <LinearLayout
+        android:id="@+id/taglineContainer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="340dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
         android:alpha="0">
 
-        <ImageView
-            android:id="@+id/glowRing"
-            android:layout_width="220dp"
-            android:layout_height="220dp"
-            android:layout_gravity="center"
-            android:src="@drawable/glow_ring"
-            android:alpha="0" />
-
-        <ImageView
-            android:id="@+id/glowRing2"
-            android:layout_width="220dp"
-            android:layout_height="220dp"
-            android:layout_gravity="center"
-            android:src="@drawable/bg_ring_small"
-            android:tint="#08B9F5"
-            android:alpha="0" />
-
-        <ImageView
-            android:id="@+id/imgLogo"
-            android:layout_width="160dp"
-            android:layout_height="160dp"
-            android:layout_gravity="center"
-            android:src="@drawable/ic_hookah_neon"
-            android:scaleType="fitCenter"
-            android:contentDescription="HookahDrop" />
-
+        <!-- Left hairline -->
         <View
-            android:id="@+id/shimmerOverlay"
-            android:layout_width="160dp"
-            android:layout_height="160dp"
-            android:layout_gravity="center"
-            android:background="@drawable/bg_shimmer_sweep"
-            android:alpha="0" />
+            android:id="@+id/hairlineLeft"
+            android:layout_width="34dp"
+            android:layout_height="1dp"
+            android:layout_marginEnd="12dp"
+            android:background="@drawable/splash_tagline_hairline_left"
+            android:scaleX="0" />
 
-    </FrameLayout>
+        <!-- Tagline text -->
+        <TextView
+            android:id="@+id/tvTagline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="PREMIUM HOOKAH EXPERIENCE"
+            android:textColor="#9AA1A9"
+            android:textSize="10sp"
+            android:textAllCaps="true"
+            android:letterSpacing="0.26" />
 
-    <!-- Loading bar area at bottom -->
-    <FrameLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        <!-- Right hairline -->
+        <View
+            android:id="@+id/hairlineRight"
+            android:layout_width="34dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="12dp"
+            android:background="@drawable/splash_tagline_hairline_right"
+            android:scaleX="0" />
+
+    </LinearLayout>
+
+    <!-- Layer 7: Hose loader (width = min(320dp, 84% screen), bottom-aligned) -->
+    <com.hookahdrop.app.view.SplashHoseLoaderView
+        android:id="@+id/loaderView"
+        android:layout_width="320dp"
+        android:layout_height="80dp"
         android:layout_gravity="bottom|center_horizontal"
-        android:layout_marginBottom="48dp">
+        android:layout_marginBottom="48dp"
+        android:alpha="0" />
 
-        <View
-            android:id="@+id/loadingTrack"
-            android:layout_width="200dp"
-            android:layout_height="3dp"
-            android:background="@drawable/loading_track"
-            android:alpha="0" />
-
-        <View
-            android:id="@+id/loadingBar"
-            android:layout_width="0dp"
-            android:layout_height="3dp"
-            android:background="@drawable/loading_fill" />
-
-    </FrameLayout>
+    <!-- Layer 8: Exit veil -->
+    <View
+        android:id="@+id/exitVeil"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#111111"
+        android:alpha="0" />
 
 </FrameLayout>

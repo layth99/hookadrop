@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.hookahdrop.app-mergeDebugResources-90:/values-id/values-id.xml",
+            "outputFile": "com.hookahdrop.app-mergeDebugResources-92:/values-id/values-id.xml",
             "map": [
                 {
                     "source": "C:\\Users\\GAMING\\.gradle\\caches\\transforms-3\\12ad6b620a9e3b405793ae1d648733dd\\transformed\\jetified-play-services-wallet-19.2.1\\res\\values-id\\values.xml",

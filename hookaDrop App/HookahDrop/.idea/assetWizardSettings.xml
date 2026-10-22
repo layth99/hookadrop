@@ -80,7 +80,7 @@
                                               <map>
                                                 <entry key="color" value="000000" />
                                                 <entry key="imagePath" value="C:\Users\GAMING\Downloads\raaa\e-commerce-backend-main\hookaDrop App\logoo.png" />
-                                                <entry key="scalingPercent" value="90" />
+                                                <entry key="scalingPercent" value="97" />
                                                 <entry key="trimmed" value="true" />
                                               </map>
                                             </option>
@@ -159,6 +159,8 @@
                                     <map>
                                       <entry key="backgroundAssetType" value="COLOR" />
                                       <entry key="backgroundColor" value="132025" />
+                                      <entry key="generateWebpIcons" value="false" />
+                                      <entry key="outputName" value="hooka" />
                                     </map>
                                   </option>
                                 </PersistentState>

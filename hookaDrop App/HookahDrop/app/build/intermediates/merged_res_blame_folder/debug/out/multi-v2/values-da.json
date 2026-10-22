@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.hookahdrop.app-mergeDebugResources-90:/values-da/values-da.xml",
+            "outputFile": "com.hookahdrop.app-mergeDebugResources-92:/values-da/values-da.xml",
             "map": [
                 {
                     "source": "C:\\Users\\GAMING\\.gradle\\caches\\transforms-3\\0207f9e4e5431f43bb996ea9cf056bdd\\transformed\\jetified-play-services-basement-18.3.0\\res\\values-da\\values.xml",

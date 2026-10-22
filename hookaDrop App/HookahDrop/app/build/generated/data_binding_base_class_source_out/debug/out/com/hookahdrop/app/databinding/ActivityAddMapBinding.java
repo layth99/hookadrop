@@ -21,6 +21,7 @@ import com.hookahdrop.app.R;
 import java.lang.NullPointerException;
 import java.lang.Override;
 import java.lang.String;
+import org.maplibre.android.maps.MapView;
 
 public final class ActivityAddMapBinding implements ViewBinding {
   @NonNull
@@ -51,6 +52,9 @@ public final class ActivityAddMapBinding implements ViewBinding {
   public final FrameLayout loadingOverlay;
 
   @NonNull
+  public final MapView mapView;
+
+  @NonNull
   public final RadioGroup radioLabel;
 
   @NonNull
@@ -78,7 +82,7 @@ public final class ActivityAddMapBinding implements ViewBinding {
       @NonNull LinearLayout addressPanel, @NonNull ImageButton btnBack,
       @NonNull ImageButton btnClearSearch, @NonNull FrameLayout btnMyLocation,
       @NonNull Button btnSaveAddress, @NonNull EditText etSearch, @NonNull LinearLayout header,
-      @NonNull FrameLayout loadingOverlay, @NonNull RadioGroup radioLabel,
+      @NonNull FrameLayout loadingOverlay, @NonNull MapView mapView, @NonNull RadioGroup radioLabel,
       @NonNull RadioButton rbHome, @NonNull RadioButton rbOther, @NonNull RadioButton rbWork,
       @NonNull FrameLayout searchContainer, @NonNull TextView tvCity,
       @NonNull TextView tvFullAddress, @NonNull TextView tvPostal) {
@@ -91,6 +95,7 @@ public final class ActivityAddMapBinding implements ViewBinding {
     this.etSearch = etSearch;
     this.header = header;
     this.loadingOverlay = loadingOverlay;
+    this.mapView = mapView;
     this.radioLabel = radioLabel;
     this.rbHome = rbHome;
     this.rbOther = rbOther;
@@ -176,6 +181,12 @@ public final class ActivityAddMapBinding implements ViewBinding {
         break missingId;
       }
 
+      id = R.id.mapView;
+      MapView mapView = ViewBindings.findChildViewById(rootView, id);
+      if (mapView == null) {
+        break missingId;
+      }
+
       id = R.id.radioLabel;
       RadioGroup radioLabel = ViewBindings.findChildViewById(rootView, id);
       if (radioLabel == null) {
@@ -225,7 +236,7 @@ public final class ActivityAddMapBinding implements ViewBinding {
       }
 
       return new ActivityAddMapBinding((RelativeLayout) rootView, addressPanel, btnBack,
-          btnClearSearch, btnMyLocation, btnSaveAddress, etSearch, header, loadingOverlay,
+          btnClearSearch, btnMyLocation, btnSaveAddress, etSearch, header, loadingOverlay, mapView,
           radioLabel, rbHome, rbOther, rbWork, searchContainer, tvCity, tvFullAddress, tvPostal);
     }
     String missingId = rootView.getResources().getResourceName(id);

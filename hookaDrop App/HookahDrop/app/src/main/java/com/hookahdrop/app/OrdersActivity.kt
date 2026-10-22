@@ -170,11 +170,63 @@ class OrdersActivity : BaseProfileActivity() {
                 return@launch
             }
 
-            allOrders = orders.filter { it.status.lowercase() != "cancelled" }
+            // FILTER: Show only valid orders (confirmed payments)
+            allOrders = orders.filter { order -> isValidOrder(order) }
+            
+            android.util.Log.d("OrdersActivity", "Total orders from backend: ${orders.size}, Valid orders: ${allOrders.size}")
+            
+            if (allOrders.isEmpty()) {
+                showEmptyState()
+                return@launch
+            }
+
             b.rvOrders.visibility   = View.VISIBLE
             b.emptyState.visibility = View.GONE
             applyFilter()
         }
+    }
+    
+    /**
+     * Determines if an order should be displayed.
+     * 
+     * VALID ORDERS (display these):
+     * 1. Card Payment: isPaid = true (payment confirmed by Stripe)
+     * 2. Cash on Delivery (COD): paymentMethod = "cod" or "cash" (order was successfully created)
+     * 
+     * INVALID ORDERS (hide these):
+     * - Card payment pending, incomplete, or failed (isPaid = false and paymentMethod = "card")
+     * - Cancelled orders (status = "cancelled")
+     * - Any order that doesn't meet the above criteria
+     */
+    private fun isValidOrder(order: ApiOrder): Boolean {
+        // Rule 1: Hide cancelled orders
+        if (order.status.lowercase() == "cancelled") {
+            android.util.Log.d("OrdersActivity", "Order ${order.orderId} hidden: cancelled")
+            return false
+        }
+        
+        // Rule 2: Card payments must be confirmed (isPaid = true)
+        val paymentMethod = order.paymentMethod.lowercase()
+        if (paymentMethod == "card" || paymentMethod == "stripe" || paymentMethod == "credit card") {
+            val isValid = order.isPaid
+            if (!isValid) {
+                android.util.Log.d("OrdersActivity", "Order ${order.orderId} hidden: card payment not confirmed (isPaid=${order.isPaid})")
+            }
+            return isValid
+        }
+        
+        // Rule 3: COD orders are valid if successfully created
+        if (paymentMethod == "cod" || paymentMethod == "cash" || paymentMethod.contains("cash on delivery")) {
+            android.util.Log.d("OrdersActivity", "Order ${order.orderId} valid: COD order")
+            return true
+        }
+        
+        // Rule 4: Other payment methods - only if paid
+        val isValid = order.isPaid
+        if (!isValid) {
+            android.util.Log.d("OrdersActivity", "Order ${order.orderId} hidden: payment method '$paymentMethod' not paid")
+        }
+        return isValid
     }
 
     // ── Open detail ───────────────────────────────────────────────────────────

@@ -96,11 +96,50 @@ class ProfileActivity : BaseProfileActivity() {
                 val orders = withContext(Dispatchers.IO) {
                     RemoteDataProvider.getMyOrders(userId, token)
                 }
-                b.tvOrderCount.text = orders.size.toString()
+                // Count only valid orders (same filtering as OrdersActivity)
+                val validOrderCount = orders.count { order -> isValidOrder(order) }
+                b.tvOrderCount.text = validOrderCount.toString()
+                
+                android.util.Log.d("ProfileActivity", "Total orders: ${orders.size}, Valid orders: $validOrderCount")
             } catch (e: Exception) {
+                android.util.Log.e("ProfileActivity", "Failed to load order count", e)
                 // Keep showing 0 silently on error
             }
         }
+    }
+    
+    /**
+     * Determines if an order should be counted in the order counter.
+     * Must match the same filtering logic as OrdersActivity.
+     * 
+     * VALID ORDERS (count these):
+     * 1. Card Payment: isPaid = true (payment confirmed by Stripe)
+     * 2. Cash on Delivery (COD): paymentMethod = "cod" or "cash"
+     * 
+     * INVALID ORDERS (don't count):
+     * - Card payment not confirmed (isPaid = false)
+     * - Cancelled orders
+     * - Failed or pending payments
+     */
+    private fun isValidOrder(order: com.hookahdrop.app.network.ApiOrder): Boolean {
+        // Rule 1: Hide cancelled orders
+        if (order.status.lowercase() == "cancelled") {
+            return false
+        }
+        
+        // Rule 2: Card payments must be confirmed (isPaid = true)
+        val paymentMethod = order.paymentMethod.lowercase()
+        if (paymentMethod == "card" || paymentMethod == "stripe" || paymentMethod == "credit card") {
+            return order.isPaid
+        }
+        
+        // Rule 3: COD orders are valid if successfully created
+        if (paymentMethod == "cod" || paymentMethod == "cash" || paymentMethod.contains("cash on delivery")) {
+            return true
+        }
+        
+        // Rule 4: Other payment methods - only if paid
+        return order.isPaid
     }
 
     private fun setupMenuItems() {

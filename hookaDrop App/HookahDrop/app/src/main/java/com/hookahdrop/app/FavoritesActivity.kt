@@ -51,6 +51,9 @@ class FavoritesActivity : AppCompatActivity() {
     private var totalPages = 1
     private val itemsPerPage = 4
     private var allFavoriteProducts = listOf<Product>()
+    
+    // Flag to prevent infinite loop when fetching missing products
+    private var isFetchingMissingProducts = false
 
     // Listener — CartManager / FavoritesManager run on any thread
     private val favListener: () -> Unit = { runOnUiThread { refreshAll() } }
@@ -135,30 +138,26 @@ class FavoritesActivity : AppCompatActivity() {
 
             // Step 2 — sync backend wishlist if user is logged in
             val userId = session.getUserId()
-            android.util.Log.d("FavoritesActivity", "Syncing with backend for userId: $userId")
+            android.util.Log.d("FavoritesActivity", "═══ BACKEND SYNC START ═══")
+            android.util.Log.d("FavoritesActivity", "User ID: ${userId ?: "NOT LOGGED IN"}")
             
             if (!userId.isNullOrEmpty()) {
                 val localFavCount = FavoritesManager.getFavoriteIds().size
-                val backendIds = withContext(Dispatchers.IO) {
-                    RemoteDataProvider.getWishlist(userId)
-                }
-                android.util.Log.d("FavoritesActivity", "Backend returned: ${backendIds?.size ?: "null"} items")
+                val localFavIds = FavoritesManager.getFavoriteIds()
+                android.util.Log.d("FavoritesActivity", "Local favorites count: $localFavCount")
                 
-                if (backendIds != null) {
-                    // CRITICAL FIX: Only replace if backend has data OR if local is empty
-                    if (backendIds.isNotEmpty() || localFavCount == 0) {
-                        android.util.Log.d("FavoritesActivity", "Replacing local favorites with backend")
-                        FavoritesManager.replaceAll(backendIds)
-                    } else {
-                        android.util.Log.w("FavoritesActivity", 
-                            "Backend empty but local has $localFavCount items - keeping local (backend may not be synced yet)")
-                    }
-                } else {
-                    android.util.Log.w("FavoritesActivity", "Backend sync failed, keeping local favorites")
-                }
+                // CRITICAL FIX: Never replace local with backend
+                // The backend has stale/corrupt data (21 phantom products)
+                // Local storage is the source of truth
+                android.util.Log.d("FavoritesActivity", "✅ Using LOCAL as source of truth (backend has stale data)")
+                android.util.Log.d("FavoritesActivity", "Skipping backend sync to prevent phantom products from reappearing")
+                
+                // TODO: Future improvement - sync local TO backend (not backend TO local)
+                // This would require fixing the backend DELETE endpoint first
             } else {
                 android.util.Log.w("FavoritesActivity", "User not logged in, skipping backend sync")
             }
+            android.util.Log.d("FavoritesActivity", "═══ BACKEND SYNC END ═══")
 
             // Step 3 — rebuild + display after sync
             loadFavoriteProducts()
@@ -173,6 +172,11 @@ class FavoritesActivity : AppCompatActivity() {
      */
     private fun refreshAll() {
         if (b.skeletonContainer.visibility == View.VISIBLE) return
+        // Don't refresh while already fetching missing products - prevents infinite loop
+        if (isFetchingMissingProducts) {
+            android.util.Log.d("FavoritesActivity", "Skipping refreshAll() - already fetching missing products")
+            return
+        }
         loadFavoriteProducts()
         applyFiltersAndDisplay()
         updateCartBadge()
@@ -184,42 +188,102 @@ class FavoritesActivity : AppCompatActivity() {
      */
     private fun loadFavoriteProducts() {
         val ids = FavoritesManager.getFavoriteIds()
-        android.util.Log.d("FavoritesActivity", "loadFavoriteProducts() - Found ${ids.size} favorite IDs: ${ids.joinToString()}")
+        android.util.Log.d("FavoritesActivity", "═══ loadFavoriteProducts() START ═══")
+        android.util.Log.d("FavoritesActivity", "Found ${ids.size} favorite IDs")
         
         if (ids.isEmpty()) {
             favoriteProducts = mutableListOf()
             android.util.Log.d("FavoritesActivity", "No favorites to load")
+            android.util.Log.d("FavoritesActivity", "═══ loadFavoriteProducts() END ═══")
             return
         }
+
+        // Log first 5 favorite IDs for diagnostics
+        val sampleFavIds = ids.take(5).joinToString(", ")
+        android.util.Log.d("FavoritesActivity", "Sample favorite IDs (first 5): [$sampleFavIds]")
 
         // Build from whatever is already in the RemoteDataProvider cache
         val allCached = RemoteDataProvider.getAllCachedProducts()
         android.util.Log.d("FavoritesActivity", "Cached products: ${allCached.size}")
+        
+        // Log first 5 cached product IDs for comparison
+        if (allCached.isNotEmpty()) {
+            val sampleCachedIds = allCached.take(5).map { it.id }.joinToString(", ")
+            android.util.Log.d("FavoritesActivity", "Sample cached product IDs (first 5): [$sampleCachedIds]")
+        }
 
         favoriteProducts = ids.mapNotNull { id ->
             // 1. Remote cache (fastest)
-            allCached.find { it.id == id }
-                // 2. Static DataProvider (hardcoded products with p1, p2… IDs)
-                ?: DataProvider.getProductById(id)
+            val cached = allCached.find { it.id == id }
+            if (cached != null) {
+                android.util.Log.d("FavoritesActivity", "✓ Matched favorite '$id' in cache")
+                return@mapNotNull cached
+            }
+            // 2. Static DataProvider (hardcoded products with p1, p2… IDs)
+            val static = DataProvider.getProductById(id)
+            if (static != null) {
+                android.util.Log.d("FavoritesActivity", "✓ Matched favorite '$id' in static DataProvider")
+                return@mapNotNull static
+            }
+            android.util.Log.w("FavoritesActivity", "✗ Could NOT match favorite ID '$id'")
+            null
         }.toMutableList()
         
         android.util.Log.d("FavoritesActivity", "Resolved ${favoriteProducts.size} products from ${ids.size} IDs")
 
         // If some IDs could not be resolved (MongoDB IDs not yet in cache),
-        // trigger a background fetch so the next refresh shows them
+        // trigger a background fetch ONCE (using a flag to prevent infinite loop)
         val missingIds = ids.filter { id ->
             allCached.none { it.id == id } && DataProvider.getProductById(id) == null
         }
+        
         if (missingIds.isNotEmpty()) {
-            android.util.Log.w("FavoritesActivity", "Missing ${missingIds.size} products from cache, fetching...")
-            CoroutineScope(Dispatchers.Main).launch {
-                // Force a full product sync to populate the cache
-                withContext(Dispatchers.IO) { RemoteDataProvider.getProducts(forceRefresh = true) }
-                // Then rebuild the list with the freshly cached products
-                loadFavoriteProducts()
-                applyFiltersAndDisplay()
+            android.util.Log.w("FavoritesActivity", "Missing ${missingIds.size} products from cache")
+            val sampleMissingIds = missingIds.take(3).joinToString(", ")
+            android.util.Log.w("FavoritesActivity", "Sample missing IDs (first 3): [$sampleMissingIds]")
+            
+            // Only fetch if we haven't tried yet
+            if (!isFetchingMissingProducts) {
+                isFetchingMissingProducts = true
+                android.util.Log.d("FavoritesActivity", "Triggering background product fetch to resolve missing IDs...")
+                
+                CoroutineScope(Dispatchers.Main).launch {
+                    try {
+                        // Force a full product sync to populate the cache
+                        withContext(Dispatchers.IO) { RemoteDataProvider.getProducts(forceRefresh = true) }
+                        
+                        // Rebuild the list with the freshly cached products
+                        val updatedCache = RemoteDataProvider.getAllCachedProducts()
+                        android.util.Log.d("FavoritesActivity", "After fetch: Cache now has ${updatedCache.size} products")
+                        
+                        favoriteProducts = ids.mapNotNull { id ->
+                            updatedCache.find { it.id == id } ?: DataProvider.getProductById(id)
+                        }.toMutableList()
+                        
+                        android.util.Log.d("FavoritesActivity", "After fetch: Resolved ${favoriteProducts.size} products from ${ids.size} IDs")
+                        
+                        if (favoriteProducts.isEmpty() && ids.isNotEmpty()) {
+                            android.util.Log.e("FavoritesActivity", 
+                                "⚠️ CRITICAL: Still cannot resolve ANY products after fetch! " +
+                                "Backend wishlist IDs do NOT match product database IDs. " +
+                                "This is a DATA INTEGRITY issue - NOT deleting favorites!")
+                        }
+                        
+                        applyFiltersAndDisplay()
+                    } catch (e: Exception) {
+                        android.util.Log.e("FavoritesActivity", "Failed to fetch missing products: ${e.message}", e)
+                    } finally {
+                        isFetchingMissingProducts = false
+                    }
+                }
+            } else {
+                android.util.Log.d("FavoritesActivity", "Already fetching missing products, skipping duplicate fetch")
             }
+        } else {
+            android.util.Log.d("FavoritesActivity", "All favorite IDs resolved successfully")
         }
+        
+        android.util.Log.d("FavoritesActivity", "═══ loadFavoriteProducts() END ═══")
     }
 
     /**
@@ -364,14 +428,35 @@ class FavoritesActivity : AppCompatActivity() {
      * FavoritesManager.toggle() fires the listener → refreshAll() rebuilds list.
      */
     private fun handleRemoveFavorite(product: Product) {
+        android.util.Log.d("FavoritesActivity", "═══ handleRemoveFavorite() START ═══")
+        android.util.Log.d("FavoritesActivity", "Removing product: ${product.name} (ID: ${product.id})")
+        
+        val wasRemoved = !FavoritesManager.isFavorite(product.id)
         FavoritesManager.toggle(product.id)   // local toggle → listener → refreshAll()
+        val nowRemoved = !FavoritesManager.isFavorite(product.id)
+        
+        android.util.Log.d("FavoritesActivity", "Local favorite status: was=${!wasRemoved}, now=${!nowRemoved}")
+        android.util.Log.d("FavoritesActivity", "Total local favorites after removal: ${FavoritesManager.getFavoriteIds().size}")
+        
         // Sync removal to backend wishlist
         val userId = session.getUserId()
         if (!userId.isNullOrEmpty()) {
-            CoroutineScope(Dispatchers.IO).launch {
-                RemoteDataProvider.removeFromWishlist(userId, product.id)
+            android.util.Log.d("FavoritesActivity", "Syncing removal to backend for userId: $userId")
+            CoroutineScope(Dispatchers.Main).launch {
+                val success = withContext(Dispatchers.IO) {
+                    RemoteDataProvider.removeFromWishlist(userId, product.id)
+                }
+                if (success) {
+                    android.util.Log.d("FavoritesActivity", "✅ Backend removal SUCCESS")
+                } else {
+                    android.util.Log.e("FavoritesActivity", "❌ Backend removal FAILED - local and backend OUT OF SYNC!")
+                }
             }
+        } else {
+            android.util.Log.w("FavoritesActivity", "User not logged in - removal is local only")
         }
+        
+        android.util.Log.d("FavoritesActivity", "═══ handleRemoveFavorite() END ═══")
     }
 
     // ── View product ──────────────────────────────────────────────────────────

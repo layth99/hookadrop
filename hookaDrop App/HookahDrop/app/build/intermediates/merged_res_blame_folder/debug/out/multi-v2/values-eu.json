@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.hookahdrop.app-mergeDebugResources-90:/values-eu/values-eu.xml",
+            "outputFile": "com.hookahdrop.app-mergeDebugResources-92:/values-eu/values-eu.xml",
             "map": [
                 {
                     "source": "C:\\Users\\GAMING\\.gradle\\caches\\transforms-3\\6109f6cdcf4585bbd595f6f90177ed94\\transformed\\core-1.12.0\\res\\values-eu\\values-eu.xml",

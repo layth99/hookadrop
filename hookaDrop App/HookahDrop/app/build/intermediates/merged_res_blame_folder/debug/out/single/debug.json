@@ -1,1290 +1,1374 @@
 [
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_art_pack_ways_nicotine.png.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\art_pack_ways_nicotine.png"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_favorite_button.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_favorite_button.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_ic_profile.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\ic_profile.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_card_input_focused.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_card_input_focused.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_logo_ring.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_logo_ring.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\layout_dialog_address.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\layout\\dialog_address.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_ic_filter.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\ic_filter.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_ic_facebook.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\ic_facebook.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_ring_large.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_ring_large.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_hookah_photo_3.jpg.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\hookah_photo_3.jpg"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable-xxxhdpi_ic_hookah_neon.png.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable-xxxhdpi\\ic_hookah_neon.png"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\anim_nav_back_enter.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\anim\\nav_back_enter.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_ic_orders.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\ic_orders.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\layout_item_promo_card.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\layout\\item_promo_card.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_art_coals_aladin_coco_c26.png.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\art_coals_aladin_coco_c26.png"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_ic_map_pin.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\ic_map_pin.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_ic_logout.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\ic_logout.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_notification_icon_payment.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_notification_icon_payment.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_onboarding_image.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_onboarding_image.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\layout_activity_category_products.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\layout\\activity_category_products.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_back_button.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_back_button.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_ic_cart.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\ic_cart.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\layout_dialog_address.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\dialog_address.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\raw_map_style_dark.json.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\raw\\map_style_dark.json"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_ic_launcher.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\ic_launcher.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\layout_activity_email_verify.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\layout\\activity_email_verify.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_tag.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_tag.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_add_to_cart_btn.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_add_to_cart_btn.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_indicator_active.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_indicator_active.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_remove_btn.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_remove_btn.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_ic_settings.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\ic_settings.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_discount_badge.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_discount_badge.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable-nodpi_logoo.png.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable-nodpi\\logoo.png"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_code_box.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_code_box.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\layout_activity_onboarding_new.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\activity_onboarding_new.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_empty_cart_icon.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_empty_cart_icon.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_hookah_photo_1.jpg.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\hookah_photo_1.jpg"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\mipmap-xxxhdpi_hooka_foreground.png.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\mipmap-xxxhdpi\\hooka_foreground.png"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_ic_home.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\ic_home.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\layout_item_hero_banner.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\layout\\item_hero_banner.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_ic_language.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\ic_language.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_collage_left.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_collage_left.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\layout_item_benefit.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\item_benefit.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_prod_fourchette_beskar.png.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\prod_fourchette_beskar.png"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_status_badge.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_status_badge.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_input_profile.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_input_profile.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_filter_chip_active.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_filter_chip_active.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_ic_categories.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\ic_categories.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\layout_activity_splash.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\activity_splash.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_map_search.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_map_search.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_art_hookah_majordome_dandy.png.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\art_hookah_majordome_dandy.png"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_hero_gradient.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_hero_gradient.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_ic_check.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\ic_check.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_hookah_photo_2.jpg.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\hookah_photo_2.jpg"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_ic_camera.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\ic_camera.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\layout_activity_edit_profile.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\layout\\activity_edit_profile.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable-nodpi_hookah_photo_2.png.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable-nodpi\\hookah_photo_2.png"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\mipmap-mdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\mipmap-mdpi\\ic_launcher_round.webp"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_art_coals_fast_coco.png.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\art_coals_fast_coco.png"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_art_foyer_set_pilot.png.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\art_foyer_set_pilot.png"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_ic_shield.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\ic_shield.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\layout_activity_promo_codes.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\layout\\activity_promo_codes.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_ic_add.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\ic_add.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\mipmap-xxxhdpi_hooka.png.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\mipmap-xxxhdpi\\hooka.png"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_page_number_inactive.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_page_number_inactive.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_art_hookah_majordome_dandy.png.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\art_hookah_majordome_dandy.png"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_ic_edit.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\ic_edit.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\layout_activity_payment_methods.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\layout\\activity_payment_methods.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\layout_sheet_filter.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\sheet_filter.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_hero_card.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_hero_card.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_ic_qty_plus.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\ic_qty_plus.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_ic_headset.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\ic_headset.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_remove_btn.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_remove_btn.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_notification_icon_security.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_notification_icon_security.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_address_card.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_address_card.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable-nodpi_bg_smoke.png.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable-nodpi\\bg_smoke.png"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_art_foyer_silicone_epok.png.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\art_foyer_silicone_epok.png"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_cat_fullpacks.png.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\cat_fullpacks.png"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\anim_slide_out_left.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\anim\\slide_out_left.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_ic_qty_plus.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\ic_qty_plus.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_ic_notification.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\ic_notification.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_ic_lock.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\ic_lock.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\mipmap-xxhdpi_ic_launcher.webp.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\mipmap-xxhdpi\\ic_launcher.webp"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable-nodpi_logo_hookadrop2.png.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable-nodpi\\logo_hookadrop2.png"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_address_panel.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_address_panel.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\layout_activity_product_detail.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\layout\\activity_product_detail.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_ic_remove.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\ic_remove.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_art_foyer_katuro_nyu.png.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\art_foyer_katuro_nyu.png"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\anim_nav_exit.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\anim\\nav_exit.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable-xxhdpi_ic_hookah_neon.png.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable-xxhdpi\\ic_hookah_neon.png"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\mipmap-xxxhdpi_ic_launcher_foreground.webp.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\mipmap-xxxhdpi\\ic_launcher_foreground.webp"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\anim_slide_in_left.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\anim\\slide_in_left.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\layout_activity_add_payment.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\activity_add_payment.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_art_foyer_hurricane_bowl.png.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\art_foyer_hurricane_bowl.png"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_art_pack_daytona.png.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\art_pack_daytona.png"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\mipmap-xxhdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\mipmap-xxhdpi\\ic_launcher_round.webp"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_ic_search_white.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\ic_search_white.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\anim_slide_in_right.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\anim\\slide_in_right.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_icon_circle.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_icon_circle.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_ember_particle.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\ember_particle.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_notification_icon_security.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_notification_icon_security.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\anim_pulse.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\anim\\pulse.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_collage_card_right.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_collage_card_right.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_social_button.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_social_button.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\anim_pulse.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\anim\\pulse.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_prod_aladin_mvp.png.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\prod_aladin_mvp.png"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\mipmap-xxxhdpi_ic_launcher_round.webp.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\mipmap-xxxhdpi\\ic_launcher_round.webp"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\layout_layout_promo_banner.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\layout\\layout_promo_banner.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable-xhdpi_ic_hookah_neon.png.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable-xhdpi\\ic_hookah_neon.png"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_splash_gradient.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_splash_gradient.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_art_coals_coco_goza.png.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\art_coals_coco_goza.png"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_marker_shadow.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_marker_shadow.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\anim_scale_up.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\anim\\scale_up.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_otp_box.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_otp_box.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\layout_item_notification.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\item_notification.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_status_shipped.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_status_shipped.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_art_foyer_katuro_nyu.png.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\art_foyer_katuro_nyu.png"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_filter_chip_inactive.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_filter_chip_inactive.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\layout_activity_orders.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\activity_orders.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_section_header.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_section_header.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_splash_gradient.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_splash_gradient.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_address_default.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_address_default.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_ic_favorite_filled.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\ic_favorite_filled.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_art_coals_blackcocos.png.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\art_coals_blackcocos.png"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_profile_card.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_profile_card.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_ic_check.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\ic_check.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_ic_in_transit.png.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\ic_in_transit.png"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\mipmap-xhdpi_hooka.png.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\mipmap-xhdpi\\hooka.png"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_ic_address.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\ic_address.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_art_hookah_mr_eds_king.png.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\art_hookah_mr_eds_king.png"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_art_tobacco_ice_frutz.png.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\art_tobacco_ice_frutz.png"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\layout_activity_categories.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\layout\\activity_categories.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_feature_ripple.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_feature_ripple.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_icon_circle.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_icon_circle.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_search_field.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_search_field.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\layout_activity_orders.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\layout\\activity_orders.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\anim_fade_out.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\anim\\fade_out.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_ic_payment.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\ic_payment.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_rent_btn.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_rent_btn.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_ic_address.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\ic_address.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\mipmap-anydpi-v26_ic_launcher.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\mipmap-anydpi-v26\\ic_launcher.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\mipmap-xhdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\mipmap-xhdpi\\ic_launcher_round.webp"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_dot_white.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\dot_white.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_address_panel.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_address_panel.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\layout_item_hero_banner.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\item_hero_banner.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_ic_arrow_right.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\ic_arrow_right.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_pagination_btn.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_pagination_btn.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_art_tobacco_ways_200g.png.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\art_tobacco_ways_200g.png"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\mipmap-xhdpi_ic_launcher_foreground.webp.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\mipmap-xhdpi\\ic_launcher_foreground.webp"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_nav_indicator.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_nav_indicator.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_view_btn.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_view_btn.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_input_error.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_input_error.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_smk.png.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\smk.png"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_page_arrow.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_page_arrow.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_button_outline.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_button_outline.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_glow_circle.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\glow_circle.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_nav_indicator.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_nav_indicator.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_notification_icon_order.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_notification_icon_order.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_art_clean_pince_epok.png.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\art_clean_pince_epok.png"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_prod_charbon_coco.png.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\prod_charbon_coco.png"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\layout_activity_terms.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\activity_terms.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_dot_white.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\dot_white.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_hookah_photo_2.jpg.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\hookah_photo_2.jpg"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_ic_in_transit.png.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\ic_in_transit.png"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_art_pack_starter_x1.png.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\art_pack_starter_x1.png"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_nav_glow.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_nav_glow.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_notification_icon_system.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_notification_icon_system.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\mipmap-hdpi_ic_launcher_foreground.webp.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\mipmap-hdpi\\ic_launcher_foreground.webp"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\layout_item_promo_card.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\item_promo_card.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_art_tobacco_booster_ways.png.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\art_tobacco_booster_ways.png"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\anim_slide_in_right.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\anim\\slide_in_right.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_page_number_active.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_page_number_active.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_button_gold.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_button_gold.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_input_profile_focus.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_input_profile_focus.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_art_pack_madrassa.png.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\art_pack_madrassa.png"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable-nodpi_hk_glow.png.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable-nodpi\\hk_glow.png"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_menu_item.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_menu_item.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_ic_close.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\ic_close.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\layout_activity_onboarding.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\activity_onboarding.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\layout_item_skeleton_product.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\layout\\item_skeleton_product.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable-nodpi_hookah_photo_3.png.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable-nodpi\\hookah_photo_3.png"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_ic_notification.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\ic_notification.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_ic_categories.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\ic_categories.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable-nodpi_ic_dimd.png.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable-nodpi\\ic_dimd.png"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_notification_icon_promo.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_notification_icon_promo.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_ic_delete.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\ic_delete.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_sort_btn.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_sort_btn.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_address_card.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_address_card.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\layout_item_order_line.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\item_order_line.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_profile_card.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_profile_card.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_prod_ways_200g.png.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\prod_ways_200g.png"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_member_badge.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_member_badge.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_page_number_active.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_page_number_active.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_bottom_scrim.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_bottom_scrim.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_cyan_halo.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_cyan_halo.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\layout_item_category_grid.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\layout\\item_category_grid.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_cat_tabacs.png.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\cat_tabacs.png"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\layout_item_notification.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\layout\\item_notification.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_empty_cart_icon.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_empty_cart_icon.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_collage_right.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_collage_right.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_add_to_cart_btn.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_add_to_cart_btn.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_art_pack_pursuit_qt.png.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\art_pack_pursuit_qt.png"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_art_foyer_narnia.png.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\art_foyer_narnia.png"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_prod_celeste_x3.png.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\prod_celeste_x3.png"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\mipmap-xhdpi_ic_launcher_round.webp.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\mipmap-xhdpi\\ic_launcher_round.webp"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\layout_layout_bottom_nav.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\layout\\layout_bottom_nav.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_cat_hookah.png.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\cat_hookah.png"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_ic_qty_minus.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\ic_qty_minus.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\anim_window_anim_enter.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\anim\\window_anim_enter.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_status_cancelled.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_status_cancelled.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\layout_activity_language.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\activity_language.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_art_clean_pince_punishe.png.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\art_clean_pince_punishe.png"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\anim_nav_enter.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\anim\\nav_enter.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\anim_nav_exit.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\anim\\nav_exit.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\layout_item_order.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\item_order.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_rent_btn.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_rent_btn.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\layout_activity_home.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\activity_home.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\mipmap-xxhdpi_hooka_round.png.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\mipmap-xxhdpi\\hooka_round.png"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_available.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_available.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_ic_profile.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\ic_profile.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_art_coals_three_kings.png.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\art_coals_three_kings.png"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_qty_btn.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_qty_btn.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_ic_headset.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\ic_headset.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\layout_activity_add_payment.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\layout\\activity_add_payment.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_status_pending.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_status_pending.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\layout_activity_settings.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\layout\\activity_settings.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_art_clean_plaque_n9.png.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\art_clean_plaque_n9.png"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_art_coals_three_kings.png.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\art_coals_three_kings.png"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_prod_aladin_mvp.png.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\prod_aladin_mvp.png"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_filter_btn.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_filter_btn.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_ic_facebook.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\ic_facebook.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_glow_ring.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\glow_ring.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\layout_activity_promo_codes.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\activity_promo_codes.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_art_pack_daytona.png.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\art_pack_daytona.png"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\mipmap-anydpi-v26_ic_launcher_round.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\mipmap-anydpi-v26\\ic_launcher_round.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_loading_fill.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\loading_fill.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_nav_bar.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_nav_bar.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_ic_clear.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\ic_clear.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_payment_card.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_payment_card.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_ic_settings.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\ic_settings.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_input_error.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_input_error.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_ic_launcher.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\ic_launcher.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_fav_heart_btn.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_fav_heart_btn.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_available.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_available.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_summary_card.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_summary_card.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\mipmap-mdpi_hooka_round.png.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\mipmap-mdpi\\hooka_round.png"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_ic_dot_available.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\ic_dot_available.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_ring_medium.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_ring_medium.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_loading_fill.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\loading_fill.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_art_coals_aladin_coco_c26.png.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\art_coals_aladin_coco_c26.png"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_ic_copy.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\ic_copy.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_status_badge.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_status_badge.xml"
     },
     {
-        "merged": "com.hookahdrop.app-merged_res-92:/layout_activity_favorites.xml.flat",
-        "source": "com.hookahdrop.app-main-94:/layout/activity_favorites.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_ic_language.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\ic_language.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_cat_fullpacks.png.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\cat_fullpacks.png"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_button_gold.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_button_gold.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_art_hookah_celeste_x3.png.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\art_hookah_celeste_x3.png"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_loading_track.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\loading_track.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\layout_item_favorite.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\item_favorite.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_cat_foyers.png.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\cat_foyers.png"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_code_box.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_code_box.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_ic_eye_off.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\ic_eye_off.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable-nodpi_hookah_photo_1.png.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable-nodpi\\hookah_photo_1.png"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_ic_privacy.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\ic_privacy.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_label_chip.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_label_chip.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_ic_dot_available.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\ic_dot_available.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_ic_check_white.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\ic_check_white.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_ic_diamond.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\ic_diamond.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\layout_item_category_list.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\item_category_list.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_back_button.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_back_button.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_hero_gradient.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_hero_gradient.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_art_hookah_celeste_x3.png.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\art_hookah_celeste_x3.png"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable-nodpi_logo_hookadrop.png.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable-nodpi\\logo_hookadrop.png"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_ic_help.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\ic_help.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_ic_favorite.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\ic_favorite.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\mipmap-mdpi_hooka.png.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\mipmap-mdpi\\hooka.png"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_add_button.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_add_button.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_page_number_inactive.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_page_number_inactive.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\layout_activity_change_password.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\activity_change_password.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_indicator_active.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_indicator_active.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_nav_glow.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_nav_glow.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_ring_large.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_ring_large.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\layout_activity_payment_methods.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\activity_payment_methods.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\layout_activity_language.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\layout\\activity_language.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\layout_layout_promo_banner.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\layout_promo_banner.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_ic_orders.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\ic_orders.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\layout_activity_settings.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\activity_settings.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_shimmer_sweep.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_shimmer_sweep.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_glow_circle.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\glow_circle.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_ic_promo.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\ic_promo.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\mipmap-xxhdpi_ic_launcher_foreground.webp.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\mipmap-xxhdpi\\ic_launcher_foreground.webp"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_unread_badge_pill.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_unread_badge_pill.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_ic_hookah_neon.png.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\ic_hookah_neon.png"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\mipmap-xhdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\mipmap-xhdpi\\ic_launcher.webp"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_art_tobacco_booster_ways.png.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\art_tobacco_booster_ways.png"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\mipmap-hdpi_hooka_foreground.png.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\mipmap-hdpi\\hooka_foreground.png"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\layout_activity_verify_code.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\activity_verify_code.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\layout_activity_help_support.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\layout\\activity_help_support.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_status_shipped.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_status_shipped.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_ic_search_white.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\ic_search_white.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_ic_eye_off.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\ic_eye_off.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_pagination_btn.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_pagination_btn.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_cat_charbons.png.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\cat_charbons.png"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\mipmap-xxxhdpi_ic_launcher_foreground.webp.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\mipmap-xxxhdpi\\ic_launcher_foreground.webp"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_cat_foyers.png.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\cat_foyers.png"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\layout_activity_new_password.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\layout\\activity_new_password.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_art_clean_pince_punishe.png.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\art_clean_pince_punishe.png"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\layout_activity_verify_code.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\layout\\activity_verify_code.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_ic_privacy.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\ic_privacy.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_service_circle.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_service_circle.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_section_header.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_section_header.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_ic_copy.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\ic_copy.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\layout_component_pagination.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\component_pagination.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\layout_component_pagination.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\layout\\component_pagination.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\mipmap-hdpi_ic_launcher_round.webp.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\mipmap-hdpi\\ic_launcher_round.webp"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\mipmap-xxxhdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\mipmap-xxxhdpi\\ic_launcher_round.webp"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\anim_window_anim_exit.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\anim\\window_anim_exit.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_otp_box_active.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_otp_box_active.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\layout_activity_categories.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\activity_categories.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\mipmap-mdpi_hooka_foreground.png.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\mipmap-mdpi\\hooka_foreground.png"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_ic_cart.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\ic_cart.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_checkout_btn.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_checkout_btn.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_art_clean_fourchette_beskar.png.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\art_clean_fourchette_beskar.png"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_payment_method_selector.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_payment_method_selector.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\layout_activity_category_products.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\activity_category_products.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\mipmap-hdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\mipmap-hdpi\\ic_launcher_round.webp"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_glow_ring.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\glow_ring.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\layout_activity_add_map.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\layout\\activity_add_map.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_ic_my_location.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\ic_my_location.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\layout_activity_terms.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\layout\\activity_terms.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_art_tobacco_zero_200g.png.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\art_tobacco_zero_200g.png"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable-mdpi_ic_hookah_neon.png.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable-mdpi\\ic_hookah_neon.png"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_status_delivered.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_status_delivered.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_art_tobacco_zero_200g.png.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\art_tobacco_zero_200g.png"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_prod_celeste_x3.png.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\prod_celeste_x3.png"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_ring_small.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_ring_small.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\layout_activity_profile.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\activity_profile.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\mipmap-anydpi-v26_hooka_round.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\mipmap-anydpi-v26\\hooka_round.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_signout_button.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_signout_button.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_ic_chevron_down.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\ic_chevron_down.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\layout_layout_bottom_nav.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\layout_bottom_nav.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_cat_hookah.png.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\cat_hookah.png"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_art_hookah_mr_eds_king.png.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\art_hookah_mr_eds_king.png"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\layout_item_summary_row.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\layout\\item_summary_row.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_art_coals_carbopol_crown.png.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\art_coals_carbopol_crown.png"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable-nodpi_hk_preview_full.png.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable-nodpi\\hk_preview_full.png"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\mipmap-xhdpi_ic_launcher.webp.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\mipmap-xhdpi\\ic_launcher.webp"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_art_pack_madrassa.png.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\art_pack_madrassa.png"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_ic_arrow_back.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\ic_arrow_back.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_menu_item.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_menu_item.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable-nodpi_ic_hookah_neon.png.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable-nodpi\\ic_hookah_neon.png"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_ic_edit.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\ic_edit.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_art_hookah_aladin_mvp.png.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\art_hookah_aladin_mvp.png"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\mipmap-hdpi_hooka.png.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\mipmap-hdpi\\hooka.png"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_collage_right.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_collage_right.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\anim_nav_back_exit.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\anim\\nav_back_exit.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_map_search.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_map_search.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable-nodpi_hk_coal.png.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable-nodpi\\hk_coal.png"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_ic_diamond.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\ic_diamond.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\layout_activity_onboarding.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\layout\\activity_onboarding.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_otp_box.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_otp_box.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_art_hookah_aladin_mvp.png.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\art_hookah_aladin_mvp.png"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_prod_charbon_coco.png.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\prod_charbon_coco.png"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_avatar_default.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_avatar_default.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_prod_fourchette_beskar.png.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\prod_fourchette_beskar.png"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable-nodpi_hk_front.png.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable-nodpi\\hk_front.png"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\layout_activity_order_detail.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\activity_order_detail.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_ic_favorite.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\ic_favorite.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_qty_btn.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_qty_btn.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_art_coals_carbopol_crown.png.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\art_coals_carbopol_crown.png"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\anim_slide_in_left.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\anim\\slide_in_left.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_ic_info.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\ic_info.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_ic_search.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\ic_search.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\layout_activity_popular_products.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\layout\\activity_popular_products.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_ic_favorite_filled_cyan.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\ic_favorite_filled_cyan.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_nav_bar.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_nav_bar.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\layout_activity_help_support.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\activity_help_support.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\layout_activity_home.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\layout\\activity_home.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_checkout_btn.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_checkout_btn.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_payment_card.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_payment_card.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_notification_icon_payment.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_notification_icon_payment.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\mipmap-mdpi_ic_launcher_foreground.webp.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\mipmap-mdpi\\ic_launcher_foreground.webp"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_ic_chevron_down.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\ic_chevron_down.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_fav_heart_btn.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_fav_heart_btn.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\layout_item_product.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\item_product.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable-nodpi_hk_wave_a.png.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable-nodpi\\hk_wave_a.png"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_card_input_error.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_card_input_error.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\layout_item_favorite.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\layout\\item_favorite.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_ic_apple.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\ic_apple.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_notification_icon_system.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_notification_icon_system.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\anim_slide_out_right.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\anim\\slide_out_right.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_art_foyer_narnia.png.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\art_foyer_narnia.png"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_card_input_focused.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_card_input_focused.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\anim_float_up.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\anim\\float_up.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_collage_card_left.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_collage_card_left.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_art_pack_ways_nicotine.png.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\art_pack_ways_nicotine.png"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\mipmap-xxxhdpi_ic_launcher.webp.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\mipmap-xxxhdpi\\ic_launcher.webp"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_ic_my_location.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\ic_my_location.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\layout_activity_sign_up.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\activity_sign_up.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_tag.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_tag.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_shimmer_sweep.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_shimmer_sweep.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\layout_item_category_list.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\layout\\item_category_list.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_ic_delete.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\ic_delete.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\mipmap-anydpi-v26\\ic_launcher.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_member_badge.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_member_badge.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_ic_add.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\ic_add.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_cta_button.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_cta_button.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\mipmap-xxhdpi_hooka_foreground.png.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\mipmap-xxhdpi\\hooka_foreground.png"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable-nodpi_logo_hookadrop2.png.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable-nodpi\\logo_hookadrop2.png"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_status_pending.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_status_pending.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_radial_glow_pulse.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_radial_glow_pulse.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_art_clean_troueur.png.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\art_clean_troueur.png"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\mipmap-mdpi_ic_launcher_round.webp.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\mipmap-mdpi\\ic_launcher_round.webp"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_card_input.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_card_input.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\layout_item_summary_row.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\item_summary_row.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_left_accent.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_left_accent.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_logo_blend.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_logo_blend.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_promo_banner.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_promo_banner.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_cta_glow.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_cta_glow.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_onboarding_image.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_onboarding_image.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_menu_icon.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_menu_icon.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\anim_nav_enter.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\anim\\nav_enter.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable-hdpi_ic_hookah_neon.png.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable-hdpi\\ic_hookah_neon.png"
+        "merged": "com.hookahdrop.app-merged_res-94:/drawable-nodpi_logo_hookadrop.png.flat",
+        "source": "com.hookahdrop.app-main-96:/drawable-nodpi/logo_hookadrop.png"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_cat_cleaning.png.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\cat_cleaning.png"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_art_tobacco_ice_frutz.png.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\art_tobacco_ice_frutz.png"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable-nodpi_smk.png.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable-nodpi\\smk.png"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_ic_favorite_filled.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\ic_favorite_filled.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\anim_nav_back_exit.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\anim\\nav_back_exit.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_summary_card.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_summary_card.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_ic_promo.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\ic_promo.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_prod_ways_200g.png.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\prod_ways_200g.png"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\layout_activity_sign_in.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\activity_sign_in.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\mipmap-xhdpi_ic_launcher_foreground.webp.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\mipmap-xhdpi\\ic_launcher_foreground.webp"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\layout_activity_product_detail.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\activity_product_detail.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_ic_delivery.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\ic_delivery.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\layout_activity_email_verify.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\activity_email_verify.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\anim_scale_up.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\anim\\scale_up.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\layout_item_skeleton_product.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\item_skeleton_product.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_signout_button.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_signout_button.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable-xxhdpi_ic_hookah_neon.png.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable-xxhdpi\\ic_hookah_neon.png"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\mipmap-xxxhdpi_hooka_round.png.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\mipmap-xxxhdpi\\hooka_round.png"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_art_coals_blackcocos.png.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\art_coals_blackcocos.png"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_art_coals_fast_coco.png.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\art_coals_fast_coco.png"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\layout_activity_favorites.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\activity_favorites.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_ic_favorite_filled_cyan.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\ic_favorite_filled_cyan.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\mipmap-hdpi_ic_launcher.webp.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\mipmap-hdpi\\ic_launcher.webp"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\layout_item_benefit.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\layout\\item_benefit.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\mipmap-mdpi_ic_launcher_foreground.webp.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\mipmap-mdpi\\ic_launcher_foreground.webp"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_ic_filter.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\ic_filter.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_filter_btn.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_filter_btn.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_sort_btn.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_sort_btn.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_prod_starter_pack.png.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\prod_starter_pack.png"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\layout_activity_forgot_password.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\layout\\activity_forgot_password.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_ic_star.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\ic_star.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\anim_fade_in.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\anim\\fade_in.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_address_default.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_address_default.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_art_hookah_el_nefes_tahta.png.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\art_hookah_el_nefes_tahta.png"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_cart_card.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_cart_card.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable-xxxhdpi_ic_hookah_neon.png.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable-xxxhdpi\\ic_hookah_neon.png"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_ic_help.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\ic_help.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\anim_window_anim_exit.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\anim\\window_anim_exit.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_ic_check_circle.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\ic_check_circle.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\anim_fade_out.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\anim\\fade_out.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable-nodpi_ic_in_transit.png.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable-nodpi\\ic_in_transit.png"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable-nodpi_hookah_photo_3.png.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable-nodpi\\hookah_photo_3.png"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_art_tobacco_icecool_300.png.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\art_tobacco_icecool_300.png"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_cat_charbons.png.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\cat_charbons.png"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\anim_slide_up_fade_in.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\anim\\slide_up_fade_in.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_art_hookah_sultan_colonial.png.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\art_hookah_sultan_colonial.png"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_social_button.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_social_button.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\mipmap-xhdpi_hooka_round.png.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\mipmap-xhdpi\\hooka_round.png"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_pagination.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_pagination.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_art_clean_pince_epok.png.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\art_clean_pince_epok.png"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_input_profile_focus.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_input_profile_focus.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\layout_activity_cart.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\layout\\activity_cart.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_otp_box_active.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_otp_box_active.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\layout_activity_change_password.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\layout\\activity_change_password.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_card_input.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_card_input.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_ic_chevron_left.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\ic_chevron_left.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_offre_special.png.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\offre_special.png"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_ic_remove.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\ic_remove.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_art_tobacco_ways_200g.png.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\art_tobacco_ways_200g.png"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\layout_activity_notifications.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\layout\\activity_notifications.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\layout_activity_popular_products.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\activity_popular_products.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_dot_gold.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\dot_gold.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_card_dark.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_card_dark.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_card_dark_round.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_card_dark_round.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_input_field.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_input_field.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_art_coals_coco_goza.png.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\art_coals_coco_goza.png"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\layout_activity_edit_profile.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\activity_edit_profile.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_ic_camera.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\ic_camera.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_ic_credit_card.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\ic_credit_card.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_button_blue.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_button_blue.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_card_dark_round.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_card_dark_round.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_cat_tabacs.png.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\cat_tabacs.png"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_button_cyan.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_button_cyan.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_offre_special.png.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\offre_special.png"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_badge.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_badge.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable-hdpi_ic_hookah_neon.png.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable-hdpi\\ic_hookah_neon.png"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\layout_activity_notifications.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\activity_notifications.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_label_chip.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_label_chip.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\layout_item_category_grid.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\item_category_grid.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_art_clean_fourchette_beskar.png.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\art_clean_fourchette_beskar.png"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_avatar_default.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_avatar_default.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\mipmap-mdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\mipmap-mdpi\\ic_launcher.webp"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_fav_card.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_fav_card.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\layout_activity_sign_in.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\layout\\activity_sign_in.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_favorite_button.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_favorite_button.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable-nodpi_hk_vase_mask.png.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable-nodpi\\hk_vase_mask.png"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\anim_fade_in.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\anim\\fade_in.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_ic_check_white.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\ic_check_white.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\layout_item_cart.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\item_cart.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable-nodpi_ic_hookah_neon.png.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable-nodpi\\ic_hookah_neon.png"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_diagonal_shine.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_diagonal_shine.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\mipmap-xxhdpi_ic_launcher_foreground.webp.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\mipmap-xxhdpi\\ic_launcher_foreground.webp"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_payment_method_selector.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_payment_method_selector.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_art_clean_brosse_vase.png.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\art_clean_brosse_vase.png"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_ic_chevron_right_white.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\ic_chevron_right_white.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_cta_white.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_cta_white.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_discount_badge.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_discount_badge.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_indicator_inactive.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_indicator_inactive.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_loading_track.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\loading_track.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_add_button.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_add_button.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_input_profile.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_input_profile.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_ic_hookah_neon.png.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\ic_hookah_neon.png"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_ic_close.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\ic_close.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable-nodpi_hookah_photo_2.png.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable-nodpi\\hookah_photo_2.png"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_art_clean_brosse_vase.png.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\art_clean_brosse_vase.png"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\layout_activity_sign_up.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\layout\\activity_sign_up.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_ic_payment.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\ic_payment.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_ic_chevron_right.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\ic_chevron_right.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_promo_banner.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_promo_banner.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_search_field.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_search_field.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_indicator_inactive.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_indicator_inactive.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable-nodpi_ic_in_transit.png.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable-nodpi\\ic_in_transit.png"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\mipmap-xxhdpi_ic_launcher_round.webp.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\mipmap-xxhdpi\\ic_launcher_round.webp"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\mipmap-xhdpi_hooka_foreground.png.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\mipmap-xhdpi\\hooka_foreground.png"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_smoke_burst.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_smoke_burst.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\mipmap-xxxhdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\mipmap-xxxhdpi\\ic_launcher.webp"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_ic_qty_minus.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\ic_qty_minus.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_art_tobacco_icecool_300.png.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\art_tobacco_icecool_300.png"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_filter_chip_inactive.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_filter_chip_inactive.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_faq_item.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_faq_item.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_page_arrow.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_page_arrow.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_ic_arrow_back.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\ic_arrow_back.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_art_foyer_katuro_naka.png.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\art_foyer_katuro_naka.png"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_loading_track_new.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\loading_track_new.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_art_foyer_hurricane_bowl.png.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\art_foyer_hurricane_bowl.png"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_ic_chevron_right_white.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\ic_chevron_right_white.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\mipmap-hdpi_ic_launcher_foreground.webp.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\mipmap-hdpi\\ic_launcher_foreground.webp"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_ic_home.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\ic_home.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\layout_activity_new_password.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\activity_new_password.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_cyan_halo.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_cyan_halo.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_close_button.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_close_button.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable-xhdpi_ic_hookah_neon.png.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable-xhdpi\\ic_hookah_neon.png"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\layout_activity_add_map.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\activity_add_map.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\mipmap-xxhdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\mipmap-xxhdpi\\ic_launcher.webp"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_ring_small.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_ring_small.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable-nodpi_hk_back.png.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable-nodpi\\hk_back.png"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_ic_clear.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\ic_clear.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\layout_activity_favorites.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\layout\\activity_favorites.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_collage_left.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_collage_left.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_input_field.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_input_field.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_ic_google.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\ic_google.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_ic_logout.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\ic_logout.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable-mdpi_ic_hookah_neon.png.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable-mdpi\\ic_hookah_neon.png"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_status_delivered.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_status_delivered.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_ic_lock.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\ic_lock.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_ic_credit_card.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\ic_credit_card.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_art_clean_troueur.png.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\art_clean_troueur.png"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_button_cyan.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_button_cyan.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\raw_map_style_dark.json.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\raw\\map_style_dark.json"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_art_pack_starter_x1.png.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\art_pack_starter_x1.png"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\anim_float_up.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\anim\\float_up.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\layout_activity_profile.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\layout\\activity_profile.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_ic_arrow_right.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\ic_arrow_right.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\mipmap-anydpi-v26_hooka.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\mipmap-anydpi-v26\\hooka.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\layout_activity_cart.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\activity_cart.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable-nodpi_logoo.png.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable-nodpi\\logoo.png"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_button_blue.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_button_blue.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_feature_icon.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_feature_icon.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_ic_delivery.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\ic_delivery.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_ic_star.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\ic_star.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_unread_badge_pill.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_unread_badge_pill.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\layout_sheet_filter.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\layout\\sheet_filter.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_avatar_circle.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_avatar_circle.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable-nodpi_hookah_photo_1.png.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable-nodpi\\hookah_photo_1.png"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_ic_chevron_left.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\ic_chevron_left.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_splash_radial_glow.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_splash_radial_glow.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_art_hookah_sultan_colonial.png.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\art_hookah_sultan_colonial.png"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_art_foyer_katuro_naka.png.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\art_foyer_katuro_naka.png"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\layout_pagination_controls.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\pagination_controls.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_view_all_button.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_view_all_button.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_hero_card.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_hero_card.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\layout_activity_splash.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\layout\\activity_splash.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\layout_activity_addresses.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\activity_addresses.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_smk.png.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\smk.png"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_view_all_button.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_view_all_button.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_ic_search.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\ic_search.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_hookah_photo_3.jpg.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\hookah_photo_3.jpg"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_ic_shield.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\ic_shield.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_detail_bottom.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_detail_bottom.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\layout_item_order.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\layout\\item_order.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_dot_gold.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\dot_gold.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\anim_slide_out_left.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\anim\\slide_out_left.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_faq_item.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_faq_item.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable-nodpi_logo_hookadrop.png.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable-nodpi\\logo_hookadrop.png"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_onboarding_gradient.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_onboarding_gradient.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\mipmap-hdpi_hooka_round.png.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\mipmap-hdpi\\hooka_round.png"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_art_hookah_el_nefes_tahta.png.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\art_hookah_el_nefes_tahta.png"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_cat_cleaning.png.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\cat_cleaning.png"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_art_pack_pursuit_qt.png.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\art_pack_pursuit_qt.png"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_loading_fill_new.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\loading_fill_new.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_art_foyer_katuro_yoko.png.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\art_foyer_katuro_yoko.png"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_detail_bottom.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_detail_bottom.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable-nodpi_ic_dimd.png.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable-nodpi\\ic_dimd.png"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\layout_activity_order_detail.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\layout\\activity_order_detail.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_promo_applied_card.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_promo_applied_card.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_view_btn.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_view_btn.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_status_cancelled.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_status_cancelled.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_prod_starter_pack.png.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\prod_starter_pack.png"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_ic_info.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\ic_info.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_ic_check_circle.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\ic_check_circle.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\anim_nav_back_enter.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\anim\\nav_back_enter.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_hookah_photo_1.jpg.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\hookah_photo_1.jpg"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_feature_icon.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_feature_icon.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_close_button.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_close_button.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_notification_icon_order.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_notification_icon_order.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_fav_card.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_fav_card.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_art_foyer_set_pilot.png.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\art_foyer_set_pilot.png"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_avatar_circle.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_avatar_circle.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_radial_glow.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_radial_glow.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_art_foyer_katuro_yoko.png.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\art_foyer_katuro_yoko.png"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_ic_chevron_right.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\ic_chevron_right.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_badge.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_badge.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_left_accent.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_left_accent.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\mipmap-anydpi-v26\\ic_launcher_round.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\layout_activity_forgot_password.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\layout\\activity_forgot_password.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\anim_slide_up_fade_in.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\anim\\slide_up_fade_in.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\drawable_bg_ring_medium.xml.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\drawable\\bg_ring_medium.xml"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_card_input_error.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_card_input_error.xml"
     },
     {
-        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-92:\\mipmap-mdpi_ic_launcher.webp.flat",
-        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-94:\\mipmap-mdpi\\ic_launcher.webp"
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_notification_icon_promo.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_notification_icon_promo.xml"
+    },
+    {
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_art_foyer_silicone_epok.png.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\art_foyer_silicone_epok.png"
+    },
+    {
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_cart_card.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_cart_card.xml"
+    },
+    {
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\layout_item_cart.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\layout\\item_cart.xml"
+    },
+    {
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_promo_applied_card.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_promo_applied_card.xml"
+    },
+    {
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\mipmap-hdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\mipmap-hdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_button_outline.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_button_outline.xml"
+    },
+    {
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\anim_window_anim_enter.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\anim\\window_anim_enter.xml"
+    },
+    {
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\anim_slide_out_right.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\anim\\slide_out_right.xml"
+    },
+    {
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_art_clean_plaque_n9.png.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\art_clean_plaque_n9.png"
+    },
+    {
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_filter_chip_active.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_filter_chip_active.xml"
+    },
+    {
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable-nodpi_hk_wave_b.png.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable-nodpi\\hk_wave_b.png"
+    },
+    {
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_ic_apple.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\ic_apple.xml"
+    },
+    {
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_card_dark.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_card_dark.xml"
+    },
+    {
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\layout_activity_addresses.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\layout\\activity_addresses.xml"
+    },
+    {
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\layout_view_map_center_marker.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\layout\\view_map_center_marker.xml"
+    },
+    {
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable-nodpi_smk.png.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable-nodpi\\smk.png"
+    },
+    {
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\layout_item_product.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\layout\\item_product.xml"
+    },
+    {
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_ic_google.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\ic_google.xml"
+    },
+    {
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\mipmap-xxhdpi_hooka.png.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\mipmap-xxhdpi\\hooka.png"
+    },
+    {
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\drawable_bg_menu_icon.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\drawable\\bg_menu_icon.xml"
+    },
+    {
+        "merged": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-merged_res-94:\\layout_item_order_line.xml.flat",
+        "source": "C:\\Users\\GAMING\\.gradle\\daemon\\8.4\\com.hookahdrop.app-main-96:\\layout\\item_order_line.xml"
     }
 ]

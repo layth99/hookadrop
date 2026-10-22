@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.hookahdrop.app-mergeDebugResources-90:/values-ig/values-ig.xml",
+            "outputFile": "com.hookahdrop.app-mergeDebugResources-92:/values-ig/values-ig.xml",
             "map": [
                 {
                     "source": "C:\\Users\\GAMING\\.gradle\\caches\\transforms-3\\67708c0bffa462cb3db40d5153b6efc1\\transformed\\jetified-hcaptcha-20.37.5\\res\\values-ig\\values-ig.xml",

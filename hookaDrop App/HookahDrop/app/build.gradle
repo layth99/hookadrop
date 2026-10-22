@@ -39,6 +39,7 @@ android {
 
 dependencies {
     implementation 'androidx.core:core-ktx:1.12.0'
+    implementation 'androidx.core:core-splashscreen:1.0.1'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.11.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
@@ -56,7 +57,11 @@ dependencies {
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3'
     implementation 'com.google.code.gson:gson:2.10.1'
-    implementation 'com.google.android.gms:play-services-maps:18.2.0'
+    
+    // ── MapLibre Native Android SDK (replaces Google Maps) ─────────────────
+    implementation 'org.maplibre.gl:android-sdk:11.0.0'
+    
+    // ── Location services (Google Play Services - only for FusedLocationProvider) ──
     implementation 'com.google.android.gms:play-services-location:21.2.0'
 
     // ── Stripe Android SDK (PCI-compliant card collection) ─────────────────

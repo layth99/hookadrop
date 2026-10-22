@@ -6,11 +6,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.viewbinding.ViewBinding;
 import androidx.viewbinding.ViewBindings;
 import com.hookahdrop.app.R;
+import com.hookahdrop.app.view.SmokeBackgroundView;
 import java.lang.NullPointerException;
 import java.lang.Override;
 import java.lang.String;
@@ -20,13 +22,10 @@ public final class ActivitySplashBinding implements ViewBinding {
   private final FrameLayout rootView;
 
   @NonNull
-  public final View cyanHalo;
+  public final FrameLayout arcContainer;
 
   @NonNull
-  public final View glowRing;
-
-  @NonNull
-  public final View glowRing2;
+  public final FrameLayout emberContainer;
 
   @NonNull
   public final ImageView imgLogo;
@@ -35,44 +34,52 @@ public final class ActivitySplashBinding implements ViewBinding {
   public final View loadingBar;
 
   @NonNull
+  public final View loadingDot;
+
+  @NonNull
+  public final View loadingGlow;
+
+  @NonNull
+  public final View loadingTrack;
+
+  @NonNull
   public final FrameLayout logoContainer;
+
+  @NonNull
+  public final ImageView logoRing;
+
+  @NonNull
+  public final View radialGlow;
 
   @NonNull
   public final FrameLayout root;
 
   @NonNull
-  public final View shimmerOverlay;
+  public final SmokeBackgroundView smokeBackground;
 
   @NonNull
-  public final ImageView smokeBL;
+  public final TextView tvStatus;
 
-  @NonNull
-  public final ImageView smokeBR;
-
-  @NonNull
-  public final ImageView smokeTL;
-
-  @NonNull
-  public final ImageView smokeTR;
-
-  private ActivitySplashBinding(@NonNull FrameLayout rootView, @NonNull View cyanHalo,
-      @NonNull View glowRing, @NonNull View glowRing2, @NonNull ImageView imgLogo,
-      @NonNull View loadingBar, @NonNull FrameLayout logoContainer, @NonNull FrameLayout root,
-      @NonNull View shimmerOverlay, @NonNull ImageView smokeBL, @NonNull ImageView smokeBR,
-      @NonNull ImageView smokeTL, @NonNull ImageView smokeTR) {
+  private ActivitySplashBinding(@NonNull FrameLayout rootView, @NonNull FrameLayout arcContainer,
+      @NonNull FrameLayout emberContainer, @NonNull ImageView imgLogo, @NonNull View loadingBar,
+      @NonNull View loadingDot, @NonNull View loadingGlow, @NonNull View loadingTrack,
+      @NonNull FrameLayout logoContainer, @NonNull ImageView logoRing, @NonNull View radialGlow,
+      @NonNull FrameLayout root, @NonNull SmokeBackgroundView smokeBackground,
+      @NonNull TextView tvStatus) {
     this.rootView = rootView;
-    this.cyanHalo = cyanHalo;
-    this.glowRing = glowRing;
-    this.glowRing2 = glowRing2;
+    this.arcContainer = arcContainer;
+    this.emberContainer = emberContainer;
     this.imgLogo = imgLogo;
     this.loadingBar = loadingBar;
+    this.loadingDot = loadingDot;
+    this.loadingGlow = loadingGlow;
+    this.loadingTrack = loadingTrack;
     this.logoContainer = logoContainer;
+    this.logoRing = logoRing;
+    this.radialGlow = radialGlow;
     this.root = root;
-    this.shimmerOverlay = shimmerOverlay;
-    this.smokeBL = smokeBL;
-    this.smokeBR = smokeBR;
-    this.smokeTL = smokeTL;
-    this.smokeTR = smokeTR;
+    this.smokeBackground = smokeBackground;
+    this.tvStatus = tvStatus;
   }
 
   @Override
@@ -102,21 +109,15 @@ public final class ActivitySplashBinding implements ViewBinding {
     // This is done to optimize the compiled bytecode for size and performance.
     int id;
     missingId: {
-      id = R.id.cyanHalo;
-      View cyanHalo = ViewBindings.findChildViewById(rootView, id);
-      if (cyanHalo == null) {
+      id = R.id.arcContainer;
+      FrameLayout arcContainer = ViewBindings.findChildViewById(rootView, id);
+      if (arcContainer == null) {
         break missingId;
       }
 
-      id = R.id.glowRing;
-      View glowRing = ViewBindings.findChildViewById(rootView, id);
-      if (glowRing == null) {
-        break missingId;
-      }
-
-      id = R.id.glowRing2;
-      View glowRing2 = ViewBindings.findChildViewById(rootView, id);
-      if (glowRing2 == null) {
+      id = R.id.emberContainer;
+      FrameLayout emberContainer = ViewBindings.findChildViewById(rootView, id);
+      if (emberContainer == null) {
         break missingId;
       }
 
@@ -132,47 +133,59 @@ public final class ActivitySplashBinding implements ViewBinding {
         break missingId;
       }
 
+      id = R.id.loadingDot;
+      View loadingDot = ViewBindings.findChildViewById(rootView, id);
+      if (loadingDot == null) {
+        break missingId;
+      }
+
+      id = R.id.loadingGlow;
+      View loadingGlow = ViewBindings.findChildViewById(rootView, id);
+      if (loadingGlow == null) {
+        break missingId;
+      }
+
+      id = R.id.loadingTrack;
+      View loadingTrack = ViewBindings.findChildViewById(rootView, id);
+      if (loadingTrack == null) {
+        break missingId;
+      }
+
       id = R.id.logoContainer;
       FrameLayout logoContainer = ViewBindings.findChildViewById(rootView, id);
       if (logoContainer == null) {
         break missingId;
       }
 
+      id = R.id.logoRing;
+      ImageView logoRing = ViewBindings.findChildViewById(rootView, id);
+      if (logoRing == null) {
+        break missingId;
+      }
+
+      id = R.id.radialGlow;
+      View radialGlow = ViewBindings.findChildViewById(rootView, id);
+      if (radialGlow == null) {
+        break missingId;
+      }
+
       FrameLayout root = (FrameLayout) rootView;
 
-      id = R.id.shimmerOverlay;
-      View shimmerOverlay = ViewBindings.findChildViewById(rootView, id);
-      if (shimmerOverlay == null) {
+      id = R.id.smokeBackground;
+      SmokeBackgroundView smokeBackground = ViewBindings.findChildViewById(rootView, id);
+      if (smokeBackground == null) {
         break missingId;
       }
 
-      id = R.id.smokeBL;
-      ImageView smokeBL = ViewBindings.findChildViewById(rootView, id);
-      if (smokeBL == null) {
+      id = R.id.tvStatus;
+      TextView tvStatus = ViewBindings.findChildViewById(rootView, id);
+      if (tvStatus == null) {
         break missingId;
       }
 
-      id = R.id.smokeBR;
-      ImageView smokeBR = ViewBindings.findChildViewById(rootView, id);
-      if (smokeBR == null) {
-        break missingId;
-      }
-
-      id = R.id.smokeTL;
-      ImageView smokeTL = ViewBindings.findChildViewById(rootView, id);
-      if (smokeTL == null) {
-        break missingId;
-      }
-
-      id = R.id.smokeTR;
-      ImageView smokeTR = ViewBindings.findChildViewById(rootView, id);
-      if (smokeTR == null) {
-        break missingId;
-      }
-
-      return new ActivitySplashBinding((FrameLayout) rootView, cyanHalo, glowRing, glowRing2,
-          imgLogo, loadingBar, logoContainer, root, shimmerOverlay, smokeBL, smokeBR, smokeTL,
-          smokeTR);
+      return new ActivitySplashBinding((FrameLayout) rootView, arcContainer, emberContainer,
+          imgLogo, loadingBar, loadingDot, loadingGlow, loadingTrack, logoContainer, logoRing,
+          radialGlow, root, smokeBackground, tvStatus);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

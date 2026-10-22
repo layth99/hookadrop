@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.hookahdrop.app-mergeDebugResources-90:/values-hi/values-hi.xml",
+            "outputFile": "com.hookahdrop.app-mergeDebugResources-92:/values-hi/values-hi.xml",
             "map": [
                 {
                     "source": "C:\\Users\\GAMING\\.gradle\\caches\\transforms-3\\b231a98f3e59570e95dbef30a36b5174\\transformed\\browser-1.7.0\\res\\values-hi\\values-hi.xml",

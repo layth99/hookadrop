@@ -42,30 +42,77 @@ class SignInActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivitySignInBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        
+        try {
+            android.util.Log.d("SignInActivity", "=== onCreate START ===")
+            
+            binding = ActivitySignInBinding.inflate(layoutInflater)
+            android.util.Log.d("SignInActivity", "✓ Binding inflated")
+            
+            setContentView(binding.root)
+            android.util.Log.d("SignInActivity", "✓ Content view set")
 
-        sessionManager = SessionManager(this)
-        CartManager.init(this)
-        FavoritesManager.init(this) { sessionManager.getUserId() }
+            sessionManager = SessionManager(this)
+            android.util.Log.d("SignInActivity", "✓ SessionManager created")
+            
+            CartManager.init(this)
+            android.util.Log.d("SignInActivity", "✓ CartManager initialized")
+            
+            FavoritesManager.init(this) { sessionManager.getUserId() }
+            android.util.Log.d("SignInActivity", "✓ FavoritesManager initialized")
 
-        // Already logged in → go straight to Home
-        if (sessionManager.isLoggedIn()) {
-            goHome(); return
-        }
+            // Already logged in → go straight to Home
+            if (sessionManager.isLoggedIn()) {
+                android.util.Log.d("SignInActivity", "Already logged in, going to Home")
+                goHome()
+                return
+            }
 
-        setupSpannableLinks()
-        setupPasswordToggle()
-        setupClickListeners()
-        playEntranceAnimation()
+            setupSpannableLinks()
+            android.util.Log.d("SignInActivity", "✓ Spannable links set up")
+            
+            setupPasswordToggle()
+            android.util.Log.d("SignInActivity", "✓ Password toggle set up")
+            
+            setupClickListeners()
+            android.util.Log.d("SignInActivity", "✓ Click listeners set up")
+            
+            playEntranceAnimation()
+            android.util.Log.d("SignInActivity", "✓ Entrance animation started")
 
-        // Show success message if coming back from password reset
-        if (intent.getBooleanExtra("passwordReset", false)) {
-            android.widget.Toast.makeText(
+            // Show success message if coming back from password reset
+            if (intent.getBooleanExtra("passwordReset", false)) {
+                Toast.makeText(
+                    this,
+                    "Password changed successfully! Please sign in.",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+            
+            android.util.Log.d("SignInActivity", "=== onCreate COMPLETE ===")
+            
+        } catch (e: Exception) {
+            android.util.Log.e("SignInActivity", "=== CRASH IN onCreate ===", e)
+            android.util.Log.e("SignInActivity", "Error: ${e.message}")
+            android.util.Log.e("SignInActivity", "Stack: ${e.stackTraceToString()}")
+            
+            // Show error to user
+            Toast.makeText(
                 this,
-                "Password changed successfully! Please sign in.",
-                android.widget.Toast.LENGTH_LONG
+                "SignIn initialization failed:\n${e.javaClass.simpleName}\n${e.message}",
+                Toast.LENGTH_LONG
             ).show()
+            
+            // Go back to onboarding so user isn't stuck
+            try {
+                startActivity(Intent(this, OnboardingActivity::class.java).apply {
+                    flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                })
+                finish()
+            } catch (e2: Exception) {
+                // Last resort: just finish
+                finish()
+            }
         }
     }
 

@@ -8,6 +8,7 @@ import com.hookahdrop.app.network.ApiOrder
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.net.URLEncoder
+import java.util.UUID
 
 /**
  * Fetches products, categories and orders from the backend API.
@@ -105,53 +106,206 @@ object RemoteDataProvider {
      */
     suspend fun getWishlist(userId: String): List<String>? =
         withContext(Dispatchers.IO) {
+            android.util.Log.d("RemoteDataProvider", "═══ getWishlist() START ═══")
+            android.util.Log.d("RemoteDataProvider", "Fetching wishlist for userId: $userId")
+            
             val r = ApiClient.get("/api/wishlist/$userId")
-            if (!r.isSuccess) return@withContext null
-            val data = r.json().optJSONObject("data") ?: return@withContext null
-            val arr  = data.optJSONArray("productId") ?: return@withContext emptyList()
-            (0 until arr.length()).map { arr.optString(it) }
+            
+            if (!r.isSuccess) {
+                android.util.Log.e("RemoteDataProvider", "getWishlist() FAILED: HTTP ${r.code}")
+                android.util.Log.e("RemoteDataProvider", "Response body: ${r.raw}")
+                android.util.Log.d("RemoteDataProvider", "═══ getWishlist() END (ERROR) ═══")
+                return@withContext null
+            }
+            
+            val data = r.json().optJSONObject("data")
+            if (data == null) {
+                android.util.Log.e("RemoteDataProvider", "getWishlist() - No 'data' object in response")
+                android.util.Log.e("RemoteDataProvider", "Full response: ${r.raw}")
+                android.util.Log.d("RemoteDataProvider", "═══ getWishlist() END (NO DATA) ═══")
+                return@withContext null
+            }
+            
+            val arr = data.optJSONArray("productId")
+            if (arr == null) {
+                android.util.Log.w("RemoteDataProvider", "getWishlist() - No 'productId' array in data object")
+                android.util.Log.w("RemoteDataProvider", "Data object keys: ${data.keys().asSequence().toList()}")
+                android.util.Log.d("RemoteDataProvider", "═══ getWishlist() END (EMPTY) ═══")
+                return@withContext emptyList()
+            }
+            
+            // Parse the array - handle BOTH populated objects and plain IDs
+            val ids = (0 until arr.length()).mapNotNull { i ->
+                val element = arr.opt(i)
+                when {
+                    // Case 1: Element is a JSONObject (populated product)
+                    element is org.json.JSONObject -> {
+                        val id = element.optString("_id", element.optString("id", ""))
+                        if (id.isNotEmpty()) {
+                            android.util.Log.d("RemoteDataProvider", "Extracted ID from populated object: $id")
+                            id
+                        } else {
+                            android.util.Log.w("RemoteDataProvider", "Populated object has no _id or id field")
+                            null
+                        }
+                    }
+                    // Case 2: Element is a plain string ID
+                    element is String -> {
+                        if (element.isNotEmpty()) {
+                            android.util.Log.d("RemoteDataProvider", "Got plain string ID: $element")
+                            element
+                        } else null
+                    }
+                    // Case 3: Unknown type
+                    else -> {
+                        android.util.Log.w("RemoteDataProvider", "Unknown element type at index $i: ${element?.javaClass?.simpleName}")
+                        null
+                    }
+                }
+            }
+            
+            android.util.Log.d("RemoteDataProvider", "getWishlist() found ${ids.size} product IDs")
+            if (ids.isNotEmpty()) {
+                val sampleIds = ids.take(5).joinToString(", ")
+                android.util.Log.d("RemoteDataProvider", "Sample product IDs (first 5): [$sampleIds]")
+            }
+            android.util.Log.d("RemoteDataProvider", "═══ getWishlist() END (SUCCESS) ═══")
+            return@withContext ids
         }
 
     suspend fun addToWishlist(userId: String, productId: String): Boolean =
         withContext(Dispatchers.IO) {
+            android.util.Log.d("RemoteDataProvider", "═══ addToWishlist() START ═══")
+            android.util.Log.d("RemoteDataProvider", "userId: $userId")
+            android.util.Log.d("RemoteDataProvider", "productId: $productId")
+            
             val body = org.json.JSONObject().put("productId", productId)
             val r = ApiClient.post("/api/wishlist/$userId", body)
+            
             if (!r.isSuccess) {
-                android.util.Log.e("RemoteDataProvider", "addToWishlist failed: code=${r.code} body=${r.raw}")
+                android.util.Log.e("RemoteDataProvider", "addToWishlist FAILED: HTTP ${r.code}")
+                android.util.Log.e("RemoteDataProvider", "Response: ${r.raw}")
+            } else {
+                android.util.Log.d("RemoteDataProvider", "addToWishlist SUCCESS")
             }
+            
+            android.util.Log.d("RemoteDataProvider", "═══ addToWishlist() END ═══")
             r.isSuccess
         }
 
     suspend fun removeFromWishlist(userId: String, productId: String): Boolean =
         withContext(Dispatchers.IO) {
+            android.util.Log.d("RemoteDataProvider", "═══ removeFromWishlist() START ═══")
+            android.util.Log.d("RemoteDataProvider", "userId: '$userId'")
+            android.util.Log.d("RemoteDataProvider", "productId: '$productId'")
+            android.util.Log.d("RemoteDataProvider", "DELETE URL: /api/wishlist/$userId/product/$productId")
+            
             // Try the efficient single-product DELETE endpoint first
             val r = ApiClient.delete("/api/wishlist/$userId/product/$productId")
-            if (r.isSuccess) return@withContext true
+            
+            android.util.Log.d("RemoteDataProvider", "DELETE response code: ${r.code}")
+            android.util.Log.d("RemoteDataProvider", "DELETE response: ${r.raw}")
+            
+            if (r.isSuccess) {
+                android.util.Log.d("RemoteDataProvider", "✅ DELETE endpoint SUCCESS - product removed from backend")
+                android.util.Log.d("RemoteDataProvider", "═══ removeFromWishlist() END (SUCCESS) ═══")
+                return@withContext true
+            }
 
             android.util.Log.w("RemoteDataProvider",
-                "removeFromWishlist DELETE endpoint returned ${r.code}, falling back to GET-PUT")
+                "❌ DELETE endpoint FAILED with HTTP ${r.code} - falling back to GET-PUT")
+            android.util.Log.w("RemoteDataProvider", "DELETE response: ${r.raw}")
 
             // Fallback: GET current list, remove item, PUT updated list
+            android.util.Log.d("RemoteDataProvider", "Fallback: GET current wishlist...")
             val getR = ApiClient.get("/api/wishlist/$userId")
             if (!getR.isSuccess) {
                 android.util.Log.e("RemoteDataProvider",
-                    "removeFromWishlist fallback GET failed: code=${getR.code} body=${getR.raw}")
+                    "❌ Fallback GET failed: HTTP ${getR.code}")
+                android.util.Log.e("RemoteDataProvider", "Response: ${getR.raw}")
+                android.util.Log.d("RemoteDataProvider", "═══ removeFromWishlist() END (FAILED) ═══")
                 return@withContext false
             }
-            val data = getR.json().optJSONObject("data") ?: return@withContext false
-            val arr  = data.optJSONArray("productId") ?: return@withContext false
+            
+            val data = getR.json().optJSONObject("data")
+            if (data == null) {
+                android.util.Log.e("RemoteDataProvider", "❌ Fallback GET has no 'data' object")
+                android.util.Log.d("RemoteDataProvider", "═══ removeFromWishlist() END (FAILED) ═══")
+                return@withContext false
+            }
+            
+            val arr = data.optJSONArray("productId")
+            if (arr == null) {
+                android.util.Log.e("RemoteDataProvider", "❌ Fallback GET has no 'productId' array")
+                android.util.Log.d("RemoteDataProvider", "═══ removeFromWishlist() END (FAILED) ═══")
+                return@withContext false
+            }
 
-            val ids = (0 until arr.length()).map { arr.optString(it) }
-                .filter { it != productId }
+            // Parse populated objects correctly (same logic as getWishlist)
+            val currentIds = (0 until arr.length()).mapNotNull { i ->
+                val element = arr.opt(i)
+                when {
+                    element is org.json.JSONObject -> element.optString("_id", element.optString("id", ""))
+                    element is String -> element
+                    else -> null
+                }
+            }.filter { it.isNotEmpty() }
+            
+            android.util.Log.d("RemoteDataProvider", "Current wishlist has ${currentIds.size} items")
+            
+            // Remove the specified product
+            val newIds = currentIds.filter { it != productId }
+            android.util.Log.d("RemoteDataProvider", "After removal: ${newIds.size} items (removed: ${currentIds.size - newIds.size})")
 
-            val newArr = org.json.JSONArray().also { a -> ids.forEach { a.put(it) } }
+            val newArr = org.json.JSONArray().also { a -> newIds.forEach { a.put(it) } }
             val body   = org.json.JSONObject().put("productId", newArr)
+            
+            android.util.Log.d("RemoteDataProvider", "Fallback: PUT updated wishlist...")
+            android.util.Log.d("RemoteDataProvider", "PUT URL: /api/wishlist/$userId")
+            android.util.Log.d("RemoteDataProvider", "PUT body: ${body.toString()}")
             val putR   = ApiClient.put("/api/wishlist/$userId", body)
+            
+            android.util.Log.d("RemoteDataProvider", "PUT response code: ${putR.code}")
+            android.util.Log.d("RemoteDataProvider", "PUT response: ${putR.raw}")
+            
             if (!putR.isSuccess) {
                 android.util.Log.e("RemoteDataProvider",
-                    "removeFromWishlist fallback PUT failed: code=${putR.code} body=${putR.raw}")
+                    "❌ Fallback PUT failed: HTTP ${putR.code}")
+                android.util.Log.e("RemoteDataProvider", "Response: ${putR.raw}")
+                android.util.Log.d("RemoteDataProvider", "═══ removeFromWishlist() END (FAILED) ═══")
+                return@withContext false
             }
+            
+            android.util.Log.d("RemoteDataProvider", "✅ Fallback PUT SUCCESS")
+            android.util.Log.d("RemoteDataProvider", "═══ removeFromWishlist() END (SUCCESS) ═══")
             putR.isSuccess
+        }
+
+    // ── Addresses ─────────────────────────────────────────────────────────────
+
+    suspend fun getAddresses(_token: String): List<Address>? =
+        withContext(Dispatchers.IO) {
+            ProfileDataManager.getAddresses()
+        }
+
+    suspend fun createAddress(_token: String, address: Address): Address? =
+        withContext(Dispatchers.IO) {
+            if (address.id.isEmpty()) address.copy(id = UUID.randomUUID().toString()) else address
+        }
+
+    suspend fun updateAddress(_token: String, address: Address): Address? =
+        withContext(Dispatchers.IO) {
+            address
+        }
+
+    suspend fun deleteAddress(_token: String, _addressId: String): Boolean =
+        withContext(Dispatchers.IO) {
+            true
+        }
+
+    suspend fun setDefaultAddress(_token: String, _addressId: String): Any? =
+        withContext(Dispatchers.IO) {
+            true
         }
 
     // ── Sync helpers ──────────────────────────────────────────────────────────

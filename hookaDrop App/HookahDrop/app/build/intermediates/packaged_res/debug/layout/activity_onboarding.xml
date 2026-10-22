@@ -1,406 +1,360 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#000000">
+    android:background="#111111"
+    android:fitsSystemWindows="true">
 
-    <!-- SMOKE LAYER — top-left -->
-    <ImageView
-        android:id="@+id/smokeTL"
-        android:layout_width="280dp"
-        android:layout_height="280dp"
-        android:src="@drawable/smk"
-        android:scaleType="centerCrop"
-        android:alpha="0.35"
-        android:layout_gravity="top|start"
-        android:layout_marginStart="-60dp"
-        android:layout_marginTop="-60dp"
-        android:contentDescription=""/>
+    <!-- SMOKE BACKGROUND: Bottom-most layer with Screen blend mode -->
+    <com.hookahdrop.app.view.SmokeBackgroundView
+        android:id="@+id/smokeBackground"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
-    <!-- SMOKE LAYER — top-right -->
-    <ImageView
-        android:id="@+id/smokeTR"
-        android:layout_width="280dp"
-        android:layout_height="280dp"
-        android:src="@drawable/smk"
-        android:scaleType="centerCrop"
-        android:alpha="0.30"
-        android:rotation="90"
-        android:scaleX="-1"
-        android:layout_gravity="top|end"
-        android:layout_marginEnd="-60dp"
-        android:layout_marginTop="-60dp"
-        android:contentDescription=""/>
+    <!-- AURA: Soft radial glow behind hookah (DEFECT A FIX) -->
+    <com.hookahdrop.app.view.AuraView
+        android:id="@+id/auraView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
-    <!-- SMOKE LAYER — bottom-left -->
-    <ImageView
-        android:id="@+id/smokeBL"
-        android:layout_width="280dp"
-        android:layout_height="280dp"
-        android:src="@drawable/smk"
-        android:scaleType="centerCrop"
-        android:alpha="0.40"
-        android:rotation="270"
-        android:layout_gravity="bottom|start"
-        android:layout_marginStart="-60dp"
-        android:layout_marginBottom="-60dp"
-        android:contentDescription=""/>
+    <!-- Background Orbs Layer (DEFECT A FIX: soft gradients, no blur) -->
+    <com.hookahdrop.app.view.OrbView
+        android:id="@+id/orbView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
-    <!-- SMOKE LAYER — bottom-right -->
-    <ImageView
-        android:id="@+id/smokeBR"
-        android:layout_width="280dp"
-        android:layout_height="280dp"
-        android:src="@drawable/smk"
-        android:scaleType="centerCrop"
-        android:alpha="0.35"
-        android:rotation="180"
-        android:layout_gravity="bottom|end"
-        android:layout_marginEnd="-60dp"
-        android:layout_marginBottom="-60dp"
-        android:contentDescription=""/>
+    <!-- Smoke Particle System (above orbs, below scrim) -->
+    <com.hookahdrop.app.view.SmokeParticleView
+        android:id="@+id/smokeView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
-    <!-- MAIN SCROLLABLE CONTENT -->
-    <ScrollView
+    <!-- BOTTOM SCRIM (DEFECT B FIX): Full-screen overlay, lower 56%, gradient from transparent -->
+    <com.hookahdrop.app.view.BottomScrimView
+        android:id="@+id/bottomScrim"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <!-- Main Content - FIXED LAYOUT: Column structure with weight(1f) for hookah -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#00000000"
-        android:fillViewport="true"
-        android:scrollbars="none">
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp">
 
+        <!-- Wordmark -->
+        <TextView
+            android:id="@+id/tvWordmark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="HOOKADROP"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"
+            android:letterSpacing="0.26"
+            android:alpha="0"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="8dp" />
+
+        <!-- HOOKAH AREA: Takes all leftover height with weight=1 -->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <!-- Hookah Custom View - centered, top-aligned, fills height with aspect ratio -->
+            <com.hookahdrop.app.view.HookahView
+                android:id="@+id/hookahView"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal|top"
+                android:alpha="0"
+                android:contentDescription="Premium hookah" />
+
+        </FrameLayout>
+
+        <!-- TEXT BLOCK: Always visible, wrap content -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingBottom="32dp"
-            android:minHeight="600dp">
+            android:gravity="center_horizontal"
+            android:paddingStart="24dp"
+            android:paddingEnd="24dp">
 
-            <!-- LOGO -->
-            <ImageView
-                android:id="@+id/ivLogo"
-                android:layout_width="260dp"
-                android:layout_height="100dp"
-                android:src="@drawable/logoo"
-                android:scaleType="fitCenter"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="40dp"
-                android:alpha="0"
-                android:contentDescription="HookaDrop logo"/>
-
-            <!-- IMAGE COLLAGE -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="340dp"
-                android:orientation="horizontal"
-                android:layout_marginTop="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp">
-
-                <!-- Left large portrait image -->
-                <ImageView
-                    android:id="@+id/imgHookah1"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1.0"
-                    android:src="@drawable/hookah_photo_1"
-                    android:scaleType="centerCrop"
-                    android:background="@drawable/bg_collage_left"
-                    android:clipToOutline="true"
-                    android:layout_marginEnd="6dp"
-                    android:alpha="0"
-                    android:contentDescription="Hookah 1"/>
-
-                <!-- Right column: 2 stacked images -->
-                <LinearLayout
-                    android:id="@+id/rightColumn"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.75"
-                    android:orientation="vertical"
-                    android:alpha="0">
-
-                    <ImageView
-                        android:id="@+id/imgHookah2"
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:src="@drawable/hookah_photo_2"
-                        android:scaleType="centerCrop"
-                        android:background="@drawable/bg_collage_right"
-                        android:clipToOutline="true"
-                        android:layout_marginBottom="6dp"
-                        android:contentDescription="Hookah 2"/>
-
-                    <ImageView
-                        android:id="@+id/imgHookah3"
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:src="@drawable/hookah_photo_3"
-                        android:scaleType="centerCrop"
-                        android:background="@drawable/bg_collage_right"
-                        android:clipToOutline="true"
-                        android:contentDescription="Hookah 3"/>
-
-                </LinearLayout>
-            </LinearLayout>
-
-            <!-- EYEBROW LABEL -->
+            <!-- Eyebrow Layout -->
             <LinearLayout
                 android:id="@+id/layoutEyebrow"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_vertical|center_horizontal"
-                android:layout_marginTop="20dp"
-                android:layout_marginStart="24dp"
-                android:layout_marginEnd="24dp"
-                android:alpha="0">
+                android:alpha="0"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp">
 
                 <View
-                    android:layout_width="40dp"
+                    android:layout_width="34dp"
                     android:layout_height="1dp"
-                    android:background="#333344"/>
+                    android:background="@android:drawable/dialog_holo_dark_frame" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="PREMIUM HOOKAH EXPERIENCE"
                     android:textSize="10sp"
-                    android:letterSpacing="0.15"
-                    android:textColor="#888899"
+                    android:letterSpacing="0.26"
+                    android:textColor="#9AA1A9"
                     android:layout_marginStart="8dp"
-                    android:layout_marginEnd="8dp"/>
+                    android:layout_marginEnd="8dp"
+                    android:textAllCaps="true" />
 
                 <View
-                    android:layout_width="40dp"
+                    android:layout_width="34dp"
                     android:layout_height="1dp"
-                    android:background="#333344"/>
-
+                    android:background="@android:drawable/dialog_holo_dark_frame" />
             </LinearLayout>
 
-            <!-- HEADLINE -->
+            <!-- Title -->
             <TextView
-                android:id="@+id/tvSubtitle"
+                android:id="@+id/tvTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="The experience you&apos;ve\nbeen waiting for"
-                android:textSize="28sp"
+                android:text="The experience you've\nbeen waiting\nfor"
+                android:textSize="27sp"
                 android:textStyle="bold"
-                android:textColor="@color/white"
+                android:textColor="#FFFFFF"
                 android:gravity="center"
-                android:lineSpacingMultiplier="1.1"
-                android:layout_marginTop="8dp"
-                android:layout_marginStart="24dp"
-                android:layout_marginEnd="24dp"
-                android:alpha="0"/>
+                android:lineSpacingMultiplier="1.12"
+                android:letterSpacing="-0.02"
+                android:alpha="0"
+                android:layout_marginBottom="8dp" />
 
-            <!-- DESCRIPTION -->
+            <!-- Lead Text -->
             <TextView
-                android:id="@+id/tvDescription"
-                android:layout_width="match_parent"
+                android:id="@+id/tvLead"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Buy or rent your favorite hookah with fast home delivery."
-                android:textSize="14sp"
-                android:textColor="#AAAAAA"
+                android:textSize="13sp"
+                android:textColor="#9AA1A9"
                 android:gravity="center"
-                android:lineSpacingMultiplier="1.3"
-                android:layout_marginTop="10dp"
-                android:layout_marginStart="32dp"
-                android:layout_marginEnd="32dp"
-                android:alpha="0"/>
+                android:lineSpacingMultiplier="1.5"
+                android:maxWidth="300dp"
+                android:alpha="0"
+                android:layout_marginBottom="16dp" />
 
-            <!-- FEATURES ROW -->
+            <!-- Services Row with FIXED HEIGHT to prevent divider overflow -->
             <LinearLayout
-                android:id="@+id/layoutFeatures"
+                android:id="@+id/layoutServices"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="96dp"
                 android:orientation="horizontal"
-                android:weightSum="3"
-                android:layout_marginTop="20dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
                 android:gravity="center_vertical"
-                android:alpha="0">
+                android:alpha="0"
+                android:layout_marginStart="-8dp"
+                android:layout_marginEnd="-8dp"
+                android:layout_marginBottom="20dp">
 
-                <!-- Feature 1: Fast Delivery -->
+                <!-- Service 1: Fast Delivery -->
                 <LinearLayout
+                    android:id="@+id/layoutService1"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:orientation="vertical"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:padding="8dp">
 
-                    <ImageView
-                        android:layout_width="44dp"
-                        android:layout_height="44dp"
-                        android:src="@drawable/ic_in_transit"
-                        android:background="@drawable/bg_feature_icon"
-                        android:padding="8dp"
-                        android:scaleType="fitCenter"
-                        android:contentDescription="Delivery icon"/>
+                    <FrameLayout
+                        android:layout_width="52dp"
+                        android:layout_height="52dp">
+
+                        <View
+                            android:id="@+id/viewServiceCircle1"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/bg_service_circle" />
+
+                        <ImageView
+                            android:id="@+id/ivServiceIcon1"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_in_transit"
+                            android:scaleType="fitCenter"
+                            android:contentDescription="Fast Delivery" />
+                    </FrameLayout>
 
                     <TextView
+                        android:id="@+id/tvService1Title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Fast Delivery"
                         android:textSize="12sp"
                         android:textStyle="bold"
-                        android:textColor="@color/white"
+                        android:textColor="#FFFFFF"
                         android:gravity="center"
-                        android:layout_marginTop="6dp"/>
+                        android:layout_marginTop="6dp" />
 
                     <TextView
+                        android:id="@+id/tvService1Subtitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="To your door"
-                        android:textSize="10sp"
-                        android:textColor="#888899"
+                        android:textSize="10.5sp"
+                        android:textColor="#9AA1A9"
                         android:gravity="center"
-                        android:layout_marginTop="2dp"/>
-
+                        android:layout_marginTop="2dp" />
                 </LinearLayout>
 
-                <!-- Divider -->
+                <!-- Divider 1 - FIXED HEIGHT with padding -->
                 <View
                     android:layout_width="1dp"
-                    android:layout_height="40dp"
-                    android:background="#222233"/>
+                    android:layout_height="match_parent"
+                    android:background="#30FFFFFF"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp" />
 
-                <!-- Feature 2: Premium Products -->
+                <!-- Service 2: Premium Products -->
                 <LinearLayout
+                    android:id="@+id/layoutService2"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:orientation="vertical"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:padding="8dp">
 
-                    <ImageView
-                        android:id="@+id/ivFeature2Icon"
-                        android:layout_width="44dp"
-                        android:layout_height="44dp"
-                        android:src="@drawable/ic_dimd"
-                        android:background="@drawable/bg_feature_icon"
-                        android:padding="8dp"
-                        android:scaleType="fitCenter"
-                        android:contentDescription="Premium icon"/>
+                    <FrameLayout
+                        android:layout_width="52dp"
+                        android:layout_height="52dp">
+
+                        <View
+                            android:id="@+id/viewServiceCircle2"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/bg_service_circle" />
+
+                        <ImageView
+                            android:id="@+id/ivServiceIcon2"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_diamond"
+                            android:scaleType="fitCenter"
+                            android:contentDescription="Premium Products" />
+                    </FrameLayout>
 
                     <TextView
+                        android:id="@+id/tvService2Title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Premium Products"
                         android:textSize="12sp"
                         android:textStyle="bold"
-                        android:textColor="@color/white"
+                        android:textColor="#FFFFFF"
                         android:gravity="center"
-                        android:layout_marginTop="6dp"/>
+                        android:layout_marginTop="6dp" />
 
                     <TextView
+                        android:id="@+id/tvService2Subtitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="100% Authentic"
-                        android:textSize="10sp"
-                        android:textColor="#888899"
+                        android:textSize="10.5sp"
+                        android:textColor="#9AA1A9"
                         android:gravity="center"
-                        android:layout_marginTop="2dp"/>
-
+                        android:layout_marginTop="2dp" />
                 </LinearLayout>
 
-                <!-- Divider -->
+                <!-- Divider 2 - FIXED HEIGHT with padding -->
                 <View
                     android:layout_width="1dp"
-                    android:layout_height="40dp"
-                    android:background="#222233"/>
+                    android:layout_height="match_parent"
+                    android:background="#30FFFFFF"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp" />
 
-                <!-- Feature 3: 24/7 Support -->
+                <!-- Service 3: 24/7 Support -->
                 <LinearLayout
+                    android:id="@+id/layoutService3"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:orientation="vertical"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:padding="8dp">
 
-                    <ImageView
-                        android:layout_width="44dp"
-                        android:layout_height="44dp"
-                        android:src="@drawable/ic_headset"
-                        android:background="@drawable/bg_feature_icon"
-                        android:padding="10dp"
-                        android:scaleType="fitCenter"
-                        android:contentDescription="Support icon"/>
+                    <FrameLayout
+                        android:layout_width="52dp"
+                        android:layout_height="52dp">
+
+                        <View
+                            android:id="@+id/viewServiceCircle3"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/bg_service_circle" />
+
+                        <ImageView
+                            android:id="@+id/ivServiceIcon3"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_headset"
+                            android:scaleType="fitCenter"
+                            android:contentDescription="24/7 Support" />
+                    </FrameLayout>
 
                     <TextView
+                        android:id="@+id/tvService3Title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="24/7 Support"
                         android:textSize="12sp"
                         android:textStyle="bold"
-                        android:textColor="@color/white"
+                        android:textColor="#FFFFFF"
                         android:gravity="center"
-                        android:layout_marginTop="6dp"/>
+                        android:layout_marginTop="6dp" />
 
                     <TextView
+                        android:id="@+id/tvService3Subtitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Always here for you"
-                        android:textSize="10sp"
-                        android:textColor="#888899"
+                        android:textSize="10.5sp"
+                        android:textColor="#9AA1A9"
                         android:gravity="center"
-                        android:layout_marginTop="2dp"/>
-
+                        android:layout_marginTop="2dp" />
                 </LinearLayout>
-
             </LinearLayout>
 
-            <!-- CTA BUTTON -->
+            <!-- CTA Button -->
             <Button
                 android:id="@+id/btnGetStart"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
-                android:text="Let&apos;s Get Started  &#8594;"
-                android:textSize="16sp"
+                android:text="Let's Get Started  →"
+                android:textSize="15sp"
                 android:textStyle="bold"
-                android:textColor="@color/white"
-                android:background="@drawable/bg_button_cyan"
+                android:textColor="#111111"
+                android:background="@drawable/bg_cta_white"
                 android:textAllCaps="false"
-                android:layout_marginTop="24dp"
-                android:layout_marginStart="24dp"
-                android:layout_marginEnd="24dp"
-                android:alpha="0"/>
-
-            <!-- PAGE INDICATOR DOTS -->
-            <LinearLayout
-                android:id="@+id/layoutDots"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="16dp"
-                android:gravity="center_vertical"
-                android:alpha="0">
-
-                <View
-                    android:layout_width="10dp"
-                    android:layout_height="10dp"
-                    android:background="@drawable/bg_indicator_active"/>
-
-                <View
-                    android:layout_width="8dp"
-                    android:layout_height="8dp"
-                    android:background="@drawable/bg_indicator_inactive"
-                    android:layout_marginStart="6dp"/>
-
-                <View
-                    android:layout_width="8dp"
-                    android:layout_height="8dp"
-                    android:background="@drawable/bg_indicator_inactive"
-                    android:layout_marginStart="6dp"/>
-
-            </LinearLayout>
+                android:alpha="0" />
 
         </LinearLayout>
-    </ScrollView>
+    </LinearLayout>
+
+    <!-- Black Veil for Exit Transition -->
+    <View
+        android:id="@+id/veilView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#000000"
+        android:alpha="0"
+        android:clickable="false" />
 
 </FrameLayout>

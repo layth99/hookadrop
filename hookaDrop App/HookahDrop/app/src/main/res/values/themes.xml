@@ -15,9 +15,12 @@
     </style>
 
     <!-- Splash: fully transparent so background drawable shows -->
-    <style name="Theme.HookahDrop.Splash" parent="Theme.HookahDrop">
+    <style name="Theme.HookahDrop.Splash" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">#111111</item>
+        <item name="windowSplashScreenAnimationDuration">0</item>
+        <item name="postSplashScreenTheme">@style/Theme.HookahDrop</item>
         <item name="android:windowFullscreen">true</item>
-        <item name="android:windowBackground">@color/black</item>
+        <item name="android:windowBackground">#111111</item>
         <item name="android:navigationBarColor">#FF000000</item>
     </style>
 

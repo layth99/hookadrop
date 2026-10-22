@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.hookahdrop.app-mergeDebugResources-90:/values-mdpi-v4/values-mdpi-v4.xml",
+            "outputFile": "com.hookahdrop.app-mergeDebugResources-92:/values-mdpi-v4/values-mdpi-v4.xml",
             "map": [
                 {
                     "source": "C:\\Users\\GAMING\\.gradle\\caches\\transforms-3\\976eef22bd7f08298b6e75f43f5621e0\\transformed\\jetified-payments-core-20.37.5\\res\\values-mdpi-v4\\values-mdpi-v4.xml",

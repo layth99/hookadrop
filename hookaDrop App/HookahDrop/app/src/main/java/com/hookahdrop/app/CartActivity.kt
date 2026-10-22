@@ -54,7 +54,7 @@ class CartActivity : AppCompatActivity() {
     // Pagination state
     private var currentPage = 1
     private var totalPages = 1
-    private val itemsPerPage = 4
+    private val itemsPerPage = 3
     private var allCartItems = listOf<CartItem>()
 
     // Cart listener — runs on any thread, must dispatch to main

@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.hookahdrop.app-mergeDebugResources-90:/values-en-rAU/values-en-rAU.xml",
+            "outputFile": "com.hookahdrop.app-mergeDebugResources-92:/values-en-rAU/values-en-rAU.xml",
             "map": [
                 {
                     "source": "C:\\Users\\GAMING\\.gradle\\caches\\transforms-3\\60ca3ddb23f9011236e5ec5e90708008\\transformed\\jetified-material3-1.0.1\\res\\values-en-rAU\\values-en-rAU.xml",

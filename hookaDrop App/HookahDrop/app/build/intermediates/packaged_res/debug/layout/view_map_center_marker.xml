@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Center marker that floats in the middle of the map -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="48dp"
+    android:layout_height="64dp"
+    android:layout_gravity="center">
+
+    <!-- Pin shadow (subtle drop shadow effect) -->
+    <View
+        android:layout_width="24dp"
+        android:layout_height="8dp"
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_marginBottom="4dp"
+        android:background="@drawable/bg_marker_shadow"
+        android:alpha="0.3"/>
+
+    <!-- Pin icon -->
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="54dp"
+        android:layout_gravity="center_horizontal|top"
+        android:src="@drawable/ic_map_pin"
+        android:contentDescription="Location marker"/>
+
+</FrameLayout>

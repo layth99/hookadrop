@@ -97,10 +97,9 @@
             android:visibility="gone"/>
     </FrameLayout>
 
-    <!-- ── GOOGLE MAP ────────────────────────────────────────────────────── -->
-    <fragment
-        android:id="@+id/mapFragment"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
+    <!-- ── MAPLIBRE MAP ──────────────────────────────────────────────────── -->
+    <org.maplibre.android.maps.MapView
+        android:id="@+id/mapView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/header"

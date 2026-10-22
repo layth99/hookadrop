@@ -14,6 +14,12 @@ import androidx.annotation.Nullable;
 import androidx.viewbinding.ViewBinding;
 import androidx.viewbinding.ViewBindings;
 import com.hookahdrop.app.R;
+import com.hookahdrop.app.view.AuraView;
+import com.hookahdrop.app.view.BottomScrimView;
+import com.hookahdrop.app.view.HookahView;
+import com.hookahdrop.app.view.OrbView;
+import com.hookahdrop.app.view.SmokeBackgroundView;
+import com.hookahdrop.app.view.SmokeParticleView;
 import java.lang.NullPointerException;
 import java.lang.Override;
 import java.lang.String;
@@ -23,77 +29,132 @@ public final class ActivityOnboardingBinding implements ViewBinding {
   private final FrameLayout rootView;
 
   @NonNull
+  public final AuraView auraView;
+
+  @NonNull
+  public final BottomScrimView bottomScrim;
+
+  @NonNull
   public final Button btnGetStart;
 
   @NonNull
-  public final ImageView imgHookah1;
+  public final HookahView hookahView;
 
   @NonNull
-  public final ImageView imgHookah2;
+  public final ImageView ivServiceIcon1;
 
   @NonNull
-  public final ImageView imgHookah3;
+  public final ImageView ivServiceIcon2;
 
   @NonNull
-  public final ImageView ivFeature2Icon;
-
-  @NonNull
-  public final ImageView ivLogo;
-
-  @NonNull
-  public final LinearLayout layoutDots;
+  public final ImageView ivServiceIcon3;
 
   @NonNull
   public final LinearLayout layoutEyebrow;
 
   @NonNull
-  public final LinearLayout layoutFeatures;
+  public final LinearLayout layoutService1;
 
   @NonNull
-  public final LinearLayout rightColumn;
+  public final LinearLayout layoutService2;
 
   @NonNull
-  public final ImageView smokeBL;
+  public final LinearLayout layoutService3;
 
   @NonNull
-  public final ImageView smokeBR;
+  public final LinearLayout layoutServices;
 
   @NonNull
-  public final ImageView smokeTL;
+  public final OrbView orbView;
 
   @NonNull
-  public final ImageView smokeTR;
+  public final SmokeBackgroundView smokeBackground;
 
   @NonNull
-  public final TextView tvDescription;
+  public final SmokeParticleView smokeView;
 
   @NonNull
-  public final TextView tvSubtitle;
+  public final TextView tvLead;
 
-  private ActivityOnboardingBinding(@NonNull FrameLayout rootView, @NonNull Button btnGetStart,
-      @NonNull ImageView imgHookah1, @NonNull ImageView imgHookah2, @NonNull ImageView imgHookah3,
-      @NonNull ImageView ivFeature2Icon, @NonNull ImageView ivLogo,
-      @NonNull LinearLayout layoutDots, @NonNull LinearLayout layoutEyebrow,
-      @NonNull LinearLayout layoutFeatures, @NonNull LinearLayout rightColumn,
-      @NonNull ImageView smokeBL, @NonNull ImageView smokeBR, @NonNull ImageView smokeTL,
-      @NonNull ImageView smokeTR, @NonNull TextView tvDescription, @NonNull TextView tvSubtitle) {
+  @NonNull
+  public final TextView tvService1Subtitle;
+
+  @NonNull
+  public final TextView tvService1Title;
+
+  @NonNull
+  public final TextView tvService2Subtitle;
+
+  @NonNull
+  public final TextView tvService2Title;
+
+  @NonNull
+  public final TextView tvService3Subtitle;
+
+  @NonNull
+  public final TextView tvService3Title;
+
+  @NonNull
+  public final TextView tvTitle;
+
+  @NonNull
+  public final TextView tvWordmark;
+
+  @NonNull
+  public final View veilView;
+
+  @NonNull
+  public final View viewServiceCircle1;
+
+  @NonNull
+  public final View viewServiceCircle2;
+
+  @NonNull
+  public final View viewServiceCircle3;
+
+  private ActivityOnboardingBinding(@NonNull FrameLayout rootView, @NonNull AuraView auraView,
+      @NonNull BottomScrimView bottomScrim, @NonNull Button btnGetStart,
+      @NonNull HookahView hookahView, @NonNull ImageView ivServiceIcon1,
+      @NonNull ImageView ivServiceIcon2, @NonNull ImageView ivServiceIcon3,
+      @NonNull LinearLayout layoutEyebrow, @NonNull LinearLayout layoutService1,
+      @NonNull LinearLayout layoutService2, @NonNull LinearLayout layoutService3,
+      @NonNull LinearLayout layoutServices, @NonNull OrbView orbView,
+      @NonNull SmokeBackgroundView smokeBackground, @NonNull SmokeParticleView smokeView,
+      @NonNull TextView tvLead, @NonNull TextView tvService1Subtitle,
+      @NonNull TextView tvService1Title, @NonNull TextView tvService2Subtitle,
+      @NonNull TextView tvService2Title, @NonNull TextView tvService3Subtitle,
+      @NonNull TextView tvService3Title, @NonNull TextView tvTitle, @NonNull TextView tvWordmark,
+      @NonNull View veilView, @NonNull View viewServiceCircle1, @NonNull View viewServiceCircle2,
+      @NonNull View viewServiceCircle3) {
     this.rootView = rootView;
+    this.auraView = auraView;
+    this.bottomScrim = bottomScrim;
     this.btnGetStart = btnGetStart;
-    this.imgHookah1 = imgHookah1;
-    this.imgHookah2 = imgHookah2;
-    this.imgHookah3 = imgHookah3;
-    this.ivFeature2Icon = ivFeature2Icon;
-    this.ivLogo = ivLogo;
-    this.layoutDots = layoutDots;
+    this.hookahView = hookahView;
+    this.ivServiceIcon1 = ivServiceIcon1;
+    this.ivServiceIcon2 = ivServiceIcon2;
+    this.ivServiceIcon3 = ivServiceIcon3;
     this.layoutEyebrow = layoutEyebrow;
-    this.layoutFeatures = layoutFeatures;
-    this.rightColumn = rightColumn;
-    this.smokeBL = smokeBL;
-    this.smokeBR = smokeBR;
-    this.smokeTL = smokeTL;
-    this.smokeTR = smokeTR;
-    this.tvDescription = tvDescription;
-    this.tvSubtitle = tvSubtitle;
+    this.layoutService1 = layoutService1;
+    this.layoutService2 = layoutService2;
+    this.layoutService3 = layoutService3;
+    this.layoutServices = layoutServices;
+    this.orbView = orbView;
+    this.smokeBackground = smokeBackground;
+    this.smokeView = smokeView;
+    this.tvLead = tvLead;
+    this.tvService1Subtitle = tvService1Subtitle;
+    this.tvService1Title = tvService1Title;
+    this.tvService2Subtitle = tvService2Subtitle;
+    this.tvService2Title = tvService2Title;
+    this.tvService3Subtitle = tvService3Subtitle;
+    this.tvService3Title = tvService3Title;
+    this.tvTitle = tvTitle;
+    this.tvWordmark = tvWordmark;
+    this.veilView = veilView;
+    this.viewServiceCircle1 = viewServiceCircle1;
+    this.viewServiceCircle2 = viewServiceCircle2;
+    this.viewServiceCircle3 = viewServiceCircle3;
   }
 
   @Override
@@ -123,45 +184,45 @@ public final class ActivityOnboardingBinding implements ViewBinding {
     // This is done to optimize the compiled bytecode for size and performance.
     int id;
     missingId: {
+      id = R.id.auraView;
+      AuraView auraView = ViewBindings.findChildViewById(rootView, id);
+      if (auraView == null) {
+        break missingId;
+      }
+
+      id = R.id.bottomScrim;
+      BottomScrimView bottomScrim = ViewBindings.findChildViewById(rootView, id);
+      if (bottomScrim == null) {
+        break missingId;
+      }
+
       id = R.id.btnGetStart;
       Button btnGetStart = ViewBindings.findChildViewById(rootView, id);
       if (btnGetStart == null) {
         break missingId;
       }
 
-      id = R.id.imgHookah1;
-      ImageView imgHookah1 = ViewBindings.findChildViewById(rootView, id);
-      if (imgHookah1 == null) {
+      id = R.id.hookahView;
+      HookahView hookahView = ViewBindings.findChildViewById(rootView, id);
+      if (hookahView == null) {
         break missingId;
       }
 
-      id = R.id.imgHookah2;
-      ImageView imgHookah2 = ViewBindings.findChildViewById(rootView, id);
-      if (imgHookah2 == null) {
+      id = R.id.ivServiceIcon1;
+      ImageView ivServiceIcon1 = ViewBindings.findChildViewById(rootView, id);
+      if (ivServiceIcon1 == null) {
         break missingId;
       }
 
-      id = R.id.imgHookah3;
-      ImageView imgHookah3 = ViewBindings.findChildViewById(rootView, id);
-      if (imgHookah3 == null) {
+      id = R.id.ivServiceIcon2;
+      ImageView ivServiceIcon2 = ViewBindings.findChildViewById(rootView, id);
+      if (ivServiceIcon2 == null) {
         break missingId;
       }
 
-      id = R.id.ivFeature2Icon;
-      ImageView ivFeature2Icon = ViewBindings.findChildViewById(rootView, id);
-      if (ivFeature2Icon == null) {
-        break missingId;
-      }
-
-      id = R.id.ivLogo;
-      ImageView ivLogo = ViewBindings.findChildViewById(rootView, id);
-      if (ivLogo == null) {
-        break missingId;
-      }
-
-      id = R.id.layoutDots;
-      LinearLayout layoutDots = ViewBindings.findChildViewById(rootView, id);
-      if (layoutDots == null) {
+      id = R.id.ivServiceIcon3;
+      ImageView ivServiceIcon3 = ViewBindings.findChildViewById(rootView, id);
+      if (ivServiceIcon3 == null) {
         break missingId;
       }
 
@@ -171,57 +232,132 @@ public final class ActivityOnboardingBinding implements ViewBinding {
         break missingId;
       }
 
-      id = R.id.layoutFeatures;
-      LinearLayout layoutFeatures = ViewBindings.findChildViewById(rootView, id);
-      if (layoutFeatures == null) {
+      id = R.id.layoutService1;
+      LinearLayout layoutService1 = ViewBindings.findChildViewById(rootView, id);
+      if (layoutService1 == null) {
         break missingId;
       }
 
-      id = R.id.rightColumn;
-      LinearLayout rightColumn = ViewBindings.findChildViewById(rootView, id);
-      if (rightColumn == null) {
+      id = R.id.layoutService2;
+      LinearLayout layoutService2 = ViewBindings.findChildViewById(rootView, id);
+      if (layoutService2 == null) {
         break missingId;
       }
 
-      id = R.id.smokeBL;
-      ImageView smokeBL = ViewBindings.findChildViewById(rootView, id);
-      if (smokeBL == null) {
+      id = R.id.layoutService3;
+      LinearLayout layoutService3 = ViewBindings.findChildViewById(rootView, id);
+      if (layoutService3 == null) {
         break missingId;
       }
 
-      id = R.id.smokeBR;
-      ImageView smokeBR = ViewBindings.findChildViewById(rootView, id);
-      if (smokeBR == null) {
+      id = R.id.layoutServices;
+      LinearLayout layoutServices = ViewBindings.findChildViewById(rootView, id);
+      if (layoutServices == null) {
         break missingId;
       }
 
-      id = R.id.smokeTL;
-      ImageView smokeTL = ViewBindings.findChildViewById(rootView, id);
-      if (smokeTL == null) {
+      id = R.id.orbView;
+      OrbView orbView = ViewBindings.findChildViewById(rootView, id);
+      if (orbView == null) {
         break missingId;
       }
 
-      id = R.id.smokeTR;
-      ImageView smokeTR = ViewBindings.findChildViewById(rootView, id);
-      if (smokeTR == null) {
+      id = R.id.smokeBackground;
+      SmokeBackgroundView smokeBackground = ViewBindings.findChildViewById(rootView, id);
+      if (smokeBackground == null) {
         break missingId;
       }
 
-      id = R.id.tvDescription;
-      TextView tvDescription = ViewBindings.findChildViewById(rootView, id);
-      if (tvDescription == null) {
+      id = R.id.smokeView;
+      SmokeParticleView smokeView = ViewBindings.findChildViewById(rootView, id);
+      if (smokeView == null) {
         break missingId;
       }
 
-      id = R.id.tvSubtitle;
-      TextView tvSubtitle = ViewBindings.findChildViewById(rootView, id);
-      if (tvSubtitle == null) {
+      id = R.id.tvLead;
+      TextView tvLead = ViewBindings.findChildViewById(rootView, id);
+      if (tvLead == null) {
         break missingId;
       }
 
-      return new ActivityOnboardingBinding((FrameLayout) rootView, btnGetStart, imgHookah1,
-          imgHookah2, imgHookah3, ivFeature2Icon, ivLogo, layoutDots, layoutEyebrow, layoutFeatures,
-          rightColumn, smokeBL, smokeBR, smokeTL, smokeTR, tvDescription, tvSubtitle);
+      id = R.id.tvService1Subtitle;
+      TextView tvService1Subtitle = ViewBindings.findChildViewById(rootView, id);
+      if (tvService1Subtitle == null) {
+        break missingId;
+      }
+
+      id = R.id.tvService1Title;
+      TextView tvService1Title = ViewBindings.findChildViewById(rootView, id);
+      if (tvService1Title == null) {
+        break missingId;
+      }
+
+      id = R.id.tvService2Subtitle;
+      TextView tvService2Subtitle = ViewBindings.findChildViewById(rootView, id);
+      if (tvService2Subtitle == null) {
+        break missingId;
+      }
+
+      id = R.id.tvService2Title;
+      TextView tvService2Title = ViewBindings.findChildViewById(rootView, id);
+      if (tvService2Title == null) {
+        break missingId;
+      }
+
+      id = R.id.tvService3Subtitle;
+      TextView tvService3Subtitle = ViewBindings.findChildViewById(rootView, id);
+      if (tvService3Subtitle == null) {
+        break missingId;
+      }
+
+      id = R.id.tvService3Title;
+      TextView tvService3Title = ViewBindings.findChildViewById(rootView, id);
+      if (tvService3Title == null) {
+        break missingId;
+      }
+
+      id = R.id.tvTitle;
+      TextView tvTitle = ViewBindings.findChildViewById(rootView, id);
+      if (tvTitle == null) {
+        break missingId;
+      }
+
+      id = R.id.tvWordmark;
+      TextView tvWordmark = ViewBindings.findChildViewById(rootView, id);
+      if (tvWordmark == null) {
+        break missingId;
+      }
+
+      id = R.id.veilView;
+      View veilView = ViewBindings.findChildViewById(rootView, id);
+      if (veilView == null) {
+        break missingId;
+      }
+
+      id = R.id.viewServiceCircle1;
+      View viewServiceCircle1 = ViewBindings.findChildViewById(rootView, id);
+      if (viewServiceCircle1 == null) {
+        break missingId;
+      }
+
+      id = R.id.viewServiceCircle2;
+      View viewServiceCircle2 = ViewBindings.findChildViewById(rootView, id);
+      if (viewServiceCircle2 == null) {
+        break missingId;
+      }
+
+      id = R.id.viewServiceCircle3;
+      View viewServiceCircle3 = ViewBindings.findChildViewById(rootView, id);
+      if (viewServiceCircle3 == null) {
+        break missingId;
+      }
+
+      return new ActivityOnboardingBinding((FrameLayout) rootView, auraView, bottomScrim,
+          btnGetStart, hookahView, ivServiceIcon1, ivServiceIcon2, ivServiceIcon3, layoutEyebrow,
+          layoutService1, layoutService2, layoutService3, layoutServices, orbView, smokeBackground,
+          smokeView, tvLead, tvService1Subtitle, tvService1Title, tvService2Subtitle,
+          tvService2Title, tvService3Subtitle, tvService3Title, tvTitle, tvWordmark, veilView,
+          viewServiceCircle1, viewServiceCircle2, viewServiceCircle3);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));
