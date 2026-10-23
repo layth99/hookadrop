@@ -1,0 +1,21 @@
+{
+  "name": "HookaDrop Dashboard - Gestion E-commerce",
+  "short_name": "HookaDrop",
+  "description": "Dashboard administratif pour la gestion de boutique e-commerce de chicha et accessoires",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#8B5CF6",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/vite.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["business", "shopping", "productivity"],
+  "lang": "fr-FR",
+  "dir": "ltr"
+}

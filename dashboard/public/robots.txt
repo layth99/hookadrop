@@ -1,0 +1,18 @@
+# Robots.txt for HookaDrop Dashboard
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /*.json$
+
+# Sitemap
+Sitemap: https://hookadrop-dashbord.netlify.app/sitemap.xml
+
+# Major Search Engines
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
