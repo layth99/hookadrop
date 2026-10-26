@@ -30,8 +30,8 @@ object ApiClient {
     // Switch here depending on how you're testing:
     //   true  + emulator  → use DEV_EMULATOR_URL (http://10.0.2.2:8000)
     //   true  + real phone → change BASE_URL to DEV_DEVICE_URL
-    //   false             → use PRODUCTION_URL
-    private const val USE_LOCAL = true
+    //   false             → use PRODUCTION_URL (Render backend)
+    private const val USE_LOCAL = false  // ✅ Now using Render with tracking routes!
 
     val BASE_URL: String
         get() = if (USE_LOCAL) DEV_EMULATOR_URL else PRODUCTION_URL
