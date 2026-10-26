@@ -3,8 +3,11 @@ import { useNavigate, useParams } from 'react-router-dom'
 import api from '../utils/api'
 import toast from 'react-hot-toast'
 import Loader from '../components/Loader'
+import StatusUpdateForm from '../components/StatusUpdateForm'
+import DriverAssignmentForm from '../components/DriverAssignmentForm'
+import TrackingHistoryTimeline from '../components/TrackingHistoryTimeline'
 import { formatCurrency, formatDateTime } from '../utils/formatters'
-import { ArrowLeft, Package, MapPin, CreditCard, User, FileText, CheckCircle, XCircle } from 'lucide-react'
+import { ArrowLeft, Package, MapPin, CreditCard, User, FileText, CheckCircle, XCircle, Truck } from 'lucide-react'
 
 const STATUS_CLASSES = {
   pending:    'bg-yellow-900/40 text-yellow-300 border-yellow-700/60',
@@ -28,17 +31,23 @@ const OrderDetail = () => {
 
   const fetchOrder = async () => {
     try {
-      // BUG FIX #7: was calling GET /orders/:id which finds by USER id.
-      // Correct endpoint is GET /orders/:id which now returns a single order by _id
-      // (we fixed getOrderById in controller/orders.js to use findById)
       const { data } = await api.get(`/orders/${id}`)
-      // API now returns { success, data: order }
       setOrder(data?.data ?? data)
     } catch (error) {
       toast.error('Failed to fetch order details')
     } finally {
       setLoading(false)
     }
+  }
+
+  const handleStatusUpdate = (updatedOrder) => {
+    setOrder(updatedOrder)
+    // Optionally refetch to get updated history
+    fetchOrder()
+  }
+
+  const handleDriverUpdate = (driverData) => {
+    setOrder((prev) => ({ ...prev, ...driverData }))
   }
 
   const downloadInvoice = async () => {
@@ -237,6 +246,26 @@ const OrderDetail = () => {
                 )}
               </div>
             </div>
+          </div>
+
+          {/* Status Management */}
+          <div className="card">
+            <h2 className="text-base font-semibold text-gray-100 mb-4">Update Status</h2>
+            <StatusUpdateForm order={order} onStatusUpdate={handleStatusUpdate} />
+          </div>
+
+          {/* Driver Assignment */}
+          <div className="card">
+            <div className="flex items-center gap-2 mb-4">
+              <Truck className="w-4 h-4 text-gray-500" />
+              <h2 className="text-base font-semibold text-gray-100">Delivery Driver</h2>
+            </div>
+            <DriverAssignmentForm order={order} onDriverUpdate={handleDriverUpdate} />
+          </div>
+
+          {/* Tracking History */}
+          <div className="card">
+            <TrackingHistoryTimeline orderId={order.orderId} />
           </div>
 
           {/* Payment method */}
