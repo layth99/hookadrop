@@ -35,8 +35,10 @@ const orderSchema = new mongoose.Schema(
       enum: [
         "pending",
         "confirmed",
+        "preparing",
         "declined",
         "processing",
+        "out_for_delivery",
         "shipped",
         "delivered",
         "cancelled",
@@ -59,6 +61,13 @@ const orderSchema = new mongoose.Schema(
     // ── Promo code ────────────────────────────────────────────────────────────
     promoCode:      { type: String, default: null },
     discountAmount: { type: Number, default: 0 },
+    // ── Order Tracking & Driver Info ──────────────────────────────────────────
+    driverName:             { type: String, default: null },
+    driverPhone:            { type: String, default: null },
+    driverVehicle:          { type: String, default: null },
+    estimatedDeliveryDate:  { type: Date, default: null },
+    deliveryInstructions:   { type: String, default: null },
+    adminNotes:             { type: String, default: null },  // Internal only
   },
   { timestamps: true }
 );

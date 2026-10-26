@@ -20,6 +20,7 @@ import stripeRoutes from "./routes/stripe.js";
 import promotionRoutes from "./routes/promotion.js";
 import supportRoutes from "./routes/support.js";
 import notificationRoutes from "./routes/notifications.js";
+import trackingRoutes from "./routes/tracking.js";
 import { fileURLToPath } from "url";
 import path from "path";
 
@@ -76,6 +77,7 @@ app.use("/api/admin/promotions", promotionRoutes);
 app.use("/api/promotions",       promotionRoutes);
 app.use("/api/support",          supportRoutes);
 app.use("/api/notifications",    notificationRoutes);
+app.use("/api/orders",           trackingRoutes);
 
 app.use("*", (req, res) => res.status(404).json({ error: "Not found" }));
 
