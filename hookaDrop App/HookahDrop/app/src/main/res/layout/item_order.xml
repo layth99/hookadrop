@@ -56,7 +56,7 @@
         </LinearLayout>
     </LinearLayout>
 
-    <!-- Row 3: Date + arrow -->
+    <!-- Row 3: Date + Track Button -->
     <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
         android:orientation="horizontal" android:gravity="center_vertical"
         android:layout_marginTop="8dp">
@@ -65,6 +65,16 @@
             android:layout_width="0dp" android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textColor="@color/hint_color" android:textSize="11sp"/>
+
+        <Button android:id="@+id/btnTrackOrder"
+            android:layout_width="wrap_content" android:layout_height="32dp"
+            android:text="Track Order"
+            android:textSize="11sp"
+            android:textColor="@color/accent_cyan"
+            android:background="@drawable/bg_button_outlined"
+            android:paddingHorizontal="12dp"
+            android:textAllCaps="false"
+            android:layout_marginEnd="8dp"/>
 
         <ImageView android:layout_width="14dp" android:layout_height="14dp"
             android:src="@drawable/ic_arrow_right"

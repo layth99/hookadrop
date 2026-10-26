@@ -191,54 +191,85 @@ fun JSONObject.toApiOrder(): ApiOrder {
 
 // ── Order Tracking ────────────────────────────────────────────────────────────
 
+/**
+ * Parse order tracking response from backend API
+ * Endpoint: GET /api/orders/:orderId/tracking
+ */
 fun JSONObject.toOrderTracking(): com.hookahdrop.app.data.OrderTracking {
-    val historyArray = optJSONArray("history") ?: org.json.JSONArray()
-    val history = mutableListOf<com.hookahdrop.app.data.StatusHistoryEntry>()
+    // Parse timeline steps from API response
+    val timelineArray = optJSONArray("timelineSteps") ?: org.json.JSONArray()
+    val timelineSteps = mutableListOf<com.hookahdrop.app.data.TimelineStep>()
     
-    for (i in 0 until historyArray.length()) {
-        val entry = historyArray.getJSONObject(i)
-        history.add(
-            com.hookahdrop.app.data.StatusHistoryEntry(
-                status = entry.optString("status", "pending").toOrderStatus(),
-                at = entry.optString("at", ""),
-                note = entry.optString("note", null)
+    for (i in 0 until timelineArray.length()) {
+        val entry = timelineArray.getJSONObject(i)
+        
+        // Map API state to TimelineStepState enum
+        val stateStr = entry.optString("state", "pending")
+        val state = when (stateStr.lowercase()) {
+            "completed" -> com.hookahdrop.app.data.TimelineStepState.COMPLETED
+            "active" -> com.hookahdrop.app.data.TimelineStepState.ACTIVE
+            "cancelled" -> com.hookahdrop.app.data.TimelineStepState.CANCELLED
+            else -> com.hookahdrop.app.data.TimelineStepState.PENDING
+        }
+        
+        // Map icon string to TimelineIcon enum
+        val iconStr = entry.optString("icon", "check")
+        val icon = when (iconStr.lowercase()) {
+            "check" -> com.hookahdrop.app.data.TimelineIcon.CHECK
+            "box" -> com.hookahdrop.app.data.TimelineIcon.BOX
+            "truck" -> com.hookahdrop.app.data.TimelineIcon.TRUCK
+            "flag" -> com.hookahdrop.app.data.TimelineIcon.FLAG
+            "x" -> com.hookahdrop.app.data.TimelineIcon.X
+            else -> com.hookahdrop.app.data.TimelineIcon.CHECK
+        }
+        
+        timelineSteps.add(
+            com.hookahdrop.app.data.TimelineStep(
+                title = entry.optString("title", ""),
+                timestamp = entry.optString("timestamp"),
+                state = state,
+                icon = icon
             )
         )
     }
     
-    val estimatedDeliveryObj = optJSONObject("estimatedDelivery")
-    val estimatedDelivery = if (estimatedDeliveryObj != null) {
+    // Parse delivery window
+    val windowObj = optJSONObject("deliveryWindow")
+    val deliveryWindow = if (windowObj != null) {
         com.hookahdrop.app.data.DeliveryWindow(
-            start = estimatedDeliveryObj.optString("start", ""),
-            end = estimatedDeliveryObj.optString("end", "")
+            label = windowObj.optString("label", ""),
+            startTime = windowObj.optString("startTime", ""),
+            endTime = windowObj.optString("endTime", "")
         )
     } else null
     
+    // Parse courier info
     val courierObj = optJSONObject("courier")
     val courier = if (courierObj != null) {
         com.hookahdrop.app.data.Courier(
-            name = courierObj.optString("name", null),
-            phone = courierObj.optString("phone", null)
+            name = courierObj.optString("name", ""),
+            phone = courierObj.optString("phone", "")
         )
     } else null
     
-    val addressObj = optJSONObject("address") ?: org.json.JSONObject()
+    // Parse delivery address
+    val addressObj = optJSONObject("deliveryAddress") ?: org.json.JSONObject()
     val address = com.hookahdrop.app.data.DeliveryAddress(
-        label = addressObj.optString("label", "Address"),
-        line = addressObj.optString("line", "")
+        street = addressObj.optString("street", ""),
+        apartment = addressObj.optString("apartment", ""),
+        city = addressObj.optString("city", ""),
+        postalCode = addressObj.optString("postalCode", "")
     )
     
     return com.hookahdrop.app.data.OrderTracking(
         orderId = optString("orderId", ""),
-        orderNumber = optString("orderNumber", ""),
         currentStatus = optString("currentStatus", "pending").toOrderStatus(),
-        estimatedDelivery = estimatedDelivery,
-        history = history,
+        deliveryWindow = deliveryWindow,
         courier = courier,
-        address = address,
-        itemsCount = optInt("itemsCount", 0),
-        total = optDouble("total", 0.0),
-        currency = optString("currency", "USD")
+        deliveryAddress = address,
+        timelineSteps = timelineSteps,
+        itemCount = optInt("itemCount", 0),
+        totalAmount = optDouble("totalAmount", 0.0)
     )
 }
 
@@ -248,6 +279,7 @@ fun String.toOrderStatus(): com.hookahdrop.app.data.OrderStatus {
         "pending"          -> com.hookahdrop.app.data.OrderStatus.PENDING
         "confirmed"        -> com.hookahdrop.app.data.OrderStatus.CONFIRMED
         "prepared"         -> com.hookahdrop.app.data.OrderStatus.PREPARED
+        "preparing"        -> com.hookahdrop.app.data.OrderStatus.PREPARED
         "processing"       -> com.hookahdrop.app.data.OrderStatus.PROCESSING
         "out_for_delivery" -> com.hookahdrop.app.data.OrderStatus.OUT_FOR_DELIVERY
         "shipped"          -> com.hookahdrop.app.data.OrderStatus.SHIPPED

@@ -10,7 +10,8 @@ import com.hookahdrop.app.databinding.ItemOrderBinding
 
 class OrdersAdapter(
     private var orders: List<ApiOrder>,
-    private val onOrderClick: (ApiOrder) -> Unit = {}
+    private val onOrderClick: (ApiOrder) -> Unit = {},
+    private val onTrackOrderClick: (ApiOrder) -> Unit = {}
 ) : RecyclerView.Adapter<OrdersAdapter.VH>() {
 
     inner class VH(val b: ItemOrderBinding) : RecyclerView.ViewHolder(b.root) {
@@ -18,6 +19,10 @@ class OrdersAdapter(
             b.root.setOnClickListener {
                 val pos = adapterPosition
                 if (pos != RecyclerView.NO_ID.toInt()) onOrderClick(orders[pos])
+            }
+            b.btnTrackOrder.setOnClickListener {
+                val pos = adapterPosition
+                if (pos != RecyclerView.NO_ID.toInt()) onTrackOrderClick(orders[pos])
             }
         }
     }

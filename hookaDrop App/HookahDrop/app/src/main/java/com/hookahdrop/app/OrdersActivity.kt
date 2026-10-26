@@ -61,7 +61,11 @@ class OrdersActivity : BaseProfileActivity() {
     // ── Adapter ───────────────────────────────────────────────────────────────
 
     private fun setupAdapter() {
-        adapter = OrdersAdapter(emptyList()) { order -> openOrderDetail(order) }
+        adapter = OrdersAdapter(
+            orders = emptyList(),
+            onOrderClick = { order -> openOrderDetail(order) },
+            onTrackOrderClick = { order -> openOrderTracking(order) }
+        )
         b.rvOrders.layoutManager = LinearLayoutManager(this)
         b.rvOrders.adapter       = adapter
         b.rvOrders.itemAnimator  = null
@@ -249,6 +253,16 @@ class OrdersActivity : BaseProfileActivity() {
             putStringArrayListExtra("itemNames",  ArrayList(order.items.map { it.name }))
             putIntegerArrayListExtra("itemQtys",  ArrayList(order.items.map { it.qty }))
             putExtra("itemPrices",    order.items.map { it.price }.toDoubleArray())
+        }
+        startActivity(intent)
+        overridePendingTransition(R.anim.nav_enter, R.anim.nav_exit)
+    }
+
+    // ── Open order tracking ───────────────────────────────────────────────────
+
+    private fun openOrderTracking(order: ApiOrder) {
+        val intent = Intent(this, OrderTrackingActivity::class.java).apply {
+            putExtra("orderId", order.id)
         }
         startActivity(intent)
         overridePendingTransition(R.anim.nav_enter, R.anim.nav_exit)

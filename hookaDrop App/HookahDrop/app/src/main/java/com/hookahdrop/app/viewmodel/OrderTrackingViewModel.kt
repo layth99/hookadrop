@@ -29,10 +29,16 @@ class OrderTrackingViewModel : ViewModel() {
                 delay(300)
                 
                 val token = UserSession.token
+                if (token.isNullOrEmpty()) {
+                    _trackingState.value = TrackingState.Error("Please sign in to view tracking")
+                    return@launch
+                }
+                
                 val response = ApiClient.get("/orders/$orderId/tracking", token)
                 
                 if (response.isSuccess) {
-                    val tracking = response.json().toOrderTracking()
+                    val trackingJson = response.json().optJSONObject("data") ?: response.json()
+                    val tracking = trackingJson.toOrderTracking()
                     _trackingState.value = TrackingState.Success(tracking)
                 } else {
                     _trackingState.value = TrackingState.Error(
@@ -51,11 +57,12 @@ class OrderTrackingViewModel : ViewModel() {
         // Don't show loading overlay for refresh
         viewModelScope.launch {
             try {
-                val token = UserSession.token
+                val token = UserSession.token ?: return@launch
                 val response = ApiClient.get("/orders/$orderId/tracking", token)
                 
                 if (response.isSuccess) {
-                    val tracking = response.json().toOrderTracking()
+                    val trackingJson = response.json().optJSONObject("data") ?: response.json()
+                    val tracking = trackingJson.toOrderTracking()
                     _trackingState.value = TrackingState.Success(tracking)
                 }
                 // Silently fail on refresh errors
