@@ -31,7 +31,7 @@ object ApiClient {
     //   true  + emulator  → use DEV_EMULATOR_URL (http://10.0.2.2:8000)
     //   true  + real phone → change BASE_URL to DEV_DEVICE_URL
     //   false             → use PRODUCTION_URL
-    private const val USE_LOCAL = false
+    private const val USE_LOCAL = true
 
     val BASE_URL: String
         get() = if (USE_LOCAL) DEV_EMULATOR_URL else PRODUCTION_URL
