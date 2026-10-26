@@ -21,6 +21,9 @@ class OrderDetailActivity : BaseProfileActivity() {
         b = ActivityOrderDetailBinding.inflate(layoutInflater)
         setContentView(b.root)
 
+        // Receive the order ID first (needed for click listener)
+        val orderId = intent.getStringExtra("orderId") ?: ""
+
         b.btnBack.setOnClickListener { navigateBack() }
         
         // Order Tracking button click listener
@@ -32,8 +35,7 @@ class OrderDetailActivity : BaseProfileActivity() {
             overridePendingTransition(R.anim.nav_enter, R.anim.nav_exit)
         }
 
-        // Receive the order via Intent extras (serialized as JSON string)
-        val orderId      = intent.getStringExtra("orderId")      ?: ""
+        // Receive the rest of order data via Intent extras
         val orderCode    = intent.getStringExtra("orderCode")    ?: ""
         val status       = intent.getStringExtra("status")       ?: "pending"
         val date         = intent.getStringExtra("date")         ?: ""
