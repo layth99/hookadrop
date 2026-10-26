@@ -23,6 +23,10 @@ class OrderTrackingViewModel(application: Application) : AndroidViewModel(applic
     val trackingState: LiveData<TrackingState> = _trackingState
 
     fun loadTracking(orderId: String) {
+        android.util.Log.d("OrderTrackingVM", "════════════════════════════════")
+        android.util.Log.d("OrderTrackingVM", "loadTracking called")
+        android.util.Log.d("OrderTrackingVM", "orderId: '$orderId'")
+        
         _trackingState.value = TrackingState.Loading
 
         viewModelScope.launch {
@@ -31,27 +35,42 @@ class OrderTrackingViewModel(application: Application) : AndroidViewModel(applic
                 delay(300)
                 
                 val token = sessionManager.getJwtToken()
+                android.util.Log.d("OrderTrackingVM", "token: ${if (token.isNullOrEmpty()) "EMPTY" else token.take(20) + "..."}")
+                
                 if (token.isNullOrEmpty()) {
+                    android.util.Log.e("OrderTrackingVM", "ERROR: No JWT token")
                     _trackingState.value = TrackingState.Error("Please sign in to view tracking")
                     return@launch
                 }
                 
-                val response = ApiClient.get("/api/orders/$orderId/tracking", token)
+                val endpoint = "/api/orders/$orderId/tracking"
+                android.util.Log.d("OrderTrackingVM", "API endpoint: $endpoint")
+                android.util.Log.d("OrderTrackingVM", "BASE_URL: ${ApiClient.BASE_URL}")
+                
+                val response = ApiClient.get(endpoint, token)
+                
+                android.util.Log.d("OrderTrackingVM", "Response isSuccess: ${response.isSuccess}")
+                android.util.Log.d("OrderTrackingVM", "Response JSON: ${response.json()}")
                 
                 if (response.isSuccess) {
                     val trackingJson = response.json().optJSONObject("data") ?: response.json()
+                    android.util.Log.d("OrderTrackingVM", "Tracking JSON: $trackingJson")
+                    
                     val tracking = trackingJson.toOrderTracking()
+                    android.util.Log.d("OrderTrackingVM", "SUCCESS: Parsed tracking data")
                     _trackingState.value = TrackingState.Success(tracking)
                 } else {
-                    _trackingState.value = TrackingState.Error(
-                        response.userFriendlyError()
-                    )
+                    val error = response.userFriendlyError()
+                    android.util.Log.e("OrderTrackingVM", "API ERROR: $error")
+                    _trackingState.value = TrackingState.Error(error)
                 }
             } catch (e: Exception) {
+                android.util.Log.e("OrderTrackingVM", "EXCEPTION: ${e.message}", e)
                 _trackingState.value = TrackingState.Error(
                     e.message ?: "Network error occurred"
                 )
             }
+            android.util.Log.d("OrderTrackingVM", "════════════════════════════════")
         }
     }
 
