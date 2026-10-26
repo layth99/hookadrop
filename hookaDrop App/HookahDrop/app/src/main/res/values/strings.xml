@@ -101,6 +101,12 @@
 
     <!-- Order Tracking -->
     <string name="order_tracking_title">Order Tracking</string>
+    <string name="tracking_title">Order Tracking</string>
+    <string name="tracking_back">Back</string>
+    <string name="tracking_courier">Courier</string>
+    <string name="tracking_call">Call</string>
+    <string name="tracking_message">Message</string>
+    <string name="tracking_delivery_address">Delivery Address</string>
     <string name="order_number">Order #%s</string>
     <string name="estimated_delivery">Estimated delivery</string>
     <string name="delivered_on">Delivered on</string>
