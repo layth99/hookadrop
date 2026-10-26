@@ -187,3 +187,72 @@ fun JSONObject.toApiOrder(): ApiOrder {
         createdAt     = optString("createdAt")
     )
 }
+
+
+// ── Order Tracking ────────────────────────────────────────────────────────────
+
+fun JSONObject.toOrderTracking(): com.hookahdrop.app.data.OrderTracking {
+    val historyArray = optJSONArray("history") ?: org.json.JSONArray()
+    val history = mutableListOf<com.hookahdrop.app.data.StatusHistoryEntry>()
+    
+    for (i in 0 until historyArray.length()) {
+        val entry = historyArray.getJSONObject(i)
+        history.add(
+            com.hookahdrop.app.data.StatusHistoryEntry(
+                status = entry.optString("status", "pending").toOrderStatus(),
+                at = entry.optString("at", ""),
+                note = entry.optString("note", null)
+            )
+        )
+    }
+    
+    val estimatedDeliveryObj = optJSONObject("estimatedDelivery")
+    val estimatedDelivery = if (estimatedDeliveryObj != null) {
+        com.hookahdrop.app.data.DeliveryWindow(
+            start = estimatedDeliveryObj.optString("start", ""),
+            end = estimatedDeliveryObj.optString("end", "")
+        )
+    } else null
+    
+    val courierObj = optJSONObject("courier")
+    val courier = if (courierObj != null) {
+        com.hookahdrop.app.data.Courier(
+            name = courierObj.optString("name", null),
+            phone = courierObj.optString("phone", null)
+        )
+    } else null
+    
+    val addressObj = optJSONObject("address") ?: org.json.JSONObject()
+    val address = com.hookahdrop.app.data.DeliveryAddress(
+        label = addressObj.optString("label", "Address"),
+        line = addressObj.optString("line", "")
+    )
+    
+    return com.hookahdrop.app.data.OrderTracking(
+        orderId = optString("orderId", ""),
+        orderNumber = optString("orderNumber", ""),
+        currentStatus = optString("currentStatus", "pending").toOrderStatus(),
+        estimatedDelivery = estimatedDelivery,
+        history = history,
+        courier = courier,
+        address = address,
+        itemsCount = optInt("itemsCount", 0),
+        total = optDouble("total", 0.0),
+        currency = optString("currency", "USD")
+    )
+}
+
+// Extension pour OrderStatus
+fun String.toOrderStatus(): com.hookahdrop.app.data.OrderStatus {
+    return when (this.lowercase()) {
+        "pending"          -> com.hookahdrop.app.data.OrderStatus.PENDING
+        "confirmed"        -> com.hookahdrop.app.data.OrderStatus.CONFIRMED
+        "prepared"         -> com.hookahdrop.app.data.OrderStatus.PREPARED
+        "processing"       -> com.hookahdrop.app.data.OrderStatus.PROCESSING
+        "out_for_delivery" -> com.hookahdrop.app.data.OrderStatus.OUT_FOR_DELIVERY
+        "shipped"          -> com.hookahdrop.app.data.OrderStatus.SHIPPED
+        "delivered"        -> com.hookahdrop.app.data.OrderStatus.DELIVERED
+        "cancelled"        -> com.hookahdrop.app.data.OrderStatus.CANCELLED
+        else               -> com.hookahdrop.app.data.OrderStatus.PENDING
+    }
+}

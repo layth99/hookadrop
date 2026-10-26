@@ -17,7 +17,43 @@ data class Address(
 
 // ── Order status ──────────────────────────────────────────────────────────────
 enum class OrderStatus {
-    PENDING, CONFIRMED, PROCESSING, SHIPPED, DELIVERED, CANCELLED
+    PENDING,           // Before payment confirmed
+    CONFIRMED,         // Payment validated (Stripe webhook / COD)
+    PREPARED,          // Items prepared for shipping
+    PROCESSING,        // Legacy status (kept for compatibility)
+    OUT_FOR_DELIVERY,  // Package is out for delivery
+    SHIPPED,           // Legacy status (kept for compatibility)
+    DELIVERED,         // Package delivered
+    CANCELLED          // Order cancelled
+}
+
+/** Maps backend status string to OrderStatus enum */
+fun String.toOrderStatus(): OrderStatus {
+    return when (this.lowercase()) {
+        "pending"          -> OrderStatus.PENDING
+        "confirmed"        -> OrderStatus.CONFIRMED
+        "prepared"         -> OrderStatus.PREPARED
+        "processing"       -> OrderStatus.PROCESSING
+        "out_for_delivery" -> OrderStatus.OUT_FOR_DELIVERY
+        "shipped"          -> OrderStatus.SHIPPED
+        "delivered"        -> OrderStatus.DELIVERED
+        "cancelled"        -> OrderStatus.CANCELLED
+        else               -> OrderStatus.PENDING
+    }
+}
+
+/** Maps OrderStatus enum to backend status string */
+fun OrderStatus.toBackendString(): String {
+    return when (this) {
+        OrderStatus.PENDING          -> "pending"
+        OrderStatus.CONFIRMED        -> "confirmed"
+        OrderStatus.PREPARED         -> "prepared"
+        OrderStatus.PROCESSING       -> "processing"
+        OrderStatus.OUT_FOR_DELIVERY -> "out_for_delivery"
+        OrderStatus.SHIPPED          -> "shipped"
+        OrderStatus.DELIVERED        -> "delivered"
+        OrderStatus.CANCELLED        -> "cancelled"
+    }
 }
 
 // ── Order ─────────────────────────────────────────────────────────────────────
