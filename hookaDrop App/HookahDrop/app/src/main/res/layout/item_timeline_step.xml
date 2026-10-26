@@ -15,10 +15,11 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <!-- Glow Background (for completed steps) -->
-        <View
+        <com.hookahdrop.app.view.GoldGlowView
             android:id="@+id/glowBackground"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_gravity="center"
             android:visibility="gone"
             tools:visibility="visible" />
 

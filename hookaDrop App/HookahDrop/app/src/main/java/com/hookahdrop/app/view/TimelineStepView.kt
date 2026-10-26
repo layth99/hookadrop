@@ -161,10 +161,9 @@ class TimelineStepView @JvmOverloads constructor(
         binding.ivIcon.setColorFilter(ContextCompat.getColor(context, R.color.background))
         binding.connectorLine.setBackgroundColor(ContextCompat.getColor(context, R.color.tracking_gold))
         
-        // Optional: Show glow effect
-        if (binding.glowBackground is GoldGlowView) {
-            (binding.glowBackground as GoldGlowView).startGlow()
-        }
+        // Show and start glow effect
+        binding.glowBackground.visibility = View.VISIBLE
+        (binding.glowBackground as? GoldGlowView)?.startGlow()
     }
 
     private fun setCircleActive() {

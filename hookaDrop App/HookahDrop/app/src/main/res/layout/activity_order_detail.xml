@@ -385,6 +385,24 @@
                         android:textStyle="bold" />
                 </LinearLayout>
             </LinearLayout>
+
+            <!-- Order Tracking Button -->
+            <Button
+                android:id="@+id/btnOrderTracking"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:text="Order Tracking"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:background="@drawable/btn_primary"
+                android:layout_marginTop="16dp"
+                android:drawableStart="@drawable/ic_tracking"
+                android:drawablePadding="8dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:textAllCaps="false"
+                android:elevation="2dp" />
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>

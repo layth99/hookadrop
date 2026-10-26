@@ -128,43 +128,55 @@
                             tools:text="@string/tracking_desc_out_for_delivery" />
 
                         <!-- Delivery Window (only for OUT_FOR_DELIVERY status) -->
-                        <androidx.constraintlayout.widget.ConstraintLayout
+                        <FrameLayout
                             android:id="@+id/deliveryWindowLayout"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="16dp"
-                            android:background="@drawable/bg_rounded_gold_border"
-                            android:padding="12dp"
                             android:visibility="gone"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/tvStatusDescription"
                             tools:visibility="visible">
 
-                            <ImageView
-                                android:id="@+id/ivClock"
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
-                                android:src="@drawable/ic_clock"
-                                android:tint="@color/tracking_gold"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
+                            <!-- Shimmer effect background -->
+                            <com.hookahdrop.app.view.ShimmerView
+                                android:id="@+id/shimmerView"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent" />
 
-                            <TextView
-                                android:id="@+id/tvDeliveryWindow"
-                                android:layout_width="0dp"
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="8dp"
-                                android:fontFamily="@font/roboto_medium"
-                                android:textColor="@color/tracking_gold"
-                                android:textSize="14sp"
-                                app:layout_constraintBottom_toBottomOf="@id/ivClock"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintStart_toEndOf="@id/ivClock"
-                                app:layout_constraintTop_toTopOf="@id/ivClock"
-                                tools:text="Today 2:00 PM - 4:00 PM" />
+                                android:background="@drawable/bg_rounded_gold_border"
+                                android:padding="12dp">
 
-                        </androidx.constraintlayout.widget.ConstraintLayout>
+                                <ImageView
+                                    android:id="@+id/ivClock"
+                                    android:layout_width="20dp"
+                                    android:layout_height="20dp"
+                                    android:src="@drawable/ic_clock"
+                                    android:tint="@color/tracking_gold"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <TextView
+                                    android:id="@+id/tvDeliveryWindow"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="8dp"
+                                    android:fontFamily="@font/roboto_medium"
+                                    android:textColor="@color/tracking_gold"
+                                    android:textSize="14sp"
+                                    app:layout_constraintBottom_toBottomOf="@id/ivClock"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toEndOf="@id/ivClock"
+                                    app:layout_constraintTop_toTopOf="@id/ivClock"
+                                    tools:text="Today 2:00 PM - 4:00 PM" />
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        </FrameLayout>
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -214,16 +226,27 @@
                         android:layout_height="wrap_content"
                         android:padding="20dp">
 
+                        <!-- Animated truck icon -->
+                        <com.hookahdrop.app.view.TruckAnimationView
+                            android:id="@+id/truckAnimationView"
+                            android:layout_width="60dp"
+                            android:layout_height="30dp"
+                            android:layout_marginBottom="12dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
                         <TextView
                             android:id="@+id/tvCourierLabel"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
                             android:fontFamily="@font/roboto_medium"
                             android:text="@string/tracking_courier"
                             android:textColor="@color/textSecondary"
                             android:textSize="12sp"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            app:layout_constraintTop_toBottomOf="@id/truckAnimationView" />
 
                         <TextView
                             android:id="@+id/tvCourierName"
@@ -347,5 +370,17 @@
             android:indeterminateTint="@color/tracking_gold" />
 
     </FrameLayout>
+
+    <!-- Particle Burst Overlay (for DELIVERED celebration) -->
+    <com.hookahdrop.app.view.ParticleBurstView
+        android:id="@+id/particleBurstView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <!-- Confetti Overlay (for DELIVERED celebration) -->
+    <com.hookahdrop.app.view.ConfettiView
+        android:id="@+id/confettiView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

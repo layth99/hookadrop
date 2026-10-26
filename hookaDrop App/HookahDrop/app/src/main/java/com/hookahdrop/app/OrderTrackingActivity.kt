@@ -99,15 +99,21 @@ class OrderTrackingActivity : BaseProfileActivity() {
         // Courier Info (only for OUT_FOR_DELIVERY)
         if (tracking.currentStatus == OrderStatus.OUT_FOR_DELIVERY && tracking.courier != null) {
             displayCourierInfo(tracking.courier!!)
+            b.truckAnimationView.startAnimation()
         } else {
             b.courierCard.visibility = View.GONE
         }
         
-        // Delivery Address
+        // Delivery Address with bounce animation
         displayAddress(tracking.deliveryAddress)
         
         // Trigger staggered intro animations (500ms + 70ms stagger per step)
         animateIntro()
+        
+        // Special celebration for DELIVERED status
+        if (tracking.currentStatus == OrderStatus.DELIVERED) {
+            triggerDeliveredCelebration()
+        }
     }
 
     private fun displayStatusCard(tracking: OrderTracking) {
@@ -142,9 +148,39 @@ class OrderTrackingActivity : BaseProfileActivity() {
                 window.startTime,
                 window.endTime
             )
+            // Start shimmer animation
+            b.shimmerView.startShimmer()
         } else {
             b.deliveryWindowLayout.visibility = View.GONE
+            b.shimmerView.stopShimmer()
         }
+        
+        // Status card pulse for ACTIVE states (CONFIRMED, PREPARED, OUT_FOR_DELIVERY)
+        if (status in listOf(OrderStatus.CONFIRMED, OrderStatus.PREPARED, OrderStatus.OUT_FOR_DELIVERY)) {
+            animateStatusCardPulse()
+        }
+    }
+    
+    private fun animateStatusCardPulse() {
+        // Subtle pulse animation (800ms cycle) - Animation #1
+        b.statusCard.animate()
+            .scaleX(1.02f)
+            .scaleY(1.02f)
+            .setDuration(400)
+            .withEndAction {
+                b.statusCard.animate()
+                    .scaleX(1f)
+                    .scaleY(1f)
+                    .setDuration(400)
+                    .withEndAction {
+                        // Repeat pulse
+                        if (b.statusCard.parent != null) {
+                            animateStatusCardPulse()
+                        }
+                    }
+                    .start()
+            }
+            .start()
     }
 
     private fun displayTimeline(tracking: OrderTracking) {
@@ -191,6 +227,40 @@ class OrderTrackingActivity : BaseProfileActivity() {
                 append(" ").append(address.postalCode)
             }
         }
+        
+        // Pin bounce animation - Animation #8
+        b.ivPin.postDelayed({
+            b.ivPin.animate()
+                .translationY(-10f)
+                .setDuration(200)
+                .withEndAction {
+                    b.ivPin.animate()
+                        .translationY(0f)
+                        .setDuration(200)
+                        .start()
+                }
+                .start()
+        }, 500 + (timelineViews.size * 70L) + 400)
+    }
+    
+    private fun triggerDeliveredCelebration() {
+        // Particle burst from timeline final step - Animation #9
+        val finalStepView = timelineViews.lastOrNull()
+        if (finalStepView != null) {
+            finalStepView.post {
+                val location = IntArray(2)
+                finalStepView.getLocationInWindow(location)
+                val centerX = location[0] + finalStepView.width / 2f
+                val centerY = location[1] + finalStepView.height / 2f
+                
+                b.particleBurstView.burst(centerX, centerY)
+            }
+        }
+        
+        // Confetti celebration - Animation #10
+        b.confettiView.postDelayed({
+            b.confettiView.celebrate()
+        }, 500)
     }
 
     private fun animateIntro() {
@@ -243,5 +313,11 @@ class OrderTrackingActivity : BaseProfileActivity() {
         super.onDestroy()
         // Clean up timeline views
         timelineViews.forEach { it.onDetachedFromWindow() }
+        
+        // Stop all animations
+        b.shimmerView.stopShimmer()
+        if (b.courierCard.visibility == View.VISIBLE) {
+            b.truckAnimationView.stopAnimation()
+        }
     }
 }
