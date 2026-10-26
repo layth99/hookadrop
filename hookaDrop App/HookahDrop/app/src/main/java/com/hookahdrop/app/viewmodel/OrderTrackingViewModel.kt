@@ -1,11 +1,12 @@
 package com.hookahdrop.app.viewmodel
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.hookahdrop.app.data.OrderTracking
-import com.hookahdrop.app.data.UserSession
+import com.hookahdrop.app.data.SessionManager
 import com.hookahdrop.app.network.ApiClient
 import com.hookahdrop.app.network.toOrderTracking
 import kotlinx.coroutines.delay
@@ -15,8 +16,9 @@ import kotlinx.coroutines.launch
  * ViewModel for Order Tracking screen
  * Manages tracking data state and API interactions
  */
-class OrderTrackingViewModel : ViewModel() {
+class OrderTrackingViewModel(application: Application) : AndroidViewModel(application) {
 
+    private val sessionManager = SessionManager(application)
     private val _trackingState = MutableLiveData<TrackingState>()
     val trackingState: LiveData<TrackingState> = _trackingState
 
@@ -28,13 +30,13 @@ class OrderTrackingViewModel : ViewModel() {
                 // Simulate network delay for intro animation
                 delay(300)
                 
-                val token = UserSession.token
+                val token = sessionManager.getJwtToken()
                 if (token.isNullOrEmpty()) {
                     _trackingState.value = TrackingState.Error("Please sign in to view tracking")
                     return@launch
                 }
                 
-                val response = ApiClient.get("/orders/$orderId/tracking", token)
+                val response = ApiClient.get("/api/orders/$orderId/tracking", token)
                 
                 if (response.isSuccess) {
                     val trackingJson = response.json().optJSONObject("data") ?: response.json()
@@ -57,8 +59,8 @@ class OrderTrackingViewModel : ViewModel() {
         // Don't show loading overlay for refresh
         viewModelScope.launch {
             try {
-                val token = UserSession.token ?: return@launch
-                val response = ApiClient.get("/orders/$orderId/tracking", token)
+                val token = sessionManager.getJwtToken() ?: return@launch
+                val response = ApiClient.get("/api/orders/$orderId/tracking", token)
                 
                 if (response.isSuccess) {
                     val trackingJson = response.json().optJSONObject("data") ?: response.json()

@@ -56,4 +56,24 @@
     <color name="search_bg">#0D0F14</color>
     <color name="divider">#1A1E28</color>
     <color name="cyan">#08B9F5</color>
+
+    <!-- Order Tracking (Design Tokens) -->
+    <color name="tracking_background">#0B0C0F</color>
+    <color name="tracking_card">#14161B</color>
+    <color name="tracking_border">#23262E</color>
+    <color name="tracking_gold">#D4A91C</color>
+    <color name="tracking_text">#FFFFFF</color>
+    <color name="tracking_text_soft">#C9CDD4</color>
+    <color name="tracking_text_muted">#9AA0AA</color>
+    <color name="tracking_pending">#3A3E48</color>
+    <color name="tracking_danger">#FF4D5E</color>
+    <color name="tracking_gold_glow">#33D4A91C</color>
+
+    <!-- Missing Design Tokens / Mappings for Resource Linking -->
+    <color name="background">@color/bg_screen</color>
+    <color name="card_background">@color/card_bg</color>
+    <color name="textPrimary">@color/text_white</color>
+    <color name="textSecondary">@color/text_secondary</color>
+    <color name="text_primary">@color/text_white</color>
+    <color name="text_tertiary">@color/text_secondary</color>
 </resources>
