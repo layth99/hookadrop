@@ -25,10 +25,10 @@ class OrderDetailActivity : BaseProfileActivity() {
         
         // Order Tracking button click listener
         b.btnOrderTracking?.setOnClickListener {
-            val intent = android.content.Intent(this, OrderTrackingActivity::class.java).apply {
-                putExtra("orderId", intent.getStringExtra("orderId") ?: "")
+            val trackingIntent = android.content.Intent(this, OrderTrackingActivity::class.java).apply {
+                putExtra("orderId", orderId)
             }
-            startActivity(intent)
+            startActivity(trackingIntent)
             overridePendingTransition(R.anim.nav_enter, R.anim.nav_exit)
         }
 
