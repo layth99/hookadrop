@@ -22,6 +22,15 @@ class OrderDetailActivity : BaseProfileActivity() {
         setContentView(b.root)
 
         b.btnBack.setOnClickListener { navigateBack() }
+        
+        // Order Tracking button click listener
+        b.btnOrderTracking?.setOnClickListener {
+            val intent = android.content.Intent(this, OrderTrackingActivity::class.java).apply {
+                putExtra("orderId", intent.getStringExtra("orderId") ?: "")
+            }
+            startActivity(intent)
+            overridePendingTransition(R.anim.nav_enter, R.anim.nav_exit)
+        }
 
         // Receive the order via Intent extras (serialized as JSON string)
         val orderId      = intent.getStringExtra("orderId")      ?: ""
