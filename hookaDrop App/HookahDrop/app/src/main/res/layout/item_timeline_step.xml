@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="24dp">
+
+    <!-- Circle Container -->
+    <FrameLayout
+        android:id="@+id/circleContainer"
+        android:layout_width="@dimen/tracking_circle_size"
+        android:layout_height="@dimen/tracking_circle_size"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!-- Glow Background (for completed steps) -->
+        <View
+            android:id="@+id/glowBackground"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            tools:visibility="visible" />
+
+        <!-- Circle Background -->
+        <View
+            android:id="@+id/circleBackground"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_circle_pending" />
+
+        <!-- Icon -->
+        <ImageView
+            android:id="@+id/ivIcon"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center"
+            android:tint="@color/textSecondary"
+            tools:src="@drawable/ic_tracking_check" />
+
+    </FrameLayout>
+
+    <!-- Connector Line -->
+    <View
+        android:id="@+id/connectorLine"
+        android:layout_width="@dimen/tracking_connector_width"
+        android:layout_height="0dp"
+        android:layout_marginStart="19dp"
+        android:layout_marginTop="@dimen/tracking_circle_size"
+        android:background="@color/tracking_pending"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
+
+    <!-- Step Title -->
+    <TextView
+        android:id="@+id/tvStepTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:fontFamily="@font/roboto_medium"
+        android:textColor="@color/textPrimary"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/circleContainer"
+        app:layout_constraintTop_toTopOf="@id/circleContainer"
+        tools:text="Order Confirmed" />
+
+    <!-- Step Timestamp -->
+    <TextView
+        android:id="@+id/tvStepTimestamp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/roboto_regular"
+        android:textColor="@color/textSecondary"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/circleContainer"
+        app:layout_constraintTop_toBottomOf="@id/tvStepTitle"
+        tools:text="Jan 15, 10:30 AM" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

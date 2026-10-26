@@ -99,3 +99,35 @@
     <string name="lang_arabic">العربية</string>
     <string name="apply">Apply</string>
 </resources>
+
+    <!-- Order Tracking -->
+    <string name="order_tracking_title">Order Tracking</string>
+    <string name="order_number">Order #%s</string>
+    <string name="estimated_delivery">Estimated delivery</string>
+    <string name="delivered_on">Delivered on</string>
+    <string name="step_confirmed">Confirmed</string>
+    <string name="step_confirmed_desc">Your order has been confirmed</string>
+    <string name="step_prepared">Prepared</string>
+    <string name="step_prepared_desc">Your items are being prepared</string>
+    <string name="step_out_for_delivery">Out for delivery</string>
+    <string name="step_out_for_delivery_desc">Your package is on the way</string>
+    <string name="step_delivered">Delivered</string>
+    <string name="step_delivered_desc">Package has been delivered</string>
+    <string name="step_now">Now</string>
+    <string name="delivery_address_title">Delivery address</string>
+    <string name="items_total">%d items · Total %s</string>
+    <string name="contact_support">Contact support</string>
+    <string name="call_courier">Call courier</string>
+    <string name="order_cancelled">Order cancelled</string>
+    <string name="order_cancelled_desc">This order has been cancelled</string>
+    <string name="offline_indicator">Offline · Last updated %s</string>
+    <string name="loading_tracking">Loading tracking info…</string>
+    <string name="error_loading_tracking">Unable to load tracking info</string>
+    <string name="retry">Retry</string>
+    <string name="pull_to_refresh">Pull to refresh</string>
+    <string name="today">Today</string>
+    <string name="estimated_today">Estimated today · %s</string>
+    
+    <!-- Order Tracking Error Messages -->
+    <string name="tracking_error_no_order">Order ID is missing</string>
+    <string name="tracking_message_courier">Chat with %1$s</string>
