@@ -183,8 +183,11 @@ export const getOrderTracking = async (req, res) => {
   try {
     const { orderId } = req.params;
 
-    // Find order by nanoid orderId field
-    const order = await Order.findOne({ orderId })
+    // Find order by _id (MongoDB ObjectId) OR orderId (readable code)
+    const isMongoId = /^[0-9a-fA-F]{24}$/.test(orderId);
+    const order = await Order.findOne(
+      isMongoId ? { _id: orderId } : { orderId }
+    )
       .populate("user", "name email")
       .populate("orderItems.product", "name image price");
 
@@ -317,8 +320,11 @@ export const updateOrderStatus = async (req, res) => {
       });
     }
 
-    // Find order
-    const order = await Order.findOne({ orderId });
+    // Find order by _id (MongoDB ObjectId) OR orderId (readable code)
+    const isMongoId = /^[0-9a-fA-F]{24}$/.test(orderId);
+    const order = await Order.findOne(
+      isMongoId ? { _id: orderId } : { orderId }
+    );
     if (!order) {
       return res.status(404).json({
         success: false,
@@ -416,8 +422,11 @@ export const updateDriverInfo = async (req, res) => {
       });
     }
 
-    // Find order
-    const order = await Order.findOne({ orderId });
+    // Find order by _id (MongoDB ObjectId) OR orderId (readable code)
+    const isMongoId = /^[0-9a-fA-F]{24}$/.test(orderId);
+    const order = await Order.findOne(
+      isMongoId ? { _id: orderId } : { orderId }
+    );
     if (!order) {
       return res.status(404).json({
         success: false,
@@ -462,7 +471,11 @@ export const getTrackingHistory = async (req, res) => {
   try {
     const { orderId } = req.params;
 
-    const order = await Order.findOne({ orderId });
+    // Find order by _id (MongoDB ObjectId) OR orderId (readable code)
+    const isMongoId = /^[0-9a-fA-F]{24}$/.test(orderId);
+    const order = await Order.findOne(
+      isMongoId ? { _id: orderId } : { orderId }
+    );
     if (!order) {
       return res.status(404).json({
         success: false,
