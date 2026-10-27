@@ -3,36 +3,36 @@ package com.hookahdrop.app
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.hookahdrop.app.adapter.TimelineStepAdapter
 import com.hookahdrop.app.data.*
-import com.hookahdrop.app.databinding.ActivityOrderTrackingBinding
-import com.hookahdrop.app.view.TimelineStepView
+import com.hookahdrop.app.databinding.ActivityOrderTrackingV2Binding
 import com.hookahdrop.app.viewmodel.OrderTrackingViewModel
 import com.hookahdrop.app.viewmodel.TrackingState
 import java.text.SimpleDateFormat
 import java.util.*
 
 /**
- * Order Tracking Activity - KIRO Spec Compliant Implementation
- * Displays real-time order tracking with timeline, courier info, and delivery details
- * Features 11 animations with exact timings from design tokens
+ * Order Tracking Activity - V2 Redesign
+ * Modern dark theme with gold accents matching HTML reference design
+ * RecyclerView-based timeline with simplified animations
  */
 class OrderTrackingActivity : BaseProfileActivity() {
 
-    private lateinit var b: ActivityOrderTrackingBinding
+    private lateinit var b: ActivityOrderTrackingV2Binding
     private val viewModel: OrderTrackingViewModel by viewModels()
     private var orderId: String = ""
-    private val timelineViews = mutableListOf<TimelineStepView>()
+    private val timelineAdapter = TimelineStepAdapter()
 
     override fun attachBaseContext(base: android.content.Context) =
         super.attachBaseContext(LocaleManager.wrap(base))
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        b = ActivityOrderTrackingBinding.inflate(layoutInflater)
+        b = ActivityOrderTrackingV2Binding.inflate(layoutInflater)
         setContentView(b.root)
 
         // Get order ID from intent
@@ -45,6 +45,7 @@ class OrderTrackingActivity : BaseProfileActivity() {
         }
 
         setupUI()
+        setupRecyclerView()
         observeViewModel()
         
         // Load tracking data
@@ -54,15 +55,29 @@ class OrderTrackingActivity : BaseProfileActivity() {
         fadeIn(b.root)
     }
 
+    private fun setupRecyclerView() {
+        b.recyclerViewTimeline.apply {
+            layoutManager = LinearLayoutManager(this@OrderTrackingActivity)
+            adapter = timelineAdapter
+            isNestedScrollingEnabled = false
+        }
+    }
+
     private fun setupUI() {
         // Back button
         b.btnBack.setOnClickListener { navigateBack() }
         
-        // SwipeRefresh
-        b.swipeRefresh.setOnRefreshListener {
-            viewModel.refresh(orderId)
+        // Contact Support button
+        b.btnContactSupport.setOnClickListener {
+            // Placeholder - integrate with your support system
+            Toast.makeText(this, "Contact support feature", Toast.LENGTH_SHORT).show()
         }
-        b.swipeRefresh.setColorSchemeResources(R.color.tracking_gold)
+        
+        // Call Courier button
+        b.btnCallCourier.setOnClickListener {
+            // Will be populated with actual courier phone when status is OUT_FOR_DELIVERY
+            Toast.makeText(this, "Call courier", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun observeViewModel() {
@@ -70,16 +85,13 @@ class OrderTrackingActivity : BaseProfileActivity() {
             when (state) {
                 is TrackingState.Loading -> {
                     b.loadingOverlay.visibility = View.VISIBLE
-                    b.swipeRefresh.isRefreshing = false
                 }
                 is TrackingState.Success -> {
                     b.loadingOverlay.visibility = View.GONE
-                    b.swipeRefresh.isRefreshing = false
                     displayTracking(state.tracking)
                 }
                 is TrackingState.Error -> {
                     b.loadingOverlay.visibility = View.GONE
-                    b.swipeRefresh.isRefreshing = false
                     Toast.makeText(this, state.message, Toast.LENGTH_LONG).show()
                 }
             }
@@ -88,236 +100,118 @@ class OrderTrackingActivity : BaseProfileActivity() {
 
     private fun displayTracking(tracking: OrderTracking) {
         // Order ID
-        b.tvOrderId.text = "#${tracking.orderId}"
+        b.tvOrderId.text = "Order #${tracking.orderNumber}"
         
-        // Status Card
-        displayStatusCard(tracking)
+        // ETA Card
+        displayEtaCard(tracking)
         
         // Timeline
         displayTimeline(tracking)
         
-        // Courier Info (only for OUT_FOR_DELIVERY)
+        // Delivery Address
+        displayAddress(tracking)
+        
+        // Call Courier button visibility (only for OUT_FOR_DELIVERY)
         if (tracking.currentStatus == OrderStatus.OUT_FOR_DELIVERY && tracking.courier != null) {
-            displayCourierInfo(tracking.courier!!)
-            b.truckAnimationView.startAnimation()
+            b.btnCallCourier.visibility = View.VISIBLE
+            
+            // Set up actual phone call
+            val courierPhone = tracking.courier?.phone
+            if (!courierPhone.isNullOrEmpty()) {
+                b.btnCallCourier.setOnClickListener {
+                    val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:$courierPhone"))
+                    startActivity(intent)
+                }
+            }
         } else {
-            b.courierCard.visibility = View.GONE
-        }
-        
-        // Delivery Address with bounce animation
-        displayAddress(tracking.deliveryAddress)
-        
-        // Trigger staggered intro animations (500ms + 70ms stagger per step)
-        animateIntro()
-        
-        // Special celebration for DELIVERED status
-        if (tracking.currentStatus == OrderStatus.DELIVERED) {
-            triggerDeliveredCelebration()
+            b.btnCallCourier.visibility = View.GONE
         }
     }
 
-    private fun displayStatusCard(tracking: OrderTracking) {
+    private fun displayEtaCard(tracking: OrderTracking) {
         val status = tracking.currentStatus
         
-        // Status title and description
-        b.tvStatusTitle.text = when (status) {
-            OrderStatus.CONFIRMED -> getString(R.string.tracking_status_confirmed)
-            OrderStatus.PREPARED -> getString(R.string.tracking_status_prepared)
-            OrderStatus.OUT_FOR_DELIVERY -> getString(R.string.tracking_status_out_for_delivery)
-            OrderStatus.DELIVERED -> getString(R.string.tracking_status_delivered)
-            OrderStatus.CANCELLED -> getString(R.string.tracking_status_cancelled)
-            else -> getString(R.string.tracking_status_confirmed)
-        }
-        
-        b.tvStatusDescription.text = when (status) {
-            OrderStatus.CONFIRMED -> getString(R.string.tracking_desc_confirmed)
-            OrderStatus.PREPARED -> getString(R.string.tracking_desc_prepared)
-            OrderStatus.OUT_FOR_DELIVERY -> getString(R.string.tracking_desc_out_for_delivery)
-            OrderStatus.DELIVERED -> getString(R.string.tracking_desc_delivered)
-            OrderStatus.CANCELLED -> getString(R.string.tracking_desc_cancelled)
-            else -> getString(R.string.tracking_desc_confirmed)
-        }
-        
-        // Delivery window (only for OUT_FOR_DELIVERY)
-        if (status == OrderStatus.OUT_FOR_DELIVERY && tracking.deliveryWindow != null) {
-            b.deliveryWindowLayout.visibility = View.VISIBLE
-            val window = tracking.deliveryWindow!!
-            b.tvDeliveryWindow.text = getString(
-                R.string.tracking_delivery_window,
-                window.label,
-                window.startTime,
-                window.endTime
-            )
-            // Start shimmer animation
-            b.shimmerView.startShimmer()
+        // ETA Label
+        if (status == OrderStatus.DELIVERED) {
+            b.tvEtaLabel.text = getString(R.string.tracking_delivered_on)
+        } else if (status == OrderStatus.CANCELLED) {
+            b.tvEtaLabel.text = "Order Status"
         } else {
-            b.deliveryWindowLayout.visibility = View.GONE
-            b.shimmerView.stopShimmer()
+            b.tvEtaLabel.text = getString(R.string.tracking_estimated_delivery)
         }
         
-        // Status card pulse for ACTIVE states (CONFIRMED, PREPARED, OUT_FOR_DELIVERY)
-        if (status in listOf(OrderStatus.CONFIRMED, OrderStatus.PREPARED, OrderStatus.OUT_FOR_DELIVERY)) {
-            animateStatusCardPulse()
+        // ETA Time
+        if (status == OrderStatus.DELIVERED) {
+            // Show actual delivery time from history
+            val deliveredEntry = tracking.history.find { it.status == OrderStatus.DELIVERED }
+            b.tvEta.text = deliveredEntry?.formatTimestamp() ?: "Delivered"
+        } else if (status == OrderStatus.CANCELLED) {
+            b.tvEta.text = getString(R.string.tracking_status_cancelled)
+        } else {
+            // Show estimated delivery window
+            b.tvEta.text = tracking.deliveryWindow?.formatForDisplay() ?: "Today, 6:30 – 7:00 PM"
         }
-    }
-    
-    private fun animateStatusCardPulse() {
-        // Subtle pulse animation (800ms cycle) - Animation #1
-        b.statusCard.animate()
-            .scaleX(1.02f)
-            .scaleY(1.02f)
-            .setDuration(400)
-            .withEndAction {
-                b.statusCard.animate()
-                    .scaleX(1f)
-                    .scaleY(1f)
-                    .setDuration(400)
-                    .withEndAction {
-                        // Repeat pulse
-                        if (b.statusCard.parent != null) {
-                            animateStatusCardPulse()
-                        }
-                    }
-                    .start()
-            }
-            .start()
+        
+        // Status Label
+        b.tvStatusLabel.text = when (status) {
+            OrderStatus.CONFIRMED -> getString(R.string.step_confirmed)
+            OrderStatus.PREPARED -> getString(R.string.step_prepared)
+            OrderStatus.OUT_FOR_DELIVERY -> getString(R.string.step_out_for_delivery)
+            OrderStatus.DELIVERED -> getString(R.string.step_delivered)
+            OrderStatus.CANCELLED -> getString(R.string.tracking_status_cancelled)
+            else -> getString(R.string.step_confirmed)
+        }
     }
 
     private fun displayTimeline(tracking: OrderTracking) {
-        // Clear existing views
-        b.timelineContainer.removeAllViews()
-        timelineViews.clear()
+        // Check if order is cancelled - show special card instead of timeline
+        if (tracking.currentStatus == OrderStatus.CANCELLED) {
+            displayCancelledCard(tracking)
+            b.timelineCard.visibility = View.GONE
+            return
+        }
         
+        // Show timeline card for normal orders
+        b.timelineCard.visibility = View.VISIBLE
+        
+        // Get timeline steps from data model
         val steps = tracking.timelineSteps
         
-        steps.forEachIndexed { index, step ->
-            val stepView = TimelineStepView(this).apply {
-                bind(step, index == steps.lastIndex)
-            }
-            b.timelineContainer.addView(stepView)
-            timelineViews.add(stepView)
-        }
-    }
-
-    private fun displayCourierInfo(courier: Courier) {
-        b.courierCard.visibility = View.VISIBLE
-        b.tvCourierName.text = courier.name
+        // Submit to adapter
+        timelineAdapter.submitList(steps)
         
-        // Call courier
-        b.btnCallCourier.setOnClickListener {
-            val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:${courier.phone}"))
-            startActivity(intent)
+        // Smooth scroll to active step after a delay
+        val activeStepIndex = steps.indexOfFirst { it.state == TimelineStepState.ACTIVE }
+        if (activeStepIndex != -1) {
+            b.recyclerViewTimeline.postDelayed({
+                b.recyclerViewTimeline.smoothScrollToPosition(activeStepIndex)
+            }, 300)
         }
-        
-        // Chat with courier (placeholder - would integrate with your chat system)
-        b.btnChatCourier.setOnClickListener {
-            Toast.makeText(this, getString(R.string.tracking_message_courier, courier.name), Toast.LENGTH_SHORT).show()
-        }
-    }
-
-    private fun displayAddress(address: DeliveryAddress) {
-        b.tvAddress.text = buildString {
-            append(address.street)
-            if (address.apartment.isNotEmpty()) {
-                append(", ").append(address.apartment)
-            }
-            append("\n")
-            append(address.city)
-            if (address.postalCode.isNotEmpty()) {
-                append(" ").append(address.postalCode)
-            }
-        }
-        
-        // Pin bounce animation - Animation #8
-        b.ivPin.postDelayed({
-            b.ivPin.animate()
-                .translationY(-10f)
-                .setDuration(200)
-                .withEndAction {
-                    b.ivPin.animate()
-                        .translationY(0f)
-                        .setDuration(200)
-                        .start()
-                }
-                .start()
-        }, 500 + (timelineViews.size * 70L) + 400)
     }
     
-    private fun triggerDeliveredCelebration() {
-        // Particle burst from timeline final step - Animation #9
-        val finalStepView = timelineViews.lastOrNull()
-        if (finalStepView != null) {
-            finalStepView.post {
-                val location = IntArray(2)
-                finalStepView.getLocationInWindow(location)
-                val centerX = location[0] + finalStepView.width / 2f
-                val centerY = location[1] + finalStepView.height / 2f
-                
-                b.particleBurstView.burst(centerX, centerY)
-            }
-        }
-        
-        // Confetti celebration - Animation #10
-        b.confettiView.postDelayed({
-            b.confettiView.celebrate()
-        }, 500)
+    private fun displayCancelledCard(tracking: OrderTracking) {
+        // For cancelled orders, show special red-tinted card
+        val steps = tracking.timelineSteps
+        timelineAdapter.submitList(steps)
+        b.timelineCard.visibility = View.VISIBLE
     }
 
-    private fun animateIntro() {
-        // Animation 1: Status card fade in (500ms delay)
-        b.statusCard.alpha = 0f
-        b.statusCard.animate()
-            .alpha(1f)
-            .setDuration(400)
-            .setStartDelay(500)
-            .start()
+    private fun displayAddress(tracking: OrderTracking) {
+        val address = tracking.deliveryAddress
         
-        // Animation 2: Timeline steps stagger (70ms per step)
-        timelineViews.forEachIndexed { index, stepView ->
-            stepView.alpha = 0f
-            stepView.translationY = 20f
-            stepView.animate()
-                .alpha(1f)
-                .translationY(0f)
-                .setDuration(300)
-                .setStartDelay(500 + (index * 70L)) // 70ms stagger from design tokens
-                .start()
-        }
+        // Address text: "Home · 123 Main Street"
+        b.tvAddress.text = "${address.label} · ${address.line}"
         
-        // Animation 3: Courier card fade in (if visible)
-        if (b.courierCard.visibility == View.VISIBLE) {
-            b.courierCard.alpha = 0f
-            val courierDelay = 500 + (timelineViews.size * 70L) + 100
-            b.courierCard.animate()
-                .alpha(1f)
-                .setDuration(400)
-                .setStartDelay(courierDelay)
-                .start()
-        }
-        
-        // Animation 4: Address card fade in
-        b.addressCard.alpha = 0f
-        val addressDelay = if (b.courierCard.visibility == View.VISIBLE) {
-            500 + (timelineViews.size * 70L) + 600
-        } else {
-            500 + (timelineViews.size * 70L) + 200
-        }
-        b.addressCard.animate()
-            .alpha(1f)
-            .setDuration(400)
-            .setStartDelay(addressDelay)
-            .start()
+        // Items and total: "3 items · Total $119.00"
+        b.tvItemsTotal.text = getString(
+            R.string.tracking_items_total,
+            tracking.itemsCount,
+            tracking.total
+        )
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        // Clean up timeline views
-        timelineViews.forEach { it.onDetachedFromWindow() }
-        
-        // Stop all animations
-        b.shimmerView.stopShimmer()
-        if (b.courierCard.visibility == View.VISIBLE) {
-            b.truckAnimationView.stopAnimation()
-        }
+        // Clean up any resources if needed
     }
 }

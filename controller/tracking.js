@@ -177,11 +177,21 @@ function validateStatusTransition(currentStatus, newStatus, order) {
 /**
  * GET /api/orders/:orderId/tracking
  * Retrieve tracking information for an order
+ * @param {string} orderId - Either MongoDB _id (24-char hex) or nanoid orderId (7-char alphanumeric)
+ * @returns {OrderTracking} Tracking information with history and estimated delivery
  * Auth: Customer (own orders only) or Admin
  */
 export const getOrderTracking = async (req, res) => {
   try {
     const { orderId } = req.params;
+    
+    // Validate orderId format
+    if (!orderId || (orderId.length !== 24 && orderId.length !== 7)) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid orderId format. Expected 24-char MongoDB ID or 7-char order code.",
+      });
+    }
 
     // Find order by _id (MongoDB ObjectId) OR orderId (readable code)
     const isMongoId = /^[0-9a-fA-F]{24}$/.test(orderId);

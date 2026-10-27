@@ -1,5 +1,8 @@
 package com.hookahdrop.app.data
 
+import java.text.SimpleDateFormat
+import java.util.Locale
+
 /**
  * Order Tracking data models
  * API Spec: /api/orders/:orderId/tracking
@@ -17,6 +20,87 @@ data class OrderTracking(
     val total: Double,
     val currency: String
 ) {
+    val deliveryWindow: DeliveryWindow? get() = estimatedDelivery
+    val deliveryAddress: DeliveryAddress get() = address
+    val itemCount: Int get() = itemsCount
+    val totalAmount: Double get() = total
+
+    val timelineSteps: List<TimelineStep> get() {
+        val currentStepNum = getCurrentStep()
+        
+        // Special case: Cancelled orders show single cancelled step
+        if (currentStatus == OrderStatus.CANCELLED) {
+            val cancelledEntry = history.find { it.status == OrderStatus.CANCELLED }
+            return listOf(
+                TimelineStep(
+                    stepNumber = 0,
+                    title = "Order Cancelled",
+                    description = "Your payment will be refunded to the original payment method.",
+                    state = TimelineStepState.CANCELLED,
+                    timestamp = cancelledEntry?.formatTimestamp(),
+                    iconType = TimelineIcon.X
+                )
+            )
+        }
+        
+        // Find history entries for timestamps
+        val confirmedEntry = history.find { it.status == OrderStatus.CONFIRMED }
+        val preparedEntry = history.find { it.status == OrderStatus.PREPARED }
+        val outForDeliveryEntry = history.find { it.status == OrderStatus.OUT_FOR_DELIVERY }
+        val deliveredEntry = history.find { it.status == OrderStatus.DELIVERED }
+        
+        return listOf(
+            TimelineStep(
+                stepNumber = 1,
+                title = "Confirmed",
+                description = "We received your order and payment.",
+                state = when {
+                    currentStepNum > 1 -> TimelineStepState.COMPLETED
+                    currentStepNum == 1 -> TimelineStepState.ACTIVE
+                    else -> TimelineStepState.PENDING
+                },
+                timestamp = if (currentStepNum >= 1) confirmedEntry?.formatTimestamp() else null,
+                iconType = TimelineIcon.CHECK
+            ),
+            TimelineStep(
+                stepNumber = 2,
+                title = "Prepared",
+                description = "Your items are packed and ready.",
+                state = when {
+                    currentStepNum > 2 -> TimelineStepState.COMPLETED
+                    currentStepNum == 2 -> TimelineStepState.ACTIVE
+                    else -> TimelineStepState.PENDING
+                },
+                timestamp = if (currentStepNum >= 2) preparedEntry?.formatTimestamp() else null,
+                iconType = TimelineIcon.BOX
+            ),
+            TimelineStep(
+                stepNumber = 3,
+                title = "Out for delivery",
+                description = "Your courier is on the way to you.",
+                state = when {
+                    currentStepNum > 3 -> TimelineStepState.COMPLETED
+                    currentStepNum == 3 -> TimelineStepState.ACTIVE
+                    else -> TimelineStepState.PENDING
+                },
+                timestamp = if (currentStepNum >= 3) outForDeliveryEntry?.formatTimestamp() else null,
+                iconType = TimelineIcon.TRUCK
+            ),
+            TimelineStep(
+                stepNumber = 4,
+                title = "Delivered",
+                description = "Your order will be handed to you at the door.",
+                state = when {
+                    currentStepNum >= 4 -> TimelineStepState.COMPLETED
+                    currentStepNum == 4 -> TimelineStepState.ACTIVE
+                    else -> TimelineStepState.PENDING
+                },
+                timestamp = if (currentStepNum >= 4) deliveredEntry?.formatTimestamp() else null,
+                iconType = TimelineIcon.FLAG
+            )
+        )
+    }
+
     /** Get the current step in the timeline (1-4) based on status */
     fun getCurrentStep(): Int {
         return when (currentStatus) {
@@ -44,10 +128,42 @@ data class DeliveryWindow(
     val start: String,  // ISO 8601 timestamp
     val end: String     // ISO 8601 timestamp
 ) {
+    val label: String get() = "Today"
+    val startTime: String get() = start
+    val endTime: String get() = end
+
     /** Format as "Today, 6:30 – 7:00 PM" or date */
     fun formatForDisplay(): String {
-        // Will be implemented in UI layer with locale-aware formatting
-        return ""
+        return try {
+            val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
+            dateFormat.timeZone = java.util.TimeZone.getTimeZone("UTC")
+            
+            val startDate = dateFormat.parse(start)
+            val endDate = dateFormat.parse(end)
+            
+            if (startDate == null || endDate == null) return ""
+            
+            val timeFormat = SimpleDateFormat("h:mm a", Locale.getDefault())
+            val startTimeStr = timeFormat.format(startDate)
+            val endTimeStr = timeFormat.format(endDate)
+            
+            // Check if today
+            val today = java.util.Calendar.getInstance()
+            val deliveryDay = java.util.Calendar.getInstance()
+            deliveryDay.time = startDate
+            
+            val dayLabel = if (today.get(java.util.Calendar.DAY_OF_YEAR) == deliveryDay.get(java.util.Calendar.DAY_OF_YEAR) &&
+                              today.get(java.util.Calendar.YEAR) == deliveryDay.get(java.util.Calendar.YEAR)) {
+                "Today"
+            } else {
+                val dateFormat2 = SimpleDateFormat("MMM d", Locale.getDefault())
+                dateFormat2.format(startDate)
+            }
+            
+            "$dayLabel, $startTimeStr – $endTimeStr"
+        } catch (e: Exception) {
+            ""
+        }
     }
 }
 
@@ -58,8 +174,21 @@ data class StatusHistoryEntry(
 ) {
     /** Get timestamp for this specific status */
     fun getFormattedTime(): String {
-        // Will be formatted in UI layer
         return at
+    }
+    
+    /** Format timestamp as "Oct 26 · 11:02 AM" */
+    fun formatTimestamp(): String {
+        return try {
+            val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
+            dateFormat.timeZone = java.util.TimeZone.getTimeZone("UTC")
+            val date = dateFormat.parse(at) ?: return at
+            
+            val outputFormat = SimpleDateFormat("MMM d · h:mm a", Locale.getDefault())
+            outputFormat.format(date)
+        } catch (e: Exception) {
+            at // Fallback to original timestamp
+        }
     }
 }
 
@@ -73,7 +202,12 @@ data class Courier(
 data class DeliveryAddress(
     val label: String,   // "Home", "Work", etc.
     val line: String     // Full address line
-)
+) {
+    val street: String get() = line
+    val apartment: String get() = ""
+    val city: String get() = label
+    val postalCode: String get() = ""
+}
 
 /**
  * Timeline step state for UI
@@ -82,7 +216,8 @@ enum class TimelineStepState {
     COMPLETED,   // Gold filled circle, done
     ACTIVE,      // Gold circle with glow + "Now" pill
     PENDING,     // Gray outline circle
-    SKIPPED      // Not used in current flow
+    SKIPPED,     // Not used in current flow
+    CANCELLED    // Cancelled state
 }
 
 /**
@@ -95,11 +230,14 @@ data class TimelineStep(
     val state: TimelineStepState,
     val timestamp: String?,     // Formatted time or null
     val iconType: TimelineIcon
-)
+) {
+    val icon: TimelineIcon get() = iconType
+}
 
 enum class TimelineIcon {
     CHECK,    // Confirmed
     BOX,      // Prepared
     TRUCK,    // Out for delivery
-    FLAG      // Delivered
+    FLAG,     // Delivered
+    X         // Cancelled / X
 }
