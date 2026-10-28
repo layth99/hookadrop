@@ -338,6 +338,7 @@ export default function OrderDetail() {
       const { data } = await api.get(`/orders/${id}`);
       setOrder(data.data);
     } catch (err) {
+      console.error('Delivery date update error:', err);
       toastFn(err.response?.data?.message || "Failed to update delivery date", "err");
     } finally {
       setSavingDelivery(false);
