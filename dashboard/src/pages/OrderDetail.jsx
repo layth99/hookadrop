@@ -241,6 +241,11 @@ export default function OrderDetail() {
   const [save, setSave] = useState("idle"); // idle | saving | saved
   const [toasts, toastFn] = useToasts();
   
+  // Estimated delivery date state
+  const [editingDelivery, setEditingDelivery] = useState(false);
+  const [deliveryDate, setDeliveryDate] = useState(null);
+  const [savingDelivery, setSavingDelivery] = useState(false);
+  
   // Calculate total for count-up (must be before any conditional return)
   const totalValue = order?.totalPrice || 0;
   const total = useCountUp(totalValue, 1400, 500);
@@ -263,6 +268,16 @@ export default function OrderDetail() {
           notes: orderData.deliveryNotes || ""
         });
       }
+      
+      // Initialize delivery date
+      if (orderData.estimatedDeliveryDate) {
+        setDeliveryDate(new Date(orderData.estimatedDeliveryDate).toISOString().slice(0, 16));
+      } else {
+        // Default: 24 hours after order creation
+        const defaultDate = new Date(orderData.createdAt);
+        defaultDate.setHours(defaultDate.getHours() + 24);
+        setDeliveryDate(defaultDate.toISOString().slice(0, 16));
+      }
     } catch (error) {
       toast.error("Failed to fetch order details");
     } finally {
@@ -276,6 +291,54 @@ export default function OrderDetail() {
       return Promise.resolve();
     } catch (error) {
       return Promise.reject(error);
+    }
+  };
+  
+  const formatDeliveryWindow = (date) => {
+    if (!date) return null;
+    const d = new Date(date);
+    const now = new Date();
+    const isToday = d.toDateString() === now.toDateString();
+    const tomorrow = new Date(now);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    const isTomorrow = d.toDateString() === tomorrow.toDateString();
+    
+    const timeStart = d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+    const endDate = new Date(d.getTime() + 30 * 60000); // +30 minutes
+    const timeEnd = endDate.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+    
+    if (isToday) return `Today, ${timeStart} – ${timeEnd}`;
+    if (isTomorrow) return `Tomorrow, ${timeStart} – ${timeEnd}`;
+    
+    const monthDay = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+    return `${monthDay}, ${timeStart} – ${timeEnd}`;
+  };
+  
+  const handleSaveDelivery = async () => {
+    if (!deliveryDate) return;
+    
+    const dateObj = new Date(deliveryDate);
+    if (dateObj < new Date()) {
+      toastFn("Delivery date must be in the future", "err");
+      return;
+    }
+    
+    setSavingDelivery(true);
+    try {
+      await api.put(`/orders/${id}`, {
+        status: order.status,
+        estimatedDeliveryDate: dateObj.toISOString()
+      });
+      
+      toastFn("Estimated delivery updated");
+      setEditingDelivery(false);
+      // Refresh order data
+      const { data } = await api.get(`/orders/${id}`);
+      setOrder(data.data);
+    } catch (err) {
+      toastFn(err.response?.data?.message || "Failed to update delivery date", "err");
+    } finally {
+      setSavingDelivery(false);
     }
   };
   
@@ -381,8 +444,12 @@ export default function OrderDetail() {
       email: order.user?.email || order.email || ""
     },
     address: {
-      name: order.fullname || "—",
-      email: order.email || order.address || "—"
+      name: order.fullname || order.user?.name || "—",
+      email: order.email || order.user?.email || "—",
+      phone: order.phone || order.user?.phone || order.user?.address?.phone || "—",
+      street: order.user?.address?.street || order.address || "—",
+      city: order.user?.address?.city || "—",
+      state: order.user?.address?.state || "—",
     },
     isPaid: order.isPaid,
     paidAt: order.paidAt,
@@ -440,33 +507,72 @@ export default function OrderDetail() {
           {/* gauche */}
           <div className="space-y-5 xl:col-span-8">
             <Card d={0.44} title="Order items" icon={Package}>
-              <ul className="divide-y divide-white/[0.06]">
+              {/* Grid Layout - 2 columns on large screens */}
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
                 {mappedOrder.items.map((it, i) => (
-                  <li key={it.id} className="od-in group flex items-center gap-4 rounded-lg py-3.5 transition hover:bg-white/[0.025]" style={{ "--d": `${0.5 + i * 0.08}s` }}>
-                    <div className="grid h-16 w-16 shrink-0 place-items-center overflow-hidden rounded-xl border border-white/10 bg-[#070c18] transition group-hover:scale-105 group-hover:border-amber-400/40">
-                      {it.image ? <img src={it.image} alt="" className="h-full w-full object-cover" /> : <Package size={22} className="text-slate-600" />}
+                  <div 
+                    key={it.id} 
+                    className="od-in group relative flex items-center gap-3 rounded-xl border border-white/[0.06] bg-[#070c18] p-3 transition hover:border-amber-400/30 hover:bg-white/[0.015]" 
+                    style={{ "--d": `${0.5 + i * 0.06}s` }}
+                  >
+                    {/* Larger Product Image */}
+                    <div className="grid h-20 w-20 shrink-0 place-items-center overflow-hidden rounded-lg border border-white/10 bg-[#050813] transition group-hover:scale-105 group-hover:border-amber-400/40">
+                      {it.image ? (
+                        <img src={it.image} alt="" className="h-full w-full object-cover" />
+                      ) : (
+                        <Package size={28} className="text-slate-600" />
+                      )}
                     </div>
+                    
+                    {/* Product Info - Compact */}
                     <div className="min-w-0 flex-1">
-                      <p className="truncate text-sm font-semibold text-slate-100">{it.name}</p>
-                      <p className="text-xs text-slate-500">{it.brand}</p>
+                      <p className="truncate text-sm font-semibold text-slate-100 leading-tight">{it.name}</p>
+                      <p className="text-[11px] text-slate-500 mt-0.5">{it.brand}</p>
+                      
+                      {/* Price & Quantity - Inline */}
+                      <div className="flex items-center gap-3 mt-2">
+                        <span className="rounded-md bg-white/5 px-2 py-0.5 text-[11px] text-slate-300">
+                          ×{it.qty}
+                        </span>
+                        <div className="text-left">
+                          <p className="text-sm font-bold tabular-nums text-amber-400">{money(it.price * it.qty)}</p>
+                          <p className="text-[10px] text-slate-500">{money(it.price)} each</p>
+                        </div>
+                      </div>
                     </div>
-                    <span className="rounded-md bg-white/5 px-2 py-1 text-xs text-slate-300">×{it.qty}</span>
-                    <div className="w-24 text-right">
-                      <p className="text-sm font-semibold tabular-nums text-white">{money(it.price * it.qty)}</p>
-                      <p className="text-[11px] text-slate-500">{money(it.price)} each</p>
-                    </div>
-                  </li>
+                  </div>
                 ))}
-              </ul>
-              <dl className="mt-3 ml-auto max-w-sm space-y-2 border-t border-white/[0.06] pt-4 text-[13px]">
-                <div className="flex justify-between text-slate-400"><dt>Subtotal</dt><dd className="tabular-nums">{money(subtotal)}</dd></div>
-                <div className="flex justify-between text-slate-400"><dt>Tax</dt><dd className="tabular-nums">{money(mappedOrder.tax)}</dd></div>
-                <div className="flex justify-between text-slate-400"><dt>Shipping</dt><dd className="tabular-nums">{money(mappedOrder.shipping)}</dd></div>
-                <div className="flex items-baseline justify-between border-t border-white/[0.06] pt-3">
-                  <dt className="text-sm font-semibold text-white">Total</dt>
-                  <dd className="text-2xl font-bold tabular-nums text-amber-400 [text-shadow:0_0_22px_rgba(245,179,1,.45)]">{money(total)}</dd>
+              </div>
+              
+              {/* Summary Section - Compact */}
+              <div className="mt-4 pt-4 border-t border-white/[0.06]">
+                <dl className="grid grid-cols-2 gap-x-4 gap-y-2 text-[13px]">
+                  <div className="flex justify-between text-slate-400">
+                    <dt>Subtotal</dt>
+                    <dd className="tabular-nums">{money(subtotal)}</dd>
+                  </div>
+                  <div className="flex justify-between text-slate-400">
+                    <dt>Tax</dt>
+                    <dd className="tabular-nums">{money(mappedOrder.tax)}</dd>
+                  </div>
+                  <div className="flex justify-between text-slate-400">
+                    <dt>Shipping</dt>
+                    <dd className="tabular-nums">{money(mappedOrder.shipping)}</dd>
+                  </div>
+                  <div className="flex justify-between text-slate-400">
+                    <dt>Items</dt>
+                    <dd className="tabular-nums">{mappedOrder.items.reduce((s, i) => s + i.qty, 0)} total</dd>
+                  </div>
+                </dl>
+                
+                {/* Total - Emphasized */}
+                <div className="flex items-baseline justify-between mt-3 pt-3 border-t border-white/[0.06]">
+                  <dt className="text-sm font-semibold text-white">Order Total</dt>
+                  <dd className="text-2xl font-bold tabular-nums text-amber-400 [text-shadow:0_0_22px_rgba(245,179,1,.45)]">
+                    {money(total)}
+                  </dd>
                 </div>
-              </dl>
+              </div>
             </Card>
 
             <div className="grid grid-cols-1 gap-5 lg:grid-cols-3">
@@ -484,15 +590,46 @@ export default function OrderDetail() {
                 </div>
               </Card>
               <Card d={0.66} title="Shipping address" icon={MapPin}>
-                <p className="text-sm font-semibold text-slate-100">{mappedOrder.address.name}</p>
-                {order.address && <p className="mt-1 text-xs text-slate-400">{order.address}</p>}
-                {(order.phone || order.user?.phone) && <p className="mt-1 text-xs text-slate-400">{order.phone || order.user?.phone}</p>}
-                <p className="mt-1 text-xs text-slate-400">{mappedOrder.address.email}</p>
+                <div className="space-y-1">
+                  {mappedOrder.address.street !== "—" && (
+                    <p className="text-sm font-semibold text-slate-100">{mappedOrder.address.street}</p>
+                  )}
+                  {mappedOrder.address.city !== "—" && (
+                    <p className="text-xs text-slate-400">{mappedOrder.address.city}</p>
+                  )}
+                  {mappedOrder.address.state !== "—" && (
+                    <p className="text-xs text-slate-400">{mappedOrder.address.state}</p>
+                  )}
+                  {mappedOrder.address.phone !== "—" && (
+                    <p className="mt-2 text-xs text-slate-400 flex items-center gap-1">
+                      <Phone size={11} /> {mappedOrder.address.phone}
+                    </p>
+                  )}
+                  {mappedOrder.address.email !== "—" && (
+                    <p className="text-xs text-slate-400 flex items-center gap-1">
+                      <Mail size={11} /> {mappedOrder.address.email}
+                    </p>
+                  )}
+                  
+                  {/* Fallback when no address data */}
+                  {mappedOrder.address.street === "—" && mappedOrder.address.city === "—" && (
+                    <p className="text-xs text-slate-500 italic">No address saved</p>
+                  )}
+                </div>
+                
                 <button onClick={() => {
-                  const fullAddress = `${mappedOrder.address.name}\n${order.address || ''}\n${order.phone || order.user?.phone || ''}\n${mappedOrder.address.email}`;
+                  const fullAddress = [
+                    mappedOrder.address.street,
+                    mappedOrder.address.city,
+                    mappedOrder.address.state,
+                    mappedOrder.address.phone,
+                    mappedOrder.address.email
+                  ].filter(v => v && v !== "—").join('\n');
                   copy(fullAddress, "Address");
                 }}
-                  className="mt-4 flex w-full items-center justify-center gap-1.5 rounded-lg border border-white/10 py-2 text-[11px] text-slate-300 transition hover:border-amber-400/50 hover:text-amber-300"><Copy size={12} /> Copy address</button>
+                  className="mt-4 flex w-full items-center justify-center gap-1.5 rounded-lg border border-white/10 py-2 text-[11px] text-slate-300 transition hover:border-amber-400/50 hover:text-amber-300">
+                  <Copy size={12} /> Copy address
+                </button>
               </Card>
               <Card d={0.72} title="Payment method" icon={CreditCard}>
                 <div className="flex items-center justify-between">
@@ -648,6 +785,64 @@ export default function OrderDetail() {
                     </div>
                   )}
                 </div>
+              </div>
+            </div>
+
+            {/* Estimated Delivery Card */}
+            <div className="od-in od-edge" style={{ "--d": "0.52s" }}>
+              <div className="rounded-[17px] bg-[#0b1221] p-5">
+                <div className="flex items-center justify-between mb-4">
+                  <p className="flex items-center gap-2 text-[13px] font-semibold text-slate-100">
+                    <Calendar size={14} className="text-amber-400" /> Estimated Delivery
+                  </p>
+                </div>
+                
+                {editingDelivery ? (
+                  <div className="space-y-3">
+                    <input
+                      type="datetime-local"
+                      value={deliveryDate || ''}
+                      onChange={(e) => setDeliveryDate(e.target.value)}
+                      min={new Date().toISOString().slice(0, 16)}
+                      className="w-full bg-[#070c18] border border-white/10 rounded-lg px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-amber-400/50 transition [color-scheme:dark]"
+                    />
+                    <div className="flex gap-2">
+                      <button
+                        onClick={handleSaveDelivery}
+                        disabled={savingDelivery}
+                        className="flex-1 flex items-center justify-center gap-1.5 rounded-lg bg-amber-500 py-2 text-[11px] font-medium text-black transition hover:bg-amber-400 disabled:opacity-50"
+                      >
+                        {savingDelivery ? (
+                          <>Saving...</>
+                        ) : (
+                          <><Save size={12} /> Save</>
+                        )}
+                      </button>
+                      <button
+                        onClick={() => setEditingDelivery(false)}
+                        disabled={savingDelivery}
+                        className="px-3 rounded-lg border border-white/10 text-[11px] text-slate-400 transition hover:border-amber-400/50 hover:text-amber-400"
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <div>
+                    <p className="text-base font-semibold text-amber-400 mb-1">
+                      {formatDeliveryWindow(order.estimatedDeliveryDate || deliveryDate)}
+                    </p>
+                    <p className="text-xs text-slate-500 mb-3">
+                      {order.estimatedDeliveryDate ? 'Custom delivery window' : 'Default: 24h after order'}
+                    </p>
+                    <button
+                      onClick={() => setEditingDelivery(true)}
+                      className="w-full flex items-center justify-center gap-1.5 rounded-lg border border-white/10 py-2 text-[11px] text-slate-300 transition hover:border-amber-400/50 hover:text-amber-300"
+                    >
+                      <Calendar size={12} /> Edit Delivery Time
+                    </button>
+                  </div>
+                )}
               </div>
             </div>
 

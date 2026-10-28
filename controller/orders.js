@@ -102,7 +102,11 @@ export const createOrder = async (req, res) => {
 export const getOrderById = async (req, res) => {
   try {
     const order = await Order.findById(req.params.id)
-      .populate("user orderItems.product");
+      .populate({
+        path: "user",
+        select: "name email phone address"
+      })
+      .populate("orderItems.product");
 
     if (!order) {
       return res.status(404).json({ success: false, message: "Order not found" });
@@ -157,32 +161,52 @@ export const getOrderProducts = async (req, res) => {
 // PUT update order status
 export const updateOrderStatus = async (req, res) => {
   try {
-    const { status } = req.body;
+    const { status, estimatedDeliveryDate } = req.body;
     const order = await Order.findById(req.params.id);
 
     if (!order) {
       return res.status(404).json({ success: false, message: "Order not found" });
     }
 
-    order.status = status;
+    if (status) {
+      order.status = status;
 
-    // BUG FIX: use lowercase 'delivered' to match the schema enum
-    if (status === "delivered") {
-      order.isDelivered = true;
-      order.deliveredAt = Date.now();
+      // BUG FIX: use lowercase 'delivered' to match the schema enum
+      if (status === "delivered") {
+        order.isDelivered = true;
+        order.deliveredAt = Date.now();
+      }
+    }
+
+    // Handle estimated delivery date update
+    if (estimatedDeliveryDate !== undefined) {
+      if (estimatedDeliveryDate) {
+        const estDate = new Date(estimatedDeliveryDate);
+        if (estDate < new Date()) {
+          return res.status(400).json({ 
+            success: false, 
+            message: "Estimated delivery date must be in the future" 
+          });
+        }
+        order.estimatedDeliveryDate = estDate;
+      } else {
+        order.estimatedDeliveryDate = null;
+      }
     }
 
     await order.save();
 
     // Notify order status update
-    setImmediate(async () => {
-      try {
-        const { notifyOrderUpdate } = await import("../services/notificationService.js");
-        await notifyOrderUpdate(order, status);
-      } catch (e) {
-        console.error("[notify]", e);
-      }
-    });
+    if (status) {
+      setImmediate(async () => {
+        try {
+          const { notifyOrderUpdate } = await import("../services/notificationService.js");
+          await notifyOrderUpdate(order, status);
+        } catch (e) {
+          console.error("[notify]", e);
+        }
+      });
+    }
 
     return res.status(200).json({ success: true, data: order });
   } catch (error) {
