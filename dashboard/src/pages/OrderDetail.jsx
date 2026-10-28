@@ -158,19 +158,20 @@ function Tracker({ order, status }) {
   ];
   
   // Map status to step index (synchronized with mobile app)
+  // Note: Steps are 0-indexed but displayed as 1-4 to user
   const statusToIndex = {
-    'pending': 0,            // Pending (before confirmation)
-    'confirmed': 0,          // Confirmed (payment received) - Step 1
-    'prepared': 1,           // Prepared (items ready) - Step 2
-    'out_for_delivery': 2,   // Out for delivery (courier assigned) - Step 3
-    'delivered': 3,          // Delivered - Step 4
+    'pending': -1,           // Before confirmation, no step active yet
+    'confirmed': 0,          // Step 1: Confirmed (payment received)
+    'prepared': 1,           // Step 2: Prepared (items ready)
+    'out_for_delivery': 2,   // Step 3: Out for delivery (courier assigned)
+    'delivered': 3,          // Step 4: Delivered
     // Legacy statuses for backward compatibility
     'processing': 1,
     'shipped': 2
   };
   
-  const idx = statusToIndex[status] ?? 0;
-  const pct = idx / (steps.length - 1);
+  const idx = statusToIndex[status] ?? -1;
+  const pct = idx < 0 ? 0 : idx / (steps.length - 1);
   const [ready, setReady] = useState(false);
   
   // Reset animation when status changes
@@ -205,7 +206,13 @@ function Tracker({ order, status }) {
                     <s.icon size={17} />
                   </span>
                   <p className={`mt-2.5 text-xs font-semibold ${on ? "text-slate-100" : "text-slate-500"}`}>{s.label}</p>
-                  <p className="text-[10.5px] text-slate-600">{on && s.at ? (typeof s.at === 'string' && s.at.includes('/') ? s.at : formatDateTime(s.at)) : "Pending"}</p>
+                  <p className="text-[10.5px] text-slate-600">
+                    {on && s.at && s.at !== "Pending" 
+                      ? (typeof s.at === 'string' && (s.at.includes('/') || s.at === 'Pending') 
+                        ? s.at 
+                        : formatDateTime(s.at)) 
+                      : "Pending"}
+                  </p>
                 </li>
               );
             })}
@@ -215,7 +222,7 @@ function Tracker({ order, status }) {
           <Ring pct={pct} done={idx === 3} />
           <div className="text-xs text-slate-400">
             <p className="flex items-center gap-1.5 font-medium text-slate-200"><Gauge size={13} className="text-amber-400" /> Fulfilment</p>
-            <p className="mt-1">{idx === 3 ? "Delivered" : "Step "}<span className="font-semibold text-white">{idx === 3 ? "complete" : `${idx + 1} of 4`}</span></p>
+            <p className="mt-1">{idx === 3 ? "Delivered" : idx < 0 ? "Not started" : "Step "}<span className="font-semibold text-white">{idx === 3 ? "complete" : idx < 0 ? "" : `${idx + 1} of 4`}</span></p>
           </div>
         </div>
       </div>

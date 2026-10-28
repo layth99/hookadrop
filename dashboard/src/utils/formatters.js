@@ -8,11 +8,23 @@ export const formatCurrency = (amount) => {
 }
 
 export const formatDate = (date) => {
-  return format(new Date(date), 'MMM dd, yyyy')
+  if (!date) return 'N/A';
+  try {
+    return format(new Date(date), 'MMM dd, yyyy');
+  } catch (error) {
+    return 'Invalid date';
+  }
 }
 
 export const formatDateTime = (date) => {
-  return format(new Date(date), 'MMM dd, yyyy HH:mm')
+  if (!date) return 'N/A';
+  try {
+    const d = new Date(date);
+    if (isNaN(d.getTime())) return 'Invalid date';
+    return format(d, 'MMM dd, yyyy HH:mm');
+  } catch (error) {
+    return 'Invalid date';
+  }
 }
 
 export const getOrderStatusColor = (status) => {
