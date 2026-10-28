@@ -318,7 +318,9 @@ export default function OrderDetail() {
     if (!deliveryDate) return;
     
     const dateObj = new Date(deliveryDate);
-    if (dateObj < new Date()) {
+    const now = new Date();
+    // Allow dates equal to or after current time (with 1 minute buffer for UX)
+    if (dateObj.getTime() < (now.getTime() - 60000)) {
       toastFn("Delivery date must be in the future", "err");
       return;
     }
@@ -639,6 +641,11 @@ export default function OrderDetail() {
                 <p className="mt-2 text-xs text-slate-500">
                   {mappedOrder.isPaid ? `Paid on ${mappedOrder.payment.at}` : "Payment pending"}
                 </p>
+                <p className="mt-2 truncate font-mono text-[10.5px] text-slate-600">{mappedOrder.payment.stripeId}</p>
+                <button onClick={() => copy(mappedOrder.payment.stripeId, "Stripe ID")}
+                  className="mt-3 flex w-full items-center justify-center gap-1.5 rounded-lg border border-white/10 py-2 text-[11px] text-slate-300 transition hover:border-amber-400/50 hover:text-amber-300">
+                  <Copy size={12} /> Copy Stripe ID
+                </button>
               </Card>
             </div>
           </div>

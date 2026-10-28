@@ -182,7 +182,9 @@ export const updateOrderStatus = async (req, res) => {
     if (estimatedDeliveryDate !== undefined) {
       if (estimatedDeliveryDate) {
         const estDate = new Date(estimatedDeliveryDate);
-        if (estDate < new Date()) {
+        const now = new Date();
+        // Allow dates equal to or after current time (with small buffer)
+        if (estDate.getTime() < (now.getTime() - 60000)) {
           return res.status(400).json({ 
             success: false, 
             message: "Estimated delivery date must be in the future" 
