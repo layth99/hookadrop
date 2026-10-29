@@ -115,6 +115,10 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.HookahDrop.Main"/>
 
+        <activity android:name=".OrderTrackingActivity" android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.HookahDrop.Main"/>
+
         <activity android:name=".PromoCodesActivity" android:exported="false"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize"
