@@ -42,7 +42,6 @@ const RecentTab = () => {
   const [notifications, setNotifications] = useState([])
   const [loading, setLoading]             = useState(true)
   const [error, setError]                 = useState(null)
-  const [search, setSearch]               = useState('')
   const [typeFilter, setTypeFilter]       = useState('all')
   const [page, setPage]                   = useState(1)
   const [totalPages, setTotalPages]       = useState(1)
@@ -57,16 +56,7 @@ const RecentTab = () => {
       if (typeFilter !== 'all') params.type = typeFilter
 
       const { data } = await api.get('/notifications/admin/all', { params })
-      let list = data?.data ?? []
-
-      // Client-side email search filter
-      if (search.trim()) {
-        const q = search.toLowerCase()
-        list = list.filter(n =>
-          n.user?.email?.toLowerCase().includes(q) ||
-          n.user?.name?.toLowerCase().includes(q)
-        )
-      }
+      const list = data?.data ?? []
 
       setNotifications(list)
       setTotalPages(data?.totalPages ?? 1)
@@ -78,12 +68,12 @@ const RecentTab = () => {
     } finally {
       setLoading(false)
     }
-  }, [page, typeFilter, search])
+  }, [page, typeFilter])
 
   useEffect(() => {
     // Reset to page 1 when filters change
     setPage(1)
-  }, [typeFilter, search])
+  }, [typeFilter])
 
   useEffect(() => {
     fetchNotifications()
@@ -94,18 +84,6 @@ const RecentTab = () => {
       {/* Filters */}
       <div className="card">
         <div className="flex flex-col md:flex-row gap-4 items-center">
-          {/* Email search */}
-          <div className="flex-1 relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
-            <input
-              type="text"
-              placeholder="Search by user name or email..."
-              value={search}
-              onChange={e => setSearch(e.target.value)}
-              className="input pl-10"
-            />
-          </div>
-
           {/* Type filter */}
           <select
             value={typeFilter}
@@ -126,7 +104,7 @@ const RecentTab = () => {
             Refresh
           </button>
 
-          <div className="text-sm text-gray-400 whitespace-nowrap">
+          <div className="text-sm text-gray-400 whitespace-nowrap ml-auto">
             <span className="text-neon-gold font-semibold">{total}</span> total
           </div>
         </div>
@@ -154,7 +132,6 @@ const RecentTab = () => {
             <table className="w-full">
               <thead>
                 <tr className="border-b border-gray-800 bg-gray-900/50">
-                  <th className="px-5 py-3 text-left text-xs text-gray-500 font-medium uppercase tracking-wider">User</th>
                   <th className="px-5 py-3 text-left text-xs text-gray-500 font-medium uppercase tracking-wider">Type</th>
                   <th className="px-5 py-3 text-left text-xs text-gray-500 font-medium uppercase tracking-wider">Title</th>
                   <th className="px-5 py-3 text-left text-xs text-gray-500 font-medium uppercase tracking-wider">Message</th>
@@ -165,17 +142,6 @@ const RecentTab = () => {
               <tbody className="divide-y divide-gray-800/60">
                 {notifications.map(n => (
                   <tr key={n._id} className="hover:bg-gray-800/30 transition-colors">
-                    {/* User */}
-                    <td className="px-5 py-3.5">
-                      {n.user ? (
-                        <div>
-                          <p className="text-sm font-medium text-gray-100">{n.user.name}</p>
-                          <p className="text-xs text-gray-500">{n.user.email}</p>
-                        </div>
-                      ) : (
-                        <span className="text-xs text-gray-600">—</span>
-                      )}
-                    </td>
                     {/* Type */}
                     <td className="px-5 py-3.5">
                       <TypeBadge type={n.type} />
@@ -397,7 +363,7 @@ const Notifications = () => {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="page-title">Notifications</h1>
-          <p className="page-subtitle">View all user notifications and send broadcast announcements</p>
+          <p className="page-subtitle">View your notifications and send broadcast announcements</p>
         </div>
       </div>
 

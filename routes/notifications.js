@@ -178,7 +178,7 @@ router.delete("/:id", protectRoute, async (req, res) => {
 
 // ── ADMIN ROUTES ─────────────────────────────────────────────────────────────
 
-// ── GET /api/notifications/admin/all — paginated all notifications (admin) ──
+// ── GET /api/notifications/admin/all — paginated admin's own notifications ──
 router.get(
   "/admin/all",
   protectRoute,
@@ -187,10 +187,11 @@ router.get(
     try {
       const page   = Math.max(1, parseInt(req.query.page,  10) || 1);
       const limit  = Math.max(1, parseInt(req.query.limit, 10) || 20);
-      const filter = {};
+      
+      // Filter to only show notifications for the logged-in admin
+      const filter = { user: req.user._id };
 
-      if (req.query.type)   filter.type = req.query.type;
-      if (req.query.userId) filter.user = req.query.userId;
+      if (req.query.type) filter.type = req.query.type;
 
       const [notifications, total] = await Promise.all([
         Notification.find(filter)
