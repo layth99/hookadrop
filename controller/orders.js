@@ -60,6 +60,13 @@ export const getAllOrders = async (req, res) => {
 // POST a new order
 export const createOrder = async (req, res) => {
   try {
+    // Set default estimated delivery date (24 hours after order creation)
+    if (!req.body.estimatedDeliveryDate) {
+      const defaultDeliveryDate = new Date();
+      defaultDeliveryDate.setHours(defaultDeliveryDate.getHours() + 24);
+      req.body.estimatedDeliveryDate = defaultDeliveryDate;
+    }
+    
     const order = await Order.create(req.body);
 
     // NOTE: soldCount is incremented only when payment is confirmed (isPaid = true)

@@ -261,6 +261,20 @@ export const getOrderTracking = async (req, res) => {
         endTime: moment(order.estimatedDeliveryDate).add(30, "minutes").format("h:mm A"),
         estimatedDate: order.estimatedDeliveryDate,
       };
+    } else {
+      // Fallback: Default to 24 hours after order creation if no estimated date is set
+      const defaultDate = moment(order.createdAt).add(24, "hours");
+      const isToday = defaultDate.isSame(moment(), "day");
+      const isTomorrow = defaultDate.isSame(moment().add(1, "day"), "day");
+
+      deliveryWindow = {
+        label: isToday ? "Today" : isTomorrow ? "Tomorrow" : defaultDate.format("MMM D"),
+        start: defaultDate.toISOString(),
+        end: defaultDate.add(30, "minutes").toISOString(),
+        startTime: defaultDate.format("h:mm A"),
+        endTime: defaultDate.clone().add(30, "minutes").format("h:mm A"),
+        estimatedDate: defaultDate.toDate(),
+      };
     }
     }
 
