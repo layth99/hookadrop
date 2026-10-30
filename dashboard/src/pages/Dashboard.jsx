@@ -1,4 +1,4 @@
-﻿import { useEffect, useState } from 'react'
+﻿import { useEffect, useState, useMemo, useCallback } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import api from '../utils/api'
 import StatCards from '../components/StatCards'
@@ -14,6 +14,7 @@ const Dashboard = () => {
   const [stats, setStats] = useState({ totalRevenue: 0, totalOrders: 0, totalProducts: 0, totalUsers: 0 })
   const [recentOrders, setRecentOrders] = useState([])
   const [orderStatusData, setOrderStatusData] = useState([])
+  const [allOrders, setAllOrders] = useState([]) // For SalesOverview v2
 
   useEffect(() => { fetchDashboardData() }, [])
 
@@ -40,6 +41,7 @@ const Dashboard = () => {
       })
       setRecentOrders(orders.slice(0, 5))
       setOrderStatusData(generateStatusData(orders))
+      setAllOrders(orders) // Store all orders for SalesOverview v2
     } catch (error) {
       console.error('Error fetching dashboard data:', error)
     } finally {
@@ -72,6 +74,21 @@ const Dashboard = () => {
     return `inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold border ${map[status] || map.pending}`
   }
 
+  // Memoize orders for SalesOverview to match exactly what the old component counted
+  // The old component counted ALL orders (no status filter) - see useSalesOverview.js line 50
+  const salesOrders = useMemo(() => 
+    allOrders.map(order => ({
+      date: order.createdAt,
+      total: order.totalPrice || 0,
+      status: order.status
+    })),
+    [allOrders]
+  )
+
+  // Revenue rule: count ALL orders (no filtering by status)
+  // This matches the old implementation in useSalesOverview.js which didn't filter
+  const isRevenueOrder = useCallback(() => true, [])
+
   if (loading) return <Loader />
 
   return (
@@ -93,7 +110,11 @@ const Dashboard = () => {
       {/* Charts */}
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
         {/* Sales Chart with Period Filter */}
-        <SalesOverview />
+        <SalesOverview 
+          orders={salesOrders}
+          isRevenue={isRevenueOrder}
+          loading={loading}
+        />
 
         {/* Order Status */}
         <OrderStatusDistribution 
