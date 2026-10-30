@@ -1,48 +1,18 @@
-import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+﻿import { useEffect, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import api from '../utils/api'
-import StatCard from '../components/StatCard'
+import StatCards from '../components/StatCards'
+import OrderStatusDistribution from '../components/OrderStatusDistribution'
+import SalesOverview from '../components/SalesOverview'
 import Loader from '../components/Loader'
 import { formatCurrency, formatDate } from '../utils/formatters'
-import { DollarSign, ShoppingCart, Package, Users, ArrowRight } from 'lucide-react'
-import {
-  LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip,
-  ResponsiveContainer, PieChart, Pie, Cell
-} from 'recharts'
-
-const STATUS_COLORS = {
-  pending:    '#facc15',
-  confirmed:  '#60a5fa',
-  processing: '#a78bfa',
-  shipped:    '#22d3ee',
-  delivered:  '#4ade80',
-  cancelled:  '#f87171',
-  declined:   '#ef4444',
-  returned:   '#fb923c',
-  refunded:   '#9ca3af',
-}
-
-const CustomTooltip = ({ active, payload, label }) => {
-  if (active && payload && payload.length) {
-    return (
-      <div className="bg-gray-900 border border-neon-gold/30 rounded-xl px-4 py-3 shadow-2xl">
-        <p className="text-xs text-gray-400 mb-1">{label}</p>
-        {payload.map((p, i) => (
-          <p key={i} className="text-sm font-semibold" style={{ color: p.color }}>
-            {p.name === 'revenue' ? formatCurrency(p.value) : `${p.value} orders`}
-          </p>
-        ))}
-      </div>
-    )
-  }
-  return null
-}
+import { ArrowRight } from 'lucide-react'
 
 const Dashboard = () => {
+  const navigate = useNavigate()
   const [loading, setLoading] = useState(true)
   const [stats, setStats] = useState({ totalRevenue: 0, totalOrders: 0, totalProducts: 0, totalUsers: 0 })
   const [recentOrders, setRecentOrders] = useState([])
-  const [salesData, setSalesData] = useState([])
   const [orderStatusData, setOrderStatusData] = useState([])
 
   useEffect(() => { fetchDashboardData() }, [])
@@ -69,27 +39,12 @@ const Dashboard = () => {
         totalUsers: users.length,
       })
       setRecentOrders(orders.slice(0, 5))
-      setSalesData(generateSalesData(orders))
       setOrderStatusData(generateStatusData(orders))
     } catch (error) {
       console.error('Error fetching dashboard data:', error)
     } finally {
       setLoading(false)
     }
-  }
-
-  const generateSalesData = (orders) => {
-    return Array.from({ length: 7 }, (_, i) => {
-      const date = new Date()
-      date.setDate(date.getDate() - (6 - i))
-      const dateStr = date.toISOString().split('T')[0]
-      const dayOrders = orders.filter(o => o.createdAt?.split('T')[0] === dateStr)
-      return {
-        date: date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
-        revenue: dayOrders.reduce((s, o) => s + (o.totalPrice || 0), 0),
-        orders: dayOrders.length,
-      }
-    })
   }
 
   const generateStatusData = (orders) => {
@@ -128,70 +83,23 @@ const Dashboard = () => {
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <StatCard title="Total Revenue" value={formatCurrency(stats.totalRevenue)} change={12.5} icon={DollarSign}  color="green"  />
-        <StatCard title="Total Orders"  value={stats.totalOrders}                  change={8.2}  icon={ShoppingCart} color="blue"   />
-        <StatCard title="Products"      value={stats.totalProducts}                change={-2.4} icon={Package}      color="orange" />
-        <StatCard title="Customers"     value={stats.totalUsers}                   change={15.3} icon={Users}        color="purple" />
-      </div>
+      <StatCards stats={[
+        { key: "revenue",   label: "Total Revenue", value: stats.totalRevenue,  prefix: "$", decimals: 2, change: 12.5 },
+        { key: "orders",    label: "Total Orders",  value: stats.totalOrders,   change: 8.2 },
+        { key: "products",  label: "Products",      value: stats.totalProducts, change: -2.4 },
+        { key: "customers", label: "Customers",     value: stats.totalUsers,    change: 15.3 },
+      ]} />
 
       {/* Charts */}
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
-        {/* Sales Chart */}
-        <div className="card">
-          <h3 className="text-base font-semibold text-gray-100 mb-5">Sales Overview (7 days)</h3>
-          <ResponsiveContainer width="100%" height={260}>
-            <LineChart data={salesData}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
-              <XAxis dataKey="date" tick={{ fill: '#9ca3af', fontSize: 11 }} axisLine={false} tickLine={false} />
-              <YAxis tick={{ fill: '#9ca3af', fontSize: 11 }} axisLine={false} tickLine={false} tickFormatter={(v) => `$${v}`} />
-              <Tooltip content={<CustomTooltip />} />
-              <Line
-                type="monotone" dataKey="revenue" name="revenue"
-                stroke="#FFD700" strokeWidth={2.5}
-                dot={{ fill: '#FFD700', strokeWidth: 0, r: 4 }}
-                activeDot={{ r: 6, fill: '#FFD700', stroke: '#000', strokeWidth: 2 }}
-              />
-            </LineChart>
-          </ResponsiveContainer>
-        </div>
+        {/* Sales Chart with Period Filter */}
+        <SalesOverview />
 
         {/* Order Status */}
-        <div className="card">
-          <h3 className="text-base font-semibold text-gray-100 mb-5">Order Status Distribution</h3>
-          <div className="flex items-center gap-6">
-            <ResponsiveContainer width="55%" height={220}>
-              <PieChart>
-                <Pie
-                  data={orderStatusData} cx="50%" cy="50%"
-                  outerRadius={90} innerRadius={45}
-                  dataKey="value" paddingAngle={3}
-                >
-                  {orderStatusData.map((entry, i) => (
-                    <Cell key={i} fill={STATUS_COLORS[entry.status] || '#9ca3af'} />
-                  ))}
-                </Pie>
-                <Tooltip
-                  contentStyle={{ backgroundColor: '#111827', border: '1px solid rgba(255,215,0,0.2)', borderRadius: '12px', color: '#f3f4f6' }}
-                />
-              </PieChart>
-            </ResponsiveContainer>
-            <div className="flex-1 space-y-2">
-              {orderStatusData.map((entry, i) => (
-                <div key={i} className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <span
-                      className="w-2.5 h-2.5 rounded-full flex-shrink-0"
-                      style={{ backgroundColor: STATUS_COLORS[entry.status] || '#9ca3af' }}
-                    />
-                    <span className="text-xs text-gray-400">{entry.name}</span>
-                  </div>
-                  <span className="text-xs font-semibold text-gray-200">{entry.value}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
+        <OrderStatusDistribution 
+          data={orderStatusData} 
+          onSelect={(status) => navigate(`/orders?status=${status}`)}
+        />
       </div>
 
       {/* Recent Orders */}

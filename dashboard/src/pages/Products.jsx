@@ -4,12 +4,10 @@ import api from '../utils/api'
 import toast from 'react-hot-toast'
 import Loader from '../components/Loader'
 import Modal from '../components/Modal'
-import { formatCurrency, formatDate, formatDateTime } from '../utils/formatters'
+import ProductsPage from '../components/ProductsPage'
 import { usePermissions } from '../utils/permissions'
-import {
-  Plus, Edit, Trash2, Search, Package2, AlertTriangle,
-  TrendingUp, X, Tag, Layers, Calendar, RefreshCw, ImageIcon
-} from 'lucide-react'
+import { AlertTriangle, Edit, Trash2, X, Calendar, RefreshCw, ImageIcon, Layers } from 'lucide-react'
+import { formatCurrency, formatDate } from '../utils/formatters'
 
 // ── Product Detail Modal ───────────────────────────────────────────────────────
 const ProductDetailModal = ({ product, onClose, onEdit, onDelete, canEdit, canDelete }) => {
@@ -179,39 +177,20 @@ const Products = () => {
   const navigate = useNavigate()
   const { can } = usePermissions()
 
-  const [products, setProducts]           = useState([])
-  const [filteredProducts, setFilteredProducts] = useState([])
-  const [loading, setLoading]             = useState(true)
-  const [searchTerm, setSearchTerm]       = useState('')
-  const [categoryFilter, setCategoryFilter] = useState('all')
+  const [products, setProducts] = useState([])
+  const [loading, setLoading] = useState(true)
 
   // modals
   const [detailProduct, setDetailProduct] = useState(null)
-  const [deleteModal, setDeleteModal]     = useState({ isOpen: false, product: null })
+  const [deleteModal, setDeleteModal] = useState({ isOpen: false, product: null })
 
   useEffect(() => { fetchProducts() }, [])
-
-  useEffect(() => {
-    let filtered = products
-    if (searchTerm) {
-      filtered = filtered.filter(p =>
-        p.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        p.category?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        p.mark?.toLowerCase().includes(searchTerm.toLowerCase())
-      )
-    }
-    if (categoryFilter !== 'all') {
-      filtered = filtered.filter(p => p.category === categoryFilter)
-    }
-    setFilteredProducts(filtered)
-  }, [searchTerm, categoryFilter, products])
 
   const fetchProducts = async () => {
     try {
       const { data } = await api.get('/products', { params: { page: 1, limit: 1000 } })
       const list = Array.isArray(data) ? data : (data?.data ?? [])
       setProducts(list)
-      setFilteredProducts(list)
     } catch {
       toast.error('Failed to fetch products')
     } finally {
@@ -230,213 +209,39 @@ const Products = () => {
     }
   }
 
-  const categories = ['all', ...new Set(products.map(p => p.category).filter(Boolean))]
-  const totalStock  = products.reduce((a, p) => a + (p.stock || 0), 0)
-  const lowStock    = products.filter(p => p.stock <= 10 && p.stock > 0).length
-  const outOfStock  = products.filter(p => p.stock === 0).length
+  // Map products to ProductsPage format
+  const mappedProducts = products.map(p => ({
+    id: p._id,
+    name: p.name,
+    brand: p.mark, // mark → brand
+    image: p.image,
+    category: p.category,
+    price: p.price,
+    discount: p.discount || 0,
+    stock: p.stock || 0,
+    lowStockThreshold: 10
+  }))
 
   if (loading) return <Loader />
 
   return (
-    <div className="space-y-6">
-      {/* Header */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="page-title">Products</h1>
-          <p className="page-subtitle">Manage your product catalog</p>
-        </div>
-        {can('products.create') && (
-          <button
-            onClick={() => navigate('/products/new')}
-            className="btn-primary flex items-center gap-2"
-          >
-            <Plus className="w-5 h-5" />
-            Add Product
-          </button>
-        )}
-      </div>
-
-      {/* Stats */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="card flex items-start justify-between">
-          <div>
-            <p className="text-xs text-gray-500 uppercase tracking-wide mb-2">Total Products</p>
-            <p className="text-2xl font-bold text-gray-100">{products.length}</p>
-          </div>
-          <Package2 className="w-8 h-8 text-white opacity-80 flex-shrink-0" />
-        </div>
-        <div className="card flex items-start justify-between">
-          <div>
-            <p className="text-xs text-gray-500 uppercase tracking-wide mb-2">Total Stock</p>
-            <p className="text-2xl font-bold text-gray-100">{totalStock}</p>
-          </div>
-          <TrendingUp className="w-8 h-8 text-white opacity-80 flex-shrink-0" />
-        </div>
-        <div className="card flex items-start justify-between">
-          <div>
-            <p className="text-xs text-gray-500 uppercase tracking-wide mb-2">Low Stock</p>
-            <p className="text-2xl font-bold text-gray-100">{lowStock}</p>
-          </div>
-          <AlertTriangle className="w-10 h-10 text-yellow-400 opacity-80 flex-shrink-0" />
-        </div>
-        <div className="card flex items-start justify-between">
-          <div>
-            <p className="text-xs text-gray-500 uppercase tracking-wide mb-2">Out of Stock</p>
-            <p className="text-2xl font-bold text-gray-100">{outOfStock}</p>
-          </div>
-          <AlertTriangle className="w-10 h-10 text-red-400 opacity-80 flex-shrink-0" />
-        </div>
-      </div>
-
-      {/* Filters */}
-      <div className="card">
-        <div className="flex flex-col md:flex-row items-center gap-4">
-          <div className="flex-1 relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
-            <input
-              type="text"
-              placeholder="Search by name, category, brand..."
-              value={searchTerm}
-              onChange={e => setSearchTerm(e.target.value)}
-              className="input pl-10"
-            />
-          </div>
-          <select
-            value={categoryFilter}
-            onChange={e => setCategoryFilter(e.target.value)}
-            className="select-dark"
-          >
-            {categories.map(cat => (
-              <option key={cat} value={cat}>
-                {cat === 'all' ? 'All Categories' : cat}
-              </option>
-            ))}
-          </select>
-          <div className="text-sm text-gray-400 whitespace-nowrap">
-            <span className="text-neon-gold font-semibold">{filteredProducts.length}</span> products
-          </div>
-        </div>
-      </div>
-
-      {/* Table */}
-      <div className="card p-0 overflow-hidden">
-        <div className="px-6 py-4 border-b border-gray-800">
-          <p className="text-xs text-gray-500 mt-0.5">Click a row to view product details</p>
-        </div>
-        <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead>
-              <tr className="border-b border-gray-800 bg-gray-900/50">
-                <th className="px-6 py-3 text-left text-xs font-semibold text-neon-gold/80 uppercase tracking-wider">Product</th>
-                <th className="px-6 py-3 text-left text-xs font-semibold text-neon-gold/80 uppercase tracking-wider">Category</th>
-                <th className="px-6 py-3 text-left text-xs font-semibold text-neon-gold/80 uppercase tracking-wider">Price</th>
-                <th className="px-6 py-3 text-left text-xs font-semibold text-neon-gold/80 uppercase tracking-wider">Stock</th>
-                <th className="px-6 py-3 text-left text-xs font-semibold text-neon-gold/80 uppercase tracking-wider">Status</th>
-                {(can('products.edit') || can('products.delete')) && (
-                  <th className="px-6 py-3 text-right text-xs font-semibold text-neon-gold/80 uppercase tracking-wider">Actions</th>
-                )}
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-800/60">
-              {filteredProducts.length === 0 ? (
-                <tr>
-                  <td colSpan={6} className="px-6 py-16 text-center">
-                    <div className="flex flex-col items-center gap-3">
-                      <Package2 className="w-12 h-12 text-gray-600" />
-                      <p className="text-gray-400">No products found</p>
-                      {can('products.create') && (
-                        <button
-                          onClick={() => navigate('/products/new')}
-                          className="btn-primary text-sm"
-                        >
-                          Add your first product
-                        </button>
-                      )}
-                    </div>
-                  </td>
-                </tr>
-              ) : filteredProducts.map(product => (
-                <tr
-                  key={product._id}
-                  onClick={() => setDetailProduct(product)}
-                  className="hover:bg-gray-800/40 transition-colors group cursor-pointer"
-                >
-                  {/* Product */}
-                  <td className="px-6 py-4">
-                    <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 rounded-xl overflow-hidden border border-gray-700 bg-gray-800 flex-shrink-0">
-                        {product.image ? (
-                          <img src={product.image} alt={product.name} className="w-full h-full object-cover" />
-                        ) : (
-                          <div className="w-full h-full flex items-center justify-center">
-                            <Package2 className="w-5 h-5 text-gray-600" />
-                          </div>
-                        )}
-                      </div>
-                      <div>
-                        <p className="font-medium text-gray-100 group-hover:text-neon-gold transition-colors">
-                          {product.name}
-                        </p>
-                        <p className="text-xs text-gray-500">{product.mark}</p>
-                      </div>
-                    </div>
-                  </td>
-                  {/* Category */}
-                  <td className="px-6 py-4">
-                    <span className="badge-info">{product.category}</span>
-                  </td>
-                  {/* Price */}
-                  <td className="px-6 py-4">
-                    <p className="font-semibold text-gray-100">{formatCurrency(product.price)}</p>
-                    {product.discount > 0 && (
-                      <p className="text-xs text-green-400">-{product.discount}% off</p>
-                    )}
-                  </td>
-                  {/* Stock count */}
-                  <td className="px-6 py-4">
-                    <p className="text-gray-200 font-medium">{product.stock ?? 0}</p>
-                  </td>
-                  {/* Stock badge */}
-                  <td className="px-6 py-4">
-                    {product.stock === 0 ? (
-                      <span className="badge-danger">Out of stock</span>
-                    ) : product.stock <= 10 ? (
-                      <span className="badge-warning">Low stock</span>
-                    ) : (
-                      <span className="badge-success">In stock</span>
-                    )}
-                  </td>
-                  {/* Actions — stop propagation so clicking buttons doesn't open detail */}
-                  {(can('products.edit') || can('products.delete')) && (
-                    <td className="px-6 py-4">
-                      <div className="flex items-center justify-end gap-2">
-                        {can('products.edit') && (
-                          <button
-                            onClick={e => { e.stopPropagation(); navigate(`/products/edit/${product._id}`) }}
-                            className="p-2 text-gray-400 hover:text-neon-blue hover:bg-blue-900/30 rounded-lg transition-all"
-                            title="Edit"
-                          >
-                            <Edit className="w-4 h-4" />
-                          </button>
-                        )}
-                        {can('products.delete') && (
-                          <button
-                            onClick={e => { e.stopPropagation(); setDeleteModal({ isOpen: true, product }) }}
-                            className="p-2 text-gray-400 hover:text-red-400 hover:bg-red-900/30 rounded-lg transition-all"
-                            title="Delete"
-                          >
-                            <Trash2 className="w-4 h-4" />
-                          </button>
-                        )}
-                      </div>
-                    </td>
-                  )}
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
+    <>
+      <ProductsPage
+        products={mappedProducts}
+        loading={loading}
+        onAdd={() => navigate('/products/new')}
+        onEdit={(product) => navigate(`/products/edit/${product.id}`)}
+        onDelete={(product) => {
+          // Find original product to get full data
+          const original = products.find(p => p._id === product.id)
+          setDeleteModal({ isOpen: true, product: original })
+        }}
+        onRowClick={(product) => {
+          // Find original product to get full data
+          const original = products.find(p => p._id === product.id)
+          setDetailProduct(original)
+        }}
+      />
 
       {/* ── Product Detail Modal ─────────────────────────────────────────────── */}
       <ProductDetailModal
@@ -477,7 +282,7 @@ const Products = () => {
           </div>
         </div>
       </Modal>
-    </div>
+    </>
   )
 }
 

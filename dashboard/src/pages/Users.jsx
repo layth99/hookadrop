@@ -3,23 +3,12 @@ import api from '../utils/api'
 import toast from 'react-hot-toast'
 import Loader from '../components/Loader'
 import Modal from '../components/Modal'
-import { formatDate } from '../utils/formatters'
-import { usePermissions, ROLE_LABELS, ROLE_BADGE_CLASSES, ROLES } from '../utils/permissions'
+import CustomersPage from '../components/CustomersPage'
+import { useAuthStore } from '../store/authStore'
+import { usePermissions, ROLES } from '../utils/permissions'
 import {
-  Search, Shield, ShieldOff, Users2, Plus, Trash2,
-  User, Mail, Lock, Phone, MapPin, Eye, EyeOff, X, AlertTriangle
+  User, Mail, Lock, Phone, MapPin, Eye, EyeOff, AlertTriangle
 } from 'lucide-react'
-
-// ── Role badge ─────────────────────────────────────────────────────────────────
-const RoleBadge = ({ user }) => {
-  const role = user.isAdmin ? 'admin' : (user.role || 'user')
-  const cls  = ROLE_BADGE_CLASSES[role] || ROLE_BADGE_CLASSES.user
-  return (
-    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold border ${cls}`}>
-      {ROLE_LABELS[role] || role}
-    </span>
-  )
-}
 
 // ── Field wrapper ──────────────────────────────────────────────────────────────
 const Field = ({ label, required, children }) => (
@@ -33,18 +22,16 @@ const Field = ({ label, required, children }) => (
 
 // ─────────────────────────────────────────────────────────────────────────────
 const Users = () => {
-  const { can, isAdmin } = usePermissions()
+  const { can } = usePermissions()
+  const currentUser = useAuthStore((state) => state.user)
 
-  const [users, setUsers]               = useState([])
-  const [filteredUsers, setFilteredUsers] = useState([])
-  const [loading, setLoading]           = useState(true)
-  const [searchTerm, setSearchTerm]     = useState('')
-  const [roleFilter, setRoleFilter]     = useState('all')
+  const [users, setUsers] = useState([])
+  const [loading, setLoading] = useState(true)
 
   // modals
-  const [addModal, setAddModal]         = useState(false)
-  const [deleteModal, setDeleteModal]   = useState({ isOpen: false, user: null })
-  const [roleModal, setRoleModal]       = useState({ isOpen: false, user: null, role: '' })
+  const [addModal, setAddModal] = useState(false)
+  const [deleteModal, setDeleteModal] = useState({ isOpen: false, user: null })
+  const [roleModal, setRoleModal] = useState({ isOpen: false, user: null, role: '' })
 
   // add-customer form
   const EMPTY_FORM = {
@@ -52,45 +39,39 @@ const Users = () => {
     role: 'user',
     address: { street: '', city: '', state: '' },
   }
-  const [form, setForm]         = useState(EMPTY_FORM)
-  const [errors, setErrors]     = useState({})
-  const [showPw, setShowPw]     = useState(false)
+  const [form, setForm] = useState(EMPTY_FORM)
+  const [errors, setErrors] = useState({})
+  const [showPw, setShowPw] = useState(false)
   const [submitting, setSubmitting] = useState(false)
 
   // ── data ──────────────────────────────────────────────────────────────────
   useEffect(() => { fetchUsers() }, [])
-
-  useEffect(() => {
-    let list = users
-    if (searchTerm) {
-      const q = searchTerm.toLowerCase()
-      list = list.filter(u =>
-        u.name?.toLowerCase().includes(q) ||
-        u.email?.toLowerCase().includes(q) ||
-        u.phone?.toLowerCase().includes(q)
-      )
-    }
-    if (roleFilter !== 'all') {
-      list = list.filter(u => {
-        const r = u.isAdmin ? 'admin' : (u.role || 'user')
-        return r === roleFilter
-      })
-    }
-    setFilteredUsers(list)
-  }, [searchTerm, roleFilter, users])
 
   const fetchUsers = async () => {
     try {
       const { data } = await api.get('/users')
       const list = Array.isArray(data) ? data : (data?.data ?? [])
       setUsers(list)
-      setFilteredUsers(list)
     } catch {
       toast.error('Failed to fetch users')
     } finally {
       setLoading(false)
     }
   }
+
+  // ── Map users to CustomersPage format ─────────────────────────────────────
+  const mappedUsers = users.map(u => ({
+    id: u._id,
+    name: u.name || 'Unknown',
+    email: u.email || '',
+    phone: u.phone || u.address?.phone || '',
+    location: u.address?.city && u.address?.state
+      ? `${u.address.city}, ${u.address.state}`
+      : (u.address?.city || u.address?.state || ''),
+    role: u.isAdmin ? 'admin' : (u.role === 'viewer' ? 'viewer' : 'customer'),
+    joinedAt: u.createdAt || new Date().toISOString(),
+    avatar: u.avatar || ''
+  }))
 
   // ── validation ────────────────────────────────────────────────────────────
   const validate = () => {
@@ -121,6 +102,33 @@ const Users = () => {
       toast.error(msg)
     } finally {
       setSubmitting(false)
+    }
+  }
+
+  // ── Handlers for CustomersPage ───────────────────────────────────────────
+  const handleAddCustomer = () => {
+    setForm(EMPTY_FORM)
+    setErrors({})
+    setAddModal(true)
+  }
+
+  const handleChangeRole = (user) => {
+    // Find original user object from mappedUsers
+    const originalUser = users.find(u => u._id === user.id)
+    if (originalUser) {
+      setRoleModal({ 
+        isOpen: true, 
+        user: originalUser, 
+        role: user.role === 'customer' ? 'user' : user.role 
+      })
+    }
+  }
+
+  const handleDeleteUser = (user) => {
+    // Find original user object from mappedUsers
+    const originalUser = users.find(u => u._id === user.id)
+    if (originalUser) {
+      setDeleteModal({ isOpen: true, user: originalUser })
     }
   }
 
@@ -156,177 +164,21 @@ const Users = () => {
   const setF  = (k, v) => { setForm(p => ({ ...p, [k]: v })); setErrors(p => ({ ...p, [k]: '' })) }
   const setAddr = (k, v) => setForm(p => ({ ...p, address: { ...p.address, [k]: v } }))
 
-  if (loading) return <Loader />
+  if (loading && users.length === 0) return <Loader />
 
   return (
     <div className="space-y-6">
-      {/* Header */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="page-title">Customers</h1>
-          <p className="page-subtitle">Manage user accounts and permissions</p>
-        </div>
-        {can('customers.create') && (
-          <button
-            onClick={() => { setForm(EMPTY_FORM); setErrors({}); setAddModal(true) }}
-            className="btn-primary flex items-center gap-2"
-          >
-            <Plus className="w-5 h-5" />
-            Add Customer
-          </button>
-        )}
-      </div>
-
-      {/* Stats */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        {[
-          { label: 'Total', value: users.length, color: 'text-gray-100' },
-          { label: 'Admins',  value: users.filter(u => u.isAdmin || u.role === 'admin').length,  color: 'text-neon-gold' },
-          { label: 'Viewers', value: users.filter(u => !u.isAdmin && u.role === 'viewer').length, color: 'text-purple-400' },
-          { label: 'Customers',value: users.filter(u => !u.isAdmin && (!u.role || u.role === 'user')).length, color: 'text-gray-400' },
-        ].map(({ label, value, color }) => (
-          <div key={label} className="card py-4">
-            <p className={`text-2xl font-bold ${color}`}>{value}</p>
-            <p className="text-xs text-gray-500 mt-1">{label}</p>
-          </div>
-        ))}
-      </div>
-
-      {/* Filters */}
-      <div className="card">
-        <div className="flex flex-col md:flex-row items-center gap-4">
-          <div className="flex-1 relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
-            <input
-              type="text"
-              placeholder="Search by name, email or phone..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="input pl-10"
-            />
-          </div>
-          <div className="flex gap-2">
-            {['all', 'admin', 'viewer', 'user'].map(r => (
-              <button
-                key={r}
-                onClick={() => setRoleFilter(r)}
-                className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
-                  roleFilter === r
-                    ? 'bg-neon-gold text-black'
-                    : 'bg-gray-800 text-gray-400 hover:bg-gray-700'
-                }`}
-              >
-                {r === 'all' ? `All (${users.length})` : ROLE_LABELS[r]}
-              </button>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Table */}
-      <div className="card p-0 overflow-hidden">
-        <div className="px-6 py-4 border-b border-gray-800 flex items-center justify-between">
-          <h2 className="text-sm font-semibold text-gray-300 uppercase tracking-wider">
-            User List
-          </h2>
-          <span className="text-sm text-gray-400">
-            <span className="text-neon-gold font-semibold">{filteredUsers.length}</span> users
-          </span>
-        </div>
-        <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead>
-              <tr className="border-b border-gray-800 bg-gray-900/50">
-                {['User', 'Role', 'Phone', 'Location', 'Joined', 'Actions'].map(h => (
-                  <th key={h} className="px-6 py-3 text-left text-xs font-semibold text-neon-gold/80 uppercase tracking-wider">{h}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-800/60">
-              {filteredUsers.length === 0 ? (
-                <tr>
-                  <td colSpan={6} className="px-6 py-16 text-center">
-                    <div className="flex flex-col items-center gap-3">
-                      <Users2 className="w-12 h-12 text-gray-600" />
-                      <p className="text-gray-400">No users found</p>
-                      {can('customers.create') && (
-                        <button
-                          onClick={() => { setForm(EMPTY_FORM); setErrors({}); setAddModal(true) }}
-                          className="btn-primary text-sm"
-                        >
-                          Add your first customer
-                        </button>
-                      )}
-                    </div>
-                  </td>
-                </tr>
-              ) : filteredUsers.map(user => (
-                <tr key={user._id} className="hover:bg-gray-800/40 transition-colors group">
-                  {/* User info */}
-                  <td className="px-6 py-4">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full overflow-hidden border border-neon-gold/30 flex-shrink-0">
-                        {user.avatar
-                          ? <img src={user.avatar} alt="" className="w-full h-full object-cover" />
-                          : (
-                            <div className="w-full h-full bg-gradient-to-br from-neon-gold/30 to-neon-blue/30 flex items-center justify-center">
-                              <span className="text-neon-gold font-semibold text-sm">
-                                {user.name?.charAt(0).toUpperCase()}
-                              </span>
-                            </div>
-                          )}
-                      </div>
-                      <div>
-                        <p className="font-medium text-gray-100">{user.name}</p>
-                        <p className="text-xs text-gray-500">{user.email}</p>
-                      </div>
-                    </div>
-                  </td>
-                  {/* Role */}
-                  <td className="px-6 py-4"><RoleBadge user={user} /></td>
-                  {/* Phone */}
-                  <td className="px-6 py-4 text-sm text-gray-400">
-                    {user.phone || user.address?.phone || '—'}
-                  </td>
-                  {/* Location */}
-                  <td className="px-6 py-4 text-sm text-gray-400">
-                    {user.address?.city && user.address?.state
-                      ? `${user.address.city}, ${user.address.state}`
-                      : (user.address?.city || user.address?.state || '—')}
-                  </td>
-                  {/* Joined */}
-                  <td className="px-6 py-4 text-sm text-gray-400">
-                    {user.createdAt ? formatDate(user.createdAt) : '—'}
-                  </td>
-                  {/* Actions */}
-                  <td className="px-6 py-4">
-                    <div className="flex items-center gap-1">
-                      {can('customers.edit') && (
-                        <button
-                          onClick={() => setRoleModal({ isOpen: true, user, role: user.isAdmin ? 'admin' : (user.role || 'user') })}
-                          className="p-2 text-gray-400 hover:text-neon-blue hover:bg-blue-900/30 rounded-lg transition-all"
-                          title="Change Role"
-                        >
-                          <Shield className="w-4 h-4" />
-                        </button>
-                      )}
-                      {can('customers.delete') && (
-                        <button
-                          onClick={() => setDeleteModal({ isOpen: true, user })}
-                          className="p-2 text-gray-400 hover:text-red-400 hover:bg-red-900/30 rounded-lg transition-all"
-                          title="Delete User"
-                        >
-                          <Trash2 className="w-4 h-4" />
-                        </button>
-                      )}
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
+      {/* Premium CustomersPage component */}
+      <CustomersPage
+        users={mappedUsers}
+        currentUserId={currentUser?._id}
+        loading={loading}
+        pageSize={10}
+        onAdd={can('customers.create') ? handleAddCustomer : undefined}
+        onChangeRole={handleChangeRole}
+        onDelete={handleDeleteUser}
+        // onRowClick not implemented in original
+      />
 
       {/* ── Add Customer Modal ─────────────────────────────────────────────── */}
       <Modal
@@ -442,9 +294,9 @@ const Users = () => {
               onChange={e => setF('role', e.target.value)}
               className="select-dark w-full"
             >
-              {ROLES.map(r => (
-                <option key={r} value={r}>{ROLE_LABELS[r]}</option>
-              ))}
+              <option value="admin">Admin</option>
+              <option value="viewer">Viewer (Read Only)</option>
+              <option value="user">Customer</option>
             </select>
             {/* Role description */}
             <p className="text-xs text-gray-500 mt-1.5">
@@ -500,9 +352,9 @@ const Users = () => {
               onChange={e => setRoleModal(p => ({ ...p, role: e.target.value }))}
               className="select-dark w-full"
             >
-              {ROLES.map(r => (
-                <option key={r} value={r}>{ROLE_LABELS[r]}</option>
-              ))}
+              <option value="admin">Admin</option>
+              <option value="viewer">Viewer (Read Only)</option>
+              <option value="user">Customer</option>
             </select>
             <p className="text-xs text-gray-500 mt-1.5">
               {roleModal.role === 'admin'  && 'Full admin access — can manage everything.'}
