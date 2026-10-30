@@ -248,17 +248,20 @@ export const getOrderTracking = async (req, res) => {
 
     // Build delivery window if estimated date exists
     let deliveryWindow = null;
-    if (order.estimatedDeliveryDate && order.status === "out_for_delivery") {
+    if (order.estimatedDeliveryDate) {
       const estDate = moment(order.estimatedDeliveryDate);
       const isToday = estDate.isSame(moment(), "day");
       const isTomorrow = estDate.isSame(moment().add(1, "day"), "day");
 
       deliveryWindow = {
         label: isToday ? "Today" : isTomorrow ? "Tomorrow" : estDate.format("MMM D"),
+        start: moment(order.estimatedDeliveryDate).toISOString(),
+        end: moment(order.estimatedDeliveryDate).add(30, "minutes").toISOString(),
         startTime: estDate.format("h:mm A"),
-        endTime: estDate.add(2, "hours").format("h:mm A"),
+        endTime: moment(order.estimatedDeliveryDate).add(30, "minutes").format("h:mm A"),
         estimatedDate: order.estimatedDeliveryDate,
       };
+    }
     }
 
     // Build courier info if assigned
