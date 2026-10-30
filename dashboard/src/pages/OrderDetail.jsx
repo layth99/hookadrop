@@ -237,7 +237,7 @@ export default function OrderDetail() {
   
   const [order, setOrder] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [driver, setDriver] = useState({ name: "", phone: "", vehicle: "", eta: "", notes: "" });
+  const [driver, setDriver] = useState({ name: "", phone: "", vehicle: "", notes: "" });
   const [save, setSave] = useState("idle"); // idle | saving | saved
   const [toasts, toastFn] = useToasts();
   
@@ -264,8 +264,7 @@ export default function OrderDetail() {
           name: orderData.driverName || "",
           phone: orderData.driverPhone || "",
           vehicle: orderData.driverVehicle || "",
-          eta: orderData.deliveryETA || "",
-          notes: orderData.deliveryNotes || ""
+          notes: orderData.deliveryInstructions || ""
         });
       }
       
@@ -287,9 +286,22 @@ export default function OrderDetail() {
   
   const handleSaveDriver = async (driverData) => {
     try {
-      await api.put(`/orders/${id}/driver`, driverData);
+      // Map frontend field names to backend field names
+      const payload = {
+        driverName: driverData.name,
+        driverPhone: driverData.phone,
+        driverVehicle: driverData.vehicle || null,
+        deliveryInstructions: driverData.notes || null
+      };
+      
+      await api.patch(`/orders/admin/${id}/driver`, payload);
+      
+      // Refresh order to get updated data
+      await fetchOrder();
+      
       return Promise.resolve();
     } catch (error) {
+      console.error('Error saving driver info:', error);
       return Promise.reject(error);
     }
   };
@@ -871,8 +883,7 @@ export default function OrderDetail() {
                   </div>
                 </div>
                 <div className="mt-4 grid grid-cols-2 gap-3 border-t border-dashed border-white/10 pt-4 text-[11px]">
-                  <div><p className="text-slate-500">Vehicle</p><p className="mt-0.5 truncate text-slate-200">{driver.vehicle || "—"}</p></div>
-                  <div><p className="text-slate-500">Estimated delivery</p><p className="mt-0.5 truncate text-slate-200">{driver.eta ? new Date(driver.eta).toLocaleString() : "—"}</p></div>
+                  <div className="col-span-2"><p className="text-slate-500">Vehicle</p><p className="mt-0.5 truncate text-slate-200">{driver.vehicle || "—"}</p></div>
                 </div>
               </div>
             </div>
@@ -885,8 +896,7 @@ export default function OrderDetail() {
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <Field label="Driver name" required><input className={input} placeholder="Ahmed Ben Ali" value={driver.name} onChange={set("name")} /></Field>
                 <Field label="Driver phone" required icon={Phone}><input className={input} placeholder="+216 XX XXX XXX" value={driver.phone} onChange={set("phone")} /></Field>
-                <Field label="Vehicle info"><input className={input} placeholder="Motorcycle - TU 1234" value={driver.vehicle} onChange={set("vehicle")} /></Field>
-                <Field label="Estimated delivery" icon={Calendar}><input type="datetime-local" className={`${input} [color-scheme:dark]`} value={driver.eta} onChange={set("eta")} /></Field>
+                <Field label="Vehicle info" className="sm:col-span-2"><input className={input} placeholder="Motorcycle - TU 1234" value={driver.vehicle} onChange={set("vehicle")} /></Field>
                 <Field label="Delivery instructions" icon={FileText} className="sm:col-span-2" hint="The phone number is shown to the customer to contact the driver.">
                   <textarea rows={3} className={`${input} resize-none`} placeholder="Call customer upon arrival, use back entrance, etc." value={driver.notes} onChange={set("notes")} />
                 </Field>
