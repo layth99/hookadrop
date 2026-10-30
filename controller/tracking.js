@@ -278,9 +278,9 @@ export const getOrderTracking = async (req, res) => {
     }
     }
 
-    // Build courier info if assigned
+    // Build courier info if assigned (return regardless of status)
     let courier = null;
-    if (order.driverName && order.driverPhone && order.status === "out_for_delivery") {
+    if (order.driverName && order.driverPhone) {
       courier = {
         name: order.driverName,
         phone: order.driverPhone,

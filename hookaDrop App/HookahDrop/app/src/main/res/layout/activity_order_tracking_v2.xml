@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/tracking_background">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="@dimen/tracking_padding_h"
+            android:paddingVertical="@dimen/tracking_padding_v">
+
+            <!-- Header Section -->
+            <LinearLayout
+                android:id="@+id/headerSection"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="@dimen/tracking_block_gap">
+
+                <!-- Back Button -->
+                <FrameLayout
+                    android:id="@+id/btnBack"
+                    android:layout_width="@dimen/tracking_back_button_size"
+                    android:layout_height="@dimen/tracking_back_button_size"
+                    android:background="@drawable/bg_back_button"
+                    android:clickable="true"
+                    android:focusable="true">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_tracking_back"
+                        android:contentDescription="@string/tracking_back"/>
+                </FrameLayout>
+
+                <!-- Title & Subtitle -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_marginStart="12dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/order_tracking_title"
+                        android:textSize="20sp"
+                        android:textColor="@color/tracking_text"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:id="@+id/tvOrderId"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="12.5sp"
+                        android:textColor="@color/tracking_text_muted"
+                        tools:text="Order #HD-1042"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- ETA Card -->
+            <LinearLayout
+                android:id="@+id/etaCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/bg_eta_card_gradient"
+                android:padding="16dp"
+                android:layout_marginBottom="@dimen/tracking_block_gap">
+
+                <!-- Label -->
+                <TextView
+                    android:id="@+id/tvEtaLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tracking_estimated_delivery"
+                    android:textSize="12sp"
+                    android:textColor="@color/tracking_text_muted"
+                    android:textStyle="bold"/>
+
+                <!-- ETA Time -->
+                <TextView
+                    android:id="@+id/tvEta"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:textSize="23sp"
+                    android:textColor="@color/tracking_text"
+                    android:textStyle="bold"
+                    tools:text="Today, 6:30 – 7:00 PM"/>
+
+                <!-- Status Indicator Row -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginTop="6dp">
+
+                    <!-- Status Dot -->
+                    <View
+                        android:id="@+id/statusDot"
+                        android:layout_width="8dp"
+                        android:layout_height="8dp"
+                        android:background="@drawable/bg_status_dot"/>
+
+                    <!-- Status Label -->
+                    <TextView
+                        android:id="@+id/tvStatusLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:textSize="14sp"
+                        android:textColor="@color/tracking_gold"
+                        android:textStyle="bold"
+                        tools:text="Out for delivery"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Timeline Card -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/timelineCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/tracking_block_gap"
+                app:cardBackgroundColor="@color/tracking_card"
+                app:cardCornerRadius="@dimen/tracking_card_radius_v2"
+                app:cardElevation="0dp"
+                app:strokeColor="@color/tracking_border"
+                app:strokeWidth="1dp">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerViewTimeline"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="18dp"
+                    android:nestedScrollingEnabled="false"
+                    android:overScrollMode="never"
+                    tools:listitem="@layout/item_tracking_step_v2"
+                    tools:itemCount="4"/>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Delivery Address Card -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/addressCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/tracking_block_gap"
+                app:cardBackgroundColor="@color/tracking_card"
+                app:cardCornerRadius="@dimen/tracking_card_radius_v2"
+                app:cardElevation="0dp"
+                app:strokeColor="@color/tracking_border"
+                app:strokeWidth="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="16dp"
+                    android:gravity="top">
+
+                    <!-- Pin Icon -->
+                    <ImageView
+                        android:layout_width="@dimen/tracking_icon_size"
+                        android:layout_height="@dimen/tracking_icon_size"
+                        android:src="@drawable/ic_tracking_pin"
+                        android:tint="@color/tracking_gold"
+                        android:contentDescription="@string/tracking_delivery_address"/>
+
+                    <!-- Address Content -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_marginStart="12dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/delivery_address_title"
+                            android:textSize="12sp"
+                            android:textColor="@color/tracking_text_muted"
+                            android:textStyle="bold"/>
+
+                        <TextView
+                            android:id="@+id/tvAddress"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="3dp"
+                            android:textSize="14sp"
+                            android:textColor="@color/tracking_text"
+                            android:textStyle="bold"
+                            tools:text="Home · 123 Main Street"/>
+
+                        <TextView
+                            android:id="@+id/tvItemsTotal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="3dp"
+                            android:textSize="13sp"
+                            android:textColor="@color/tracking_text_soft"
+                            tools:text="3 items · Total $119.00"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Courier Info Card (visible when driver assigned) -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/courierCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/tracking_block_gap"
+                android:visibility="gone"
+                app:cardBackgroundColor="@color/tracking_card"
+                app:cardCornerRadius="@dimen/tracking_card_radius_v2"
+                app:cardElevation="0dp"
+                app:strokeColor="@color/tracking_border"
+                app:strokeWidth="1dp"
+                tools:visibility="visible">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="16dp"
+                    android:gravity="top">
+
+                    <!-- Courier Avatar Circle -->
+                    <FrameLayout
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:background="@drawable/bg_courier_avatar">
+
+                        <TextView
+                            android:id="@+id/tvCourierInitials"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:textSize="16sp"
+                            android:textColor="@color/tracking_background"
+                            android:textStyle="bold"
+                            tools:text="LR"/>
+                    </FrameLayout>
+
+                    <!-- Courier Info -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_marginStart="12dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Delivery Driver"
+                            android:textSize="12sp"
+                            android:textColor="@color/tracking_text_muted"
+                            android:textStyle="bold"/>
+
+                        <TextView
+                            android:id="@+id/tvCourierName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:textSize="15sp"
+                            android:textColor="@color/tracking_text"
+                            android:textStyle="bold"
+                            tools:text="Lucas Rebeiro"/>
+
+                        <TextView
+                            android:id="@+id/tvCourierPhone"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:textSize="13sp"
+                            android:textColor="@color/tracking_text_soft"
+                            tools:text="20300400"/>
+
+                        <TextView
+                            android:id="@+id/tvCourierVehicle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:paddingHorizontal="8dp"
+                            android:paddingVertical="4dp"
+                            android:background="@drawable/bg_vehicle_tag"
+                            android:textSize="11sp"
+                            android:textColor="@color/tracking_gold"
+                            android:visibility="gone"
+                            tools:visibility="visible"
+                            tools:text="Motorcycle - TU 1234"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Action Buttons -->
+            <LinearLayout
+                android:id="@+id/actionButtonsLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <!-- Contact Support Button (Outlined) -->
+                <FrameLayout
+                    android:id="@+id/btnContactSupport"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="6dp"
+                    android:background="@drawable/bg_button_outlined"
+                    android:clickable="true"
+                    android:focusable="true">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:orientation="horizontal"
+                        android:gravity="center">
+
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:src="@drawable/ic_tracking_chat"
+                            android:tint="@color/tracking_text"
+                            android:contentDescription="@string/tracking_contact_support"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:text="@string/tracking_contact_support"
+                            android:textSize="14sp"
+                            android:textColor="@color/tracking_text"
+                            android:textStyle="bold"/>
+                    </LinearLayout>
+                </FrameLayout>
+
+                <!-- Call Courier Button (Filled Gold) -->
+                <FrameLayout
+                    android:id="@+id/btnCallCourier"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="6dp"
+                    android:background="@drawable/bg_button_gold"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:visibility="gone"
+                    tools:visibility="visible">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:orientation="horizontal"
+                        android:gravity="center">
+
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:src="@drawable/ic_tracking_phone"
+                            android:tint="@color/tracking_background"
+                            android:contentDescription="@string/tracking_call_courier"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:text="@string/tracking_call_courier"
+                            android:textSize="14sp"
+                            android:textColor="@color/tracking_background"
+                            android:textStyle="bold"/>
+                    </LinearLayout>
+                </FrameLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Loading Overlay -->
+    <FrameLayout
+        android:id="@+id/loadingOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#AA000000"
+        android:visibility="gone"
+        android:clickable="true">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:indeterminateTint="@color/tracking_gold"/>
+    </FrameLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

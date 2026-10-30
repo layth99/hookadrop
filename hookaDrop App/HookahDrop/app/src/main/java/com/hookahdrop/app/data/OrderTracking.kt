@@ -194,7 +194,8 @@ data class StatusHistoryEntry(
 
 data class Courier(
     val name: String?,
-    val phone: String?
+    val phone: String?,
+    val vehicle: String? = null
 ) {
     fun hasPhone(): Boolean = !phone.isNullOrBlank()
 }

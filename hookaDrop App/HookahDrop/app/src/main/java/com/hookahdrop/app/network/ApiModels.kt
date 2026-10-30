@@ -2,7 +2,9 @@ package com.hookahdrop.app.network
 
 import com.hookahdrop.app.R
 import com.hookahdrop.app.data.Category
+import com.hookahdrop.app.data.OrderTracking
 import com.hookahdrop.app.data.Product
+import com.hookahdrop.app.data.StatusHistoryEntry
 import org.json.JSONArray
 import org.json.JSONObject
 
@@ -225,10 +227,12 @@ fun JSONObject.toOrderTracking(): com.hookahdrop.app.data.OrderTracking {
         
         timelineSteps.add(
             com.hookahdrop.app.data.TimelineStep(
+                stepNumber = entry.optInt("stepNumber", i + 1),
                 title = entry.optString("title", ""),
-                timestamp = entry.optString("timestamp"),
+                description = entry.optString("description", ""),
                 state = state,
-                icon = icon
+                timestamp = entry.optString("timestamp"),
+                iconType = icon
             )
         )
     }
@@ -237,9 +241,8 @@ fun JSONObject.toOrderTracking(): com.hookahdrop.app.data.OrderTracking {
     val windowObj = optJSONObject("deliveryWindow")
     val deliveryWindow = if (windowObj != null) {
         com.hookahdrop.app.data.DeliveryWindow(
-            label = windowObj.optString("label", ""),
-            startTime = windowObj.optString("startTime", ""),
-            endTime = windowObj.optString("endTime", "")
+            start = windowObj.optString("start", windowObj.optString("startTime", "")),
+            end = windowObj.optString("end", windowObj.optString("endTime", ""))
         )
     } else null
     
@@ -247,29 +250,41 @@ fun JSONObject.toOrderTracking(): com.hookahdrop.app.data.OrderTracking {
     val courierObj = optJSONObject("courier")
     val courier = if (courierObj != null) {
         com.hookahdrop.app.data.Courier(
-            name = courierObj.optString("name", ""),
-            phone = courierObj.optString("phone", "")
+            name = if (courierObj.has("name")) courierObj.getString("name") else null,
+            phone = if (courierObj.has("phone")) courierObj.getString("phone") else null,
+            vehicle = if (courierObj.has("vehicle")) courierObj.getString("vehicle") else null
         )
     } else null
     
     // Parse delivery address
     val addressObj = optJSONObject("deliveryAddress") ?: org.json.JSONObject()
     val address = com.hookahdrop.app.data.DeliveryAddress(
-        street = addressObj.optString("street", ""),
-        apartment = addressObj.optString("apartment", ""),
-        city = addressObj.optString("city", ""),
-        postalCode = addressObj.optString("postalCode", "")
+        label = addressObj.optString("label", "Home"),
+        line = addressObj.optString("line", addressObj.optString("street", ""))
     )
     
-    return com.hookahdrop.app.data.OrderTracking(
+    // Parse status history
+    val historyArray = optJSONArray("history") ?: JSONArray()
+    val historyList = mutableListOf<StatusHistoryEntry>()
+    for (i in 0 until historyArray.length()) {
+        val hEntry = historyArray.getJSONObject(i)
+        val hStatus = hEntry.optString("status", "pending").toOrderStatus()
+        val hAt = hEntry.optString("at", "")
+        val hNote = if (hEntry.has("note")) hEntry.getString("note") else null
+        historyList.add(StatusHistoryEntry(status = hStatus, at = hAt, note = hNote))
+    }
+    
+    return OrderTracking(
         orderId = optString("orderId", ""),
+        orderNumber = optString("orderNumber", "ORD-12345"),
         currentStatus = optString("currentStatus", "pending").toOrderStatus(),
-        deliveryWindow = deliveryWindow,
+        estimatedDelivery = deliveryWindow,
+        history = historyList,
         courier = courier,
-        deliveryAddress = address,
-        timelineSteps = timelineSteps,
-        itemCount = optInt("itemCount", 0),
-        totalAmount = optDouble("totalAmount", 0.0)
+        address = address,
+        itemsCount = optInt("itemCount", 0),
+        total = optDouble("totalAmount", 0.0),
+        currency = optString("currency", "$")
     )
 }
 

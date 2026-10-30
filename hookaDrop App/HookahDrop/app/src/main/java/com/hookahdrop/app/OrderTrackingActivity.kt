@@ -111,17 +111,18 @@ class OrderTrackingActivity : BaseProfileActivity() {
         // Delivery Address
         displayAddress(tracking)
         
-        // Call Courier button visibility (only for OUT_FOR_DELIVERY)
-        if (tracking.currentStatus == OrderStatus.OUT_FOR_DELIVERY && tracking.courier != null) {
+        // Courier Info Card
+        displayCourierInfo(tracking)
+        
+        // Call Courier button visibility (show when courier is assigned)
+        if (tracking.courier != null && tracking.courier.hasPhone()) {
             b.btnCallCourier.visibility = View.VISIBLE
             
-            // Set up actual phone call
-            val courierPhone = tracking.courier?.phone
-            if (!courierPhone.isNullOrEmpty()) {
-                b.btnCallCourier.setOnClickListener {
-                    val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:$courierPhone"))
-                    startActivity(intent)
-                }
+            // Set up actual phone call with admin's assigned number
+            val courierPhone = tracking.courier.phone
+            b.btnCallCourier.setOnClickListener {
+                val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:$courierPhone"))
+                startActivity(intent)
             }
         } else {
             b.btnCallCourier.visibility = View.GONE
@@ -208,6 +209,39 @@ class OrderTrackingActivity : BaseProfileActivity() {
             tracking.itemsCount,
             tracking.total
         )
+    }
+    
+    private fun displayCourierInfo(tracking: OrderTracking) {
+        val courier = tracking.courier
+        
+        if (courier != null) {
+            // Show courier card
+            b.courierCard.visibility = View.VISIBLE
+            
+            // Courier name
+            b.tvCourierName.text = courier.name ?: "Delivery Driver"
+            
+            // Courier initials (for avatar)
+            val initials = courier.name?.trim()?.split(" ")
+                ?.take(2)
+                ?.mapNotNull { it.firstOrNull()?.uppercaseChar() }
+                ?.joinToString("") ?: "?"
+            b.tvCourierInitials.text = initials
+            
+            // Courier phone
+            b.tvCourierPhone.text = courier.phone ?: ""
+            
+            // Courier vehicle (optional)
+            if (!courier.vehicle.isNullOrBlank()) {
+                b.tvCourierVehicle.visibility = View.VISIBLE
+                b.tvCourierVehicle.text = courier.vehicle
+            } else {
+                b.tvCourierVehicle.visibility = View.GONE
+            }
+        } else {
+            // Hide courier card if no driver assigned
+            b.courierCard.visibility = View.GONE
+        }
     }
 
     override fun onDestroy() {
