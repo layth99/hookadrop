@@ -299,6 +299,7 @@ export const getOrderTracking = async (req, res) => {
         phone: order.phone,
         email: order.email || order.user?.email,
       },
+      cancellationReason: order.status === "cancelled" ? order.cancellationReason : null,
     };
 
     return res.status(200).json({

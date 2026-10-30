@@ -69,6 +69,7 @@ const orderSchema = new mongoose.Schema(
     estimatedDeliveryDate:  { type: Date, default: null },
     deliveryInstructions:   { type: String, default: null },
     adminNotes:             { type: String, default: null },  // Internal only
+    cancellationReason:     { type: String, default: null },  // Reason for cancellation
   },
   { timestamps: true }
 );

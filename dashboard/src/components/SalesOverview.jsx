@@ -475,8 +475,6 @@ export default function SalesOverview({
           trend={pctChange(totals.revenue, prev.revenue)} active={metric === "revenue"} onClick={() => setMetric("revenue")} />
         <Kpi i={1} label="Orders" value={totals.orders} format={int} icon="orders" accent="#60a5fa"
           trend={pctChange(totals.orders, prev.orders)} active={metric === "orders"} onClick={() => setMetric("orders")} />
-        <Kpi i={2} label="Avg. order" value={totals.avg} format={money} icon="avg" accent="#a78bfa"
-          trend={pctChange(totals.avg, prev.avg)} />
       </div>
 
       <div className="so-tools">
@@ -539,9 +537,10 @@ ${p} .so-pop .row button{cursor:pointer;padding:8px 16px;border-radius:11px;font
 ${p} .so-pop .row .go{color:#1a1200;border:0;background:linear-gradient(120deg,#fde047,#f59e0b)}
 ${p} .so-pop .row .go:disabled{opacity:.4;cursor:not-allowed}
 
-${p} .so-kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
-${p} .so-kpi{--mx:50%;--my:0%;all:unset;box-sizing:border-box;position:relative;overflow:visible;isolation:isolate;display:flex;align-items:center;gap:14px;
-  padding:14px 18px;border-radius:16px;background:linear-gradient(160deg,#0f172a,#070b15);border:1px solid rgba(255,255,255,.08);
+${p} .so-kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+@media (max-width:768px){${p} .so-kpis{grid-template-columns:1fr}}
+${p} .so-kpi{--mx:50%;--my:0%;all:unset;box-sizing:border-box;position:relative;isolation:isolate;display:flex;align-items:center;gap:12px;
+  padding:14px 16px;border-radius:16px;background:linear-gradient(160deg,#0f172a,#070b15);border:1px solid rgba(255,255,255,.08);
   animation:so-up-${uid} .6s cubic-bezier(.22,1,.36,1) backwards;animation-delay:calc(var(--i) * 90ms + 100ms);
   transition:transform .3s cubic-bezier(.22,1,.36,1),border-color .3s,box-shadow .3s}
 ${p} .so-kpi::before{content:"";position:absolute;inset:0;z-index:-1;opacity:0;transition:opacity .3s;border-radius:16px;
@@ -549,15 +548,15 @@ ${p} .so-kpi::before{content:"";position:absolute;inset:0;z-index:-1;opacity:0;t
 ${p} .so-kpi.click{cursor:pointer}
 ${p} .so-kpi:hover,${p} .so-kpi.on{transform:translateY(-3px);border-color:color-mix(in srgb,var(--a) 55%,transparent);box-shadow:0 16px 34px -20px color-mix(in srgb,var(--a) 55%,#000)}
 ${p} .so-kpi:hover::before,${p} .so-kpi.on::before{opacity:1}
-${p} .so-kpi.on::after{content:"";position:absolute;left:18px;right:18px;bottom:0;height:2px;border-radius:2px 2px 0 0;background:var(--a);box-shadow:0 0 10px var(--a)}
+${p} .so-kpi.on::after{content:"";position:absolute;left:16px;right:16px;bottom:0;height:2px;border-radius:2px 2px 0 0;background:var(--a);box-shadow:0 0 10px var(--a)}
 ${p} .so-kpi:focus-visible{outline:2px solid var(--a);outline-offset:2px}
-${p} .so-kpi-icon{flex:none;width:44px;height:44px;border-radius:14px;display:grid;place-items:center;color:var(--a);
+${p} .so-kpi-icon{flex:none;width:40px;height:40px;border-radius:14px;display:grid;place-items:center;color:var(--a);
   background:linear-gradient(145deg,color-mix(in srgb,var(--a) 22%,transparent),color-mix(in srgb,var(--a) 5%,transparent));
   border:1px solid color-mix(in srgb,var(--a) 32%,transparent);box-shadow:0 0 20px -6px var(--a);transition:transform .4s cubic-bezier(.34,1.56,.64,1)}
 ${p} .so-kpi:hover .so-kpi-icon{transform:scale(1.1) rotate(-7deg)}
-${p} .so-kpi-body{display:flex;flex-direction:column;gap:1px;min-width:0;flex:1}
+${p} .so-kpi-body{display:flex;flex-direction:column;gap:2px;flex:1;min-width:0;overflow:hidden}
 ${p} .so-kpi-label{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--mute)}
-${p} .so-kpi strong{font-size:clamp(18px,1.6vw,24px);font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums;overflow:visible}
+${p} .so-kpi strong{font-size:20px;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block}
 ${p} .so-kpi em{display:inline-flex;align-items:center;gap:4px;font-style:normal;font-size:12px;font-weight:700;width:fit-content}
 ${p} .so-kpi em small{font-size:11px;font-weight:400;color:#64748b;margin-left:3px}
 ${p} em.up{color:#34d399}${p} em.down{color:#f87171}${p} em.new{color:#60a5fa}
@@ -612,7 +611,7 @@ ${p} .so-msg button:hover{background:rgba(250,204,21,.2)}
 @keyframes so-pop-${uid}{from{opacity:0;transform:translateY(-6px) scale(.97)}}
 @keyframes so-shim-${uid}{from{background-position:120% 0}to{background-position:-120% 0}}
 
-@media (max-width:760px){${p} .so-kpis{grid-template-columns:1fr}}
+
 @media (max-width:640px){${p}{padding:18px}${p} .so-filter{width:100%}}
 @media (prefers-reduced-motion:reduce){
   ${p} *{animation-duration:.01ms!important;animation-delay:0ms!important;transition:none!important}

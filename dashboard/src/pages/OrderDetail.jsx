@@ -246,6 +246,11 @@ export default function OrderDetail() {
   const [deliveryDate, setDeliveryDate] = useState(null);
   const [savingDelivery, setSavingDelivery] = useState(false);
   
+  // Cancellation modal state
+  const [showCancelModal, setShowCancelModal] = useState(false);
+  const [cancellationReason, setCancellationReason] = useState("");
+  const [cancelling, setCancelling] = useState(false);
+  
   // Calculate total for count-up (must be before any conditional return)
   const totalValue = order?.totalPrice || 0;
   const total = useCountUp(totalValue, 1400, 500);
@@ -354,6 +359,31 @@ export default function OrderDetail() {
       toastFn(err.response?.data?.message || "Failed to update delivery date", "err");
     } finally {
       setSavingDelivery(false);
+    }
+  };
+  
+  const handleCancelOrder = async () => {
+    if (!cancellationReason || cancellationReason.trim() === "") {
+      toastFn("Please provide a cancellation reason", "err");
+      return;
+    }
+    
+    setCancelling(true);
+    try {
+      await api.put(`/orders/${id}`, {
+        status: "cancelled",
+        cancellationReason: cancellationReason.trim()
+      });
+      
+      toastFn("Order cancelled successfully");
+      setShowCancelModal(false);
+      setCancellationReason("");
+      fetchOrder();
+    } catch (err) {
+      console.error('Cancellation error:', err);
+      toastFn(err.response?.data?.message || "Failed to cancel order", "err");
+    } finally {
+      setCancelling(false);
     }
   };
   
@@ -716,7 +746,7 @@ export default function OrderDetail() {
                                 fetchOrder();
                               } catch (error) {
                                 console.error('Status update error:', error);
-                                toastFn("Failed to update status", "err");
+                                toastFn(error.response?.data?.message || "Failed to update status", "err");
                               }
                             }}
                             disabled={terminal}
@@ -735,6 +765,27 @@ export default function OrderDetail() {
                         );
                       })}
                     </div>
+                    
+                    {/* Cancel Order Button */}
+                    {!terminal && (
+                      <button
+                        onClick={() => setShowCancelModal(true)}
+                        className="mt-2 w-full relative overflow-hidden rounded-xl border border-red-500/40 bg-red-500/10 px-3 py-2.5 text-xs font-semibold text-red-400 transition-all hover:bg-red-500/20 hover:border-red-500/60"
+                      >
+                        <span className="flex items-center justify-center gap-1.5">
+                          <X size={13} />
+                          Cancel Order
+                        </span>
+                      </button>
+                    )}
+                    
+                    {/* Display Cancellation Reason if Cancelled */}
+                    {mappedOrder.status === 'cancelled' && order.cancellationReason && (
+                      <div className="mt-3 p-3 rounded-lg border border-red-500/30 bg-red-500/5">
+                        <p className="text-[11px] font-medium text-red-400 mb-1">Cancellation Reason</p>
+                        <p className="text-xs text-slate-300">{order.cancellationReason}</p>
+                      </div>
+                    )}
                   </label>
                   
                   {/* Payment Status Toggle */}
@@ -914,6 +965,83 @@ export default function OrderDetail() {
           </div>
         </div>
       </div>
+
+      {/* Cancellation Modal */}
+      {showCancelModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm" onClick={() => !cancelling && setShowCancelModal(false)}>
+          <div className="relative w-full max-w-md mx-4" onClick={(e) => e.stopPropagation()}>
+            <div className="relative rounded-2xl border border-red-500/30 bg-gradient-to-br from-[#0f1729] to-[#0a0f1a] p-6 shadow-2xl">
+              {/* Close button */}
+              <button
+                onClick={() => setShowCancelModal(false)}
+                disabled={cancelling}
+                className="absolute right-4 top-4 grid h-8 w-8 place-items-center rounded-lg border border-white/10 text-slate-400 transition hover:border-red-400/50 hover:text-red-400 disabled:opacity-50"
+              >
+                <X size={16} />
+              </button>
+              
+              {/* Modal content */}
+              <div className="space-y-4">
+                <div>
+                  <h3 className="flex items-center gap-2 text-lg font-bold text-white">
+                    <X size={20} className="text-red-400" />
+                    Cancel Order
+                  </h3>
+                  <p className="mt-1 text-sm text-slate-400">
+                    Please provide a reason for cancelling order #{mappedOrder.id}
+                  </p>
+                </div>
+                
+                <div>
+                  <label className="block">
+                    <span className="mb-2 block text-xs font-medium text-slate-300">
+                      Cancellation Reason <span className="text-red-400">*</span>
+                    </span>
+                    <textarea
+                      value={cancellationReason}
+                      onChange={(e) => setCancellationReason(e.target.value)}
+                      placeholder="e.g., Customer requested cancellation, Product out of stock, Payment issues..."
+                      rows={4}
+                      disabled={cancelling}
+                      className="w-full resize-none rounded-lg border border-white/10 bg-[#070c18] px-3 py-2.5 text-sm text-slate-100 placeholder:text-slate-600 outline-none transition focus:border-red-400/70 focus:shadow-[0_0_0_4px_rgba(239,68,68,.10)] disabled:opacity-50"
+                    />
+                  </label>
+                  <p className="mt-1.5 text-xs text-slate-500">
+                    This reason will be visible to the customer in the mobile app
+                  </p>
+                </div>
+                
+                <div className="flex gap-3 pt-2">
+                  <button
+                    onClick={() => setShowCancelModal(false)}
+                    disabled={cancelling}
+                    className="flex-1 rounded-xl border border-white/10 bg-[#070c18] px-4 py-2.5 text-sm font-medium text-slate-300 transition hover:border-white/20 hover:text-slate-100 disabled:opacity-50"
+                  >
+                    Keep Order
+                  </button>
+                  <button
+                    onClick={handleCancelOrder}
+                    disabled={cancelling || !cancellationReason.trim()}
+                    className="flex-1 flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-red-600 to-red-500 px-4 py-2.5 text-sm font-bold text-white transition hover:brightness-110 disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {cancelling ? (
+                      <>
+                        <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
+                        Cancelling...
+                      </>
+                    ) : (
+                      <>
+                        <X size={16} />
+                        Cancel Order
+                      </>
+                    )}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* toasts */}
       <div className="pointer-events-none fixed bottom-6 right-6 z-50 space-y-2" aria-live="polite">

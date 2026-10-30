@@ -161,13 +161,14 @@ export const getOrderProducts = async (req, res) => {
 // PUT update order status
 export const updateOrderStatus = async (req, res) => {
   try {
-    const { status, estimatedDeliveryDate } = req.body;
+    const { status, estimatedDeliveryDate, isPaid, isDelivered, cancellationReason } = req.body;
     const order = await Order.findById(req.params.id);
 
     if (!order) {
       return res.status(404).json({ success: false, message: "Order not found" });
     }
 
+    // Handle status update
     if (status) {
       order.status = status;
 
@@ -175,6 +176,41 @@ export const updateOrderStatus = async (req, res) => {
       if (status === "delivered") {
         order.isDelivered = true;
         order.deliveredAt = Date.now();
+      }
+      
+      // Handle cancelled status
+      if (status === "cancelled") {
+        if (!cancellationReason || cancellationReason.trim() === "") {
+          return res.status(400).json({ 
+            success: false, 
+            message: "Cancellation reason is required when cancelling an order" 
+          });
+        }
+        order.cancellationReason = cancellationReason.trim();
+      }
+    }
+
+    // Handle payment status update
+    if (isPaid !== undefined) {
+      order.isPaid = isPaid;
+      if (isPaid && !order.paidAt) {
+        order.paidAt = Date.now();
+      } else if (!isPaid) {
+        order.paidAt = null;
+      }
+    }
+
+    // Handle delivery status update
+    if (isDelivered !== undefined) {
+      order.isDelivered = isDelivered;
+      if (isDelivered && !order.deliveredAt) {
+        order.deliveredAt = Date.now();
+        // Also update status to delivered if not already
+        if (order.status !== "delivered") {
+          order.status = "delivered";
+        }
+      } else if (!isDelivered) {
+        order.deliveredAt = null;
       }
     }
 
@@ -213,7 +249,7 @@ export const updateOrderStatus = async (req, res) => {
     return res.status(200).json({ success: true, data: order });
   } catch (error) {
     console.error("Error updating order status:", error);
-    return res.status(400).json({ success: false, message: "Failed to update order status" });
+    return res.status(400).json({ success: false, message: error.message || "Failed to update order status" });
   }
 };
 
