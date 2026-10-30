@@ -106,7 +106,7 @@ class OrderDetailActivity : BaseProfileActivity() {
     private fun statusStyle(status: String): Pair<Int, Int> {
         val color = when (status.lowercase()) {
             "delivered"             -> ContextCompat.getColor(this, R.color.success)
-            "shipped"               -> 0xFF22D3EE.toInt()
+            "out_for_delivery"      -> 0xFF22D3EE.toInt()
             "confirmed","processing"-> ContextCompat.getColor(this, R.color.accent_cyan)
             "cancelled","declined"  -> ContextCompat.getColor(this, R.color.input_border_error)
             else                    -> ContextCompat.getColor(this, R.color.text_secondary)

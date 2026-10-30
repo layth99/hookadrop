@@ -40,7 +40,7 @@ class ConfettiView @JvmOverloads constructor(
 
     private val colors = listOf(
         R.color.tracking_gold,
-        R.color.accent,
+        R.color.accent_cyan,
         R.color.textPrimary,
         R.color.tracking_danger
     )

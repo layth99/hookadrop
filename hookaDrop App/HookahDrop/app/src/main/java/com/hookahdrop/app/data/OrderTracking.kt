@@ -45,7 +45,7 @@ data class OrderTracking(
         
         // Find history entries for timestamps
         val confirmedEntry = history.find { it.status == OrderStatus.CONFIRMED }
-        val preparedEntry = history.find { it.status == OrderStatus.PREPARED }
+        val processingEntry = history.find { it.status == OrderStatus.PROCESSING }
         val outForDeliveryEntry = history.find { it.status == OrderStatus.OUT_FOR_DELIVERY }
         val deliveredEntry = history.find { it.status == OrderStatus.DELIVERED }
         
@@ -64,14 +64,14 @@ data class OrderTracking(
             ),
             TimelineStep(
                 stepNumber = 2,
-                title = "Prepared",
-                description = "Your items are packed and ready.",
+                title = "Processing",
+                description = "Your items are being processed.",
                 state = when {
                     currentStepNum > 2 -> TimelineStepState.COMPLETED
                     currentStepNum == 2 -> TimelineStepState.ACTIVE
                     else -> TimelineStepState.PENDING
                 },
-                timestamp = if (currentStepNum >= 2) preparedEntry?.formatTimestamp() else null,
+                timestamp = if (currentStepNum >= 2) processingEntry?.formatTimestamp() else null,
                 iconType = TimelineIcon.BOX
             ),
             TimelineStep(
@@ -105,7 +105,7 @@ data class OrderTracking(
     fun getCurrentStep(): Int {
         return when (currentStatus) {
             OrderStatus.CONFIRMED -> 1
-            OrderStatus.PREPARED -> 2
+            OrderStatus.PROCESSING -> 2
             OrderStatus.OUT_FOR_DELIVERY -> 3
             OrderStatus.DELIVERED -> 4
             OrderStatus.CANCELLED -> 0  // Special case
@@ -237,7 +237,7 @@ data class TimelineStep(
 
 enum class TimelineIcon {
     CHECK,    // Confirmed
-    BOX,      // Prepared
+    BOX,      // Processing
     TRUCK,    // Out for delivery
     FLAG,     // Delivered
     X         // Cancelled / X

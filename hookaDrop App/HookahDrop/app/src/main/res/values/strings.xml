@@ -81,9 +81,10 @@
     <string name="orders_empty">No orders yet</string>
     <string name="order_status_pending">Pending</string>
     <string name="order_status_confirmed">Confirmed</string>
-    <string name="order_status_shipped">Shipped</string>
+    <string name="order_status_processing">Processing</string>
     <string name="order_status_delivered">Delivered</string>
     <string name="order_status_cancelled">Cancelled</string>
+    <string name="tracking_status_cancelled">Cancelled</string>
 
     <!-- Errors -->
     <string name="error_network">Unable to connect. Please check your internet connection.</string>
@@ -112,8 +113,8 @@
     <string name="delivered_on">Delivered on</string>
     <string name="step_confirmed">Confirmed</string>
     <string name="step_confirmed_desc">Your order has been confirmed</string>
-    <string name="step_prepared">Prepared</string>
-    <string name="step_prepared_desc">Your items are being prepared</string>
+    <string name="step_processing">Processing</string>
+    <string name="step_processing_desc">Your items are being processed</string>
     <string name="step_out_for_delivery">Out for delivery</string>
     <string name="step_out_for_delivery_desc">Your package is on the way</string>
     <string name="step_delivered">Delivered</string>
@@ -136,4 +137,11 @@
     <!-- Order Tracking Error Messages -->
     <string name="tracking_error_no_order">Order ID is missing</string>
     <string name="tracking_message_courier">Chat with %1$s</string>
+    <string name="tracking_estimated_delivery">Estimated Delivery</string>
+    <string name="tracking_contact_support">Contact Support</string>
+    <string name="tracking_call_courier">Call Courier</string>
+    <string name="tracking_now_badge">NOW</string>
+    <string name="tracking_delivered_on">Delivered on</string>
+    <string name="tracking_status_cancelled">Cancelled</string>
+    <string name="tracking_items_total">%d items · Total %s</string>
 </resources>

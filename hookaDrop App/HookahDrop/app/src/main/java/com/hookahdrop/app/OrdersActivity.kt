@@ -31,7 +31,7 @@ class OrdersActivity : BaseProfileActivity() {
         "pending"    to "Pending",
         "confirmed"  to "Confirmed",
         "processing" to "Processing",
-        "shipped"    to "Shipped",
+        "out_for_delivery" to "Out for Delivery",
         "delivered"  to "Delivered"
     )
 

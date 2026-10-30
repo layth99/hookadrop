@@ -293,11 +293,8 @@ fun String.toOrderStatus(): com.hookahdrop.app.data.OrderStatus {
     return when (this.lowercase()) {
         "pending"          -> com.hookahdrop.app.data.OrderStatus.PENDING
         "confirmed"        -> com.hookahdrop.app.data.OrderStatus.CONFIRMED
-        "prepared"         -> com.hookahdrop.app.data.OrderStatus.PREPARED
-        "preparing"        -> com.hookahdrop.app.data.OrderStatus.PREPARED
         "processing"       -> com.hookahdrop.app.data.OrderStatus.PROCESSING
         "out_for_delivery" -> com.hookahdrop.app.data.OrderStatus.OUT_FOR_DELIVERY
-        "shipped"          -> com.hookahdrop.app.data.OrderStatus.SHIPPED
         "delivered"        -> com.hookahdrop.app.data.OrderStatus.DELIVERED
         "cancelled"        -> com.hookahdrop.app.data.OrderStatus.CANCELLED
         else               -> com.hookahdrop.app.data.OrderStatus.PENDING

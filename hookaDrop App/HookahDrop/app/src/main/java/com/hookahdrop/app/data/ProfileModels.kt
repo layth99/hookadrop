@@ -19,10 +19,8 @@ data class Address(
 enum class OrderStatus {
     PENDING,           // Before payment confirmed
     CONFIRMED,         // Payment validated (Stripe webhook / COD)
-    PREPARED,          // Items prepared for shipping
-    PROCESSING,        // Legacy status (kept for compatibility)
+    PROCESSING,        // Items being processed
     OUT_FOR_DELIVERY,  // Package is out for delivery
-    SHIPPED,           // Legacy status (kept for compatibility)
     DELIVERED,         // Package delivered
     CANCELLED          // Order cancelled
 }
@@ -32,10 +30,8 @@ fun String.toOrderStatus(): OrderStatus {
     return when (this.lowercase()) {
         "pending"          -> OrderStatus.PENDING
         "confirmed"        -> OrderStatus.CONFIRMED
-        "prepared"         -> OrderStatus.PREPARED
         "processing"       -> OrderStatus.PROCESSING
         "out_for_delivery" -> OrderStatus.OUT_FOR_DELIVERY
-        "shipped"          -> OrderStatus.SHIPPED
         "delivered"        -> OrderStatus.DELIVERED
         "cancelled"        -> OrderStatus.CANCELLED
         else               -> OrderStatus.PENDING
@@ -47,10 +43,8 @@ fun OrderStatus.toBackendString(): String {
     return when (this) {
         OrderStatus.PENDING          -> "pending"
         OrderStatus.CONFIRMED        -> "confirmed"
-        OrderStatus.PREPARED         -> "prepared"
         OrderStatus.PROCESSING       -> "processing"
         OrderStatus.OUT_FOR_DELIVERY -> "out_for_delivery"
-        OrderStatus.SHIPPED          -> "shipped"
         OrderStatus.DELIVERED        -> "delivered"
         OrderStatus.CANCELLED        -> "cancelled"
     }

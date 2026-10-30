@@ -156,7 +156,7 @@ class OrderTrackingActivity : BaseProfileActivity() {
         // Status Label
         b.tvStatusLabel.text = when (status) {
             OrderStatus.CONFIRMED -> getString(R.string.step_confirmed)
-            OrderStatus.PREPARED -> getString(R.string.step_prepared)
+            OrderStatus.PROCESSING -> getString(R.string.step_processing)
             OrderStatus.OUT_FOR_DELIVERY -> getString(R.string.step_out_for_delivery)
             OrderStatus.DELIVERED -> getString(R.string.step_delivered)
             OrderStatus.CANCELLED -> getString(R.string.tracking_status_cancelled)

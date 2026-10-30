@@ -51,7 +51,7 @@ class OrdersAdapter(
         val statusText  = order.status.replaceFirstChar { it.uppercase() }
         val statusColor = when (order.status.lowercase()) {
             "delivered"              -> ContextCompat.getColor(context, R.color.success)
-            "shipped"                -> 0xFF22D3EE.toInt()
+            "out_for_delivery"       -> 0xFF22D3EE.toInt()
             "confirmed","processing" -> ContextCompat.getColor(context, R.color.accent_cyan)
             "cancelled","declined"   -> ContextCompat.getColor(context, R.color.input_border_error)
             else                     -> ContextCompat.getColor(context, R.color.text_secondary)

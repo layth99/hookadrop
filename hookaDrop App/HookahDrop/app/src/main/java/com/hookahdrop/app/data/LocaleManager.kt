@@ -33,7 +33,11 @@ object LocaleManager {
     fun applyLocale(ctx: Context, langCode: String): Context {
         val locale = Locale(langCode)
         Locale.setDefault(locale)
-        val config = Configuration(ctx.resources.configuration)
+        val config = try {
+            Configuration(ctx.resources.configuration)
+        } catch (_: Exception) {
+            Configuration()
+        }
         config.setLocale(locale)
         config.setLayoutDirection(locale)
         return ctx.createConfigurationContext(config)
