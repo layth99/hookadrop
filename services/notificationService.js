@@ -29,9 +29,7 @@ export async function createNotification(
 // ── Order status → human-readable copy ───────────────────────────────────────
 const ORDER_STATUS_COPY = {
   confirmed:  { title: "Order Confirmed",       msgTpl: (id) => `Your order #${id} has been confirmed.` },
-  preparing:  { title: "Preparing Your Order",  msgTpl: (id) => `Your order #${id} is being prepared.` },
   processing: { title: "Order Processing",      msgTpl: (id) => `Your order #${id} is now being processed.` },
-  shipped:    { title: "Order Shipped",         msgTpl: (id) => `Your order #${id} is on its way!` },
   delivered:  { title: "Order Delivered",       msgTpl: (id) => `Your order #${id} has been delivered.` },
   cancelled:  { title: "Order Cancelled",       msgTpl: (id) => `Your order #${id} has been cancelled.` },
   "out_for_delivery": {

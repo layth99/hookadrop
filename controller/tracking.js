@@ -8,14 +8,12 @@ import moment from "moment";
  */
 const VALID_TRANSITIONS = {
   pending: ["confirmed", "cancelled"],
-  confirmed: ["preparing", "cancelled"],
-  preparing: ["out_for_delivery", "cancelled"],
+  confirmed: ["processing", "cancelled"],
   processing: ["out_for_delivery", "cancelled"],
   out_for_delivery: ["delivered"],
   delivered: [], // Terminal state
   cancelled: [], // Terminal state
   declined: ["cancelled"],
-  shipped: ["delivered"], // Legacy support
   returned: [], // Terminal
   refunded: [], // Terminal
 };
@@ -29,12 +27,8 @@ function formatTimelineStep(status, timestamp) {
       title: "Order Confirmed",
       icon: "check",
     },
-    preparing: {
-      title: "Preparing",
-      icon: "box",
-    },
     processing: {
-      title: "Preparing",
+      title: "Processing",
       icon: "box",
     },
     out_for_delivery: {
@@ -78,7 +72,7 @@ function buildTimelineSteps(order, history) {
 
   // Determine current active step
   const currentStatus = order.status;
-  const standardFlow = ["confirmed", "preparing", "out_for_delivery", "delivered"];
+  const standardFlow = ["confirmed", "processing", "out_for_delivery", "delivered"];
 
   // Build full timeline with states
   const timeline = standardFlow.map((status) => {
@@ -87,7 +81,7 @@ function buildTimelineSteps(order, history) {
     const isPending = !isCompleted && status !== currentStatus;
 
     const existing = steps.find((s) => {
-      if (status === "preparing") return s.title === "Preparing";
+      if (status === "processing") return s.title === "Processing";
       if (status === "out_for_delivery") return s.title === "Out for Delivery";
       if (status === "delivered") return s.title === "Delivered";
       if (status === "confirmed") return s.title === "Order Confirmed";
@@ -96,7 +90,7 @@ function buildTimelineSteps(order, history) {
 
     const statusConfig = {
       confirmed: { title: "Order Confirmed", icon: "check" },
-      preparing: { title: "Preparing", icon: "box" },
+      processing: { title: "Processing", icon: "box" },
       out_for_delivery: { title: "Out for Delivery", icon: "truck" },
       delivered: { title: "Delivered", icon: "flag" },
     };
@@ -231,16 +225,15 @@ export const getOrderTracking = async (req, res) => {
     const statusMap = {
       pending: "Pending Payment",
       confirmed: "Order Confirmed",
-      preparing: "Preparing",
-      processing: "Preparing",
+      processing: "Processing",
       out_for_delivery: "Out for Delivery",
       delivered: "Delivered",
       cancelled: "Cancelled",
     };
 
     const statusDescriptions = {
-      confirmed: "Your order has been confirmed and will be prepared soon.",
-      preparing: "Your order is being prepared for delivery.",
+      confirmed: "Your order has been confirmed and will be processed soon.",
+      processing: "Your order is being processed for delivery.",
       out_for_delivery: "Your order is on its way to you!",
       delivered: "Your order has been successfully delivered.",
       cancelled: "This order has been cancelled.",

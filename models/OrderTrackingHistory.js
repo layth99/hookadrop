@@ -19,10 +19,8 @@ const orderTrackingHistorySchema = new mongoose.Schema(
       enum: [
         "pending",
         "confirmed",
-        "preparing",
         "processing",
         "out_for_delivery",
-        "shipped",
         "delivered",
         "cancelled",
         "declined",
@@ -38,10 +36,8 @@ const orderTrackingHistorySchema = new mongoose.Schema(
       enum: [
         "pending",
         "confirmed",
-        "preparing",
         "processing",
         "out_for_delivery",
-        "shipped",
         "delivered",
         "cancelled",
         "declined",
