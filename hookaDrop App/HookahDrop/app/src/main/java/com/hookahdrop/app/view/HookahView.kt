@@ -13,7 +13,7 @@ class HookahView @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : View(context, attrs, defStyleAttr) {
 
-    private var themeColor: Int = Color.rgb(40, 170, 230)
+    private var themeColor: Int = Color.rgb(0, 191, 255)  // Cyan color for water
     private val paint = Paint(Paint.ANTI_ALIAS_FLAG)
     
     // PNG layer bitmaps
